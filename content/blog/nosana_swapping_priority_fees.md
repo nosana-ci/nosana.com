@@ -1,13 +1,11 @@
 ---
-title: "Swapping feature and priority fees"
+title: "Introducing Swapping and Priority Fees "
 description: "Introducing Nosana's newest features, in-Dashboard token swapping and dynamic priority fees."
 img: /img/NosanaSwapBlog1050x630.jpg
 createdAt: "2025-02-11"
 tags:
   - product
 ---
-
-# Introducing Swapping and Priority Fees
 
 At Nosana, we’re always looking for ways to make our platform more accessible, more reliable, and easier to use for everyone. In today’s update, we’re thrilled to introduce two major improvements designed to lower barriers to entry and reduce transaction failures: **in-Dashboard token swapping** and **dynamic priority fees**.
 
