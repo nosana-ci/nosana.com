@@ -207,17 +207,17 @@ export default {
           'https://dashboard.k8s.prd.nos.ci/api/stats/'
         );
         const data = await response.json();
-        console.log('data', data[0]);
-        if (data[0]) {
-          this.nosPrice = data[0].price;
-          this.marketCap = data[0].marketCap;
-          this.numberOfStakers = data[0].stakers;
-          this.usdStake = data[0].usdValueStaked;
-          this.volume = data[0].dailyVolume;
-          this.totalSupply = data[0].totalSupply;
-          this.circulatingSupply = data[0].circulatingSupply;
-          this.fullyDilutedMarketCap = data[0].fullyDilutedMarketCap;
-          this.dailyPriceChange = data[0].dailyPriceChange;
+        console.log('data', data);
+        if (data) {
+          this.nosPrice = data.price;
+          this.marketCap = data.marketCap;
+          this.numberOfStakers = data.stakers;
+          this.usdStake = data.usdValueStaked;
+          this.volume = data.dailyVolume;
+          this.totalSupply = data.totalSupply;
+          this.circulatingSupply = data.circulatingSupply;
+          this.fullyDilutedMarketCap = data.fullyDilutedMarketCap;
+          this.dailyPriceChange = data.dailyPriceChange;
         }
       } catch (error) {
         console.error(error);

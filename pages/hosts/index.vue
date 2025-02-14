@@ -354,8 +354,8 @@ export default {
           'https://dashboard.k8s.prd.nos.ci/api/stats/'
         );
         const stats = await responseStats.json();
-        if (stats[0]) {
-          this.nosPrice = stats[0].price;
+        if (stats) {
+          this.nosPrice = stats.price;
         }
         const response = await fetch(
           'https://dashboard.k8s.prd.nos.ci/api/jobs/stats/'
