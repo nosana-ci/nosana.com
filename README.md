@@ -2,6 +2,12 @@
 
 ## Build
 
+### Node version
+
+Use Node version lts/fermium, 14.21.3
+
+### Dev Commands
+
 ```bash
 # install dependencies
 $ npm ci
