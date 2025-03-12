@@ -115,7 +115,7 @@
         </div>
       </nav>
       <div class="py-4 has-radius">
-        <small class="is-size-7 has-text-white">© Nosana Network 2024 The Nosana Network Authors Documentation
+        <small class="is-size-7 has-text-white">© Nosana Network 2025 The Nosana Network Authors Documentation
           Distributed under CC BY 4.0</small>
       </div>
     </div>
