@@ -45,11 +45,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Where AI Meets Decentralized Compute' },
+      { hid: 'description', name: 'description', content: 'Affordable GPU Rental for AI Inference at Scale' },
       {
         hid: 'og:title',
         property: 'og:title',
-        content: 'Nosana - Where AI Meets Decentralized Compute'
+        content: 'Nosana - Affordable GPU Rental for AI Inference at Scale'
       },
       {
         hid: 'og:description',
@@ -59,7 +59,32 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://nosana.io/img/screenshot-website.png'
+        content: 'https://nosana.io/img/screenshot-website.jpg'
+      },
+      {
+        hid: 'twitter:card',
+        property: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: 'Nosana - Affordable GPU Rental for AI Inference at Scale'
+      },
+      {
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content: 'Nosana is your go-to marketplace for AI inference. Enjoy seamless access and scalability without long-term contracts or bottlenecks—just the compute power you need, when you need it.'
+      },
+      {
+        hid: 'twitter:site',
+        property: 'twitter:site',
+        content: '@nosana_ai'
+      },
+      {
+        hid: 'twitter:image',
+        property: 'twitter:image',
+        content: 'https://nosana.io/img/twitter-screenshot.jpg'
       }
     ],
     link: [
