@@ -13,11 +13,13 @@ We’re thrilled to launch the **Nosana Builder Challenge**, a developer-focused
 
 - Create reusable Nosana Templates for deploying AI models.
 
-- Submit via GitHub PR to win NOS token prizes.
+- Submit via GitHub PR to win USDC prizes.
 
 - **$3,000+** total rewards for top 10 submissions.
 
-- Deadline and details: [Builders Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge/)
+- Deadline is **14 of April 12.00 UTC**.
+
+- Submission details: [Builders Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge/)
 
 ## What is the Builders Challenge?
 
@@ -49,6 +51,10 @@ Follow these clear steps to submit your template:
 1. Fork the [Nosana GitHub Template Repository](https://github.com/nosana-ci/pipeline-templates/tree/main).
 2. Create your new template JSON file based on your chosen AI model or other innovative use-case.
 3. Submit a Pull Request clearly describing your template, its intended use-case, and implementation specifics.
+   - A new folder for your Nosana Template with the following files:
+   - `job-definition.json`: Standard Nosana Job Definition JSON File
+   - `info.json`: JSON file with display information for the dashboard
+   - `README.md`: README file with a description of the Job Definition, Models, any other relevant information about the job.
 4. Ensure your template is functional and deployable directly from the Nosana Dashboard.
 5. Last but not least also do a submission at the [Builder Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge/)
 
