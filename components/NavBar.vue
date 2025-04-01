@@ -156,6 +156,10 @@ export default {
     background: transparent;
   }
 
+  &.is-fixed-top {
+    top: 32px;
+  }
+
   @media screen and (max-width: $tablet) {
     &.menu-expanded {
       background-color: black !important;

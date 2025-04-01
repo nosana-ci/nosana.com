@@ -26,7 +26,7 @@
         <h4 class="title is-2 pt-2 is-flex mb-1">
           <ICountUp
             v-if="usdStake"
-            :end-val="usdStake"
+            :end-val="Number(usdStake)"
             :options="{
               enableScrollSpy: true,
               decimalPlaces: 0,
