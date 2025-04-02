@@ -1,15 +1,13 @@
 ---
-title: "Builders Challenge"
-description: Nosana Builder Challenge - Create a Nosana Template
+title: "Builders Challenge - Create a Nosana Template"
+description: This is your chance to showcase your skills, gain visibility, learn new tools — and compete for over 3,000 USDC in prizes**
 img: /img/nosana_builders_challenge.jpg
 createdAt: "2025-03-31"
 tags:
   - product
 ---
 
-We’re thrilled to launch the **Nosana Builder Challenge**, a developer-focused contest designed to push the boundaries of AI model deployment on the **Nosana Network**. This is your chance to showcase your skills, gain visibility, learn new tools — and compete for over **$3,000 USDC in prizes**!
-
-## TL;DR
+We’re thrilled to launch the **Nosana Builder Challenge**, a developer-focused contest designed to push the boundaries of AI model deployment on the **Nosana Network**.
 
 - Create reusable Nosana Templates for deploying AI models.
 
