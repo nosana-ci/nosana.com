@@ -27,11 +27,15 @@
       </div>
       <div v-if="blogs && blogs.length > 0" class="columns mt-5 mb-6 is-multiline">
         <client-only>
-          <nuxt-link
+          <component
             v-for="blog of blogs"
             :key="blog.slug"
+            :is="blog.noPage && blog.link ? 'a' : 'nuxt-link'"
             class="column is-one-third blog-item"
-            :to="{ name: 'blog-slug', params: { slug: blog.slug } }"
+            :to="blog.noPage && blog.link ? undefined : { name: 'blog-slug', params: { slug: blog.slug } }"
+            :href="blog.noPage && blog.link ? blog.link : undefined"
+            :target="blog.noPage && blog.link ? '_blank' : undefined"
+            :rel="blog.noPage && blog.link ? 'noopener noreferrer' : undefined"
           >
             <div
               class="py-4 post-wrapper"
@@ -54,7 +58,7 @@
                 {{ blog.description }}
               </p>
             </div>
-          </nuxt-link>
+          </component>
         </client-only>
       </div>
       <div v-else-if="loadedPosts">
@@ -150,7 +154,7 @@ export default {
       };
 
       const blogs = await this.$content('blog')
-        .only(['title', 'createdAt', 'description', 'img', 'slug', 'author', 'tags'])
+        .only(['title', 'createdAt', 'description', 'img', 'slug', 'author', 'tags', 'noPage', 'link', 'thumbnail'])
         .limit(this.perPage)
         .skip(skipNumber())
         .where({
