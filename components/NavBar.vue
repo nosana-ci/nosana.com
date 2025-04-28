@@ -109,6 +109,13 @@
                 </nuxt-link>
                 <nuxt-link
                   class="navbar-item"
+                  to="/blog?tag=events"
+                  exact-active-class="is-active"
+                >
+                  <span>Events</span>
+                </nuxt-link>
+                <nuxt-link
+                  class="navbar-item"
                   to="/support"
                   exact-active-class="is-active"
                 >
