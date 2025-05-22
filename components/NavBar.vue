@@ -136,7 +136,7 @@
                 target="_blank"
                 class="button is-secondary is-size-6"
               >
-                Dashboard
+                Deploy Now
               </a>
             </div>
           </div>
