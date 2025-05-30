@@ -53,8 +53,9 @@
                       type="number"
                       :min="unstakeDays"
                       step="1"
-                      :max="365"
+                      max="365"
                       placeholder="0"
+                      @input="validateUnstakeDays"
                     >
                     <span class="ml-2 has-text-grey">Days</span>
                   </div>
@@ -209,6 +210,11 @@ export default {
         this.poolInfo = await response.json();
       } catch (e) {
         console.error('cant fetch rewards info', e);
+      }
+    },
+    validateUnstakeDays () {
+      if (this.unstakeDays > 365) {
+        this.unstakeDays = 365;
       }
     }
   }
