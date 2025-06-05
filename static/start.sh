@@ -135,6 +135,7 @@
       fi
 
       log_std "🔥 Starting podman..."
+      mkdir -p $HOME/.nosana/podman
       # Start Podman
       { podman system service --time 0 unix://$HOME/.nosana/podman/podman.sock & } 2> podman.log
 
