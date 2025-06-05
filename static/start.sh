@@ -135,7 +135,23 @@
       fi
 
       log_std "🔥 Starting podman..."
-      mkdir -p $HOME/.nosana/podman
+      
+      mkdir -p $HOME/.nosana # making sure .nosana folder exists (you always should be the owner of $HOME so this should not fail)
+      # Create nosana/podman directory with proper error handling
+      if !  mkdir -p $HOME/.nosana/podman; then
+        log_err "🧯 Failed to create directory $HOME/.nosana/podman"
+        log_err "🔋 This is likely a permission issue."
+        log_err "   Trying to run: sudo chown -R $USER:$USER $HOME/.nosana"
+        sudo chown -R $USER:$USER $HOME/.nosana
+        mkdir -p $HOME/.nosana
+        # Check if .nosana directory exists and show its permissions
+        if [ -d "$HOME/.nosana/podman" ]; then
+          log_std "   Directory $HOME/.nosana/podman exists with permissions: $(ls -ld $HOME/.nosana/podman | awk '{print $1, $3, $4}')"
+        else
+          log_err "   Directory $HOME/.nosana/podman does not exist"
+          exit 1
+        fi
+      fi 
       # Start Podman
       { podman system service --time 0 unix://$HOME/.nosana/podman/podman.sock & } 2> podman.log
 
