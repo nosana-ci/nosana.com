@@ -176,8 +176,7 @@
         --volume podman-socket:/podman \
         --privileged \
         -e ENABLE_GPU=true \
-        -p 8080:8080 \
-        nosana/podman:latest podman system service --time 0 unix:/podman/podman.sock
+        nosana/podman:v1.1.0 unix:/podman/podman.sock
 
       sleep 5 # wait for podman to start
 
