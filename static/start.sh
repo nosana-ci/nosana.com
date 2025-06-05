@@ -135,8 +135,9 @@
       fi
 
       log_std "🔥 Starting podman..."
+      mkdir -p $HOME/.nosana/podman
       # Start Podman
-      { podman system service --time 0 tcp:0.0.0.0:8080 & } 2> podman.log
+      { podman system service --time 0 unix://$HOME/.nosana/podman/podman.sock & } 2> podman.log
 
       sleep 5 # wait for podman to start
 
@@ -162,16 +163,20 @@
         docker volume create podman-cache > /dev/null 2>&1
       fi
 
+      if ! docker volume ls | grep podman-socket > /dev/null 2>&1; then
+        docker volume create podman-socket > /dev/null 2>&1
+      fi
+
       docker run -d \
         --pull=always \
         --gpus=all \
         --name podman \
         --device /dev/fuse \
         --mount source=podman-cache,target=/var/lib/containers \
+        --volume podman-socket:/podman \
         --privileged \
         -e ENABLE_GPU=true \
-        -p 8080:8080 \
-        nosana/podman:latest podman system service --time 0 tcp:0.0.0.0:8080
+        nosana/podman:v1.1.0 unix:/podman/podman.sock
 
       sleep 5 # wait for podman to start
 
@@ -205,13 +210,21 @@
       log_err "WARNING: Users may experience bugs and instabilty when running a pre-released version."
     fi
 
+    DOCKER_ARGS=(
+      --pull=always
+      --name nosana-node
+      --network host
+      --interactive -t
+      --volume ~/.nosana/:/root/.nosana/
+      -e CLI_VERSION=${PRE_RELEASE}
+    )
+
+    if [[ $WSL2 != true ]]; then
+      DOCKER_ARGS+=(--volume podman-socket:/root/.nosana/podman:ro)
+    fi
+
     docker run \
-      --pull=always \
-      --name nosana-node \
-      --network host  \
-      --interactive -t \
-      --volume ~/.nosana/:/root/.nosana/ \
-      -e CLI_VERSION=${PRE_RELEASE} \
+      ${DOCKER_ARGS[@]} \
       nosana/nosana-cli:latest \
         ${NOSANA_NODE_ARGS[@]}
 
