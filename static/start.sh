@@ -143,7 +143,7 @@
         log_err "🔋 This is likely a permission issue."
         log_err "   Trying to run: sudo chown -R $USER:$USER $HOME/.nosana"
         sudo chown -R $USER:$USER $HOME/.nosana
-        mkdir -p $HOME/.nosana
+        mkdir -p $HOME/.nosana/podman
         # Check if .nosana directory exists and show its permissions
         if [ -d "$HOME/.nosana/podman" ]; then
           log_std "   Directory $HOME/.nosana/podman exists with permissions: $(ls -ld $HOME/.nosana/podman | awk '{print $1, $3, $4}')"
