@@ -12,7 +12,7 @@ We’re thrilled to launch the **Nosana Builder Challenge**, a developer-focused
 - Submit GitHub Repo link, to participate
 - **$3000** total rewards for top 10 submissions.
 - Deadline is **9 of July 12.01 PM UTC**.
-- Submission details: [Builders Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge/)
+- Submission details: [Builders Challenge Page](https://earn.superteam.fun/listing/agent-challenge/)
 - GitHub Repository: [Builders Challenge GitHub](https://github.com/nosana-ai/agent-challenge)
 
 # Nosana Builders Challenge: Agent-101
@@ -31,7 +31,7 @@ For this challenge we will be using Mastra to build our tool.
 
 We recommend reading the following sections to get started with how to create an Agent and how to implement Tool Calling.
 
-- <https://mastra.ai/en/docs/agents/overview>
+- [Mastra Docs](https://mastra.ai/en/docs/agents/overview)
 - [Mastra Guide: Build an AI stock agent](https://mastra.ai/en/guides/guide/stock-agent)
 
 ## Get Started
