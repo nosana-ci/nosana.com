@@ -37,6 +37,15 @@
         >
           <div class="navbar-start" />
           <div class="navbar-end is-align-items-center">
+            <div class="navbar-item mobile-only" @click="mobileMenu = false">
+              <a
+                href="https://dashboard.nosana.com/deploy"
+                target="_blank"
+                class="button is-secondary is-size-6"
+              >
+                Deploy Now
+              </a>
+            </div>
             <div class="navbar-item is-hoverable" @click="mobileMenu = false">
               <nuxt-link
                 class="navbar-link is-arrowless"
@@ -130,7 +139,7 @@
                 </nuxt-link>
               </div>
             </div>
-            <div class="navbar-item" @click="mobileMenu = false">
+            <div class="navbar-item desktop-only" @click="mobileMenu = false">
               <a
                 href="https://dashboard.nosana.com/"
                 target="_blank"
@@ -220,6 +229,30 @@ export default {
           width: calc(100% - 1.5rem - 15px);
         }
       }
+    }
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .mobile-only {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .desktop-only {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .mobile-only {
+      display: none;
+    }
+    .desktop-only {
+      display: flex;
     }
   }
 }

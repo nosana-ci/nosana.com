@@ -19,13 +19,14 @@
                 Save up to 6x on compute costs and scale your AI workloads effortlessly.
               </p>
             </div>
-            <nuxt-link
-              to="/clients"
+            <a
+              href="https://dashboard.nosana.com/deploy"
+              target="_blank"
               class="button is-white is-medium mt-5"
               style="max-width: 350px; width: 100%"
             >
               Get Started
-            </nuxt-link>
+            </a>
           </div>
         </div>
       </div>
