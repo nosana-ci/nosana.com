@@ -214,6 +214,34 @@ export default {
       padding: 10px 20px;
       text-align: center;
       font-size: 0.9rem;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      border-radius: 4px;
+
+      &:hover, &.is-active {
+        background: rgba(255,255,255,0.10);
+        color: $primary;
+      }
+
+      .navbar-link {
+        position: relative;
+        transition: color 0.2s;
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          bottom: -2px;
+          width: 0;
+          height: 2px;
+          background: $primary;
+          border-radius: 1px;
+          transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+        &:hover::after, &.is-active::after {
+          width: 100%;
+        }
+      }
 
       @media screen and (max-width: $tablet) {
         &.has-dropdown > a {
@@ -227,6 +255,19 @@ export default {
 
         &:after {
           width: calc(100% - 1.5rem - 15px);
+        }
+      }
+    }
+    .navbar-dropdown {
+      .navbar-item {
+        transition: background 0.2s, color 0.2s, border-left 0.2s, box-shadow 0.2s, transform 0.18s;
+        border-left: 3px solid transparent;
+        &:hover, &.is-active {
+          background: rgba($accent, 0.12);
+          color: $primary;
+          border-left: 3px solid $accent;
+          box-shadow: 0 2px 12px 0 rgba($accent, 0.10);
+          transform: translateX(2px) scale(1.03);
         }
       }
     }

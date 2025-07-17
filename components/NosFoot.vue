@@ -1,148 +1,142 @@
 <template>
-  <footer class="footer py-6 px-4">
+  <footer class="footer-bar boxed-footer py-6 px-4">
     <div class="container">
-      <nav
-        class="is-transparent"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="container">
-          <div class="columns py-5">
-            <div class="column is-7">
-              <img
-                src="~/assets/img/Nosana_Logo_horizontal_color_white.svg"
-                class="logo mb-2"
-                style="height: 40px; margin-left: -5px"
-              >
-              <socials class="mb-4" />
-            </div>
-            <div class="column is-5">
-              <div class="columns">
-                <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Product
-                  </h4>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/hosts"
-                    exact-active-class="is-active"
-                  >
-                    <div>Become a GPU host</div>
-                  </nuxt-link>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/clients"
-                    exact-active-class="is-active"
-                  >
-                    <div>Deploy AI workloads</div>
-                  </nuxt-link>
-                  <!-- <a
-                    target="_blank"
-                    href="https://dashboard.nosana.com/"
-                    class="navbar-item"
-                    to="/docs"
-                    exact-active-class="is-active"
-                  >
-                    <div>Explorer</div>
-                  </a> -->
-                </div>
-                <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Network
-                  </h4>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/team"
-                    exact-active-class="is-active"
-                  >
-                    <div>About Nosana</div>
-                  </nuxt-link>
-                  <nuxt-link
-                    target="_blank"
-                    class="navbar-item"
-                    to="/token"
-                    exact-active-class="is-active"
-                  >
-                    <div>$NOS Token</div>
-                  </nuxt-link>
-                  <a
-                    target="_blank"
-                    href="https://dashboard.nosana.com/stake"
-                    class="navbar-item"
-                    to="/docs"
-                    exact-active-class="is-active"
-                  >
-                    <div>Staking</div>
-                  </a>
-                </div>
-                <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Resources
-                  </h4>
-                  <a
-                    href="https://docs.nosana.com"
-                    class="navbar-item"
-                    to="/docs"
-                    exact-active-class="is-active"
-                  >
-                    <div>Docs</div>
-                  </a>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/blog"
-                    exact-active-class="is-active"
-                  >
-                    <div>Blog</div>
-                  </nuxt-link>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/support"
-                    exact-active-class="is-active"
-                  >
-                    <div>Support</div>
-                  </nuxt-link>
-                  <nuxt-link
-                    class="navbar-item"
-                    to="/brand"
-                    exact-active-class="is-active"
-                  >
-                    <div>Brand Assets</div>
-                  </nuxt-link>
-                </div>
-              </div>
-            </div>
+      <div class="footer-content columns is-variable is-8 is-multiline">
+        <div class="column is-4 has-text-centered-mobile mb-5 mb-0-tablet">
+          <img
+            src="~/assets/img/Nosana_Logo_horizontal_color_white.svg"
+            class="logo mb-3"
+            style="height: 48px; margin-left: 0"
+          >
+          <div class="footer-socials mt-3 mb-4">
+            <socials />
           </div>
         </div>
-      </nav>
-      <div class="py-4 has-radius">
-        <small class="is-size-7 has-text-white">© Nosana Network 2025 The Nosana Network Authors Documentation
-          Distributed under CC BY 4.0</small>
+        <div class="column is-2">
+          <h4 class="footer-title mb-3">
+            Product
+          </h4>
+          <nuxt-link class="footer-link" to="/hosts">
+            Become a GPU host
+          </nuxt-link>
+          <nuxt-link class="footer-link" to="/clients">
+            Deploy AI workloads
+          </nuxt-link>
+        </div>
+        <div class="column is-2">
+          <h4 class="footer-title mb-3">
+            Network
+          </h4>
+          <nuxt-link class="footer-link" to="/team">
+            About Nosana
+          </nuxt-link>
+          <nuxt-link class="footer-link" to="/token">
+            $NOS Token
+          </nuxt-link>
+          <a class="footer-link" href="https://dashboard.nosana.com/stake" target="_blank">
+            Staking
+          </a>
+        </div>
+        <div class="column is-2">
+          <h4 class="footer-title mb-3">
+            Resources
+          </h4>
+          <a class="footer-link" href="https://docs.nosana.com" target="_blank">
+            Docs
+          </a>
+          <nuxt-link class="footer-link" to="/blog">
+            Blog
+          </nuxt-link>
+          <nuxt-link class="footer-link" to="/support">
+            Support
+          </nuxt-link>
+          <nuxt-link class="footer-link" to="/brand">
+            Brand Assets
+          </nuxt-link>
+        </div>
+      </div>
+      <div class="footer-divider" />
+      <div class="py-4 has-radius has-text-centered">
+        <small class="is-size-7 has-text-white">© Nosana Network 2025 The Nosana Network Authors.
+          Documentation distributed under CC BY 4.0</small>
       </div>
     </div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
-.footer {
-  background-color: black;
-  .navbar-menu {
-    background-color: black;
-  }
-  .navbar-item {
-    color: white;
-    padding: 4px 0px;
-    &:hover {
-      background: transparent;
-    }
-    &.is-active {
-      background: transparent !important;
-    }
-  }
+.footer-bar.boxed-footer {
+  background: #101010;
+  border-radius: 1.5rem 1.5rem 0 0;
+  box-shadow: 0 -2px 24px rgba(16, 232, 12, 0.07), 0 -1.5px 6px rgba(0,0,0,0.03);
+  border-top: 1px solid rgba(16, 232, 12, 0.08);
+  margin-top: 3rem;
+  padding-bottom: 0;
 }
-.footer {
-  .navbar-menu {
-    display: flex !important;
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+}
+.footer-title {
+  color: #10E80C;
+  font-weight: 700;
+  font-size: 1.1em;
+  letter-spacing: 0.01em;
+}
+.footer-link {
+  display: block;
+  color: #fff;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+  font-size: 1em;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+.footer-link:hover {
+  color: #10E80C;
+  opacity: 1;
+}
+.footer-socials {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.2rem;
+}
+.footer-divider {
+  border-top: 1px solid #222;
+  margin: 0 auto 1.5rem auto;
+  width: 100%;
+  max-width: 900px;
+  opacity: 0.2;
+}
+.logo {
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+@media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 2rem;
   }
-  border-top: 1px solid rgba($accent, 0.1);
+  .footer-title {
+    margin-top: 2rem;
+    text-align: left;
+  }
+  .footer-link {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+  .logo {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .footer-socials {
+    justify-content: center;
+  }
 }
 </style>
