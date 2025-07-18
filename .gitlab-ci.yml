@@ -1,6 +1,9 @@
 include:
   - project: nosana-ci/tools/cicd/gitlab-ci
     file: npm-generic.yml
+
+variables:
+  SKIP_CACHEFLUSH: true
   
 #default:
 #  tags:
