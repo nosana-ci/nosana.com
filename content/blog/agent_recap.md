@@ -1,13 +1,21 @@
 ---
 title: "Agent 101 Recap: How Builders Took on the Nosana Challenge"
 description: Agent 101 was our second Builders’ Challenge, a call to action for devs to build smart, scalable AI agents that run on Nosana’s decentralized GPU network. And the community more than delivered.
-img: /img/NosanaBuildersChallengeSnapShotBlog02.jpg
+img: /img/NosanaBuildersChallengeBlog04.jpg
 createdAt: "2025-07-18"
 tags:
   - product
 ---
 
+The second edition of the Nosana Builders Challenge is complete and once again, our community showed up in full force. This round was all about building AI agents that leverage Nosana’s decentralized GPU power.
+
 Over the course of a few weeks, we watched builders dive into our open-source repos, ask brilliant questions, create unique solutions, and ship some seriously impressive projects. From productivity bots to creative AI assistants, the results speak for themselves and so do the numbers.
+
+## Agent 101 Snapshot
+
+Here’s a quick look at the impact and activity from this second edition:
+
+![SnapShot](/img/NosanaBuildersChallengeSnapShotBlog02.jpg)
 
 ## Meet the Winners: What They Built
 
@@ -23,7 +31,7 @@ Over the course of a few weeks, we watched builders dive into our open-source re
 
 ### 3rd Place: [Comprehensive DeFi Suite](https://github.com/EmadQureshiKhi/NosanaProject-)
 
-- **What it does:** An extensive DeFi toolset that integrates multiple protocols for trading, liquidity management, and yield optimization across various decentralized finance platforms.
+- **What it does:** An extensive DeFi toolkit that integrates multiple protocols for trading, liquidity management, and yield optimization across various decentralized finance platforms.
 - **Why it stood out:** Excellent multi-tool architecture with 8 specialized DeFi tools, strong technical implementation using Ollama, and practical value for automating complex DeFi operations and strategies.
 
 ---
@@ -50,16 +58,19 @@ We noticed a few exciting trends across this round’s entries:
 
 - **MCP Usage** - Some developers took the extra step of integrating their agent with MCP capabilities, making their agent even more extensible.
 
-- **Diverse Usecase** - There is a wide range of usecase participants tried to tackle, devtooling, defi Tooling, productivity agents, healthcare, entertainment, supply chain, real estate.
-  This shows the growing depth and diversity of the Nosana builder community.
+- **Diverse Usecase** - There is a wide range of usecase participants tried to tackle, devtooling, DeFi Tooling, productivity agents, healthcare, entertainment, supply chain, real estate.
+
+This shows the growing depth and diversity of the Nosana builder community.
 
 ## Community Energy: More Than Just Code
 
-Beyond the GitHub stars and submissions, what really made this edition shine was the community interaction:
+Beyond the GitHub stars and submissions, what really made this edition shine was the **community interaction**:
 
 - 1,000+ Discord messages
 - Builders helping each other debug, deploy, and demo
 - Dozens of devs sharing their builds on X and tagging others to join
+
+![](/img/discord_agent_recap.png)
 
 ## 2 Down. 2 To Go. And Then?
 
@@ -67,13 +78,13 @@ With two Builders Challenges behind us, we’re entering the second half of this
 
 We’re halfway through the Builders Challenge series, but this is just the beginning. **Something bigger is brewing**. A new chapter for builders is on the way. And if you’ve been paying attention, you may have already caught the first hints. Challenge 3 might just reveal a little more.
 
-Huge thanks to our partners at [ Superteam ](https://superteam.fun) for supporting creators across the ecosystem. And shoutout to our judges, community moderators, and all the builders who submitted projects.
+Huge thanks to our partners at [ Superteam ](https://superteam.fun) for supporting creators across the ecosystem. And shout-out to our judges, community moderators, and all the builders who submitted projects.
 
 Whether you were deep in GPU tuning or just lurking in `#challenges-chat`, the challenge created real buzz and we’re grateful for everyone of you who joined the ride.
 
 ## Challenge 3 Is Coming. Are You In?
 
-Follow [ @nosana on X ](https://nosana.com/x), jump into the [ Discord ](https://nosana.com/discord), and star us on [ GitHub ](https://nosana.com/github) to be the first to know when the next challenge drops.
+Follow [ @nosana on X ](https://nosana.com/x), jump into the [ Discord ](https://nosana.com/discord) and star us on [ GitHub ](https://nosana.com/github) to be the first to know when the next challenge drops.
 
 > The foundations of tomorrow’s AI infrastructure are being laid today. Those who build now lead later.
 
