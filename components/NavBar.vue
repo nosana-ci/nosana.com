@@ -74,29 +74,31 @@
               >
                 <div>Network</div>
               </a>
-              <div class="navbar-dropdown is-boxed">
-                <nuxt-link
-                  class="navbar-item"
-                  to="/team"
-                  exact-active-class="is-active"
-                >
-                  About Nosana
-                </nuxt-link>
-                <nuxt-link
-                  class="navbar-item"
-                  to="/token"
-                  exact-active-class="is-active"
-                >
-                  $NOS Token
-                </nuxt-link>
-                <a
-                  href="https://dashboard.nosana.com/stake/"
-                  target="_blank"
-                  class="navbar-item"
-                >
-                  <span>Staking</span>
-                </a>
-              </div>
+              <transition name="dropdown-fade">
+                <div class="navbar-dropdown is-boxed">
+                  <nuxt-link
+                    class="navbar-item"
+                    to="/team"
+                    exact-active-class="is-active"
+                  >
+                    About Nosana
+                  </nuxt-link>
+                  <nuxt-link
+                    class="navbar-item nos-token"
+                    to="/token"
+                    exact-active-class="is-active"
+                  >
+                    $NOS Token
+                  </nuxt-link>
+                  <a
+                    href="https://dashboard.nosana.com/stake/"
+                    target="_blank"
+                    class="navbar-item"
+                  >
+                    <span>Staking</span>
+                  </a>
+                </div>
+              </transition>
             </div>
             <div
               class="navbar-item has-dropdown is-hoverable"
@@ -105,39 +107,41 @@
               <a class="navbar-link is-arrowless">
                 <div>Resources</div>
               </a>
-              <div class="navbar-dropdown is-boxed">
-                <a href="https://docs.nosana.com" class="navbar-item">
-                  <span>Docs</span>
-                </a>
-                <nuxt-link
-                  class="navbar-item"
-                  to="/blog"
-                  exact-active-class="is-active"
-                >
-                  <span>Blog</span>
-                </nuxt-link>
-                <nuxt-link
-                  class="navbar-item"
-                  to="/blog?tag=events"
-                  exact-active-class="is-active"
-                >
-                  <span>Events</span>
-                </nuxt-link>
-                <nuxt-link
-                  class="navbar-item"
-                  to="/support"
-                  exact-active-class="is-active"
-                >
-                  <span>Support</span>
-                </nuxt-link>
-                <nuxt-link
-                  class="navbar-item"
-                  to="/brand"
-                  exact-active-class="is-active"
-                >
-                  <span>Brand Assets</span>
-                </nuxt-link>
-              </div>
+              <transition name="dropdown-fade">
+                <div class="navbar-dropdown is-boxed">
+                  <a href="https://docs.nosana.com" class="navbar-item">
+                    <span>Docs</span>
+                  </a>
+                  <nuxt-link
+                    class="navbar-item"
+                    to="/blog"
+                    exact-active-class="is-active"
+                  >
+                    <span>Blog</span>
+                  </nuxt-link>
+                  <nuxt-link
+                    class="navbar-item"
+                    to="/blog?tag=events"
+                    exact-active-class="is-active"
+                  >
+                    <span>Events</span>
+                  </nuxt-link>
+                  <nuxt-link
+                    class="navbar-item"
+                    to="/support"
+                    exact-active-class="is-active"
+                  >
+                    <span>Support</span>
+                  </nuxt-link>
+                  <nuxt-link
+                    class="navbar-item"
+                    to="/brand"
+                    exact-active-class="is-active"
+                  >
+                    <span>Brand Assets</span>
+                  </nuxt-link>
+                </div>
+              </transition>
             </div>
             <div class="navbar-item desktop-only" @click="mobileMenu = false">
               <a
@@ -356,6 +360,48 @@ export default {
     &:hover a.navbar-link {
       background-color: transparent !important;
     }
+  }
+}
+
+// Dropdown fade/slide animation
+.dropdown-fade-enter-active, .dropdown-fade-leave-active {
+  transition: opacity 0.18s cubic-bezier(0.4,0,0.2,1), transform 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+.dropdown-fade-enter, .dropdown-fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+// Clean dropdown UI
+.navbar-dropdown.is-boxed {
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 0.5rem 0;
+  background: #fff;
+  min-width: 180px;
+  border: none;
+}
+
+// Dropdown item hover
+.navbar-dropdown .navbar-item {
+  color: #222;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+  border-left: 3px solid transparent;
+  &:hover, &.is-active {
+    background: rgba(0, 255, 128, 0.08);
+    color: #00b86b;
+    border-left: 3px solid #00ff80;
+    transform: translateX(2px) scale(1.03);
+  }
+}
+
+// Special $NOS Token style
+.navbar-item.nos-token {
+  color: #00b86b !important;
+  font-weight: 700;
+  &:hover, &.is-active {
+    background: rgba(0,255,128,0.12) !important;
+    color: #00b86b !important;
   }
 }
 </style>
