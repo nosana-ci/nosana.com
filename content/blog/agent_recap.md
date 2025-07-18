@@ -7,7 +7,7 @@ tags:
   - product
 ---
 
-The second edition of the Nosana Builders Challenge is complete and once again, our community showed up in full force. This round was all about building AI agents that leverage Nosana’s decentralized GPU power.
+The second edition of the [ Nosana Builders Challenge ](https://earn.superteam.fun/listing/agent-challenge) is complete and once again, our community showed up in full force. This round was all about building AI agents that leverage Nosana’s decentralized [ GPU power ](https://dashboard.nosana.com/).
 
 Over the course of a few weeks, we watched builders dive into our open-source repos, ask brilliant questions, create unique solutions, and ship some seriously impressive projects. From productivity bots to creative AI assistants, the results speak for themselves and so do the numbers.
 
@@ -19,17 +19,17 @@ Here’s a quick look at the impact and activity from this second edition:
 
 ## Meet the Winners: What They Built
 
-### 1st Place: [MastraBolt AI Agent](https://github.com/Theideabased/agent-challenge)
+### 1st Place: [MastraBolt AI Agent](https://github.com/Theideabased/agent-challenge) ([@SOgunmusire](https://x.com/SOgunmusire/status/1944726549044813836) )
 
 - **What it does:** A complete visual development platform that allows users to build, test, and deploy AI agents across multiple platforms through a browser-based IDE without coding.
 - **Why it stood out:** Transformed a simple agent challenge into comprehensive infrastructure, featuring multi-LLM provider support, real-time preview, and one-click deployment to Nosana, Vercel, or Netlify.
 
-### 2nd Place: [Revolutionary Meta-Deployment Concept](https://github.com/Blessedbiello/agent-challenge)
+### 2nd Place: [Meta-Deployment](https://github.com/Blessedbiello/agent-challenge) ([@biellonuhu](https://x.com/biellonuhu/status/1944705225492701485))
 
 - **What it does:** A groundbreaking agent deployment system that enables agents to deploy and manage other agents on the Nosana platform, creating a self-improving AI infrastructure.
 - **Why it stood out:** Revolutionary meta-deployment approach with sophisticated automation, perfect Nosana integration, and the ability to create an ecosystem where agents can spawn and manage other agents autonomously.
 
-### 3rd Place: [Comprehensive DeFi Suite](https://github.com/EmadQureshiKhi/NosanaProject-)
+### 3rd Place: [Comprehensive DeFi Suite](https://github.com/EmadQureshiKhi/NosanaProject-) ([@thecorgod1234](https://x.com/thecorgod1234/status/1944694271396745432))
 
 - **What it does:** An extensive DeFi toolkit that integrates multiple protocols for trading, liquidity management, and yield optimization across various decentralized finance platforms.
 - **Why it stood out:** Excellent multi-tool architecture with 8 specialized DeFi tools, strong technical implementation using Ollama, and practical value for automating complex DeFi operations and strategies.
@@ -66,9 +66,9 @@ This shows the growing depth and diversity of the Nosana builder community.
 
 Beyond the GitHub stars and submissions, what really made this edition shine was the **community interaction**:
 
-- 1,000+ Discord messages
+- 1,000+ [ Discord ](https://nosana.com/discord) messages
 - Builders helping each other debug, deploy, and demo
-- Dozens of devs sharing their builds on X and tagging others to join
+- Dozens of devs sharing their builds on [ X ](https://nosana.com/x) and tagging others to join
 
 ![](/img/discord_agent_recap.png)
 
@@ -80,7 +80,7 @@ We’re halfway through the Builders Challenge series, but this is just the begi
 
 Huge thanks to our partners at [ Superteam ](https://superteam.fun) for supporting creators across the ecosystem. And shout-out to our judges, community moderators, and all the builders who submitted projects.
 
-Whether you were deep in GPU tuning or just lurking in `#challenges-chat`, the challenge created real buzz and we’re grateful for everyone of you who joined the ride.
+Whether you were deep in GPU tuning or just lurking in [ `#challenges-chat` ](https://nosana.com/discord), the challenge created real buzz and we’re grateful for everyone of you who joined the ride.
 
 ## Challenge 3 Is Coming. Are You In?
 
