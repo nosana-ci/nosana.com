@@ -1,8 +1,8 @@
 ---
 title: "How We're Helping AI Startups Cut Costs by 67% With Open-Source Models"
-description: "Nosana helps AI startups dramatically reduce operational costs by replacing expensive proprietary AI models with optimized open-source alternatives, as demonstrated by a case study where an AI presentation tool startup cut their per-slide costs by 67%."
+description: "Nosana helps AI startups dramatically reduce operational costs by replacing expensive proprietary AI models with optimized open-source alternatives."
 img: /img/NosanaArticleScalingAIBlog.jpg
-createdAt: "2025-08-06"
+createdAt: "2025-08-07"
 tags:
   - product
 ---
@@ -97,7 +97,7 @@ This collaborative approach to AI implementation represents the future of sustai
 
 ---
 
-_Interested in exploring how open-source AI models could reduce costs for your product? Contact our team to discuss your specific use case._
+_Interested in exploring how open-source AI models could reduce costs for your product? [ Contact our team to discuss your specific use case. ](https://docs.google.com/forms/d/e/1FAIpQLSdfh5RIw2hWa1vnXhRUA4QIGADhBMkAHnpjqoNCHbrdF283cg/viewform)_
 
 ## Useful Links
 
