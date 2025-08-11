@@ -178,7 +178,7 @@ export default {
       if (!this.stakeTotals || !this.poolInfo) {
         return null;
       }
-      const totalXnos = parseFloat(this.stakeTotals.totalXNosStaked * 1e6);
+      const totalXnos = parseFloat(this.stakeTotals.totalXNosStaked) * 1e6;
       const emission = new BN(this.poolInfo.emission, 16).toNumber();
       return (
         ((this.xNOS * 1e6) / (totalXnos + this.xNOS * 1e6)) *
