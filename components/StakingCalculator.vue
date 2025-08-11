@@ -178,7 +178,7 @@ export default {
       if (!this.stakeTotals || !this.poolInfo) {
         return null;
       }
-      const totalXnos = parseFloat(this.stakeTotals.xnos);
+      const totalXnos = parseFloat(this.stakeTotals.totalXNosStaked * 1e6);
       const emission = new BN(this.poolInfo.emission, 16).toNumber();
       return (
         ((this.xNOS * 1e6) / (totalXnos + this.xNOS * 1e6)) *
@@ -194,7 +194,7 @@ export default {
     async getStakeTotals () {
       try {
         const response = await fetch(
-          'https://backend.k8s.prd.nos.ci/stake/totals'
+          'https://dashboard.k8s.prd.nos.ci/api/stats'
         );
         this.stakeTotals = await response.json();
       } catch (error) {
