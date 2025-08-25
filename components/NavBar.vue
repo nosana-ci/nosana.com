@@ -12,7 +12,7 @@
             <img
               class="logo"
               src="~/assets/img/Nosana_Logo_horizontal_color_white.svg"
-            >
+            />
           </nuxt-link>
 
           <a
@@ -42,6 +42,7 @@
                 href="https://dashboard.nosana.com/deploy"
                 target="_blank"
                 class="button is-secondary is-size-6"
+                @click="trackDeployClick"
               >
                 Deploy Now
               </a>
@@ -141,9 +142,10 @@
             </div>
             <div class="navbar-item desktop-only" @click="mobileMenu = false">
               <a
-                href="https://dashboard.nosana.com/"
+                href="https://dashboard.nosana.com/deploy"
                 target="_blank"
                 class="button is-secondary is-size-6"
+                @click="trackDeployClick"
               >
                 Deploy Now
               </a>
@@ -162,6 +164,17 @@ export default {
     return {
       mobileMenu: false
     };
+  },
+  methods: {
+    trackDeployClick () {
+      console.log('trackDeployClick', window.gtag);
+      if (window.gtag) {
+        window.gtag('event', 'click_deploy', {
+          event_category: 'homepage_deploy_now_click',
+          event_label: 'Click on “Deploy Now” (header/hero)'
+        });
+      }
+    }
   }
 };
 </script>
