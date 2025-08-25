@@ -169,9 +169,10 @@ export default {
     trackDeployClick () {
       console.log('trackDeployClick', window.gtag);
       if (window.gtag) {
-        window.gtag('event', 'click_deploy', {
-          event_category: 'homepage_deploy_now_click',
-          event_label: 'Click on “Deploy Now” (header/hero)'
+        window.gtag('event', 'homepage_deploy_now_click', {
+          event_category: 'engagement',
+          event_label: 'Click on “Deploy Now” (header/hero)',
+          value: 1
         });
       }
     }
