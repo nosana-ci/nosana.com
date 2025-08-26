@@ -93,6 +93,7 @@
               target="_blank"
               class="button is-white is-medium mr-2"
               style="width: 100%"
+              @click="trackLinkClick('hosts_start_earning_click')"
             >
               Start earning now
             </a>
@@ -312,6 +313,7 @@
             target="_blank"
             class="button is-black is-medium mr-2"
             style="max-width: 350px; width: 100%"
+            @click="trackLinkClick('hosts_become_host_click')"
           >
             Become a Host
           </a>
@@ -320,6 +322,7 @@
             href="mailto: sales@nosana.io"
             class="button is-black is-outlined is-medium ml-2"
             style="max-width: 350px; width: 100%"
+            @click="trackLinkClick('hosts_contact_us_click')"
           >
             Contact Us
           </a>
@@ -348,6 +351,16 @@ export default {
     this.getStatistics();
   },
   methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    },
     async getStatistics () {
       try {
         const responseStats = await fetch(
