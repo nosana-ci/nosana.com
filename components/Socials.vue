@@ -6,6 +6,7 @@
       :href="social.link"
       target="_blank"
       class="mr-5"
+      @click="trackLinkClick('homepage_social_click', 'primary')"
     >
       <img v-if="dark" :src="social.icon">
       <img v-else :src="social.iconLight">
@@ -58,6 +59,18 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    }
   }
 };
 </script>

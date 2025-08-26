@@ -43,6 +43,7 @@
             <nuxt-link
               to="/clients"
               class="has-text-accent"
+              @click.native="trackLinkClick('homepage_get_started_click', 'primary')"
             >
               Get Started <i class="pl-1 fas fa-chevron-right" />
             </nuxt-link>
@@ -112,7 +113,7 @@
             <nuxt-link
               to="/clients"
               class="has-text-accent has-text-weight-semibold is-size-5"
-              @click="trackLinkClick('homepage_deploy_ai_click', 'primary')"
+              @click.native="trackLinkClick('homepage_deploy_ai_click', 'primary')"
             >
               Deploy AI Workloads <i class="pl-1 fas fa-chevron-right" />
             </nuxt-link>
