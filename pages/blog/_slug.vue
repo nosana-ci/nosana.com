@@ -31,14 +31,14 @@
                   <a target="_blank" class="share-link" :href="`https://t.me/share/url?url=https://nosana.io${$route.fullPath}&text=${blog.title}`">
                     <img src="~/assets/img/icons/telegram.svg" class="ml-3" style="height: 22px">
                   </a>
-                  <a 
-                    href="/rss.xml" 
+                  <a
+                    href="/rss.xml"
                     class="rss-link ml-4"
                     title="Subscribe to RSS Feed"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <i class="fas fa-rss"></i>
+                    <i class="fas fa-rss" />
                     <span class="ml-1">RSS</span>
                   </a>
                 </div>
@@ -328,12 +328,12 @@ div.code-toolbar {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.2s ease;
-  
+
   &:hover {
     color: #03C200;
     text-decoration: none;
   }
-  
+
   i {
     color: #ff6600;
   }

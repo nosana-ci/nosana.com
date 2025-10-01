@@ -376,7 +376,7 @@
         type="text/javascript"
         src="https://assets.calendly.com/assets/external/widget.js"
         async
-      ></script>
+      />
       <!-- Calendly inline widget end -->
       <button
         class="modal-close is-large"

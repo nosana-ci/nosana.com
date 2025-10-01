@@ -62,7 +62,9 @@
                   min="1"
                   :max="durationType === 'hours' ? 24 : 30"
                 >
-                <p style="margin-top: -5px;" class="has-text-centered">{{ amount }} {{ durationType }}</p>
+                <p style="margin-top: -5px;" class="has-text-centered">
+                  {{ amount }} {{ durationType }}
+                </p>
               </div>
             </div>
           </div>

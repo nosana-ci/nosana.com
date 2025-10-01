@@ -17,14 +17,14 @@
           >{{ tag }}</span>
         </div>
         <div class="is-flex is-align-items-center">
-          <a 
-            href="/rss.xml" 
+          <a
+            href="/rss.xml"
             class="rss-link mr-4"
             title="Subscribe to RSS Feed"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="fas fa-rss"></i>
+            <i class="fas fa-rss" />
             <span class="ml-1">RSS</span>
           </a>
           <div class="search">
@@ -40,9 +40,9 @@
       <div v-if="blogs && blogs.length > 0" class="columns mt-5 mb-6 is-multiline">
         <client-only>
           <component
+            :is="blog.noPage && blog.link ? 'a' : 'nuxt-link'"
             v-for="blog of blogs"
             :key="blog.slug"
-            :is="blog.noPage && blog.link ? 'a' : 'nuxt-link'"
             class="column is-one-third blog-item"
             :to="blog.noPage && blog.link ? undefined : { name: 'blog-slug', params: { slug: blog.slug } }"
             :href="blog.noPage && blog.link ? blog.link : undefined"
@@ -226,12 +226,12 @@ export default {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.2s ease;
-  
+
   &:hover {
     color: #03C200;
     text-decoration: none;
   }
-  
+
   i {
     color: #ff6600;
   }

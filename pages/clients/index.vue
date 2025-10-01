@@ -178,7 +178,7 @@
 
     <section class="section py-6 has-background-grey-lighter">
       <div class="container py-6 mb-6">
-        <h3 class="title is-2 pt-3" id="calculator">
+        <h3 id="calculator" class="title is-2 pt-3">
           Price Calculator
         </h3>
         <p>Estimate your costs by selecting the resources you need.</p>
@@ -324,7 +324,7 @@
         type="text/javascript"
         src="https://assets.calendly.com/assets/external/widget.js"
         async
-      ></script>
+      />
       <!-- Calendly inline widget end -->
       <button
         class="modal-close is-large"
@@ -346,7 +346,7 @@
         type="text/javascript"
         src="https://assets.calendly.com/assets/external/widget.js"
         async
-      ></script>
+      />
       <!-- Calendly inline widget end -->
 
       <button

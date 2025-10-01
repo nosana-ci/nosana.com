@@ -12,7 +12,7 @@
             <img
               class="logo"
               src="~/assets/img/Nosana_Logo_horizontal_color_white.svg"
-            />
+            >
           </nuxt-link>
 
           <a
