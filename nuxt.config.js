@@ -15,6 +15,25 @@ gtag('config', 'G-HNDP62SH8M');`
   }
 }
 
+const create = async (feed, args) => {
+  const [filePath, ext] = args;  
+  const hostname = process.NODE_ENV === 'production' ? 'https://nosana.com' : 'http://localhost:3000';
+  feed.options = {
+    title: "Nosana Blog",
+    description: "Articles about the Nosana GPU Network",
+    link: `${hostname}/feed.${ext}`
+  }
+  const { $content } = require('@nuxt/content')
+  if (posts === null || posts.length === 0)
+    posts = await $content(filePath).fetch();
+
+  for (const post of posts) {
+    const feedItem = await constructFeedItem(post, filePath, hostname);
+    feed.addItem(feedItem);
+  }
+  return feed;
+}
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -131,7 +150,17 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/feed'
+  ],
+  feed: [
+    {
+      path: '/feed.xml',
+      create,
+      cacheTime: 1000 * 60 * 15,
+      type: 'rss2',
+      data: [ 'blog', 'xml' ]
+    },
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
