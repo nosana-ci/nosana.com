@@ -24,12 +24,22 @@
                 <h3 class="mt-6 has-text-black">
                   Share on
                 </h3>
-                <div class="is-flex">
+                <div class="is-flex is-align-items-center">
                   <a target="_blank" class="share-link" :href="`https://twitter.com/intent/tweet?url=https://nosana.io${$route.fullPath}&text=${blog.title}`">
                     <img src="~/assets/img/icons/x.svg" style="height: 22px">
                   </a>
                   <a target="_blank" class="share-link" :href="`https://t.me/share/url?url=https://nosana.io${$route.fullPath}&text=${blog.title}`">
                     <img src="~/assets/img/icons/telegram.svg" class="ml-3" style="height: 22px">
+                  </a>
+                  <a 
+                    href="/rss.xml" 
+                    class="rss-link ml-4"
+                    title="Subscribe to RSS Feed"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fas fa-rss"></i>
+                    <span class="ml-1">RSS</span>
                   </a>
                 </div>
               </div>
@@ -310,6 +320,22 @@ div.code-toolbar {
   }
   .description {
     margin-top: 20px !important;
+  }
+}
+
+.rss-link {
+  color: #04DE00;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #03C200;
+    text-decoration: none;
+  }
+  
+  i {
+    color: #ff6600;
   }
 }
 </style>

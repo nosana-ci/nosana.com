@@ -16,13 +16,25 @@
             @click="applyTag(tag)"
           >{{ tag }}</span>
         </div>
-        <div class="search">
-          <input
-            v-model="search"
-            type="text"
-            class="input py-5 px-3"
-            placeholder="Search"
+        <div class="is-flex is-align-items-center">
+          <a 
+            href="/rss.xml" 
+            class="rss-link mr-4"
+            title="Subscribe to RSS Feed"
+            target="_blank"
+            rel="noopener noreferrer"
           >
+            <i class="fas fa-rss"></i>
+            <span class="ml-1">RSS</span>
+          </a>
+          <div class="search">
+            <input
+              v-model="search"
+              type="text"
+              class="input py-5 px-3"
+              placeholder="Search"
+            >
+          </div>
         </div>
       </div>
       <div v-if="blogs && blogs.length > 0" class="columns mt-5 mb-6 is-multiline">
@@ -206,6 +218,22 @@ export default {
 @media screen and (max-width: 1300px) {
   .post-wrapper {
     padding: 0 !important;
+  }
+}
+
+.rss-link {
+  color: #04DE00;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #03C200;
+    text-decoration: none;
+  }
+  
+  i {
+    color: #ff6600;
   }
 }
 </style>

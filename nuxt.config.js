@@ -91,7 +91,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' },
+      { rel: 'alternate', type: 'application/rss+xml', title: 'Nosana Blog RSS Feed', href: '/rss.xml' }
     ]
   },
 
@@ -108,6 +109,60 @@ export default {
       }
     }
   },
+
+  feed: [
+    {
+      path: '/rss.xml',
+      async create (feed) {
+        const { $content } = require('@nuxt/content');
+
+        // Set feed metadata
+        feed.options = {
+          title: 'Nosana Blog',
+          description: 'Affordable GPU Rental for AI Inference at Scale',
+          link: 'https://nosana.com',
+          language: 'en',
+          image: 'https://nosana.com/img/screenshot-website.jpg',
+          favicon: 'https://nosana.com/favicon.ico',
+          copyright: `© ${new Date().getFullYear()} Nosana. All rights reserved.`,
+          generator: 'Nosana Blog RSS Feed',
+          feedLinks: {
+            rss: 'https://nosana.com/rss.xml'
+          }
+        };
+
+        // Fetch all blog posts
+        const posts = await $content('blog')
+          .sortBy('createdAt', 'desc')
+          .fetch();
+
+        // Add each post to the feed
+        for (const post of posts) {
+          const postUrl = `https://nosana.com/blog/${post.slug}`;
+          const postImage = post.img ? `https://nosana.com${post.img}` : 'https://nosana.com/img/screenshot-website.jpg';
+
+          feed.addItem({
+            title: post.title,
+            id: postUrl,
+            link: postUrl,
+            description: post.description,
+            content: post.bodyPlainText || post.description,
+            author: [
+              {
+                name: post.author || 'Nosana Team',
+                email: 'hello@nosana.io'
+              }
+            ],
+            date: new Date(post.createdAt),
+            image: postImage,
+            category: post.tags ? post.tags.map(tag => ({ name: tag })) : []
+          });
+        }
+      },
+      cacheTime: 1000 * 60 * 15, // 15 minutes
+      type: 'rss2'
+    }
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -131,7 +186,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/feed'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
