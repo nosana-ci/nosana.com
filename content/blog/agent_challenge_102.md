@@ -67,9 +67,27 @@ We're using [Mastra](https://mastra.ai), the powerful TypeScript framework that 
 
 Fork the [challenge repository](https://github.com/nosana-ci/agent-challenge) and start building your agent using the provided starter template with Next.js, Mastra, and CopilotKit.
 
+```bash
+# Fork this repo on GitHub, then clone your fork
+git clone https://github.com/YOUR-USERNAME/agent-challenge
+
+cd agent-challenge
+
+cp .env.example .env
+
+pnpm i
+
+pnpm run dev:ui      # Start UI server (port 3000)
+pnpm run dev:agent   # Start Mastra agent server (port 4111)
+```
+
 ### Step 3: Deploy to Nosana
 
 Build your Docker container and deploy your complete stack to the Nosana network using either the [Nosana Dashboard](https://dashboard.nosana.com/deploy) or the Nosana CLI.
+
+### Step 4: Submit
+
+Commit your code to you forked GitHub repo and submit your project on the [SuperTeam Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge-agents-102) before the deadline.
 
 ## Minimum Requirements
 
@@ -119,8 +137,23 @@ Practical use cases, potential for adoption, clear value proposition, demonstrat
 - **Dev Chat**: [Builders Challenge Channel](https://discord.com/channels/236263424676331521/1354391113028337664)
 - **Twitter**: Follow [@nosana_ai](https://x.com/nosana_ai)
 - **Docs**: [Nosana Documentation](https://docs.nosana.io) | [Mastra Docs](https://mastra.ai/docs)
-- **Sign up for our Newsletter**: [Nosana Newsletter](https://e86f0b9c.sibforms.com/serve/MUIFANRnXL6y33KZvQK8SzlFlRO54ERtlvEzqO5p5VDV8XTRMAYvAo8awVCDtfHfmt5by5PcPYniU7WvkC3nwko1pq7VBauSNb6v8eyXOuXlwAv4zMhKJQ6DX5kH44Wwq0_bVbyU0AoKh2ZlNdl3LwyrUNeAfyvYA1Kqi_oyK7hQbvTTc6ns_N0aUGzpiMvj-7aiJNFMahRYCEpP)
 
 Good luck, builders! We can't wait to see the innovative AI agents you create for the Nosana ecosystem.
 
 **Happy Building!**
+
+---
+
+Want access to exclusive builder perks, early challenges, and Nosana credits?
+Subscribe to our newsletter and never miss an update.
+
+👉 [ Join the Nosana Builders Newsletter ](https://e86f0b9c.sibforms.com/serve/MUIFALaEjtsXB60SDmm1_DHdt9TOSRCFHOZUSvwK0ANbZDeJH-sBZry2_0YTNi1OjPt_ZNiwr4gGC1DPTji2zdKGJos1QEyVGBzTq_oLalKkeHx3tq2tQtzghyIhYoF4_sFmej1YL1WtnFQyH0y1epowKmDFpDz_EdGKH2cYKTleuTu97viowkIIMqoDgMqTD0uBaZNGwjjsM07T)
+
+Be the first to know about:
+
+- 🧠 Upcoming Builders Challenges
+- 💸 New reward opportunities
+- ⚙ Product updates and feature drops
+- 🎁 Early-bird credits and partner perks
+
+Join the Nosana builder community today — and build the future of decentralized AI.
