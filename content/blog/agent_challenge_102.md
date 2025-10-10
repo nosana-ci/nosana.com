@@ -119,6 +119,7 @@ Practical use cases, potential for adoption, clear value proposition, demonstrat
 - **Dev Chat**: [Builders Challenge Channel](https://discord.com/channels/236263424676331521/1354391113028337664)
 - **Twitter**: Follow [@nosana_ai](https://x.com/nosana_ai)
 - **Docs**: [Nosana Documentation](https://docs.nosana.io) | [Mastra Docs](https://mastra.ai/docs)
+- **Sign up for our Newsletter**: [Nosana Newsletter](https://e86f0b9c.sibforms.com/serve/MUIFANRnXL6y33KZvQK8SzlFlRO54ERtlvEzqO5p5VDV8XTRMAYvAo8awVCDtfHfmt5by5PcPYniU7WvkC3nwko1pq7VBauSNb6v8eyXOuXlwAv4zMhKJQ6DX5kH44Wwq0_bVbyU0AoKh2ZlNdl3LwyrUNeAfyvYA1Kqi_oyK7hQbvTTc6ns_N0aUGzpiMvj-7aiJNFMahRYCEpP)
 
 Good luck, builders! We can't wait to see the innovative AI agents you create for the Nosana ecosystem.
 
