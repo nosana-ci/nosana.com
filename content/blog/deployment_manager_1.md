@@ -30,7 +30,7 @@ Gone are the days of wrestling with complex configuration files. Our deployment 
 ```typescript
 import { Client } from "@nosana/sdk";
 
-const client = new Client("devnet", wallet);
+const client = new Client("mainnet", wallet);
 
 // That's it! You're ready to deploy
 const deployment = await client.deployments.create({
@@ -100,7 +100,7 @@ Understanding what's happening with your deployments is crucial. That's why we'v
 const deployments = await client.deployments.list();
 
 // Check specific deployment status
-const deployment = await client.deployments.get("deployment-id");
+const deployment = await client.deployments.get("<deployment-id>");
 
 // Monitor active tasks
 const tasks = await deployment.getTasks();
@@ -125,7 +125,7 @@ async function deployMyApp() {
       {
         id: "gpt-oss:20b",
         args: {
-          image: "docker.io/ollama/ollama:0.11.3",
+          image: "docker.io/ollama/ollama:0.12.0",
           entrypoint: ["/bin/sh", "-c"],
           env: {
             MODEL: "gpt-oss:20b",
