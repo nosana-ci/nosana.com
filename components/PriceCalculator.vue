@@ -62,7 +62,9 @@
                   min="1"
                   :max="durationType === 'hours' ? 24 : 30"
                 >
-                <p style="margin-top: -5px;" class="has-text-centered">{{ amount }} {{ durationType }}</p>
+                <p style="margin-top: -5px;" class="has-text-centered">
+                  {{ amount }} {{ durationType }}
+                </p>
               </div>
             </div>
           </div>
@@ -104,6 +106,7 @@
             href="https://dashboard.nosana.com/markets"
             target="_blank"
             class="button is-black is-medium is-fullwidth mt-5"
+            @click="trackLinkClick('clients_see_all_gpus_click')"
           >
             See all GPUs
           </a>
@@ -140,6 +143,16 @@ export default {
     this.getMarkets();
   },
   methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    },
     async getMarkets () {
       try {
         const response = await fetch(

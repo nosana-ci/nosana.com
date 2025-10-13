@@ -18,7 +18,7 @@
                 <button
                   class="button is-black is-medium"
                   style="max-width: 350px; width: 100%"
-                  @click="getStartedModal = true"
+                  @click="getStartedModal = true; trackLinkClick('clients_get_started_free_click')"
                 >
                   Get Started for Free
                 </button>
@@ -51,6 +51,7 @@
               <a
                 href="https://dashboard.nosana.com/jobs/templates"
                 target="_blank"
+                @click="trackLinkClick('clients_templates_click', 'assist')"
               >templates</a>
               or use your own custom container to suit your requirements.
             </p>
@@ -128,7 +129,7 @@
               class="button is-white is-medium"
               style="max-width: 350px; width: 100%"
               data-aos="fade-in"
-              @click="requestDemoModal = true"
+              @click="requestDemoModal = true; trackLinkClick('clients_request_demo_click', 'assist')"
             >
               Request a Demo
             </button>
@@ -177,7 +178,7 @@
 
     <section class="section py-6 has-background-grey-lighter">
       <div class="container py-6 mb-6">
-        <h3 class="title is-2 pt-3" id="calculator">
+        <h3 id="calculator" class="title is-2 pt-3">
           Price Calculator
         </h3>
         <p>Estimate your costs by selecting the resources you need.</p>
@@ -227,7 +228,7 @@
                     <h4 class="title is-2 pt-2 is-flex mb-1">
                       <ICountUp
                         v-if="imagesGenerated"
-                        :end-val="imagesGenerated"
+                        :end-val="Number(imagesGenerated)"
                         :options="{
                           enableScrollSpy: true,
                         }"
@@ -258,6 +259,7 @@
               <nuxt-link
                 to="/clients/sogni"
                 class="has-text-accent has-text-weight-semibold is-size-5"
+                @click.native="trackLinkClick('clients_read_story_click', 'assist')"
               >
                 Read the story
                 <i class="pl-1 fas fa-chevron-right" />
@@ -293,7 +295,7 @@
             class="button is-black is-medium mr-3"
             data-aos="fade-right"
             style="max-width: 300px; width: 100%"
-            @click="getStartedModal = true"
+            @click="getStartedModal = true; trackLinkClick('clients_get_started_free_click')"
           >
             Get Started for Free
           </button>
@@ -301,7 +303,7 @@
             data-aos="fade-left"
             class="button is-black is-medium ml-3"
             style="max-width: 300px; width: 100%"
-            @click="requestDemoModal = true"
+            @click="requestDemoModal = true; trackLinkClick('clients_request_demo_click', 'assist')"
           >
             Request a Demo
           </button>
@@ -322,7 +324,7 @@
         type="text/javascript"
         src="https://assets.calendly.com/assets/external/widget.js"
         async
-      ></script>
+      />
       <!-- Calendly inline widget end -->
       <button
         class="modal-close is-large"
@@ -344,7 +346,7 @@
         type="text/javascript"
         src="https://assets.calendly.com/assets/external/widget.js"
         async
-      ></script>
+      />
       <!-- Calendly inline widget end -->
 
       <button
@@ -395,6 +397,16 @@ export default {
     this.getSogniData();
   },
   methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    },
     async getSogniData () {
       try {
         const response = await fetch(

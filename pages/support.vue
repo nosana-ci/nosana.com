@@ -14,7 +14,7 @@
                 </h4>
                 <p class="mb-5 is-size-5 p-2" style="color: #666">
                   Receive prompt, personalized support for staking or wallet issues from our dedicated support team.<br>
-                  <a href="https://discord.gg/KFNu8Skx8T" target="_blank" class="button mt-4">
+                  <a href="https://discord.com/invite/nosana-ai" target="_blank" class="button mt-4">
                     <img src="~/assets/img/icons/discord.svg" style="width: 16px; margin-right: 8px;">Support
                   </a>
                 </p>

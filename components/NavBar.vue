@@ -42,6 +42,7 @@
                 href="https://dashboard.nosana.com/deploy"
                 target="_blank"
                 class="button is-secondary is-size-6"
+                @click="trackLinkClick('navbar_deploy_now_click')"
               >
                 Deploy Now
               </a>
@@ -106,7 +107,11 @@
                 <div>Resources</div>
               </a>
               <div class="navbar-dropdown is-boxed">
-                <a href="https://docs.nosana.com" class="navbar-item">
+                <a
+                  href="https://docs.nosana.com"
+                  class="navbar-item"
+                  @click="trackLinkClick('nav_docs_click', 'assist')"
+                >
                   <span>Docs</span>
                 </a>
                 <nuxt-link
@@ -127,6 +132,7 @@
                   class="navbar-item"
                   to="/support"
                   exact-active-class="is-active"
+                  @click.native="trackLinkClick('nav_support_click', 'assist')"
                 >
                   <span>Support</span>
                 </nuxt-link>
@@ -141,9 +147,10 @@
             </div>
             <div class="navbar-item desktop-only" @click="mobileMenu = false">
               <a
-                href="https://dashboard.nosana.com/"
+                href="https://dashboard.nosana.com/deploy"
                 target="_blank"
                 class="button is-secondary is-size-6"
+                @click="trackLinkClick('navbar_deploy_now_click')"
               >
                 Deploy Now
               </a>
@@ -162,6 +169,18 @@ export default {
     return {
       mobileMenu: false
     };
+  },
+  methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    }
   }
 };
 </script>

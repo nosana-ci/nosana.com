@@ -24,6 +24,7 @@
               target="_blank"
               class="button is-white is-medium mt-5"
               style="max-width: 350px; width: 100%"
+              @click="trackGetStartedClick"
             >
               Get Started
             </a>
@@ -37,7 +38,19 @@
 import BackgroundParallax from './BackgroundParallax.vue';
 
 export default {
-  components: { BackgroundParallax }
+  components: { BackgroundParallax },
+  methods: {
+    trackGetStartedClick () {
+      console.log('trackGetStartedClick', window.gtag);
+      if (window.gtag) {
+        window.gtag('event', 'homepage_get_started_click', {
+          event_category: 'engagement',
+          event_label: 'Click on “Get Started” (header/hero)',
+          value: 1
+        });
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

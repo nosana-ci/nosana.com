@@ -18,7 +18,11 @@
               Join Nosana’s global network and unlock a new income opportunity with your GPU hardware.
               We connect you with clients and offer easy-to-use tools to simplify hosting.
             </p>
-            <nuxt-link to="/hosts" class="has-text-accent">
+            <nuxt-link
+              to="/hosts"
+              class="has-text-accent"
+              @click.native="trackLinkClick('homepage_get_started_hosting_click')"
+            >
               Start Hosting <i class="pl-1 fas fa-chevron-right" />
             </nuxt-link>
           </div>
@@ -36,7 +40,11 @@
               tasks efficiently. Focus on your innovations without the burden of
               managing infrastructure.
             </p>
-            <nuxt-link to="/clients" class="has-text-accent">
+            <nuxt-link
+              to="/clients"
+              class="has-text-accent"
+              @click.native="trackLinkClick('homepage_get_started_click', 'primary')"
+            >
               Get Started <i class="pl-1 fas fa-chevron-right" />
             </nuxt-link>
           </div>
@@ -105,6 +113,7 @@
             <nuxt-link
               to="/clients"
               class="has-text-accent has-text-weight-semibold is-size-5"
+              @click.native="trackLinkClick('homepage_deploy_ai_click', 'primary')"
             >
               Deploy AI Workloads <i class="pl-1 fas fa-chevron-right" />
             </nuxt-link>
@@ -172,6 +181,16 @@ export default {
   },
   destroyed () {},
   methods: {
+    trackLinkClick (eventLabel, eventCategory = 'primary', eventValue = 1) {
+      console.log('trackLinkClick', eventLabel, eventCategory, eventValue, window.gtag);
+      if (window.gtag) {
+        window.gtag('event', eventLabel, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          value: eventValue
+        });
+      }
+    },
     onVideoEnd (event) {
       setTimeout(() => {
         event.target.play();

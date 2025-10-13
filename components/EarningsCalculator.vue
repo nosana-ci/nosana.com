@@ -34,7 +34,9 @@
               max="744"
             >
           </div>
-          <p style="margin-top: -5px;" class="has-text-centered">{{ availableHours }} hours</p>
+          <p style="margin-top: -5px;" class="has-text-centered">
+            {{ availableHours }} hours
+          </p>
         </div>
 
         <div>
@@ -101,12 +103,14 @@
       <div class="modal-background" @click="gpuListModal = false" />
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Supported GPU Types</p>
-          <button class="delete" aria-label="close" @click="gpuListModal = false"></button>
+          <p class="modal-card-title">
+            Supported GPU Types
+          </p>
+          <button class="delete" aria-label="close" @click="gpuListModal = false" />
         </header>
         <section class="modal-card-body">
           <div class="is-flex is-flex-wrap-wrap">
-            <div v-for="gpu in gpuTypes" v-bind:key="gpu" class="gpu-type">
+            <div v-for="gpu in gpuTypes" :key="gpu" class="gpu-type">
               {{ gpu }}
             </div>
           </div>
