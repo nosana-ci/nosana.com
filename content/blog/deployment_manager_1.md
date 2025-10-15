@@ -2,7 +2,7 @@
 title: "Elevating the Deployment Experience: Introducing Nosana's New Deployment Manager"
 description: "This is the first article in our technical series exploring how we're revolutionizing deployments on the Nosana network."
 img: /img/NosanaDeploymentManagerBlog.jpg
-createdAt: "2025-08-22"
+createdAt: "2025-10-16"
 tags:
   - product
 ---
@@ -69,16 +69,17 @@ await deployment.vault.withdraw();
 
 ## The Power of Functional Composition
 
-One of our favorite features is the `pipe` function, which brings functional programming elegance to deployment management. Chain multiple operations together in a clean, readable flow:
+One of our favorite features is the `pipe` function, which brings functional programming elegance to deployment management. Chain multiple operations together in a clean, readable flow. So the example above can be composed into a single, elegant pipeline:
 
 ```typescript
 const deployment = await client.deployments.pipe(
   deploymentConfig,
   async (d) => await d.vault.topup({ SOL: 0.1, NOS: 5 }),
   async (d) => await d.start(),
-  async (d) => await d.updateReplicas(5),
-  async (d) => console.log(`Deployment ${d.state.id} is running!`)
+  async (d) => await d.updateReplicas(5)
 );
+
+console.log(`Deployment ${deployment.state.id} is running!`);
 ```
 
 This pattern makes complex deployment workflows feel natural and keeps your code clean and testable.
@@ -87,9 +88,9 @@ This pattern makes complex deployment workflows feel natural and keeps your code
 
 We've built comprehensive state management into the deployment lifecycle. Your deployments move through clear, well-defined states:
 
-- **DRAFT** → **STARTING** → **RUNNING** → **STOPPING** → **STOPPED**
+- **DRAFT** → **STARTING** → **RUNNING** → **STOPPING** → **STOPPED** → **ACHIEVED**
 
-Each state transition is atomic and predictable. Plus, we've added intelligent error handling for common scenarios like insufficient funds, giving you clear feedback when something needs attention.
+Each state transition is atomic and predictable. Plus, we've added intelligent error handling for common scenarios like insufficient funds, giving you clear feedback when something needs attention. Once the job has reached the `ACHIEVED` state, no further changes can be made, ensuring the integrity of completed deployments.
 
 ## Monitoring and Observability
 
@@ -121,28 +122,48 @@ async function deployMyApp() {
 
   // Define your job
   const jobDefinition = {
+    version: "0.1",
+    type: "container",
+    global: {
+      variables: {
+        MODEL: "gpt-oss:20b",
+      },
+    },
     ops: [
       {
         id: "gpt-oss:20b",
-        args: {
-          image: "docker.io/ollama/ollama:0.12.0",
-          entrypoint: ["/bin/sh", "-c"],
-          env: {
-            MODEL: "gpt-oss:20b",
-            OLLAMA_HOST: "0.0.0.0:11434",
-            OLLAMA_ORIGINS: "*",
-          },
-          cmd: [
-            "ollama serve & sleep 5 && ollama pull $MODEL && tail -f /dev/null",
-          ],
-          expose: [{ port: 11434 }],
-          gpu: true,
-        },
         type: "container/run",
+        args: {
+          gpu: true,
+          image: "docker.io/ollama/ollama:0.12.0",
+          expose: [
+            {
+              port: 11434,
+              health_checks: [
+                {
+                  type: "http",
+                  path: "/api/tags",
+                  method: "GET",
+                  expected_status: 200,
+                  continuous: false,
+                },
+              ],
+            },
+          ],
+          resources: [
+            {
+              type: "Ollama",
+              model: "%%global.variables.MODEL%%",
+            },
+          ],
+        },
       },
     ],
-    type: "container",
-    version: "0.1",
+    meta: {
+      system_requirements: {
+        required_vram: 16,
+      },
+    },
   };
 
   // Pin to IPFS
@@ -170,10 +191,8 @@ async function deployMyApp() {
 
 This is just the beginning. In the coming weeks, we'll be diving deeper into:
 
-- **Part 2**: Advanced deployment patterns and strategies
-- **Part 3**: Building self-healing, infinitely-running services
-- **Part 4**: Optimizing costs and performance for large-scale deployments
-- **Part 5**: Integration patterns with CI/CD pipelines
+- **Part 2**: Dashboard UI updates, real-time monitoring, and managing deployments visually
+- **Part 3**: Advanced deployment strategies, building self-healing, infinitely-running services
 
 We're also working on exciting features like:
 
@@ -189,26 +208,16 @@ The Nosana Deployment Manager represents a fundamental shift in how we think abo
 **Ready to get started?**
 
 - 📦 Install the SDK: `npm install @nosana/sdk`
-- 📚 Check out the [full documentation](https://docs.nosana.io)
+- 📖 Read the [Deployment Manager Docs](https://github.com/nosana-ci/nosana-sdk/tree/main/src/services/deployments)
+- 🦢 Check out the [Swagger Docs](https://deployment-manager.k8s.prd.nos.ci/documentation/swagger#/)
 - 💻 Explore the [code on GitHub](https://github.com/nosana-ci/nosana-sdk/tree/main/src/services/deployments)
-- 💬 Join our [Discord community](https://discord.gg/nosana) for support
+- 📚 Check out the [Nosana documentation](https://docs.nosana.io)
 
 Have feedback or questions? We'd love to hear from you! Drop us a line in Discord or open an issue on GitHub. Together, we're building the future of distributed computing—one deployment at a time.
 
 ---
 
-_Stay tuned for Part 2 of our technical series, where we'll explore advanced deployment patterns and show you how to build resilient, production-grade applications on the Nosana network._
-
-## Useful Links
-
-- [Nosana Documentation](https://docs.nosana.com)
-- [Join the Discord](https://nosana.com/discord)
-- [Follow us on X](https://nosana.com/x)
-- [Nosana on GitHub](https://nosana.com/github)
-
----
-
-Want access to exclusive builder perks, early challenges, and Nosana credits?
+Want to access to exclusive builder perks, early challenges, and Nosana credits?
 Subscribe to our newsletter and never miss an update.
 
 👉 [ Join the Nosana Builders Newsletter ](https://e86f0b9c.sibforms.com/serve/MUIFALaEjtsXB60SDmm1_DHdt9TOSRCFHOZUSvwK0ANbZDeJH-sBZry2_0YTNi1OjPt_ZNiwr4gGC1DPTji2zdKGJos1QEyVGBzTq_oLalKkeHx3tq2tQtzghyIhYoF4_sFmej1YL1WtnFQyH0y1epowKmDFpDz_EdGKH2cYKTleuTu97viowkIIMqoDgMqTD0uBaZNGwjjsM07T)
@@ -221,3 +230,11 @@ Be the first to know about:
 - 🎁 Early-bird credits and partner perks
 
 Join the Nosana builder community today — and build the future of decentralized AI.
+
+---
+
+## Useful Links
+
+- [Join the Discord](https://nosana.com/discord)
+- [Follow us on X](https://nosana.com/x)
+- [Nosana on GitHub](https://nosana.com/github)
