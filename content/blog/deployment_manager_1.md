@@ -7,8 +7,6 @@ tags:
   - product
 ---
 
-# Elevating the Deployment Experience: Introducing Nosana's New Deployment Manager
-
 _This is the first article in our technical series exploring how we're revolutionizing deployments on the Nosana network. Over the coming weeks, we'll dive deep into the features, architecture, and innovations that make distributed computing more accessible than ever._
 
 ## The Challenge of Distributed Deployments
