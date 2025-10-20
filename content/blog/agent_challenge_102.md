@@ -14,8 +14,8 @@ The Nosana Builder Challenge is back! After the success of Agents 101, we're exc
 
 - **Prize Pool**: $3,000 USDC for top 10 submissions
 - **Start Date**: October 10, 2025
-- **Submission Deadline**: October 24, 2025
-- **Winners Announced**: October 31, 2025
+- **Submission Deadline**: October 31, 2025
+- **Winners Announced**: October 07, 2025
 - **Submission Platform**: [SuperTeam Builders Challenge Page](https://earn.superteam.fun/listing/nosana-builders-challenge-agents-102)
 - **GitHub Repository**: [Agent Challenge Starter](https://github.com/nosana-ci/agent-challenge)
 
