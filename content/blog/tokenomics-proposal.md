@@ -41,7 +41,7 @@ Imagine a simple feedback loop: NOS rewards pay hosts for uptime and reliability
 
 ## **Addressing common concerns**
 
-## It is natural to wonder how these changes may affect staking rewards. The key takeaway is that rewards will be **realigned to reflect actual contribution**. Emissions will be directed toward participants who provide capacity and maintain network reliability, ensuring that rewards are both meaningful and performance‑based. This approach is designed to strengthen network integrity and support the long‑term value of NOS.
+It is natural to wonder how these changes may affect staking rewards. The key takeaway is that rewards will be **realigned to reflect actual contribution**. Emissions will be directed toward participants who provide capacity and maintain network reliability, ensuring that rewards are both meaningful and performance‑based. This approach is designed to strengthen network integrity and support the long‑term value of NOS.
 
 ## **Timeline and how to engage**
 
