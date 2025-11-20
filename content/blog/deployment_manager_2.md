@@ -7,7 +7,7 @@ tags:
   - product
 ---
 
-_This is Part 2 of our technical series on the Nosana Deployment Manager. In [Part 1](/blog/deployment-manager), we explored the powerful SDK and API. Today, we're diving into the visual interface that brings it all together._
+_This is Part 2 of our technical series on the Nosana Deployment Manager. In [Part 1](/blog/deployment_manager_1), we explored the powerful SDK and API. Today, we're diving into the visual interface that brings it all together._
 
 ## From Code to Canvas
 
@@ -237,7 +237,7 @@ Join the Nosana builder community today — and build the future of decentralize
 ## Useful Links
 
 - [Try the Dashboard](https://dashboard.nosana.com)
-- [Read Part 1: Introducing the Deployment Manager](/blog/deployment-manager)
+- [Read Part 1: Introducing the Deployment Manager](/blog/deployment_manager_1)
 - [Install the SDK](https://www.npmjs.com/package/@nosana/sdk): `npm install @nosana/sdk`
 - [Deployment Manager SDK Docs](https://github.com/nosana-ci/nosana-sdk/tree/main/src/services/deployments)
 - [Join the Discord](https://nosana.com/discord)
