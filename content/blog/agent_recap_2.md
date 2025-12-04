@@ -2,7 +2,7 @@
 title: "Agent 102 Recap: MCP, Mastra, and the Next Wave of AI Builders"
 description: Agent 102 our third Builders’ Challenge, pushed the bar higher and our builders cleared it with style.
 img: /img/NosanaBuildersChallengeWrapped102.jpg
-createdAt: "2025-12-05"
+createdAt: "2025-12-04"
 tags:
   - product
 ---
