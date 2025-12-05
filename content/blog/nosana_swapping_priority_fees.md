@@ -52,7 +52,7 @@ Solana offers a way to include a “priority fee,” which essentially tips the 
 
 We’re continually working to make Nosana more reliable and user-friendly. If you have any questions—or run into any issues with swapping or priority fees—don’t hesitate to reach out.
 
-**Join our [Discord community](https://discord.gg/nosana) for support,** and feel free to ask any questions. Our team is here to help!
+**Join our [Discord community](https://nosana.com/discord) for support,** and feel free to ask any questions. Our team is here to help!
 
 ---
 

@@ -313,7 +313,7 @@ All prizes are paid out directly to participants on [SuperTeam](https://supertea
 
 ### Support
 
-- Join [Nosana Discord](https://discord.gg/nosana) for technical support where we have dedicated [Builders Challenge Dev chat](https://discord.com/channels/236263424676331521/1354391113028337664) channel.
+- Join [Nosana Discord](https://nosana.com/discord) for technical support where we have dedicated [Builders Challenge Dev chat](https://discord.com/channels/236263424676331521/1354391113028337664) channel.
 - Follow [@nosana_ai](https://x.com/nosana_ai) for updates.
 
 ### Important Notes
