@@ -213,8 +213,8 @@ You’ll be the first to know about:
 
 **Useful Links:**
 
-* Join Discord → [https://discord.gg/nosana](https://discord.gg/nosana)
+* Join Discord → [https://nosana.com/discord](https://nosana.com/discord)
 
-* Follow on X → [https://x.com/nosana\_ai](https://x.com/nosana_ai)
+* Follow on X → [https://nosana.com/x](https://nosana.com/x)
 
-* Nosana GitHub → [https://github.com/nosana-ci](https://github.com/nosana-ci)
+* Nosana GitHub → [https://nosana.com/github](https://nosana.com/github)
