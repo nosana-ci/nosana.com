@@ -139,19 +139,12 @@ When experimentation is no longer limited by cost, queues, or compute bottleneck
 
 [**Apply for a Grant**](https://forms.gle/1CzV4UdkiFov1Bhp8%20)
 
+Learn more at: [**Nosana Grants Page**](https://grants.nosana.com/)
 Any questions?  
 Reach out anytime, we’re here to help: **grants@nosana.ai**
 
 The future of AI won’t be shaped by a few companies. It will be shaped by the builders \- the ones experimenting, creating, and believing in a more open, accessible AI ecosystem.  
 The Nosana Grants Program is here to help those builders move faster.
-
-## **Useful Links**
-
-- [**Nosana Grants Page**](https://grants.nosana.com/)
-- [**Nosana Website**](https://nosana.com/)
-- [**Join the Discord**](https://nosana.com/discord)
-- [**Follow us on X**](https://nosana.com/x)
-- [**Nosana on GitHub**](https://nosana.com/github)
 
 ## **Join the Nosana Builder Community**
 
@@ -169,10 +162,10 @@ You’ll be the first to know about:
 
 - Early-bird credits and partner perks
 
-**Useful Links:**
+## **Useful Links**
 
-- Join Discord → [https://nosana.com/discord](https://nosana.com/discord)
-
-- Follow on X → [https://nosana.com/x](https://nosana.com/x)
-
-- Nosana GitHub → [https://nosana.com/github](https://nosana.com/github)
+- [**Nosana Grants Page**](https://grants.nosana.com/)
+- [**Nosana Website**](https://nosana.com/)
+- [**Join the Discord**](https://nosana.com/discord)
+- [**Follow us on X**](https://nosana.com/x)
+- [**Nosana on GitHub**](https://nosana.com/github)
