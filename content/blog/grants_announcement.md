@@ -146,7 +146,7 @@ When experimentation is no longer limited by cost, queues, or compute bottleneck
 [**Apply for a Grant**](https://forms.gle/1CzV4UdkiFov1Bhp8%20)
 
 Any questions?  
-Reach out anytime, we’re here to help: [**grants@nosana.io**](mailto:grants@nosana.io)
+ [_\*\*Reach out anytime, we’re here to help:_](mailto:grants@nosana.io)
 
 The future of AI won’t be shaped by a few companies. It will be shaped by the builders \- the ones experimenting, creating, and believing in a more open, accessible AI ecosystem.  
 The Nosana Grants Program is here to help those builders move faster.
