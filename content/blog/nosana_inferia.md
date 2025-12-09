@@ -1,6 +1,6 @@
 ---
 title: "From Vision to Production: How Inferia Built the Future of AI Deployment with Nosana"
-description: ""
+description: "How Inferia built a platform that deploys AI models in under 60 seconds using Nosana's decentralized GPU network."
 img: /img/nosana-inferia.png
 createdAt: "2025-12-05"
 tags:
@@ -9,7 +9,7 @@ tags:
 
 ## **Introduction**
 
-Inferia began with a clear observation. AI models were advancing rapidly, but the experience of putting them into production was not evolving at the same pace. The founders believed deploying a model should feel as simple and seamless as publishing a website. With this vision in mind and with Nosana’s decentralized GPU network as the foundation,  they set out to create a new kind of deployment experience.
+Inferia began with a clear observation. AI models were advancing rapidly, but the experience of putting them into production was not evolving at the same pace. The founders believed deploying a model should feel as simple and seamless as publishing a website. With this vision in mind and with Nosana’s decentralized GPU network as the foundation, they set out to create a new kind of deployment experience.
 
 One that is fast, intuitive, and accessible to developers who want to focus on building rather than managing infrastructure.
 
@@ -64,13 +64,13 @@ Switching from OpenAI to an Inferia endpoint requires changing just one line of 
 
 Developers pay only for actual usage.
 
-* Unused time is automatically refunded.
+- Unused time is automatically refunded.
 
-* Test deployments cost only a few cents.
+- Test deployments cost only a few cents.
 
-* No unexpected charges.
+- No unexpected charges.
 
-* No long-term commitments.
+- No long-term commitments.
 
 ## **How Inferia Was Built**
 
@@ -94,13 +94,13 @@ When Inferia connected with Nosana, they gained more than GPUs. They gained a pa
 
 They received:
 
-* Stable compute for long development cycles
+- Stable compute for long development cycles
 
-* Hands-on engineering support
+- Hands-on engineering support
 
-* Freedom to experiment without financial pressure
+- Freedom to experiment without financial pressure
 
-* Direct connection to a community of other builders
+- Direct connection to a community of other builders
 
 The partnership accelerated Inferia’s progress in a way that traditional providers could not match.
 
@@ -110,15 +110,15 @@ The partnership accelerated Inferia’s progress in a way that traditional provi
 
 Over months of development, Inferia achieved outcomes that many teams struggle to deliver even with much larger budgets:
 
-* Deployments that complete in sixty seconds
+- Deployments that complete in sixty seconds
 
-* A sixty-nine percent reduction in inference costs via optimized GPU matching
+- A sixty-nine percent reduction in inference costs via optimized GPU matching
 
-* Four times faster provisioning through Nosana’s distributed storage
+- Four times faster provisioning through Nosana’s distributed storage
 
-* Access to more than two million Hugging Face models
+- Access to more than two million Hugging Face models
 
-* OpenAI-compatible APIs requiring no migration work
+- OpenAI-compatible APIs requiring no migration work
 
 As the Inferia team explained:
 
@@ -167,15 +167,15 @@ This frustration with fragmented DevOps, unpredictable GPU infrastructure, and s
 
 The founding team brings deep experience across:
 
-* AI infrastructure & model lifecycles
+- AI infrastructure & model lifecycles
 
-* Developer tooling & automation
+- Developer tooling & automation
 
-* Distributed systems & high-performance APIs
+- Distributed systems & high-performance APIs
 
-* Real-world production workflows
+- Real-world production workflows
 
-* GPU orchestration & multi-provider compute
+- GPU orchestration & multi-provider compute
 
 ### **Origin Story**
 
@@ -203,18 +203,19 @@ Want access to exclusive builder perks, early challenges, and free Nosana credit
 
 You’ll be the first to know about:
 
-* Builders Challenges
+- Builders Challenges
 
-* New reward opportunities
+- New reward opportunities
 
-* Product updates and feature drops
+- Product updates and feature drops
 
-* Early-bird credits and partner perks
+- Early-bird credits and partner perks
 
 **Useful Links:**
 
-* Join Discord → [https://nosana.com/discord](https://nosana.com/discord)
+- Join Discord → [https://nosana.com/discord](https://nosana.com/discord)
 
-* Follow on X → [https://nosana.com/x](https://nosana.com/x)
+- Follow on X → [https://nosana.com/x](https://nosana.com/x)
 
-* Nosana GitHub → [https://nosana.com/github](https://nosana.com/github)
+- Nosana GitHub → [https://nosana.com/github](https://nosana.com/github)
+
