@@ -145,7 +145,7 @@ export default {
       return new Date(date).toLocaleDateString('en', options);
     },
     async fetchBlogs () {
-      console.log('params in fetch', this.$route.query);
+      // console.log('params in fetch', this.$route.query);
       this.currentPage = this.$route.query && this.$route.query.page ? parseInt(this.$route.query.page) : 1;
       const allArticles = await this.$content('blog').where({
         ...(this.$route.query && this.$route.query.tag && this.$route.query.tag.length > 0) &&
