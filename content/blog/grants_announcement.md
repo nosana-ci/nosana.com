@@ -11,14 +11,16 @@ Every month, AI builders push the boundary of what’s possible \- agents steppi
 
 The one thing that hasn't kept pace is the infrastructure behind it. Cloud queues stretch longer, inference costs rise, and GPU access remains limited \- it’s a slowdown every builder has felt. Not because of a lack of imagination, but because the overhead gets in the way.
 
-The Nosana Grants Program is designed to close that gap. If you're building products meant for the next phase of AI, you shouldn’t have to wait for better timing or better infrastructure. You should be able to move faster, experiment freely, and ship when the idea is hot \- not years after the momentum fades\!
+The [Nosana Grants Program](https://grants.nosana.com/) is designed to close that gap. If you're building products meant for the next phase of AI, you shouldn’t have to wait for better timing or better infrastructure. You should be able to move faster, experiment freely, and ship when the idea is hot \- not years after the momentum fades\!
 
 If you are building for the next phase of AI, you are exactly the kind of builder this program was designed for.
 
-## **What the Nosana Grants Program Is All About**
+## **What [the Nosana Grants Program](https://grants.nosana.com/) Is All About**
+
+##
 
 The Nosana Grants Program is built for people who are genuinely moving the AI space forward.  
-If you’re orchestrating agents, training AI/ML models, shaping intelligent infrastructure, creating tooling for builders, designing data pipelines, building launchpads, or experimenting with ideas that don’t fit neatly into a category — this program gives you the backing to build with more freedom and confidence.
+If you’re orchestrating agents, training AI/ML models, shaping intelligent infrastructure, creating tooling for builders, designing data pipelines, building launchpads, or experimenting with ideas that don’t fit neatly into a category \- this program gives you the backing to build with more freedom and confidence.
 
 Funding ranges from **$5,000 to $50,000 USD** and is released through self-defined milestone stages. You can receive it in **stablecoins, NOS tokens, or compute credits** you can use across the Nosana ecosystem.
 
@@ -38,7 +40,7 @@ Funding ranges from **$5,000 to $50,000 USD** and is released through self-defin
 
 - LLM-powered applications
 
-- Gen-AI video and creative tools
+- Gen-AI workloads for video, audio, image, and other media creation tools.
 
 - Developer tooling for the AI/ML ecosystem
 
@@ -48,7 +50,7 @@ Funding ranges from **$5,000 to $50,000 USD** and is released through self-defin
 
 - Early-stage or experimental ideas that need room to grow
 
-**If you’re building something fresh, ambitious, or genuinely useful — and Nosana fits into your stack — you’re in the right place. 🔮**
+**If you’re building something fresh, ambitious, or genuinely useful and Nosana fits into your stack \- you’re in the right place. 🔮**
 
 ## **Who the Program Is Designed For**
 
@@ -60,7 +62,7 @@ It is for
  • Scale ups exploring new AI capabilities  
  • Open source contributors  
  • Researchers and technical groups  
- • And the dreamers and vibers who treat creation like oxygen
+ • And the dreamers and vibers who treat creation like oxygen\!
 
 ## **What the Program Provides**
 
@@ -127,7 +129,7 @@ Real-world results are the clearest proof of what a decentralized compute can un
 
 As the Inferia team describes it, _“Nosana allowed us to move faster than traditional clouds ever could. We could iterate, deploy, and test without waiting in line for compute.”_
 
-This is exactly the kind of momentum the Nosana Grants Program aims to support — practical acceleration that lets teams build at the speed of their ideas.
+This is exactly the kind of momentum the Nosana Grants Program aims to support \- practical acceleration that lets teams build at the speed of their ideas.
 
 Sjoerd Dijkstra, Co-Founder of Nosana, captures the spirit of the program best:
 
@@ -135,13 +137,16 @@ Sjoerd Dijkstra, Co-Founder of Nosana, captures the spirit of the program best:
 
 When experimentation is no longer limited by cost, queues, or compute bottlenecks, teams like Inferia can move from idea to implementation without losing momentum \- the same freedom Nosana wants every grant recipient to experience\!
 
+[Find out more in the blog](https://nosana.com/blog/nosana_inferia).
+
 ## **Let’s Move Forward?**
+
+**Learn more at: [Nosana Grants Page](https://grants.nosana.com/)**
 
 [**Apply for a Grant**](https://forms.gle/1CzV4UdkiFov1Bhp8%20)
 
-Learn more at: [**Nosana Grants Page**](https://grants.nosana.com/)
 Any questions?  
-Reach out anytime, we’re here to help: **grants@nosana.ai**
+Reach out anytime, we’re here to help: [**grants@nosana.io**](mailto:grants@nosana.io)
 
 The future of AI won’t be shaped by a few companies. It will be shaped by the builders \- the ones experimenting, creating, and believing in a more open, accessible AI ecosystem.  
 The Nosana Grants Program is here to help those builders move faster.
