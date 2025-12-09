@@ -1,6 +1,6 @@
 ---
-title: "The Nosana Grants Program"
-description: "Fueling the Next Wave of AI Builders, Vibers, and Dreamers"
+title: "The Nosana Grants Program: Fueling the Next Wave of AI Builders, Vibers, and Dreamers"
+description: "Access $5K-$50K in funding, compute credits, and decentralized GPU infrastructure to build the next generation of AI products."
 img: /img/Nosana_Grants_Announcement_Banner.png
 createdAt: "2025-12-10"
 tags:
@@ -141,7 +141,7 @@ When experimentation is no longer limited by cost, queues, or compute bottleneck
 
 ## **Let’s Move Forward?**
 
-**Learn more at: [Nosana Grants Page](https://grants.nosana.com/)**
+**[Learn more about Nosana Grants Page](https://grants.nosana.com/)**
 
 [**Apply for a Grant**](https://forms.gle/1CzV4UdkiFov1Bhp8%20)
 
