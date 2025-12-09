@@ -9,7 +9,7 @@ tags:
 
 ## **Introduction**
 
-Inferia began with a clear observation. AI models were advancing rapidly, but the experience of putting them into production was not evolving at the same pace. The founders believed deploying a model should feel as simple and seamless as publishing a website. With this vision in mind and with Nosana’s decentralized GPU network as the foundation,  they set out to create a new kind of deployment experience.
+Inferia began with a clear observation. AI models were advancing rapidly, but the experience of putting them into production was not evolving at the same pace. The founders believed deploying a model should feel as simple and seamless as publishing a website. With this vision in mind and with Nosana’s decentralized GPU network as the foundation, they set out to create a new kind of deployment experience.
 
 One that is fast, intuitive, and accessible to developers who want to focus on building rather than managing infrastructure.
 
@@ -19,7 +19,7 @@ Today, that idea is already a reality. Inferia gives developers the ability to d
 
 ## **The Problem, Defined Clearly and Constructively**
 
-As AI continues to grow, a new challenge has emerged. Creating a model has become easier, but running it reliably in production still involves a series of technical steps that require time and attention. None of these steps are unnecessary, they simply take effort that many teams would rather invest into the product itself.
+As AI continues to grow, a new challenge has emerged. Creating a model has become easier, but running it reliably in production still involves a series of technical steps that require time and attention. None of these steps are unnecessary, they simply take effort that many teams would rather invest in the product itself.
 
 Developers often need to select the right GPU, prepare the environment, configure containers, manage networking, monitor performance, and keep costs predictable. These tasks are essential, yet they do not need to slow innovation.
 
@@ -122,14 +122,14 @@ Over months of development, Inferia achieved outcomes that many teams struggle t
 
 As the Inferia team explained:
 
-“Decentralization does not need to add complexity. When designed well, it simplifies everything.”
+> “Decentralization does not need to add complexity. When designed well, it simplifies everything.”
 
 ---
 
 ## **What the Inferia Team Says**
 
-“Inferia exists to make deploying AI models as simple as deploying a website \- fast, predictable, and developer-first. Nosana has been an integral part of that mission. Their decentralized GPU network gave us the freedom, flexibility, and reliability we needed to build the fastest model-deployment platform in the industry. We chose Nosana because they move like builders, not bureaucrats, fast, collaborative, and deeply aligned with real developer pain. This is only the beginning of what we’ll build together.”  
- — **Inferia Team**
+> “Inferia exists to make deploying AI models as simple as deploying a website \- fast, predictable, and developer-first. Nosana has been an integral part of that mission. Their decentralized GPU network gave us the freedom, flexibility, and reliability we needed to build the fastest model-deployment platform in the industry. We chose Nosana because they move like builders, not bureaucrats, fast, collaborative, and deeply aligned with real developer pain. This is only the beginning of what we’ll build together.”  
+> — **Inferia Team**
 
 ## **What This Means for Builders**
 
@@ -150,6 +150,9 @@ And this is only the beginning.
 Inferia is not just a partner in the ecosystem, it is also built on top of internal technology that Nosana has been evolving. More information about this work will be shared very soon.
 
 Developers can expect exciting announcements in the coming weeks as the next chapter of this collaboration unfolds.
+
+> “We're thrilled to see Inferia building on Nosana exactly as we envisioned. They're not just deploying AI models, they're inspiring developers everywhere to rethink what's possible with decentralized infrastructure. This partnership perfectly showcases the potential of DePIN.”  
+>**‐ Jesse Eisses, Co-Founder Nosana**
 
 ---
 
@@ -199,7 +202,7 @@ Together, they’re redefining what AI deployment can feel like \- not a hurdle,
 
 Want access to exclusive builder perks, early challenges, and free Nosana credits?
 
-👉 **Join the Nosana Builders Newsletter:** nosana.com/newsletter/
+👉 **[Join the Nosana Builders Newsletter](https://nosana.com/newsletter)** 
 
 You’ll be the first to know about:
 
@@ -218,3 +221,4 @@ You’ll be the first to know about:
 * Follow on X → [https://nosana.com/x](https://nosana.com/x)
 
 * Nosana GitHub → [https://nosana.com/github](https://nosana.com/github)
+
