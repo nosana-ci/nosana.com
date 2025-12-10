@@ -28,7 +28,7 @@ Funding ranges from **$5,000 to $50,000 USD** and is released through self-defin
 **No long reviews.**  
 **Just support that helps you get your work out of your head and into the world.**
 
-# **What Types of Projects Fit the Program?**
+## **What Types of Projects Fit the Program?**
 
 **The program is broadly open, but especially aligned with work around:**
 
@@ -68,21 +68,17 @@ It is for
 
 The value of the program goes beyond financial support. Teams accepted into the grants program gain access to a focused, structured environment designed to help them deliver and grow.
 
-### **Milestone-Based Financial Support**
+- **Milestone-Based Financial Support**  
+  Funding is awarded in phases tied to transparent self-defined milestones, offering clarity and predictable progress.
 
-Funding is awarded in phases tied to transparent self-defined milestones, offering clarity and predictable progress.
+- **Full Ownership and IP Control**  
+  The program is fully non-dilutive. All work, rights, and intellectual property remain with the builders.
 
-### **Full Ownership and IP Control**
+- **Visibility Within the Ecosystem**  
+  Selected teams may be featured across Nosana’s ecosystem channels, providing meaningful exposure to a global community of developers and partners.
 
-The program is fully non-dilutive. All work, rights, and intellectual property remain with the builders.
-
-### **Visibility Within the Ecosystem**
-
-Selected teams may be featured across Nosana’s ecosystem channels, providing meaningful exposure to a global community of developers and partners.
-
-### **Access to a Supportive Network**
-
-While the program does not include dedicated engineering troubleshooting, teams benefit from light-touch guidance and community support from others working with decentralized compute and AI infrastructure.
+- **Access to a Supportive Network**  
+  While the program does not include dedicated engineering troubleshooting, teams benefit from light-touch guidance and community support from others working with decentralized compute and AI infrastructure.
 
 ## **What Makes a Strong Application**
 
@@ -127,17 +123,19 @@ Real-world results are the clearest proof of what a decentralized compute can un
 
 [Inferia](https://www.inferia.ai/) \- a research-driven AI tooling startup used Nosana to scale their inference pipelines without the usual constraints of cloud queues and unpredictable GPU availability. After migrating their workflows to the decentralized GPU network, Inferia **cut inference costs by 68%** and achieved a **4× improvement in provisioning speed**, giving their team more bandwidth for experimentation instead of infrastructure management.
 
-As the Inferia team describes it, _“Nosana allowed us to move faster than traditional clouds ever could. We could iterate, deploy, and test without waiting in line for compute.”_
+As the **Inferia team** describes it,
+
+> _**Nosana allowed us to move faster than traditional clouds ever could. We could iterate, deploy, and test without waiting in line for compute.**_
 
 This is exactly the kind of momentum the Nosana Grants Program aims to support \- practical acceleration that lets teams build at the speed of their ideas.
 
-Sjoerd Dijkstra, Co-Founder of Nosana, captures the spirit of the program best:
+**Sjoerd Dijkstra, Co-Founder of Nosana**, captures the spirit of the program best:
 
-**“At Nosana, we're fueling the builders who will define the future of decentralized compute. The Nosana Grants Program empowers innovators to push boundaries and bring bold ideas to life.”**
+> _**At Nosana, we're fueling the builders who will define the future of decentralized compute. The Nosana Grants Program empowers innovators to push boundaries and bring bold ideas to life.**_
 
 When experimentation is no longer limited by cost, queues, or compute bottlenecks, teams like Inferia can move from idea to implementation without losing momentum \- the same freedom Nosana wants every grant recipient to experience\!
 
-[Find out more in the blog](https://nosana.com/blog/nosana_inferia).
+[**Find out more in the blog**](https://nosana.com/blog/nosana_inferia).
 
 ## **Let’s Move Forward?**
 
