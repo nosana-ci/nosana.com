@@ -233,6 +233,9 @@
       DOCKER_ARGS+=(--volume podman-socket:/root/.nosana/podman:ro)
     fi
 
+    # Before running a new nosana-cli container, remove dangling nosana-cli images
+    docker images -f "dangling=true" -f "reference=nosana/nosana-cli" -q | xargs -r docker rmi -f
+
     docker run \
       ${DOCKER_ARGS[@]} \
       nosana/nosana-cli:latest \
