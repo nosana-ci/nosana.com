@@ -99,6 +99,16 @@
                 </a>
               </div>
             </div>
+            <div class="navbar-item" @click="mobileMenu = false">
+              <a
+                class="navbar-link is-arrowless"
+                href="https://grants.nosana.com"
+                target="_blank"
+                exact-active-class="is-active"
+              >
+                <div>Grants Program</div>
+              </a>
+            </div>
             <div
               class="navbar-item has-dropdown is-hoverable"
               @click="mobileMenu = false"
