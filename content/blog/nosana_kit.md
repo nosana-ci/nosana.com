@@ -24,6 +24,7 @@ As the Nosana ecosystem grew, we learned what builders really need:
 - **Modern Solana tooling** – Built on [`@solana/kit`](https://github.com/anza-xyz/kit) for better type safety and performance
 - **Production-ready reliability** – 70%+ test coverage and robust error handling
 - **Simple when you need it, powerful when you don't** – Clean APIs for common tasks, with direct on-chain access when needed
+- **Comprehensive Documentation** – Comprehensive documentation at [kit.nosana.com](https://kit.nosana.com/)
 
 So we rebuilt the SDK from scratch with a functional architecture, integrated API client, and a dramatically improved developer experience.
 
