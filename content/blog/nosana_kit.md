@@ -1,7 +1,7 @@
 ---
-title: "Introducing `@nosana/kit`, the comprehensive 2.0 toolchain for Nosana"
+title: "Introducing @nosana/kit, the comprehensive 2.0 toolchain for Nosana"
 description: "Comprehensive toolchain for managing jobs, markets, runs, and protocol operations on the Nosana compute network."
-img: /img/NosanaDeploymentManagerBlog.jpg
+img: /img/nosana_kit.png
 createdAt: "2025-12-23"
 tags:
   - product
