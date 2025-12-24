@@ -22,7 +22,7 @@ One year ago, we launched the first decentralized GPU marketplace for a closed g
 Every GPU host joining Nosana must complete performance benchmarks before entering a Community Market. Proven hosts are upgraded to Premium Markets, serving workloads at higher returns. Ongoing performance tests developed by our R&D lab ensure reliable results, maintaining high standards for AI inference while allowing the network to scale efficiently.
 
 ##### Dynamic Pricing
-Our dynamic pricing model adjusts frequently to reflect market conditions. This approach keeps GPU costs competitive for AI companies while providing consistent income for GPU hosts. Check out our [price calculator](/clients#calculator) and [GPU pricing list](https://dashboard.nosana.com/markets) for details.
+Our dynamic pricing model adjusts frequently to reflect market conditions. This approach keeps GPU costs competitive for AI companies while providing consistent income for GPU hosts. Check out our [price calculator](/clients#calculator) and [GPU pricing list](https://explore.nosana.com/markets) for details.
 
 ##### Explorer and Tools
 The updated Nosana dashboard shows real-time Premium Market availability and lets users run compute jobs directly. AI companies ready for production workloads can contact us to [book a demo](https://calendly.com/d/cqxc-9nr-9s5).
