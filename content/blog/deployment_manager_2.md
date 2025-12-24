@@ -17,7 +17,7 @@ That's why we've built a comprehensive web interface for the Deployment Managerâ
 
 ## The Dashboard at a Glance
 
-When you first visit [dashboard.nosana.com](https://dashboard.nosana.com), you're greeted with a clean, organized view of your deployment ecosystem. The interface is designed around three core workflows:
+When you first visit [deploy.nosana.com](https://deploy.nosana.com), you're greeted with a clean, organized view of your deployment ecosystem. The interface is designed around three core workflows:
 
 1. **Creating deployments** with a guided wizard
 2. **Monitoring deployments** in real-time
@@ -126,7 +126,7 @@ await deployment.stop();
 
 So now you can also manage your deployments using the Nosana API.
 
-On the [account page](https://dashboard.nosana.com/account/deployer), you can create an API key to programmatically interact with your deployments.
+On the [account page](https://deploy.nosana.com/account/), you can create an API key to programmatically interact with your deployments.
 
 
 ![API](/img/dm_ui/api.png)
