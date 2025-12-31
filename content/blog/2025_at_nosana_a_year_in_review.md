@@ -1,13 +1,11 @@
 ---
 title: "December Recap: Closing the Year in Motion"
-description: With the Mainnet launch just weeks away, it feels like the right time to reflect on the milestones that have defined 2025.
+description: December didn’t just close the year, it validated the network! Real GPU workloads, builders shipping in production, and milestones that matter!
 img: /img/december_2025_recap/monthly_newsletter.png
 createdAt: "2025-12-30"
 tags:
   - product
 ---
-
-December didn’t just close the year, it **validated the network**\! Real GPU workloads, builders shipping in production, and milestones that matter\!
 
 Here’s what we shipped 👇
 
