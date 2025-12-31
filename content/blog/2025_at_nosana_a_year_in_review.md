@@ -1,6 +1,6 @@
 ---
 title: "December Recap: Closing the Year in Motion"
-description: With the Mainnet launch just weeks away, it feels like the right time to reflect on the milestones that have defined 2024.
+description: With the Mainnet launch just weeks away, it feels like the right time to reflect on the milestones that have defined 2025.
 img: /img/december_2025_recap/monthly_newsletter.png
 createdAt: "2025-12-30"
 tags:
