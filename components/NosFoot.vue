@@ -36,7 +36,7 @@
                   </nuxt-link>
                   <!-- <a
                     target="_blank"
-                    href="https://dashboard.nosana.com/"
+                    href="https://explore.nosana.com"
                     class="navbar-item"
                     to="/docs"
                     exact-active-class="is-active"
@@ -63,7 +63,7 @@
                   </nuxt-link>
                   <a
                     target="_blank"
-                    href="https://dashboard.nosana.com/stake"
+                    href="https://stake.nosana.com"
                     class="navbar-item"
                     to="/docs"
                     exact-active-class="is-active"

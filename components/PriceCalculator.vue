@@ -103,7 +103,7 @@
             </div>
           </div>
           <a
-            href="https://dashboard.nosana.com/markets"
+            href="https://explore.nosana.com/markets"
             target="_blank"
             class="button is-black is-medium is-fullwidth mt-5"
             @click="trackLinkClick('clients_see_all_gpus_click')"

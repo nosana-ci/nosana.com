@@ -49,7 +49,7 @@
             <p class="mb-5 is-4 is-size-4">
               Select from a library of over 20 ready-made
               <a
-                href="https://dashboard.nosana.com/jobs/templates"
+                href="https://deploy.nosana.com/deployments/create"
                 target="_blank"
                 @click="trackLinkClick('clients_templates_click', 'assist')"
               >templates</a>

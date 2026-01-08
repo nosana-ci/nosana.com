@@ -12,7 +12,7 @@ This past year has been nothing short of transformative for Nosana. It’s been 
 
 One of the most significant achievements of 2024 has been the evolution of the [Test Grid](https://nosana.com/blog/test_grid_phase_2_update) into a truly global network. With over a million inference hours completed and nearly a thousand nodes onboarded from 47 countries, the grid has demonstrated the immense potential of decentralized infrastructure.
 
-Behind these numbers lies a [global network of diverse GPUs](https://dashboard.nosana.com/markets) working together to power real-world applications. More than just data points, they symbolize the power of collaboration, creativity, and a shared vision of what decentralization can achieve.
+Behind these numbers lies a [global network of diverse GPUs](https://explore.nosana.com/markets) working together to power real-world applications. More than just data points, they symbolize the power of collaboration, creativity, and a shared vision of what decentralization can achieve.
 
 **Building Smarter Infrastructure**
 

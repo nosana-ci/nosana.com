@@ -39,7 +39,7 @@
           <div class="navbar-end is-align-items-center">
             <div class="navbar-item mobile-only" @click="mobileMenu = false">
               <a
-                href="https://dashboard.nosana.com/deploy"
+                href="https://deploy.nosana.com"
                 target="_blank"
                 class="button is-secondary is-size-6"
                 @click="trackLinkClick('navbar_deploy_now_click')"
@@ -91,7 +91,7 @@
                   $NOS Token
                 </nuxt-link>
                 <a
-                  href="https://dashboard.nosana.com/stake/"
+                  href="https://stake.nosana.com"
                   target="_blank"
                   class="navbar-item"
                 >
@@ -157,7 +157,7 @@
             </div>
             <div class="navbar-item desktop-only" @click="mobileMenu = false">
               <a
-                href="https://dashboard.nosana.com/deploy"
+                href="https://deploy.nosana.com"
                 target="_blank"
                 class="button is-secondary is-size-6"
                 @click="trackLinkClick('navbar_deploy_now_click')"

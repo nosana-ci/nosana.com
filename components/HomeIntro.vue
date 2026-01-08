@@ -20,7 +20,7 @@
               </p>
             </div>
             <a
-              href="https://dashboard.nosana.com/deploy"
+              href="https://deploy.nosana.com"
               target="_blank"
               class="button is-white is-medium mt-5"
               style="max-width: 350px; width: 100%"
