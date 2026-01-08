@@ -13,15 +13,13 @@
                 src="~/assets/img/Nosana_Logo_horizontal_color_white.svg"
                 class="logo mb-2"
                 style="height: 40px; margin-left: -5px"
-              >
+              />
               <socials class="mb-4" />
             </div>
             <div class="column is-5">
               <div class="columns">
                 <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Product
-                  </h4>
+                  <h4 class="title is-4 mb-3 has-text-white">Product</h4>
                   <nuxt-link
                     class="navbar-item"
                     to="/hosts"
@@ -47,9 +45,7 @@
                   </a> -->
                 </div>
                 <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Network
-                  </h4>
+                  <h4 class="title is-4 mb-3 has-text-white">Network</h4>
                   <nuxt-link
                     class="navbar-item"
                     to="/team"
@@ -76,9 +72,7 @@
                   </a>
                 </div>
                 <div class="column is-4">
-                  <h4 class="title is-4 mb-3 has-text-white">
-                    Resources
-                  </h4>
+                  <h4 class="title is-4 mb-3 has-text-white">Resources</h4>
                   <a
                     href="https://docs.nosana.com"
                     class="navbar-item"
@@ -115,8 +109,10 @@
         </div>
       </nav>
       <div class="py-4 has-radius">
-        <small class="is-size-7 has-text-white">© Nosana Network 2025 The Nosana Network Authors Documentation
-          Distributed under CC BY 4.0</small>
+        <small class="is-size-7 has-text-white"
+          >© Nosana Network {{ new Date().getFullYear() }} The Nosana Network
+          Authors Documentation Distributed under CC BY 4.0</small
+        >
       </div>
     </div>
   </footer>
