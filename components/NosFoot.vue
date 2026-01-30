@@ -74,7 +74,7 @@
                 <div class="column is-4">
                   <h4 class="title is-4 mb-3 has-text-white">Resources</h4>
                   <a
-                    href="https://docs.nosana.com"
+                    href="https://learn.nosana.com"
                     class="navbar-item"
                     to="/docs"
                     exact-active-class="is-active"

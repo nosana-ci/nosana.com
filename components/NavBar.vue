@@ -118,7 +118,7 @@
               </a>
               <div class="navbar-dropdown is-boxed">
                 <a
-                  href="https://docs.nosana.com"
+                  href="https://learn.nosana.com"
                   class="navbar-item"
                   @click="trackLinkClick('nav_docs_click', 'assist')"
                 >

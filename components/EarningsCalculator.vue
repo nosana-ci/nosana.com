@@ -89,7 +89,7 @@
             </div>
           </div>
           <a
-            href="https://docs.nosana.com/hosts/grid.html"
+            href="https://learn.nosana.com/hosts/grid.html"
             target="_blank"
             class="button is-white is-medium is-fullwidth mt-6"
           >
