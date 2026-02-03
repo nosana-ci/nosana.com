@@ -198,7 +198,7 @@
 
   need_cmd() {
     if ! check_cmd "$1"; then
-      err "need '$1' (command not found)"
+      die "need '$1' (command not found)"
     fi
   }
 
@@ -211,7 +211,7 @@
   # command.
   ensure() {
     if ! "$@"; then
-      err "command failed: $*"
+      die "command failed: $*"
     fi
   }
 
@@ -240,7 +240,7 @@
     elif [ "$program" = wget ]; then
       wget "$1" -O "$2"
     else
-      err "Unknown downloader" # should not reach here
+      die "Unknown downloader"
     fi
   }
   
