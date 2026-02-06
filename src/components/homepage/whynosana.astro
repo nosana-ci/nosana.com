@@ -2,7 +2,7 @@
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
-import whyNosanaBg from "../../content/homepage/assets/whyNosanaBg.png";
+import whynosanaBg from "../../content/homepage/assets/whynosanaBg.png";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
@@ -17,7 +17,7 @@ const { whyNosanaSection } = entry.data;
   <div class="relative w-full h-full rounded-xl overflow-hidden">
 
     <Image
-      src={whyNosanaBg}
+      src={whynosanaBg}
       alt=""
       class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
     />

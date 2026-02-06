@@ -115,6 +115,15 @@ const homepageCollection = defineCollection({
         }),
         image: image(),
       }),
+
+      production: z.object({
+        badge: z.object({
+          title: z.string(),
+          icon: image(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+      }),
       
     }),
 });
