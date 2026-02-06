@@ -1,0 +1,22 @@
+---
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+const { rentGPU } = entry.data;
+---
+
+<section class="w-full min-h-screen bg-bg-base px-4 md:px-12">
+  <Badge title={rentGPU.badge.title} class="mb-4" />
+
+  <h2 class="text-primary h4 grotesk max-w-xl mb-4">
+    {rentGPU.heading}
+  </h2>
+
+  <p class="text-secondary md:max-w-2xl leading-relaxed mb-8 md:mb-16 lg:mb-18 body2">
+    {rentGPU.description}
+  </p>
+</section>

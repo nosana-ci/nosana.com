@@ -1,0 +1,44 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import whyNosanaBg from "../../content/homepage/assets/whyNosanaBg.png";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const { whyNosanaSection } = entry.data;
+---
+
+<section class="w-full h-screen bg-bg-base px-4 md:px-12">
+
+  <div class="relative w-full h-full rounded-xl overflow-hidden">
+
+    <Image
+      src={whyNosanaBg}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+    />
+
+    <div class="absolute inset-0 p-4 md:p-8">
+      
+      <Badge
+        title={whyNosanaSection.badge.title}
+        class="mb-4"
+      />
+
+      <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+        {whyNosanaSection.heading}
+      </h2>
+
+      <p class="text-secondary md:max-w-xl leading-relaxed body2">
+        {whyNosanaSection.description}
+      </p>
+
+    </div>
+
+  </div>
+
+</section>

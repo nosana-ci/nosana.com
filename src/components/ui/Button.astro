@@ -22,13 +22,13 @@ const {
 } = Astro.props;
 
 const baseStyles =
-  "rounded-sm flex items-stretch transition-all group overflow-hidden whitespace-nowrap font-semibold";
+  "rounded-sm inline-flex items-stretch transition-all group overflow-hidden whitespace-nowrap font-semibold";
 
 const variants = {
   primary: "bg-primary text-secondarydark hover:bg-primary/90",
   secondary: "bg-white/15 hover:bg-white/20 border border-default text-primary",
   ghost: "text-primary hover:text-brand-100",
-  colored: "text-primary",
+  colored: "text-primary hover:brightness-90 transition-all",
 };
 
 const variantStyle = variants[variant];
@@ -44,13 +44,18 @@ const customStyle =
 >
   <span
     class:list={[
-      "flex items-center gap-2 transition-colors",
+      "flex items-center gap-2 transition-colors body4",
       variant === "ghost" ? "py-2 px-1" : "p-2 lg:py-3 lg:px-4",
     ]}
   >
     {
       icon && (
-        <span class="w-4 h-4 flex items-center justify-center transition-colors">
+      <span
+        class:list={[
+          "w-4 h-4 flex items-center justify-center transition-colors",
+          variant !== "ghost" && "text-brand-300",
+        ]}
+      >
           {typeof icon === "string" && icon.includes("<svg") ? (
             <span class="w-full h-full [&_path]:fill-current pointer-events-none select-none">
               <Fragment set:html={icon} />

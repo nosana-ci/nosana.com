@@ -37,29 +37,89 @@ const navbarCollection = defineCollection({
 
 const homepageCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/homepage" }),
-  schema: ({ image }) => z.object({
-    badge: z.object({
-      title: z.string(),
-      icon: image(),
-    }).optional(),
-    hero: z.object({
-      title: z.string(),
-      description: z.string(),
+  schema: ({ image }) =>
+    z.object({
+      heroSection: z.object({
+        badge: z.object({
+          title: z.string(),
+          icon: image(),
+        }).optional(),
+
+        heading: z.string(),
+        description: z.string(),
+
+        cta1: z.object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          }).optional(),
+
+        cta2: z.object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          }).optional(),
+      }),
+
+      brands: z.array(
+        z.object({
+          name: z.string(),
+          logo: image(),
+        })
+      ).optional(),
+
+      pathSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+      }),
+
+      ecosystemSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+        stats: z.array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+          })
+        ),
+      }),
+
+      whyNosanaSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+      }),
+
+      rentGPU: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+      }),
+
+      banner: z.object({
+        heading: z.string(),
+        description: z.string(),
+        cta: z.object({
+          title: z.string(),
+          url: z.string(),
+          icon: image(),
+        }),
+        image: image(),
+      }),
+      
     }),
-    cta1: z.array(z.object({
-      title: z.string(),
-      url: z.string(),
-      icon: image().optional(),
-    })).optional(),
-    cta2: z.array(z.object({
-      title: z.string(),
-      url: z.string(),
-      icon: image().optional(),
-    })).optional(),
-  }),
 });
 
 export const collections = {
-  'navbar': navbarCollection,
-  'homepage': homepageCollection,
+  navbar: navbarCollection,
+  homepage: homepageCollection,
 };

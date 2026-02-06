@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("homepage", "index");
+
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const brands = entry.data.brands ?? [];
+const loopBrands = [...brands, ...brands];
+---
+
+{
+  brands.length > 0 && (
+    <div class="w-full relative marquee-container">
+      <div class="flex gap-10 md:gap-20 w-max animate-marquee">
+        {loopBrands.map((brand) => (
+          <div class="shrink-0 items-center justify-center opacity-60 filter grayscale transition-all duration-300 hover:opacity-100 hover:filter-none">
+            <Image
+              src={brand.logo}
+              alt={brand.name}
+              class="h-[37px] w-auto object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

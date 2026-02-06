@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  title: string;
+  icon?: ImageMetadata;
+  variant?: "default" | "filled";
+  class?: string;
+}
+
+const {
+  title,
+  icon,
+  variant = "default",
+  class: className,
+} = Astro.props;
+
+const baseStyles =
+  "inline-flex items-center gap-2 py-2 px-4 rounded-full border border-default";
+
+const filledStyle =
+  variant === "filled" ? "bg-white/15" : "";
+---
+
+<div class:list={[baseStyles, filledStyle, className]}>
+  {icon && (
+    <Image
+      src={icon}
+      alt=""
+      class="md:w-6 md:h-6 w-4 h-4"
+    />
+  )}
+
+  <span class="text-primary body3">
+    {title}
+  </span>
+</div>

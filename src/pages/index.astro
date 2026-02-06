@@ -1,9 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/homepage/hero.astro";
+import Brands from "../components/homepage/brands.astro";
+import PathSection from "../components/homepage/path.astro";
+import EcosystemSection from "../components/homepage/ecosystem.astro";
+import Divider from "../components/ui/divider.astro";
+import WhyNosanaSection from "../components/homepage/whynosana.astro";
+import RentGPUSection from "../components/homepage/rentgpu.astro";
+import Banner from "../components/homepage/banner.astro";
 ---
 
 <Layout title="Nosana | Home Page">
 	<Hero />
-	<div class="h-screen w-full bg-red-500"></div>
+	<div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full"><Brands /></div>
+	<PathSection />
+	<Divider />
+	<EcosystemSection />
+	<Divider />
+	<WhyNosanaSection />
+	<Divider />
+	<RentGPUSection />
+	<Banner />
+	<Divider />
+	<div class="h-screen bg-red-400"></div>
 </Layout>

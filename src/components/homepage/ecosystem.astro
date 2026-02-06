@@ -1,0 +1,53 @@
+---
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+const { ecosystemSection } = entry.data;
+---
+
+<section class="w-full bg-bg-base px-4 md:px-12">
+  <Badge title={ecosystemSection.badge.title} class="mb-4" />
+
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+    {ecosystemSection.heading}
+  </h2>
+
+  <p class="text-secondary md:max-w-xl leading-relaxed mb-8 md:mb-16 lg:mb-18 body2">
+    {ecosystemSection.description}
+  </p>
+
+  <div class="w-full md:pb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4">
+      {ecosystemSection.stats.map((stat, index) => (
+        <div
+          class:list={[
+            "text-center md:py-0",
+
+            // Mobile spacing logic
+            index === 0 && "pt-0 pb-6",
+            index === ecosystemSection.stats.length - 1 && "pt-6 pb-0",
+            index !== 0 &&
+              index !== ecosystemSection.stats.length - 1 &&
+              "py-6",
+
+            // Borders
+            index !== ecosystemSection.stats.length - 1 &&
+              "border-b md:border-b-0 md:border-r border-elevated"
+          ]}
+        >
+          <h3 class="text-primary h4 grotesk mb-2">
+            {stat.value}
+          </h3>
+      
+          <p class="text-secondary body3 max-w-48 mx-auto text-center">
+            {stat.label}
+          </p>
+        </div>
+      ))}      
+    </div>
+  </div>
+</section>

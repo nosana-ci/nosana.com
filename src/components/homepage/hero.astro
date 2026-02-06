@@ -1,27 +1,43 @@
 ---
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
+
 import heroBg from "../../content/homepage/assets/heroBg.png";
+import heroVideo from "../../content/homepage/assets/heroBg.mp4";
 import gpu from "../../content/homepage/assets/gpu.svg";
 import texture from "../../content/homepage/assets/texture.png";
-import Button from "../ui/Button.astro";
 
-const homepageEntry = await getEntry("homepage", "index");
+import Button from "../ui/button.astro";
+import Badge from "../ui/badge.astro";
 
-// Use a safe type casting to access data
-const data = (homepageEntry?.data as any) || {};
-const badge = data.badge;
-const hero = data.hero || { title: "", description: "" };
-const cta1 = data.cta1 || [];
-const cta2 = data.cta2 || [];
+const entry = await getEntry("homepage", "index");
+
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const { heroSection } = entry.data;
+
+const badge = heroSection.badge;
+const heading = heroSection.heading;
+const description = heroSection.description;
+const cta1 = heroSection.cta1;
+const cta2 = heroSection.cta2;
 ---
 
-<section class="relative w-full h-[120vh] overflow-hidden pt-20 px-6 lg:px-12">
-  <Image
-    src={heroBg}
-    alt=""
+<section
+  class="relative w-full h-[calc(100vh-5rem)] lg:h-[110vh] overflow-hidden pt-20 px-4 lg:px-12"
+>
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    poster={heroBg.src}
     class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
-  />
+  >
+    <source src={heroVideo} type="video/mp4" />
+  </video>
 
   <div
     class="relative z-10 bg-bg-base h-full rounded-t-xl overflow-hidden p-6 lg:p-20"
@@ -38,53 +54,42 @@ const cta2 = data.cta2 || [];
       <div class="absolute right-0 bottom-0 lg:right-20 w-full h-full">
         <Image
           src={gpu}
-          alt="gpu"
+          alt="GPU illustration"
           class="w-full h-full object-cover object-bottom-right pointer-events-none select-none"
         />
       </div>
     </div>
+
     <div class="relative z-10 max-w-3xl">
       {
         badge && (
-          <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-default mb-4">
-            <Image src={badge.icon} alt="" class="w-6 h-6 text-brand-100" />
-            <span class="text-primary text-lg">{badge.title}</span>
-          </div>
+          <Badge title={badge.title} icon={badge.icon} class="mb-4" />
         )
       }
 
-      <h1 class="text-[40px] text-primary mb-4">
-        {hero.title}
-      </h1>
-
-      <p
-        class="text-xl text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10"
-      >
-        {hero.description}
-      </p>
+      <h1 class="text-primary mb-4 grotesk h4">{heading}</h1>
+      <p class="text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10 body2">{description}</p>
 
       <div class="flex flex-wrap gap-4">
-        {
-          cta1.map((cta: any) => (
-            <Button
-              title={cta.title}
-              url={cta.url}
-              icon={cta.icon}
-              variant="colored"
-            />
-          ))
-        }
-        {
-          cta2.map((cta: any) => (
-            <Button
-              title={cta.title}
-              url={cta.url}
-              icon={cta.icon}
-              variant="secondary"
-            />
-          ))
-        }
+        {cta1 && (
+          <Button
+            title={cta1.title}
+            url={cta1.url}
+            icon={cta1.icon}
+            variant="colored"
+          />
+        )}
+      
+        {cta2 && (
+          <Button
+            title={cta2.title}
+            url={cta2.url}
+            icon={cta2.icon}
+            variant="secondary"
+          />
+        )}
       </div>
+      
     </div>
   </div>
 </section>

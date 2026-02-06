@@ -25,6 +25,90 @@
   --color-secondarydark: #090909;
 }
 
+*::selection {
+  background-color: #10e80c19;
+}
+
 @utility grotesk {
   font-family: var(--font-grotesk);
+}
+
+@utility h4 {
+  font-size: 24px;
+  line-height: 1.3;
+
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 40px;
+  }
+}
+
+@utility body2 {
+  font-size: 16px;
+  line-height: 1.3;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+@utility body3 {
+  font-size: 14px;
+  line-height: 1.3;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+@utility body4 {
+  font-size: 12px;
+  line-height: 1.3;
+
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+@utility marquee-container {
+  overflow: hidden;
+}
+
+.marquee-container:hover .animate-marquee,
+.marquee-container:hover .animate-marquee-fast,
+.marquee-container:hover .animate-marquee-slow {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-fast,
+  .animate-marquee-slow {
+    animation: none;
+  }
 }

@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
 import hamburgerIcon from "../../assets/icons/hamburger.svg?raw";
 import closeIcon from "../../assets/icons/close.svg?raw";
-import Button from "../ui/Button.astro";
+import Button from "../ui/button.astro";
 
 const navbarEntry = await getEntry("navbar", "index");
 if (!navbarEntry) {
@@ -14,21 +14,21 @@ const { navLogo, navItems, navCTA } = navbarEntry.data;
 const currentPath = Astro.url.pathname;
 ---
 
-<nav-container class="block w-full sticky top-0 z-100">
+<nav-container class="block w-full z-100">
   <nav
     class="h-fit py-4 w-full bg-bg-base flex items-center justify-between px-5 lg:px-8 relative z-50"
   >
     <div class="flex items-center">
       <a href={navLogo.url} class="flex items-center py-4">
-        <Image
+        <!-- <Image
           src={navLogo.lightImage}
           alt={navLogo.alt}
           class="h-[30px] w-auto dark:hidden"
-        />
+        /> -->
         <Image
           src={navLogo.darkImage}
           alt={navLogo.alt}
-          class="h-[30px] w-auto hidden dark:block"
+          class="md:h-[30px] h-[20px] w-auto"
         />
       </a>
     </div>
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
             >
               <button
                 class:list={[
-                  "flex items-center font-semibold gap-2 text-base h-full transition-colors cursor-pointer whitespace-nowrap",
+                  "flex items-center font-semibold body4 gap-2 h-full transition-colors cursor-pointer whitespace-nowrap",
                   isActive
                     ? "text-brand-100"
                     : "text-primary group-hover:text-brand-100",
@@ -69,7 +69,7 @@ const currentPath = Astro.url.pathname;
               </button>
 
               {item.type === "dropdown" && (
-                <div class="mega-menu absolute left-0 top-full w-full h-40 bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 shadow-2xl z-40">
+                <div class="mega-menu absolute left-0 top-full w-full h-40 bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
                   <div class="container mx-auto h-full flex items-center justify-center">
                     <div class="text-primary italic">
                       {item.title} content will go here...
@@ -114,7 +114,7 @@ const currentPath = Astro.url.pathname;
       {
         navItems.map((item: any) => (
           <div
-            class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0"
+            class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
             data-type={item.type}
             data-url={item.url}
             data-target={item.target}
