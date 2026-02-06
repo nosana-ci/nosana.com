@@ -1,0 +1,286 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
+import hamburgerIcon from "../../assets/icons/hamburger.svg?raw";
+import closeIcon from "../../assets/icons/close.svg?raw";
+import Button from "../ui/Button.astro";
+
+const navbarEntry = await getEntry("navbar", "index");
+if (!navbarEntry) {
+  throw new Error("content not found");
+}
+const { navLogo, navItems, navCTA } = navbarEntry.data;
+const currentPath = Astro.url.pathname;
+---
+
+<nav-container class="block w-full sticky top-0 z-100">
+  <nav
+    class="h-fit py-4 w-full bg-bg-base flex items-center justify-between px-5 lg:px-8 relative z-50"
+  >
+    <div class="flex items-center">
+      <a href={navLogo.url} class="flex items-center py-4">
+        <Image
+          src={navLogo.lightImage}
+          alt={navLogo.alt}
+          class="h-[30px] w-auto dark:hidden"
+        />
+        <Image
+          src={navLogo.darkImage}
+          alt={navLogo.alt}
+          class="h-[30px] w-auto hidden dark:block"
+        />
+      </a>
+    </div>
+
+    <div class="hidden lg:flex items-center gap-6 h-full">
+      {
+        navItems.map((item: any) => {
+          const isActive = currentPath === item.url;
+          return (
+            <div
+              class="nav-item group h-full flex items-center"
+              data-type={item.type}
+              data-url={item.url}
+              data-target={item.target}
+            >
+              <button
+                class:list={[
+                  "flex items-center font-semibold gap-2 text-base h-full transition-colors cursor-pointer whitespace-nowrap",
+                  isActive
+                    ? "text-brand-100"
+                    : "text-primary group-hover:text-brand-100",
+                ]}
+              >
+                {item.title}
+                {item.icon && (
+                  <div
+                    class:list={[
+                      "w-4 h-4 flex items-center justify-center transition-all duration-300",
+                      item.type === "dropdown" ? "group-hover:rotate-180" : "",
+                    ]}
+                  >
+                    <div
+                      class="w-4 h-4 bg-current transition-colors"
+                      style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                    />
+                  </div>
+                )}
+              </button>
+
+              {item.type === "dropdown" && (
+                <div class="mega-menu absolute left-0 top-full w-full h-40 bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 shadow-2xl z-40">
+                  <div class="container mx-auto h-full flex items-center justify-center">
+                    <div class="text-primary italic">
+                      {item.title} content will go here...
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="flex items-center gap-2 lg:gap-4">
+      {
+        navCTA.map((cta: any) => (
+          <Button variant="secondary" title={cta.title} url={cta.url} />
+        ))
+      }
+
+      <button
+        id="mobile-toggle"
+        class="lg:hidden p-2 text-primary hover:text-brand-100 transition-colors cursor-pointer"
+        aria-label="Toggle Menu"
+      >
+        <span id="hamburger-icon" class="block">
+          <Fragment set:html={hamburgerIcon} />
+        </span>
+        <span id="close-icon" class="hidden">
+          <Fragment set:html={closeIcon} />
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 top-20 bg-bg-base z-40 hidden lg:hidden overflow-y-auto pt-4"
+  >
+    <div class="flex flex-col px-6 pb-20">
+      {
+        navItems.map((item: any) => (
+          <div
+            class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0"
+            data-type={item.type}
+            data-url={item.url}
+            data-target={item.target}
+          >
+            <div class="flex items-center justify-between w-full group cursor-pointer mobile-trigger">
+              <span class="text-lg font-semibold text-primary group-hover:text-brand-100 transition-colors">
+                {item.title}
+              </span>
+              {item.icon && (
+                <div
+                  class:list={[
+                    "w-5 h-5 flex items-center justify-center transition-transform duration-300 mobile-icon",
+                    item.type === "dropdown"
+                      ? ""
+                      : "-rotate-90 text-primary/50",
+                  ]}
+                >
+                  <div
+                    class="w-full h-full bg-current"
+                    style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                  />
+                </div>
+              )}
+            </div>
+
+            {item.type === "dropdown" && (
+              <div class="mobile-dropdown-content hidden mt-4 pl-4 border-l border-brand-100/30">
+                <div class="flex flex-col gap-4">
+                  <div class="text-secondarydark italic text-sm">
+                    {item.title} subitems demo...
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</nav-container>
+
+<script>
+  class NavContainer extends HTMLElement {
+    constructor() {
+      super();
+      const mobileToggle = this.querySelector("#mobile-toggle");
+      const mobileMenu = this.querySelector("#mobile-menu");
+      const hamburgerIcon = this.querySelector("#hamburger-icon");
+      const closeIcon = this.querySelector("#close-icon");
+      const desktopNavItems = this.querySelectorAll(".nav-item");
+      const mobileNavItems = this.querySelectorAll(".mobile-nav-item");
+
+      let isMobileMenuOpen = false;
+      let activeDropdown: Element | null = null;
+
+      // Mobile Toggle Logic
+      mobileToggle?.addEventListener("click", () => {
+        isMobileMenuOpen = !isMobileMenuOpen;
+
+        if (isMobileMenuOpen) {
+          mobileMenu?.classList.remove("hidden");
+          hamburgerIcon?.classList.add("hidden");
+          closeIcon?.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        } else {
+          mobileMenu?.classList.add("hidden");
+          hamburgerIcon?.classList.remove("hidden");
+          closeIcon?.classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Mobile Item Clicks
+      mobileNavItems.forEach((item) => {
+        const type = item.getAttribute("data-type");
+        const trigger = item.querySelector(".mobile-trigger");
+        const dropdown = item.querySelector(".mobile-dropdown-content");
+        const icon = item.querySelector(".mobile-icon");
+
+        trigger?.addEventListener("click", () => {
+          if (type === "dropdown") {
+            const isHidden = dropdown?.classList.contains("hidden");
+            dropdown?.classList.toggle("hidden");
+            icon?.classList.toggle("rotate-180");
+          } else {
+            const url = item.getAttribute("data-url") || "/";
+            const target = item.getAttribute("data-target");
+            if (target === "_blank") {
+              window.open(url, "_blank");
+            } else {
+              window.location.href = url;
+            }
+          }
+        });
+      });
+
+      // Desktop Hover Logic
+      desktopNavItems.forEach((item) => {
+        const type = item.getAttribute("data-type");
+        const button = item.querySelector("button") as HTMLButtonElement | null;
+        const megaMenu = item.querySelector(".mega-menu") as HTMLElement | null;
+        const url = item.getAttribute("data-url");
+        let timeout: any = null;
+
+        if (type === "link") {
+          button?.addEventListener("click", () => {
+            const target = item.getAttribute("data-target");
+            if (target === "_blank") {
+              window.open(url || "/", "_blank");
+            } else {
+              window.location.href = url || "/";
+            }
+          });
+        }
+
+        if (type === "dropdown") {
+          const showMenu = () => {
+            clearTimeout(timeout);
+            if (activeDropdown && activeDropdown !== megaMenu) {
+              activeDropdown.classList.add("hidden");
+              const prevButton = activeDropdown
+                .closest(".nav-item")
+                ?.querySelector("button");
+              if (prevButton) {
+                const prevUrl = activeDropdown
+                  .closest(".nav-item")
+                  ?.getAttribute("data-url");
+                const isPageActive = window.location.pathname === prevUrl;
+                prevButton.style.color = isPageActive
+                  ? "var(--color-brand-100)"
+                  : "";
+              }
+            }
+            megaMenu?.classList.remove("hidden");
+            if (button) button.style.color = "var(--color-brand-100)";
+            activeDropdown = megaMenu;
+          };
+
+          const hideMenu = () => {
+            timeout = setTimeout(() => {
+              megaMenu?.classList.add("hidden");
+              const isPageActive = window.location.pathname === url;
+              if (button)
+                button.style.color = isPageActive
+                  ? "var(--color-brand-100)"
+                  : "";
+              if (activeDropdown === megaMenu) activeDropdown = null;
+            }, 100);
+          };
+
+          item.addEventListener("mouseenter", showMenu);
+          item.addEventListener("mouseleave", hideMenu);
+          megaMenu?.addEventListener("mouseenter", showMenu);
+          megaMenu?.addEventListener("mouseleave", hideMenu);
+        }
+      });
+    }
+  }
+
+  customElements.define("nav-container", NavContainer);
+</script>
+
+<style is:global>
+  /* Ensure icons inherit color if needed, though they are Image tags now */
+  .nav-item button:hover div {
+    filter: none;
+    opacity: 1;
+  }
+</style>

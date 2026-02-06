@@ -1,0 +1,97 @@
+---
+import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
+
+interface Props {
+  title: string;
+  url: string;
+  variant?: "primary" | "secondary" | "colored" | "ghost";
+  color?: string;
+  icon?: any;
+  target?: string;
+  class?: string;
+}
+
+const {
+  title,
+  url,
+  variant = "primary",
+  color = "#0B840E",
+  icon,
+  target,
+  class: className,
+} = Astro.props;
+
+const baseStyles =
+  "rounded-sm flex items-stretch transition-all group overflow-hidden whitespace-nowrap font-semibold";
+
+const variants = {
+  primary: "bg-primary text-secondarydark hover:bg-primary/90",
+  secondary: "bg-white/15 hover:bg-white/20 border border-default text-primary",
+  ghost: "text-primary hover:text-brand-100",
+  colored: "text-primary",
+};
+
+const variantStyle = variants[variant];
+const customStyle =
+  variant === "colored" && color ? { backgroundColor: color } : {};
+---
+
+<a
+  href={url}
+  target={target}
+  class:list={[baseStyles, variantStyle, className]}
+  style={customStyle}
+>
+  <span
+    class:list={[
+      "flex items-center gap-2 transition-colors",
+      variant === "ghost" ? "py-2 px-1" : "p-2 lg:py-3 lg:px-4",
+    ]}
+  >
+    {
+      icon && (
+        <span class="w-4 h-4 flex items-center justify-center transition-colors">
+          {typeof icon === "string" && icon.includes("<svg") ? (
+            <span class="w-full h-full [&_path]:fill-current pointer-events-none select-none">
+              <Fragment set:html={icon} />
+            </span>
+          ) : (
+            <div
+              class="w-full h-full bg-current transition-colors pointer-events-none select-none"
+              style={`mask: url(${typeof icon === "string" ? icon : icon.src}) no-repeat center; -webkit-mask: url(${typeof icon === "string" ? icon : icon.src}) no-repeat center; mask-size: contain; -webkit-mask-size: contain;`}
+            />
+          )}
+        </span>
+      )
+    }
+    {title}
+  </span>
+
+  <div
+    class:list={[
+      "flex items-center justify-center overflow-hidden transition-all",
+      variant !== "ghost" ? "border-l border-default p-2 lg:p-4" : "py-2 px-1",
+    ]}
+  >
+    <div class="w-3 h-3 lg:w-4 lg:h-4 relative">
+      <div
+        class="flex transition-transform duration-300 -translate-x-3 lg:-translate-x-4 group-hover:translate-x-0"
+      >
+        <span
+          class:list={[
+            "w-3 h-3 lg:w-4 lg:h-4 pointer-events-none select-none flex items-center justify-center shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 [&_path]:fill-current -rotate-90",
+          ]}
+        >
+          <Fragment set:html={chevronDownDouble} />
+        </span>
+        <span
+          class:list={[
+            "w-3 h-3 lg:w-4 lg:h-4 pointer-events-none select-none flex items-center justify-center shrink-0 opacity-100 group-hover:opacity-0 transition-opacity duration-300 [&_path]:fill-current -rotate-90",
+          ]}
+        >
+          <Fragment set:html={chevronDownDouble} />
+        </span>
+      </div>
+    </div>
+  </div>
+</a>
