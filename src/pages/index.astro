@@ -16,13 +16,10 @@ import Testimonials from "../components/homepage/testimonials.astro";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
-  throw new Error("Homepage content not found");
+	throw new Error("Homepage content not found");
 }
 
-const {
-  upcomingEventsMock,
-  latestBlogsMock,
-} = entry.data;
+const { upcomingEventsMock, latestBlogsMock } = entry.data;
 ---
 
 <Layout title="Nosana">
@@ -39,8 +36,24 @@ const {
 	<Divider />
 	<ProductionSection />
 	<div class="h-fit w-full flex flex-col lg:flex-row gap-10 px-4 md:px-12">
-		<MediaCard heading={upcomingEventsMock.heading} date={upcomingEventsMock.date} time={upcomingEventsMock.time} title={upcomingEventsMock.title} description={upcomingEventsMock.description} image={upcomingEventsMock.image} button={upcomingEventsMock.button} />
-		<MediaCard heading={latestBlogsMock.heading} date={latestBlogsMock.date} time={latestBlogsMock.time} title={latestBlogsMock.title} description={latestBlogsMock.description} image={latestBlogsMock.image} button={latestBlogsMock.button} />
+		<MediaCard
+			heading={upcomingEventsMock.heading}
+			date={upcomingEventsMock.date}
+			time={upcomingEventsMock.time}
+			title={upcomingEventsMock.title}
+			description={upcomingEventsMock.description}
+			image={upcomingEventsMock.image}
+			button={upcomingEventsMock.button}
+		/>
+		<MediaCard
+			heading={latestBlogsMock.heading}
+			date={latestBlogsMock.date}
+			time={latestBlogsMock.time}
+			title={latestBlogsMock.title}
+			description={latestBlogsMock.description}
+			image={latestBlogsMock.image}
+			button={latestBlogsMock.button}
+		/>
 	</div>
 	<Divider />
 	<Testimonials />
