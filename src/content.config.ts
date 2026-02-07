@@ -49,16 +49,16 @@ const homepageCollection = defineCollection({
         description: z.string(),
 
         cta1: z.object({
-            title: z.string(),
-            url: z.string(),
-            icon: image().optional(),
-          }).optional(),
+          title: z.string(),
+          url: z.string(),
+          icon: image().optional(),
+        }).optional(),
 
         cta2: z.object({
-            title: z.string(),
-            url: z.string(),
-            icon: image().optional(),
-          }).optional(),
+          title: z.string(),
+          url: z.string(),
+          icon: image().optional(),
+        }).optional(),
       }),
 
       brands: z.array(
@@ -137,7 +137,7 @@ const homepageCollection = defineCollection({
           url: z.string(),
         }),
       }),
-      
+
       latestBlogsMock: z.object({
         heading: z.string(),
         date: z.string(),
@@ -154,8 +154,17 @@ const homepageCollection = defineCollection({
       testimonials: z.object({
         heading: z.string(),
         description: z.array(z.string()),
-      }),      
-      
+        testimonial: z.array(
+          z.object({
+            name: z.string(),
+            username: z.string(),
+            logo: image(),
+            message: z.string(),
+            rating: z.number(),
+          })
+        ),
+      }),
+
     }),
 });
 
