@@ -151,4 +151,33 @@ production:
     icon: "../../assets/icons/quote.svg"
   heading: "Real Results From Users Powered by Nosana"
   description: "Live production workloads delivering output at scale"
+
+upcomingEventsMock:
+  heading: "Upcoming Events"
+  date: "October 10, 2025"
+  time: "6:00 PM PT"
+  title: "AI Dev: Open source Gen Ai and ML Summit Europe"
+  description: "The Nosana team is heading to AI_dev in Amsterdam."
+  image: "./assets/eventBanner.png"
+  button:
+    title: "Explore Other Events"
+    url: "/"
+
+latestBlogsMock:
+  heading: "Latest Blogs"
+  date: "October 10, 2025"
+  time: "6:00 PM PT"
+  title: "Nosana’s Spare GPU Capacity Is Now Powering Scientific Research"
+  description: "Nosana’s spare GPU power now fuels Folding@Home, advancing global biomedical research and showcasing the real-world impact of decentralized compute."
+  image: "./assets/eventBanner.png"
+  button:
+    title: "Explore Other Blogs"
+    url: "/"
+
+testimonials:
+  heading: "Voices from the Community"
+  description: 
+  - "Nosana runs on fully open-source infrastructure and a global network of GPU providers."
+  - "This gives teams transparency, flexibility, and the ability to run workloads without vendor lock-in"
+
 ---

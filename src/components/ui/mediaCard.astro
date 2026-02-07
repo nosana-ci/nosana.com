@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+import Button from "./button.astro";
+
+interface Props {
+  heading: string;
+  date: string;
+  time: string;
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  button: {
+    title: string;
+    url: string;
+  };
+}
+
+const {
+  heading,
+  date,
+  time,
+  title,
+  description,
+  image,
+  button,
+} = Astro.props;
+---
+<section class="w-full">
+  {/* Section heading */}
+  <h3 class="text-primary mb-4 grotesk h4">
+    {heading}
+  </h3>
+
+  {/* Card */}
+  <div class="flex flex-col md:flex-row gap-4 bg-surface border border-elevated rounded-lg p-4">
+    
+    <div class="w-full md:w-[300px] rounded-md overflow-hidden shrink-0">
+      <Image
+        src={image}
+        alt={title}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Content */}
+    <div class="flex flex-col gap-3 flex-1 justify-center">
+      {/* Meta */}
+      <div class="flex items-center gap-3 caption1 text-secondary">
+        <span>{date}</span>
+        <span class="text-default">|</span>
+        <span>{time}</span>
+      </div>
+
+      {/* Title — max 2 lines */}
+      <h4
+        class="text-primary font-semibold body1
+               line-clamp-2 md:h-[64px]"
+      >
+        {title}
+      </h4>
+
+      {/* Description — max 3 lines */}
+      <p
+        class="text-secondary body3
+               line-clamp-3 md:h-[72px]"
+      >
+        {description}
+      </p>
+    </div>
+  </div>
+
+  {/* CTA (outside card) */}
+  <div class="mt-4">
+    <Button
+      title={button.title}
+      url={button.url}
+      variant="secondary"
+    />
+  </div>
+</section>

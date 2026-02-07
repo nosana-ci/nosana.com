@@ -1,0 +1,21 @@
+---
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const { testimonials } = entry.data;
+---
+
+<section class="w-full h-[80vh] flex flex-col items-center justify-center bg-bg-base px-4 md:px-12">
+  <h2 class="text-primary h1 grotesk text-center mb-4">
+    {testimonials.heading}
+  </h2>
+
+  <p
+    class="text-secondary body2 text-center mb-4"
+    set:html={testimonials.description.join("<br />")}
+  />
+</section>

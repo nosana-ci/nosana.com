@@ -1,4 +1,6 @@
 ---
+import { getEntry } from "astro:content";
+
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/homepage/hero.astro";
 import Brands from "../components/homepage/brands.astro";
@@ -9,9 +11,21 @@ import WhyNosanaSection from "../components/homepage/whynosana.astro";
 import RentGPUSection from "../components/homepage/rentgpu.astro";
 import Banner from "../components/homepage/banner.astro";
 import ProductionSection from "../components/homepage/production.astro";
+import MediaCard from "../components/ui/mediaCard.astro";
+import Testimonials from "../components/homepage/testimonials.astro";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const {
+  upcomingEventsMock,
+  latestBlogsMock,
+} = entry.data;
 ---
 
-<Layout title="Nosana | Home Page">
+<Layout title="Nosana">
 	<Hero />
 	<div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full"><Brands /></div>
 	<PathSection />
@@ -24,5 +38,12 @@ import ProductionSection from "../components/homepage/production.astro";
 	<Banner />
 	<Divider />
 	<ProductionSection />
-	<div class="h-screen bg-red-400"></div>
+	<div class="h-fit w-full flex flex-col lg:flex-row gap-10 px-4 md:px-12">
+		<MediaCard heading={upcomingEventsMock.heading} date={upcomingEventsMock.date} time={upcomingEventsMock.time} title={upcomingEventsMock.title} description={upcomingEventsMock.description} image={upcomingEventsMock.image} button={upcomingEventsMock.button} />
+		<MediaCard heading={latestBlogsMock.heading} date={latestBlogsMock.date} time={latestBlogsMock.time} title={latestBlogsMock.title} description={latestBlogsMock.description} image={latestBlogsMock.image} button={latestBlogsMock.button} />
+	</div>
+	<Divider />
+	<Testimonials />
+	<Divider />
+	<div class="h-screen w-full bg-red-500"></div>
 </Layout>

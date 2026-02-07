@@ -124,6 +124,37 @@ const homepageCollection = defineCollection({
         heading: z.string(),
         description: z.string(),
       }),
+
+      upcomingEventsMock: z.object({
+        heading: z.string(),
+        date: z.string(),
+        time: z.string(),
+        title: z.string(),
+        description: z.string(),
+        image: image(),
+        button: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+      }),
+      
+      latestBlogsMock: z.object({
+        heading: z.string(),
+        date: z.string(),
+        time: z.string(),
+        title: z.string(),
+        description: z.string(),
+        image: image(),
+        button: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+      }),
+
+      testimonials: z.object({
+        heading: z.string(),
+        description: z.array(z.string()),
+      }),      
       
     }),
 });

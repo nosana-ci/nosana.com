@@ -19,9 +19,11 @@ const { title = "Nosana" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-bg-base text-primary font-sans max-w-[1728px] mx-auto">
-		<Navbar />
-		<slot />
+	<body class="bg-bg-base text-primary font-sans">
+		<main class="flex flex-col items-center justify-center max-w-[1728px] mx-auto w-full">
+			<Navbar />
+			<slot />
+		</main>
 	</body>
 </html>
 
