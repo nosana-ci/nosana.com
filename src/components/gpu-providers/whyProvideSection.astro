@@ -21,26 +21,26 @@ const headingParts = heading.split("GPU Hardware");
 ---
 
 <section class="w-full bg-bg-base px-6 sm:px-8 md:px-14">
-    <!-- Badge -->
-      <Badge title={badge.title} class="mb-4" />
+  <!-- Badge -->
+  <Badge title={badge.title} class="mb-4" />
 
 
-    <!-- Heading -->
+  <!-- Heading -->
   <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
-      {headingParts[0]}
-      <span class="text-green-400">GPU Hardware</span>
-      {headingParts[1]}
-    </h2>
+    {headingParts[0]}
+    <span class="text-green-400">GPU Hardware</span>
+    {headingParts[1]}
+  </h2>
 
-    <!-- Description -->
-    <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
+  <!-- Description -->
+  <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
     {description}
   </p>
 
-    <!-- Features Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+  <!-- Features Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       {features.map((feature: any) => (
-        <div class="sm:border-l border-b sm:border-b-0 border-white/20  sm:p-8 py-6 sm:pt-8">
+        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 sm:pt-8`}>
           <!-- Icon -->
           <div class="mb-6">
             <Image 
@@ -63,5 +63,5 @@ const headingParts = heading.split("GPU Hardware");
           </p>
         </div>
       ))}
-    </div>
+  </div>
 </section>

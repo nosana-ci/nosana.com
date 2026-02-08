@@ -215,12 +215,18 @@ const gpuProvidersCollection = defineCollection({
         ),
       }),
 
-      // pathSection: z.object({
-      //   badge: z.object({
-      //     title: z.string(),
-      //   }),
-      //   heading: z.string(),
-      // }),
+      testimonialsSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        testimonials: z.array(
+          z.object({
+            quote: z.string(),
+            author: z.string(),
+          }),
+        ),
+      }),
 
       // ecosystemSection: z.object({
       //   badge: z.object({
