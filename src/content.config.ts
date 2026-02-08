@@ -168,7 +168,139 @@ const homepageCollection = defineCollection({
     }),
 });
 
+const gpuProvidersCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/gpu-providers" }),
+  schema: ({ image }) =>
+    z.object({
+      heroSection: z.object({
+        badge: z
+          .object({
+            title: z.string(),
+            icon: image(),
+          })
+          .optional(),
+
+        heading: z.string(),
+        description: z.string(),
+
+        cta1: z
+          .object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          })
+          .optional(),
+
+        cta2: z
+          .object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          })
+          .optional(),
+      }),
+
+      // brands: z
+      //   .array(
+      //     z.object({
+      //       name: z.string(),
+      //       logo: image(),
+      //     }),
+      //   )
+      //   .optional(),
+
+      // pathSection: z.object({
+      //   badge: z.object({
+      //     title: z.string(),
+      //   }),
+      //   heading: z.string(),
+      // }),
+
+      // ecosystemSection: z.object({
+      //   badge: z.object({
+      //     title: z.string(),
+      //   }),
+      //   heading: z.string(),
+      //   description: z.string(),
+      //   stats: z.array(
+      //     z.object({
+      //       value: z.string(),
+      //       label: z.string(),
+      //     }),
+      //   ),
+      // }),
+
+      // whyNosanaSection: z.object({
+      //   badge: z.object({
+      //     title: z.string(),
+      //   }),
+      //   heading: z.string(),
+      //   description: z.string(),
+      // }),
+
+      // rentGPU: z.object({
+      //   badge: z.object({
+      //     title: z.string(),
+      //   }),
+      //   heading: z.string(),
+      //   description: z.string(),
+      // }),
+
+      // banner: z.object({
+      //   heading: z.string(),
+      //   description: z.string(),
+      //   cta: z.object({
+      //     title: z.string(),
+      //     url: z.string(),
+      //     icon: image(),
+      //   }),
+      //   image: image(),
+      // }),
+
+      // production: z.object({
+      //   badge: z.object({
+      //     title: z.string(),
+      //     icon: image(),
+      //   }),
+      //   heading: z.string(),
+      //   description: z.string(),
+      // }),
+
+      // upcomingEventsMock: z.object({
+      //   heading: z.string(),
+      //   date: z.string(),
+      //   time: z.string(),
+      //   title: z.string(),
+      //   description: z.string(),
+      //   image: image(),
+      //   button: z.object({
+      //     title: z.string(),
+      //     url: z.string(),
+      //   }),
+      // }),
+
+      // latestBlogsMock: z.object({
+      //   heading: z.string(),
+      //   date: z.string(),
+      //   time: z.string(),
+      //   title: z.string(),
+      //   description: z.string(),
+      //   image: image(),
+      //   button: z.object({
+      //     title: z.string(),
+      //     url: z.string(),
+      //   }),
+      // }),
+
+      // testimonials: z.object({
+      //   heading: z.string(),
+      //   description: z.array(z.string()),
+      // }),
+    }),
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
+  gpuProviders: gpuProvidersCollection,
 };
