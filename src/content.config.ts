@@ -227,6 +227,11 @@ const gpuProvidersCollection = defineCollection({
           }),
         ),
       }),
+      emailSection: z.object({
+        heading: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
 
       // ecosystemSection: z.object({
       //   badge: z.object({
