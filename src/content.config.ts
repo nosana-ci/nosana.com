@@ -200,14 +200,20 @@ const gpuProvidersCollection = defineCollection({
           .optional(),
       }),
 
-      // brands: z
-      //   .array(
-      //     z.object({
-      //       name: z.string(),
-      //       logo: image(),
-      //     }),
-      //   )
-      //   .optional(),
+      whyProvideSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+        features: z.array(
+          z.object({
+            icon: image(),
+            title: z.string(),
+            description: z.string(),
+          }),
+        ),
+      }),
 
       // pathSection: z.object({
       //   badge: z.object({
