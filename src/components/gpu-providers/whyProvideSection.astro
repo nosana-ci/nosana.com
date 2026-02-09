@@ -40,7 +40,7 @@ const headingParts = heading.split("GPU Hardware");
   <!-- Features Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       {features.map((feature: any) => (
-        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 sm:pt-8`}>
+        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6`}>
           <!-- Icon -->
           <div class="mb-6">
             <Image 
@@ -53,12 +53,12 @@ const headingParts = heading.split("GPU Hardware");
           </div>
 
           <!-- Title -->
-          <h3 class="text-white md:text-2xl text-xl">
+          <h3 class="text-primary body2 mb-1.5">
             {feature.title}
           </h3>
 
           <!-- Description -->
-          <p class="md:text-base text-sm text-white/60">
+          <p class="text-secondary body3">
             {feature.description}
           </p>
         </div>
