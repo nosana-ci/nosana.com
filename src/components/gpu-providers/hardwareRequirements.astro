@@ -1,0 +1,123 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { hardwareRequirementsSection } = entry.data;
+
+const badge = hardwareRequirementsSection.badge;
+const heading = hardwareRequirementsSection.heading;
+const description = hardwareRequirementsSection.description;
+const buttons = hardwareRequirementsSection.buttons;
+const requirements = hardwareRequirementsSection.requirements;
+---
+
+<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14 flex flex-col lg:flex-row gap-x-6 justify-between items-start">
+  <div class="w-full">
+    <!-- Badge -->
+    <Badge title={badge.title} class="mb-4" />
+
+
+    <!-- Heading -->
+    <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+      {heading}
+    </h2>
+
+    <!-- Description -->
+    <p class="text-secondary md:max-w-xl  body2">
+      {description}
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex flex-wrap gap-3 my-8">
+      <Button
+        title={buttons.primary.title}
+        url={buttons.primary.url}
+        variant="secondary"
+      />
+      <Button
+        title={buttons.secondary.title}
+        url={buttons.secondary.url}
+        variant="secondary"
+      />
+    </div>
+  </div>
+    <!-- Requirements Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      {requirements.map((requirement) => (
+        <div class="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-xl px-3 md:px-3 py-3 md:py-8 hover:border-green-400/30 transition-all duration-300 group">
+          <!-- Icon -->
+            <Image
+              src={requirement.icon}
+              alt={requirement.title}
+              width={40}
+              height={40}
+              class="text-green-400 h-10 w-10"
+            />
+
+            <div class="h-px w-full bg-gradient-to-r from-white/20 to-transparent my-4"></div>
+
+          <!-- Title -->
+          <h3 class="body2 text-primary font-semibold mb-1">
+            {requirement.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-secondary body4">
+            {requirement.description}
+          </p>
+
+          <!-- Optional Link -->
+          {/* {requirement.link && (
+            
+              href={requirement.link.url}
+              class="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group/link"
+            >
+              {requirement.link.title}
+              <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          )} */}
+        </div>
+      ))}
+    </div>
+
+</section>
+
+<!-- Responsive Behavior -->
+<style>
+  /* Mobile: Stack vertically (1 column) - Image 2 */
+  @media (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Desktop: 4 columns in a 2x2 grid - Image 1 */
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(3 1fr);
+    }
+    
+    /* Make first 3 items span across top row */
+    .grid > div:nth-child(1),
+    .grid > div:nth-child(2),
+    .grid > div:nth-child(3) {
+      /* Normal flow */
+    }
+    
+    /* Make 4th item span 2 columns on bottom */
+    .grid > div:nth-child(4) {
+      grid-column: span 3;
+      padding:32px;
+    }
+  }
+</style>

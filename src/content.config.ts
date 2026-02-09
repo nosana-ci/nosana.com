@@ -233,86 +233,36 @@ const gpuProvidersCollection = defineCollection({
         image: image(),
       }),
 
-      // ecosystemSection: z.object({
-      //   badge: z.object({
-      //     title: z.string(),
-      //   }),
-      //   heading: z.string(),
-      //   description: z.string(),
-      //   stats: z.array(
-      //     z.object({
-      //       value: z.string(),
-      //       label: z.string(),
-      //     }),
-      //   ),
-      // }),
-
-      // whyNosanaSection: z.object({
-      //   badge: z.object({
-      //     title: z.string(),
-      //   }),
-      //   heading: z.string(),
-      //   description: z.string(),
-      // }),
-
-      // rentGPU: z.object({
-      //   badge: z.object({
-      //     title: z.string(),
-      //   }),
-      //   heading: z.string(),
-      //   description: z.string(),
-      // }),
-
-      // banner: z.object({
-      //   heading: z.string(),
-      //   description: z.string(),
-      //   cta: z.object({
-      //     title: z.string(),
-      //     url: z.string(),
-      //     icon: image(),
-      //   }),
-      //   image: image(),
-      // }),
-
-      // production: z.object({
-      //   badge: z.object({
-      //     title: z.string(),
-      //     icon: image(),
-      //   }),
-      //   heading: z.string(),
-      //   description: z.string(),
-      // }),
-
-      // upcomingEventsMock: z.object({
-      //   heading: z.string(),
-      //   date: z.string(),
-      //   time: z.string(),
-      //   title: z.string(),
-      //   description: z.string(),
-      //   image: image(),
-      //   button: z.object({
-      //     title: z.string(),
-      //     url: z.string(),
-      //   }),
-      // }),
-
-      // latestBlogsMock: z.object({
-      //   heading: z.string(),
-      //   date: z.string(),
-      //   time: z.string(),
-      //   title: z.string(),
-      //   description: z.string(),
-      //   image: image(),
-      //   button: z.object({
-      //     title: z.string(),
-      //     url: z.string(),
-      //   }),
-      // }),
-
-      // testimonials: z.object({
-      //   heading: z.string(),
-      //   description: z.array(z.string()),
-      // }),
+      hardwareRequirementsSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        description: z.string(),
+        buttons: z.object({
+          primary: z.object({
+            title: z.string(),
+            url: z.string(),
+          }),
+          secondary: z.object({
+            title: z.string(),
+            url: z.string(),
+          }),
+        }),
+        requirements: z.array(
+          z.object({
+            icon: image(),
+            title: z.string(),
+            description: z.string(),
+            link: z
+              .object({
+                title: z.string(),
+                url: z.string(),
+              })
+              .optional(),
+          }),
+        ),
+      }),
     }),
 });
 
