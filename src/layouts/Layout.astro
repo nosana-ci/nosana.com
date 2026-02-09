@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/layout/navbar.astro";
+import Footer from "../components/layout/footer.astro";
 
 interface Props {
 	title?: string;
@@ -20,9 +21,12 @@ const { title = "Nosana" } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="bg-bg-base text-primary font-sans">
-		<main class="flex flex-col items-center justify-center max-w-[1728px] mx-auto w-full">
+		<main
+			class="flex flex-col items-center justify-center max-w-[1728px] mx-auto w-full"
+		>
 			<Navbar />
 			<slot />
+			<Footer />
 		</main>
 	</body>
 </html>

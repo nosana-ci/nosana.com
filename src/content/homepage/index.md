@@ -196,4 +196,18 @@ testimonials:
       message: "Staking @nosana_ai might have been one of my smartest/favorite decisions for this cycle."
       rating: 5.0
 
+newsletter:
+  heading: "Stay Updated with Nosana"
+  description: "Get the latest insights on AI infrastructure, GPU launches, and network innovations — all in one place"
+  image: "../../assets/images/newsletter.svg"
+
+ctaSection:
+  heading: "Ready to get started?"
+  description: "No Limits. Only Possibilities."
+  cta1:
+    title: "Free GPU Credits"
+    url: "/gpu-workloads"
+  cta2:
+    title: "Book Free Call"
+    url: "/gpu-workloads"
 ---

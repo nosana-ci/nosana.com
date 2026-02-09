@@ -35,6 +35,48 @@ const navbarCollection = defineCollection({
   }),
 });
 
+const footerCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/footer" }),
+  schema: ({ image }) => z.object({
+    logo: image(),
+    description: z.string(),
+    socials: z.array(z.object({
+      name: z.string(),
+      url: z.string(),
+      icon: image(),
+    })),
+    navigation: z.object({
+      product: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      network: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      grants: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      learningCenter: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      community: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      resources: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+    }),
+    copyright: z.string(),
+    termsAndConditionsUrl: z.string(),
+    privacyPolicyUrl: z.string(),
+  })
+})
+
 const homepageCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/homepage" }),
   schema: ({ image }) =>
@@ -165,10 +207,30 @@ const homepageCollection = defineCollection({
         ),
       }),
 
+      newsletter: z.object({
+        heading: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+
+      ctaSection: z.object({
+        heading: z.string(),
+        description: z.string(),
+        cta1: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+        cta2: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+      }),
+
     }),
 });
 
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
+  footer: footerCollection,
 };

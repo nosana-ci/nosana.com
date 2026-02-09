@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import testimonialCardTint from "../../content/homepage/assets/testimonialCardTint.png";
 
 interface Props {
   name: string;
@@ -26,6 +27,14 @@ const { name, username, logo, message, rating } = Astro.props;
       fill="#2A2A2A"
       filter="drop-shadow(2px 4px 10px rgba(0, 0, 0, 0.25))"></path>
   </svg>
+
+  <Image
+    src={testimonialCardTint}
+    alt={name}
+    width={601}
+    height={375}
+    class="absolute bottom-0 right-0 w-2/3 h-auto object-cover pointer-events-none select-none"
+  />
 
   {/* Content */}
   <div class="absolute inset-0 p-4 md:p-6 flex flex-col justify-between">
