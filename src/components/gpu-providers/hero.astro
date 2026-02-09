@@ -26,7 +26,7 @@ const cta2 = heroSection.cta2;
 ---
 
 <section
-  class="relative w-full h-[calc(100vh-8rem)] md:h-[82vh] overflow-hidden pt-20 px-4 lg:px-[40px]"
+  class="relative w-full h-[calc(100vh-8rem)] lg:h-[762px] overflow-hidden pt-26 px-4 lg:px-[40px]"
 >
   <video
     autoplay
@@ -40,7 +40,7 @@ const cta2 = heroSection.cta2;
   </video>
 
   <div
-    class="relative z-10 bg-bg-base rounded-t-xl overflow-hidden p-6 lg:p-[100px] h-[678px]"
+    class="relative z-10 bg-bg-base rounded-xl overflow-hidden p-6 lg:p-[100px] h-[680px]"
   >
     <div class="absolute inset-0 pointer-events-none mix-blend-hard-light z-0">
       <Image
@@ -51,7 +51,8 @@ const cta2 = heroSection.cta2;
     </div>
 
     <div class="absolute inset-0 pointer-events-none z-0">
-      <div class="absolute right-0 bottom-[42px] lg:-right-7 w-full h-full scale-[1.06]">
+      <!-- gpu image -->
+      <div class="absolute bottom-[42px] -right-40 lg:-right-8  h-full scale-[1.06]">
         <Image
           src={gpu}
           alt="GPU illustration"
@@ -60,8 +61,10 @@ const cta2 = heroSection.cta2;
       </div>
       <div
         class="absolute inset-0 pointer-events-none z-1 opacity-5
-              [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              [background-size:72px_72px]"
+              lg:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:70px_70px] md:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:58px_58px] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:50px_50px]"
       ></div>
     </div>
 
