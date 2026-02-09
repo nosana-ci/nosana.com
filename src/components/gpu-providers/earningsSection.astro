@@ -1,0 +1,135 @@
+---
+import Badge from "../ui/badge.astro";
+import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
+---
+
+<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14">
+  <!-- Heading -->
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+    Estimate Your <span class="text-green-400">Earnings</span>
+  </h2>
+
+  <!-- Description -->
+  <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
+    Discover how much you can earn by providing your GPUs on Nosana
+  </p>
+
+  <!-- Main Content Grid -->
+  <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 md:px-20">
+    <!-- Left Column - Form -->
+    <div class="space-y-8">
+      <!-- GPU Selection -->
+      <div>
+        <h3 class="text-primary body2 mb-3">
+          What GPU type you have?
+        </h3>
+        <div class="relative">
+          <select class="w-full bg-[#1f1f1f] rounded-lg px-4 py-3 text-primary appearance-none cursor-pointer hover:border-primary/50 transition-colors pr-10">
+            <option value="">Select your GPU model from the list below</option>
+            
+          </select>
+          <!-- Dropdown arrow -->
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hours Slider -->
+      <div class="sm:mr-16">
+        <h3 class="text-primary body2 mb-3">
+          How many available hours do <br/> you have per month?
+        </h3>
+        <p class="text-secondary text-[14px] italic mb-6">
+          These are the hours when your GPU is not in use. Use the slider to indicate the total idle hours you can contribute. 
+        </p>
+        
+        <!-- Slider Container -->
+        <div class="space-y-4">
+          <!-- Slider with relative positioning for progress bar -->
+          <div class="relative h-2 bg-surface rounded-lg">
+            <input 
+              type="range" 
+              id="hoursSlider"
+              min="0" 
+              max="744" 
+              value="168" 
+              class="absolute inset-0 w-full h-2 opacity-0 cursor-pointer z-10"
+            >
+            <!-- Progress fill -->
+            <div id="progressFill" class="absolute top-0 left-0 h-2 bg-green-400/30 rounded-lg pointer-events-none" style="width: 22.6%"></div>
+          </div>
+          
+          <!-- Display Value -->
+          <div class="flex justify-between items-center">
+            <span id="displayValue" class="text-secondary text-[14px]">7 Days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Earnings Card -->
+    <div class="lg:pl-8">
+      <div class="bg-surface border border-default rounded-lg sm:p-8 p-5 max-w-[624px] sm:space-y-12 space-y-8">
+        <!-- Header Section -->
+        <div class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"><p>Estimated price with</p> <Fragment set:html={nosanaLogoGray} /></div>
+        <div class="flex items-baseline justify-center sm:gap-5 gap-3">
+          <span class="text-primary sm:text-6xl text-4xl  grotesk">$48.45</span>
+          <span class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk">$24.4 / month</span>
+        </div>
+
+        <!-- Details Section -->
+        <div class="flex flex-col md:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10">
+          <div class="flex flex-col justify-between items-start w-full">
+            <span class="text-[#C9C9C9] text-sm">GPU type:</span>
+            <span class=" sm:text-lg text-sm font-medium">NVIDIA GeForce RTX 4090</span>
+          </div>
+          
+          <div class="flex flex-col justify-between items-start w-full">
+            <span class="text-[#C9C9C9] text-sm">Duration:</span>
+            <span class=" sm:text-lg text-sm font-medium">7 Days 17 hours</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Slider interaction
+  const slider = document.getElementById('hoursSlider');
+  const progressFill = document.getElementById('progressFill');
+  const displayValue = document.getElementById('displayValue');
+  const durationDisplay = document.getElementById('durationDisplay');
+  
+  if (slider && progressFill && displayValue && durationDisplay) {
+    const updateSlider = () => {
+      const value = parseInt((slider as HTMLInputElement).value);
+      const max = parseInt((slider as HTMLInputElement).max);
+      const percentage = (value / max) * 100;
+      
+      // Update progress fill
+      progressFill.style.width = `${percentage}%`;
+      
+      // Update display text
+      const days = Math.floor(value / 24);
+      const hours = value % 24;
+      
+      let displayText;
+      if (days > 0) {
+        displayText = hours > 0 ? `${days} Days ${hours} hours` : `${days} Days`;
+      } else {
+        displayText = `${hours} hours`;
+      }
+      
+      displayValue.textContent = displayText;
+      durationDisplay.textContent = displayText;
+    };
+    
+    slider.addEventListener('input', updateSlider);
+    updateSlider(); // Initialize
+  }
+</script>
