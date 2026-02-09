@@ -50,12 +50,12 @@ const customStyle =
   >
     {
       icon && (
-      <span
-        class:list={[
-          "w-4 h-4 flex items-center justify-center transition-colors",
-          variant !== "ghost" && "text-brand-300",
-        ]}
-      >
+        <span
+          class:list={[
+            "w-4 h-4 flex items-center justify-center transition-colors",
+            variant !== "ghost" && "text-brand-300",
+          ]}
+        >
           {typeof icon === "string" && icon.includes("<svg") ? (
             <span class="w-full h-full [&_path]:fill-current pointer-events-none select-none">
               <Fragment set:html={icon} />

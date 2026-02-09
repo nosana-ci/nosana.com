@@ -1,0 +1,60 @@
+---
+import { getEntry } from "astro:content";
+import Button from "../ui/button.astro";
+import ctaBg from "../../content/homepage/assets/ctaBg.svg";
+import ctaBgMobile from "../../content/homepage/assets/ctaBgMobile.svg";
+import { Image } from "astro:assets";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) {
+  throw new Error("Homepage content not found");
+}
+
+const { ctaSection } = entry.data;
+---
+
+<section class="relative w-full py-32 md:py-40 overflow-hidden">
+  <Image
+    src={ctaBg}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-top hidden md:block pointer-events-none select-none"
+    width={1440}
+    height={462}
+  />
+
+  <Image
+    src={ctaBgMobile}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-top md:hidden pointer-events-none select-none"
+    width={390}
+    height={462}
+  />
+
+  <div
+    class="relative z-10 flex flex-col items-center justify-center px-4 md:px-12"
+  >
+    <h2 class="text-primary h4 grotesk text-center mb-4">
+      {ctaSection.heading}
+    </h2>
+
+    <p
+      class="text-secondary body2 text-center mb-8 max-w-2xl"
+      set:html={ctaSection.description}
+    />
+
+    <div class="flex flex-col lg:flex-row gap-4 items-center">
+      <Button
+        title={ctaSection.cta1.title}
+        url={ctaSection.cta1.url}
+        variant="secondary"
+      />
+      <Button
+        title={ctaSection.cta2.title}
+        url={ctaSection.cta2.url}
+        variant="secondary"
+      />
+    </div>
+  </div>
+</section>

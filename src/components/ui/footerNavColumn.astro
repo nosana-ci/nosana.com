@@ -1,0 +1,33 @@
+---
+type NavItem = {
+  name: string;
+  url: string;
+};
+
+interface Props {
+  title: string;
+  items: NavItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<div>
+  <h4 class="mb-4 text-tertiary caption2">
+    {title}
+  </h4>
+  <ul class="space-y-2">
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={item.url}
+            class="text-sm text-primary hover:text-brand-100 transition"
+          >
+            {item.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

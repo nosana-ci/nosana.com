@@ -35,6 +35,48 @@ const navbarCollection = defineCollection({
   }),
 });
 
+const footerCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/footer" }),
+  schema: ({ image }) => z.object({
+    logo: image(),
+    description: z.string(),
+    socials: z.array(z.object({
+      name: z.string(),
+      url: z.string(),
+      icon: image(),
+    })),
+    navigation: z.object({
+      product: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      network: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      grants: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      learningCenter: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      community: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+      resources: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+      })),
+    }),
+    copyright: z.string(),
+    termsAndConditionsUrl: z.string(),
+    privacyPolicyUrl: z.string(),
+  })
+})
+
 const homepageCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/homepage" }),
   schema: ({ image }) =>
@@ -73,6 +115,20 @@ const homepageCollection = defineCollection({
           title: z.string(),
         }),
         heading: z.string(),
+        path1: z.object({
+          image: image(),
+          title: z.string(),
+          description: z.string(),
+          caption: z.string(),
+          url: z.string(),
+        }),
+        path2: z.object({
+          image: image(),
+          title: z.string(),
+          description: z.string(),
+          caption: z.string(),
+          url: z.string(),
+        }),
       }),
 
       ecosystemSection: z.object({
@@ -95,6 +151,13 @@ const homepageCollection = defineCollection({
         }),
         heading: z.string(),
         description: z.string(),
+        features: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            icon: image(),
+          })
+        ),
       }),
 
       rentGPU: z.object({
@@ -103,6 +166,21 @@ const homepageCollection = defineCollection({
         }),
         heading: z.string(),
         description: z.string(),
+        premium: z.array(z.object({
+          gpu: z.string(),
+          price: z.string(),
+          availability: z.string(),
+        })),
+        community: z.array(z.object({
+          gpu: z.string(),
+          price: z.string(),
+          availability: z.string(),
+        })),
+        others: z.array(z.object({
+          gpu: z.string(),
+          price: z.string(),
+          availability: z.string(),
+        })),
       }),
 
       banner: z.object({
@@ -165,9 +243,45 @@ const homepageCollection = defineCollection({
         ),
       }),
 
+      newsletter: z.object({
+        heading: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+
+      ctaSection: z.object({
+        heading: z.string(),
+        description: z.string(),
+        cta1: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+        cta2: z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+      }),
+
     }),
 });
 
+const caseStudyCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/case-study" }),
+  schema: ({ image }) => z.object({
+    caseStudyPage: z.object({
+      badge: z.object({
+        title: z.string(),
+      }),
+      heading: z.string(),
+      description: z.string(),
+    }),
+    caseStudies: z.array(z.object({
+      icon: image(),
+      title: z.string(),
+      description: z.string(),
+    })),
+  }),
+  
 const gpuProvidersCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/gpu-providers" }),
   schema: ({ image }) =>
@@ -319,5 +433,7 @@ const gpuProvidersCollection = defineCollection({
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
+  footer: footerCollection,
+  caseStudy: caseStudyCollection,
   gpuProviders: gpuProvidersCollection,
 };

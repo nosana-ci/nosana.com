@@ -1,21 +1,24 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
 
-interface Props {
+interface Props extends HTMLAttributes<"button"> {
   variant?: "primary" | "secondary";
   direction?: "up" | "down" | "left" | "right";
+  text?: string;
   class?: string;
 }
 
 const {
   variant = "primary",
   direction = "right",
+  text,
   class: className,
   ...rest
 } = Astro.props;
 
 const baseStyles =
-  "inline-flex items-center justify-center rounded-sm group overflow-hidden transition-all";
+  "inline-flex items-center justify-center gap-2 rounded-sm group overflow-hidden transition-all";
 
 const variants = {
   primary: "bg-primary hover:bg-primary/90 text-bg-base",
@@ -46,13 +49,27 @@ const translate = {
 }[direction];
 
 const reverse = direction === "left" || direction === "up";
+const textBeforeIcon = direction === "right" || direction === "down";
 ---
 
 <button
   type="button"
-  class:list={[baseStyles, variantStyle, "p-4", className]}
+  class:list={[
+    baseStyles,
+    variantStyle,
+    "p-2 lg:p-3 cursor-pointer",
+    className,
+  ]}
   {...rest}
 >
+  {/* Text before icon */}
+  {
+    text && textBeforeIcon && (
+      <span class="text-sm font-medium whitespace-nowrap">{text}</span>
+    )
+  }
+
+  <!-- Arrow icon -->
   <div class="w-3 h-3 lg:w-4 lg:h-4 relative">
     <div
       class:list={["flex transition-transform duration-300", axis, translate]}
@@ -75,4 +92,11 @@ const reverse = direction === "left" || direction === "up";
       }
     </div>
   </div>
+
+  {/* Text after icon */}
+  {
+    text && !textBeforeIcon && (
+      <span class="text-sm font-medium whitespace-nowrap">{text}</span>
+    )
+  }
 </button>

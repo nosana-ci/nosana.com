@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/layout/navbar.astro";
+import Footer from "../components/layout/footer.astro";
 
 interface Props {
 	title?: string;
@@ -19,11 +20,39 @@ const { title = "Nosana" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-bg-base text-primary font-sans">
-		<main class="flex flex-col items-center justify-center max-w-[1728px] mx-auto w-full">
-			<Navbar />
+
+	<body class="bg-bg-base text-primary font-sans min-h-screen">
+		<Navbar />
+
+		<main class="max-w-[1728px] mx-auto w-full">
 			<slot />
 		</main>
+
+		<Footer />
+
+		<!-- Lenis Smooth Scroll -->
+		<script is:inline type="module">
+			import Lenis from "https://cdn.skypack.dev/lenis";
+
+			const lenis = new Lenis({
+				duration: 1.5,
+				smoothWheel: true,
+				wheelMultiplier: 1.0,
+				touchMultiplier: 2.0,
+			});
+
+			function raf(time) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+
+			// Cleanup (equivalent to useEffect return)
+			window.addEventListener("beforeunload", () => {
+				lenis.destroy();
+			});
+		</script>
 	</body>
 </html>
 
@@ -33,6 +62,5 @@ const { title = "Nosana" } = Astro.props;
 		margin: 0;
 		padding: 0;
 		width: 100%;
-		height: 100%;
 	}
 </style>
