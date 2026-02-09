@@ -281,7 +281,8 @@ const caseStudyCollection = defineCollection({
       description: z.string(),
     })),
   }),
-  
+});
+
 const gpuProvidersCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/gpu-providers" }),
   schema: ({ image }) =>
