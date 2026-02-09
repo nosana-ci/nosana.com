@@ -1,0 +1,112 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+
+const entry = await getEntry("support", "index");
+if (!entry) {
+  throw new Error("Support content not found");
+}
+
+const { discord } = entry.data;
+---
+
+<section class="w-full px-4 md:px-12">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+           w-full h-fit
+           border border-elevated
+           overflow-hidden"
+  >
+    <div
+      class="w-full h-full
+             aspect-square md:aspect-auto
+             border-b md:border-b-0 md:border-r border-elevated"
+    >
+      <Image
+        src={discord.image}
+        alt="Discord"
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <div
+      class="flex flex-col justify-between
+             px-6 md:px-8 py-8
+             border-b lg:border-b-0 lg:border-r border-elevated"
+    >
+      <div class="flex items-start gap-4">
+        <Image
+          src={discord.card1.icon}
+          alt=""
+          width={50}
+          height={50}
+          class="shrink-0 select-none pointer-events-none"
+        />
+
+        <div>
+          <h3 class="text-primary body1">
+            {discord.card1.title}
+          </h3>
+
+          <p class="text-secondary body3 mt-1">
+            {discord.card1.description}
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="w-full py-6">
+          <div class="w-full h-px bg-elevated"></div>
+        </div>
+
+        <Button
+          title={discord.card1.button.title}
+          url={discord.card1.button.url}
+          icon={discord.card1.button.icon}
+          class="w-full"
+          variant="secondary"
+          iconColor="#fafafa"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col justify-between
+             px-6 md:px-8 py-8">
+      <div class="flex items-start gap-4">
+        <Image
+          src={discord.card2.icon}
+          alt=""
+          width={50}
+          height={50}
+          class="shrink-0"
+        />
+
+        <div>
+          <h3 class="text-primary body1">
+            {discord.card2.title}
+          </h3>
+
+          <p class="text-secondary body3 mt-1">
+            {discord.card2.description}
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="w-full py-6">
+          <div class="w-full h-px bg-elevated"></div>
+        </div>
+
+        <Button
+          title={discord.card2.button.title}
+          url={discord.card2.button.url}
+          icon={discord.card2.button.icon}
+          class="w-full"
+          variant="secondary"
+          iconColor="#fafafa"
+        />
+      </div>
+    </div>
+  </div>
+</section>

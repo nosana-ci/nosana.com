@@ -119,8 +119,12 @@
 }
 
 .body4 {
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.3;
+
+  @media (min-width: 390px) {
+    font-size: 12px;
+  }
 
   @media (min-width: 768px) {
     font-size: 14px;
