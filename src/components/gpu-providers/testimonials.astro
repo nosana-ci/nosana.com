@@ -1,0 +1,194 @@
+---
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import NavigateButton from "../ui/navigateButton.astro";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { testimonialsSection } = entry.data;
+
+const badge = testimonialsSection.badge;
+const heading = testimonialsSection.heading;
+const testimonials = testimonialsSection.testimonials;
+---
+
+<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14">
+  <!-- Badge -->
+  <Badge title={badge.title} class="mb-4" />
+
+
+  <!-- Heading -->
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+    {heading}
+  </h2>
+
+    <!-- Testimonials Carousel -->
+    <div class="relative">
+      <!-- Scrollable Container -->
+      <div 
+        id="testimonialScroll"
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar pb-4"
+      >
+        {testimonials.map((testimonial) => (
+          <div class="shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
+            <div class="relative h-full">
+              <svg 
+                class="absolute inset-0 w-full h-full" 
+                viewBox="0 0 411 498" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <path 
+                  d="M252 0C265.255 0 276 10.7452 276 24V49.2686C276 62.5234 286.745 73.2686 300 73.2686H387C400.255 73.2686 411 84.0137 411 97.2686V474C411 487.255 400.255 498 387 498H24C10.7452 498 0 487.255 0 474V24C0 10.7452 10.7452 0 24 0H252Z" 
+                  fill="#1f1f1f"
+                />
+              </svg>
+
+              <div class="relative z-10 h-full md:p-10 p-6 flex flex-col justify-between">
+                <div>
+                  <div class="mb-6">
+                    <svg class="w-10 h-10 text-[#22c55e]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+
+                  <p class="text-gray-300  mb:mb-8 mb-4 md:text-[17px] text-[13px] leading-[1.3] max-w-[340px] lg:max-w-[400px]">
+                    {testimonial.quote}
+                  </p>
+                </div>
+
+                <div>
+                  <p class="text-gray-500 text-base font-medium">
+                    {testimonial.author}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Bottom Controls: Progress Bar + Navigation Buttons -->
+      <div class="flex items-center md:justify-between justify-center mt-6">
+        <!-- Progress Bar (Left) -->
+        <div class="flex-1 max-w-[140px] hidden md:block">
+          <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+            <div 
+              id="progressBar"
+              class="h-full bg-white duration-300 rounded-full"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons (Right) -->
+        <div class="flex gap-3">
+          <div data-nav="prev">
+            <NavigateButton
+              direction="left"
+              variant="secondary"
+              aria-label="Previous testimonial"
+            />
+          </div>
+
+          <div data-nav="next">
+            <NavigateButton
+              direction="right"
+              variant="secondary"
+              aria-label="Next testimonial"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<style>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  const scrollContainer = document.getElementById('testimonialScroll');
+  const prevBtns = document.querySelectorAll<HTMLElement>('[data-nav="prev"]');
+  const nextBtns = document.querySelectorAll<HTMLElement>('[data-nav="next"]');
+  const progressBar = document.getElementById('progressBar');
+
+  if (scrollContainer && prevBtns && nextBtns && progressBar) {
+    // Calculate scroll amount based on card width + gap
+    const getScrollAmount = () => {
+      const firstCard = scrollContainer.querySelector('div');
+      return firstCard ? firstCard.offsetWidth + 24 : scrollContainer.offsetWidth * 2;
+    };
+
+    // Update progress bar
+    const updateProgress = () => {
+      const scrollWidth = scrollContainer.scrollWidth - scrollContainer.offsetWidth;
+      const scrolled = scrollContainer.scrollLeft;
+      const progress = (scrolled / scrollWidth) * 100;
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    };
+
+    // Update button states
+    const updateButtons = () => {
+      const isAtStart = scrollContainer.scrollLeft <= 0;
+      const isAtEnd = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= scrollContainer.scrollWidth - 10;
+      
+      // Update all prev buttons
+      prevBtns.forEach(btn => {
+        (btn as HTMLButtonElement).disabled = isAtStart;
+      });
+      
+      // Update all next buttons
+      nextBtns.forEach(btn => {
+        (btn as HTMLButtonElement).disabled = isAtEnd;
+      });
+    };
+
+    // Update both progress and buttons
+    const updateUI = () => {
+      updateProgress();
+      updateButtons();
+    };
+
+    // Next button click - iterate through all next buttons
+    nextBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+          left: getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Previous button click - iterate through all prev buttons
+    prevBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+          left: -getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Update on scroll
+    scrollContainer.addEventListener('scroll', updateUI);
+    
+    // Initial state
+    updateUI();
+
+    // Update on window resize
+    window.addEventListener('resize', updateUI);
+  }
+</script>

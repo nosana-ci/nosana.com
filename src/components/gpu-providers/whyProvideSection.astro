@@ -1,0 +1,67 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("gpuProviders", "index");
+
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { whyProvideSection } = entry.data;
+
+const badge = whyProvideSection.badge;
+const heading = whyProvideSection.heading;
+const description = whyProvideSection.description;
+const features = whyProvideSection.features;
+
+const headingParts = heading.split("GPU Hardware");
+---
+
+<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14">
+  <!-- Badge -->
+  <Badge title={badge.title} class="mb-4" />
+
+
+  <!-- Heading -->
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+    {headingParts[0]}
+    <span class="text-green-400">GPU Hardware</span>
+    {headingParts[1]}
+  </h2>
+
+  <!-- Description -->
+  <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
+    {description}
+  </p>
+
+  <!-- Features Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      {features.map((feature: any) => (
+        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 sm:pt-8`}>
+          <!-- Icon -->
+          <div class="mb-6">
+            <Image 
+              src={feature.icon} 
+              alt={feature.title}
+              width={100}
+              height={100}
+              class="invert opacity-70 w-[100px] h-[100px] md:w-[120px] md:h-[120px]"
+            />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-white md:text-2xl text-xl">
+            {feature.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="md:text-base text-sm text-white/60">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+  </div>
+</section>
