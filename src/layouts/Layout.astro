@@ -30,9 +30,8 @@ const { title = "Nosana" } = Astro.props;
 
 		<Footer />
 
-		<!-- Lenis Smooth Scroll -->
-		<script is:inline type="module">
-			import Lenis from "https://cdn.skypack.dev/lenis";
+		<script>
+			import Lenis from "lenis";
 
 			const lenis = new Lenis({
 				duration: 1.5,
@@ -41,17 +40,12 @@ const { title = "Nosana" } = Astro.props;
 				touchMultiplier: 2.0,
 			});
 
-			function raf(time) {
+			function raf(time: DOMHighResTimeStamp) {
 				lenis.raf(time);
 				requestAnimationFrame(raf);
 			}
 
 			requestAnimationFrame(raf);
-
-			// Cleanup (equivalent to useEffect return)
-			window.addEventListener("beforeunload", () => {
-				lenis.destroy();
-			});
 		</script>
 	</body>
 </html>
