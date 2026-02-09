@@ -1,0 +1,178 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import ArrowButton from "./navigateButton.astro";
+
+const entry = await getEntry("homepage", "index");
+if (!entry) throw new Error("Homepage content not found");
+
+const { features } = entry.data.whyNosanaSection;
+---
+
+<section class="relative w-full overflow-hidden">
+  <div class="overflow-hidden">
+    <div
+      id="why-nosana-track"
+      class="flex items-end gap-6 transition-transform duration-500 ease-out"
+    >
+      {
+        features.map((feature, index) => {
+          const [titleMain, titleSub] = feature.title.split("-");
+
+          return (
+            <div
+              class="why-nosana-card w-[300px] shrink-0 min-h-[160px]
+                    rounded-lg
+                    bg-white/15 border border-white/20
+                    transition-all duration-500 ease-out
+                    flex flex-col p-4"
+              data-index={index}
+            >
+              <div class="flex flex-col h-full justify-between">
+                <div class="mb-1">
+                  <Image
+                    src={feature.icon}
+                    alt=""
+                    class="w-14 h-14 select-none pointer-events-none"
+                  />
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <div>
+                    <h3 class="text-primary font-bold body4">{titleMain}</h3>
+                    {titleSub && <p class="text-primary body4">{titleSub}</p>}
+                  </div>
+
+                  <p
+                    class="feature-desc text-secondary caption1
+                          overflow-hidden transition-all duration-500"
+                  >
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mt-6">
+    <div class="w-40 h-[2px] bg-white/20 overflow-hidden rounded">
+      <div
+        id="why-nosana-progress"
+        class="h-full bg-white transition-all duration-500"
+        style="width: 0%"
+      >
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <ArrowButton variant="secondary" direction="left" data-action="prev" />
+      <ArrowButton variant="secondary" direction="right" data-action="next" />
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const track = document.getElementById("why-nosana-track") as HTMLElement;
+    if (!track) return;
+
+    const progressEl = document.getElementById(
+      "why-nosana-progress",
+    ) as HTMLElement;
+
+    const cards = Array.from(track.children) as HTMLElement[];
+
+    const CARD_WIDTH = 300;
+    const GAP = 24;
+
+    let cardsPerPage = 1;
+    let currentPage = 0;
+    let activeIndex = 0;
+
+    function computeCardsPerPage() {
+      const w = window.innerWidth;
+
+      if (w >= 1280) return 4;
+      if (w >= 1024) return 3;
+      if (w >= 768) return 2;
+      return 1;
+    }
+
+    function clampPage(page: number) {
+      const totalPages = Math.ceil(cards.length / cardsPerPage);
+      return Math.max(0, Math.min(page, totalPages - 1));
+    }
+
+    function setActive(index: number) {
+      activeIndex = index;
+
+      cards.forEach((card, i) => {
+        const desc = card.querySelector(".feature-desc") as HTMLElement | null;
+        const isActive = i === activeIndex;
+
+        card.style.height = isActive ? "300px" : "160px";
+
+        if (desc) {
+          desc.style.maxHeight = isActive ? "200px" : "0px";
+          desc.style.paddingBottom = isActive ? "32px" : "0px";
+        }
+      });
+    }
+
+    function update() {
+      cardsPerPage = computeCardsPerPage();
+      currentPage = clampPage(currentPage);
+
+      const totalPages = Math.ceil(cards.length / cardsPerPage);
+      const pageStartIndex = currentPage * cardsPerPage;
+      setActive(pageStartIndex);
+
+      const offset = pageStartIndex * (CARD_WIDTH + GAP);
+
+      track.style.transform = `translateX(-${offset}px)`;
+
+      if (progressEl) {
+        const progress =
+          totalPages <= 1 ? 100 : ((currentPage + 1) / totalPages) * 100;
+
+        progressEl.style.width = `${progress}%`;
+      }
+    }
+
+    cards.forEach((card, index) => {
+      card.addEventListener("mouseenter", () => {
+        setActive(index);
+      });
+    });
+
+    const container = track.closest("section") as HTMLElement | null;
+    if (!container) return;
+
+    const prevBtn = container.querySelector<HTMLButtonElement>(
+      '[data-action="prev"]',
+    );
+    const nextBtn = container.querySelector<HTMLButtonElement>(
+      '[data-action="next"]',
+    );
+
+    prevBtn?.addEventListener("click", () => {
+      currentPage--;
+      update();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      currentPage++;
+      update();
+    });
+
+    window.addEventListener("resize", () => {
+      update();
+    });
+
+    update();
+  })();
+</script>

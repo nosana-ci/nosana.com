@@ -1,0 +1,63 @@
+---
+interface GPUItem {
+  gpu: string;
+  price: string;
+  availability: string;
+}
+
+interface Props {
+  items: GPUItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="w-full overflow-hidden mb-10">
+  <!-- Header -->
+  <div
+    class="grid grid-cols-3
+           px-4 md:px-6 py-6
+           text-sm text-primary bg-white/10 body2"
+  >
+    <span>GPU</span>
+    <span class="text-center hidden sm:block">Price</span>
+    <span class="text-right hidden sm:block">Availability</span>
+  </div>
+
+  <!-- Rows -->
+  <div class="divide-y divide-default border-b border-default">
+    {items.map((item) => (
+      <div
+        class="px-4 md:px-6 py-6 body2
+               md:grid md:grid-cols-3"
+      >
+        <!-- GPU -->
+        <div class="text-primary font-medium mb-2 md:mb-0">
+          {item.gpu}
+        </div>
+
+        <!-- Mobile: Price + Availability in one row -->
+        <div class="flex justify-between gap-4 md:hidden">
+          <div class="text-primary">
+            <span class="text-secondary">Price: </span>
+            {item.price}
+          </div>
+          <div class="text-primary text-right">
+            <span class="text-secondary">Availability: </span>
+            {item.availability}
+          </div>
+        </div>
+
+        <!-- Desktop: Price -->
+        <div class="hidden md:block md:text-center text-primary">
+          {item.price}
+        </div>
+
+        <!-- Desktop: Availability -->
+        <div class="hidden md:block md:text-right text-primary">
+          {item.availability}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

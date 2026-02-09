@@ -1,22 +1,157 @@
 ---
 import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
+import GPUGrid from "../ui/gpuGrid.astro";
+
+import searchIcon from "../../assets/icons/search.svg";
+import filterIcon from "../../assets/icons/filter.svg";
+import gpuHero from "../../content/homepage/assets/halfgpu.svg";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
   throw new Error("Homepage content not found");
 }
+
 const { rentGPU } = entry.data;
+const { premium, community, others } = rentGPU;
 ---
 
-<section class="w-full min-h-screen bg-bg-base px-4 md:px-12">
+<section class="w-full h-fit bg-bg-base px-4 md:px-12">
   <Badge title={rentGPU.badge.title} class="mb-4" />
 
   <h2 class="text-primary h4 grotesk max-w-xl mb-4">
     {rentGPU.heading}
   </h2>
 
-  <p class="text-secondary md:max-w-2xl leading-relaxed mb-8 md:mb-16 lg:mb-18 body2">
+  <p class="text-secondary md:max-w-2xl leading-relaxed body2">
     {rentGPU.description}
   </p>
+
+  <!-- Search -->
+  <div class="flex items-center gap-4 py-10 w-full">
+    <div class="flex items-center w-full h-14 rounded-xl bg-white/5 px-4">
+      <Image
+        src={searchIcon}
+        alt="Search"
+        width={24}
+        height={24}
+        class="mr-4 opacity-60"
+      />
+      <input
+        type="text"
+        placeholder="Search here"
+        class="w-full bg-transparent outline-none body2
+               text-primary placeholder:text-white/60"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="flex items-center justify-center h-14 w-14 rounded-full
+             border border-white/10 hover:bg-white/10 transition"
+      aria-label="Filter"
+    >
+      <Image
+        src={filterIcon}
+        alt="Filter"
+        width={20}
+        height={20}
+        class="opacity-60"
+      />
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="w-full">
+    <!-- Radios -->
+    <input type="radio" name="gpu-tabs" id="tab-premium" checked />
+    <input type="radio" name="gpu-tabs" id="tab-community" />
+    <input type="radio" name="gpu-tabs" id="tab-others" />
+
+    <!-- Labels -->
+    <div class="tabs-header">
+      <label for="tab-premium" class="tab-label">Premium</label>
+      <label for="tab-community" class="tab-label">Community</label>
+      <label for="tab-others" class="tab-label">Others</label>
+    </div>
+
+    <!-- GPU image -->
+    <div class="">
+      <Image
+        src={gpuHero}
+        alt="GPU"
+        class="w-full h-auto select-none pointer-events-none"
+      />
+    </div>
+
+    <!-- Panels -->
+    <div class="tabs-content">
+      <div class="panel premium">
+        <GPUGrid items={premium} />
+      </div>
+
+      <div class="panel community">
+        <GPUGrid items={community} />
+      </div>
+
+      <div class="panel others">
+        <GPUGrid items={others} />
+      </div>
+    </div>
+  </div>
 </section>
+
+<style>
+  input[type="radio"] {
+    display: none;
+  }
+
+  /* Tabs header */
+  .tabs-header {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid #555555;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tab base */
+  .tab-label {
+    padding-bottom: 0.75rem;
+    cursor: pointer;
+    color: #fafafa;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+    border-bottom: 2px solid transparent;
+  }
+
+  /* Hover state */
+  .tab-label:hover {
+    color: #10e80c;
+  }
+
+  /* Active tab */
+  #tab-premium:checked ~ .tabs-header label[for="tab-premium"],
+  #tab-community:checked ~ .tabs-header label[for="tab-community"],
+  #tab-others:checked ~ .tabs-header label[for="tab-others"] {
+    border-bottom-color: #10e80c;
+  }
+
+  /* Panels */
+  .tabs-content .panel {
+    display: none;
+  }
+
+  #tab-premium:checked ~ .tabs-content .premium {
+    display: block;
+  }
+
+  #tab-community:checked ~ .tabs-content .community {
+    display: block;
+  }
+
+  #tab-others:checked ~ .tabs-content .others {
+    display: block;
+  }
+</style>

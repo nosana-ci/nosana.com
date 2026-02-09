@@ -141,10 +141,14 @@
 }
 
 .caption2 {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.3;
 
   @media (min-width: 768px) {
+    font-size: 10px;
+  }
+
+  @media (min-width: 1024px) {
     font-size: 12px;
   }
 }
@@ -181,4 +185,8 @@
   .animate-marquee-slow {
     animation: none;
   }
+}
+
+.tab-label {
+  @apply pb-3 text-white/40 cursor-pointer transition hover:text-white;
 }
