@@ -297,22 +297,6 @@ testimonials:
   description: 
   - "Nosana runs on fully open-source infrastructure and a global network of GPU providers."
   - "This gives teams transparency, flexibility, and the ability to run workloads without vendor lock-in"
-  testimonial:
-    - name: "Top Ledger"
-      username: "ledger_top"
-      logo: "./assets/testimonialLogos/topledger.png"
-      message: "Nosana_ai is one of the most cost-effective GPU grids, with zero lock-in. Developed and customized for AI inference workloads. The Nosana grid comprises approximately 2,000 nodes with various hardware configurations, actively running AI models"
-      rating: 5.0
-    - name: "Mango"
-      username: "mangomarkets"
-      logo: "./assets/testimonialLogos/mango.png"
-      message: "Without a doubt, @nosana_ai is one of the most interesting & inspiring applications you can find in Crypto."
-      rating: 5.0
-    - name: "Chem X"
-      username: "xchem"
-      logo: "./assets/testimonialLogos/chemx.png"
-      message: "Staking @nosana_ai might have been one of my smartest/favorite decisions for this cycle."
-      rating: 5.0
 
 newsletter:
   heading: "Stay Updated with Nosana"
