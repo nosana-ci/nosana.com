@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getEntry } from "astro:content";
+import Divider from "../components/ui/divider.astro";
+import Newsletter from "../components/layout/newsletter.astro";
+import GithubBanner from "../components/support/githubBanner.astro";
+import Badge from "../components/ui/badge.astro";
+import Production from "../components/homepage/production.astro";
+
+const entry = await getEntry("caseStudy", "index");
+if (!entry) {
+  throw new Error("content not found");
+}
+
+const [titleMain, titleSub] = entry.data.heading.split("-");
+---
+
+<Layout title="Nosana | Case Study Page">
+  <div class="flex flex-col gap-2 px-4 md:px-12 pt-8 md:pt-16 lg:pt-18">
+    <Badge title={entry.data.badge.title} class="w-fit" />
+    <h1 class="h4 grotesk text-primary max-w-3xl">
+      {titleMain}
+      <span class="text-brand-100">{titleSub}</span>
+    </h1>
+    <p class="body2 text-secondary max-w-3xl">{entry.data.description}</p>
+  </div>
+  <Divider />
+  <GithubBanner />
+  <Divider />
+  <Production />
+  <GithubBanner />
+  <Divider />
+  <Newsletter />
+  <Divider />
+</Layout>

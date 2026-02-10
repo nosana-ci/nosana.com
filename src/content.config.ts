@@ -40,11 +40,6 @@ const footerCollection = defineCollection({
   schema: ({ image }) => z.object({
     logo: image(),
     description: z.string(),
-    socials: z.array(z.object({
-      name: z.string(),
-      url: z.string(),
-      icon: image(),
-    })),
     navigation: z.object({
       product: z.array(z.object({
         name: z.string(),
@@ -74,6 +69,55 @@ const footerCollection = defineCollection({
     copyright: z.string(),
     termsAndConditionsUrl: z.string(),
     privacyPolicyUrl: z.string(),
+  })
+})
+
+const layoutCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/layout" }),
+  schema: ({ image }) => z.object({
+    newsletter: z.object({
+      heading: z.string(),
+      description: z.string(),
+      image: image(),
+    }),
+    socialBannerMarquee: z.object({
+      image1: image(),
+      image2: image(),
+      image3: image(),
+      content1: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      content2: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      content3: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      image4: image(),
+      image5: image(),
+      image6: image(),
+      content4: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      content5: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      content6: z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+      socialTitle: z.string(),
+      socialLinks: z.array(z.object({
+        name: z.string(),
+        url: z.string(),
+        icon: image(),
+      })),
+    }),
   })
 })
 
@@ -234,12 +278,6 @@ const homepageCollection = defineCollection({
         description: z.array(z.string()),
       }),
 
-      newsletter: z.object({
-        heading: z.string(),
-        description: z.string(),
-        image: image(),
-      }),
-
       ctaSection: z.object({
         heading: z.string(),
         description: z.string(),
@@ -259,13 +297,11 @@ const homepageCollection = defineCollection({
 const caseStudyCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/case-study-page" }),
   schema: () => z.object({
-    caseStudyPage: z.object({
-      badge: z.object({
-        title: z.string(),
-      }),
-      heading: z.string(),
-      description: z.string(),
+    badge: z.object({
+      title: z.string(),
     }),
+    heading: z.string(),
+    description: z.string(),
   }),
 });
 
@@ -432,6 +468,7 @@ export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
   footer: footerCollection,
+  layout: layoutCollection,
   support: supportCollection,
   caseStudy: caseStudyCollection,
   gpuProviders: gpuProvidersCollection,

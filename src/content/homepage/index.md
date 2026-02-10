@@ -298,11 +298,6 @@ testimonials:
   - "Nosana runs on fully open-source infrastructure and a global network of GPU providers."
   - "This gives teams transparency, flexibility, and the ability to run workloads without vendor lock-in"
 
-newsletter:
-  heading: "Stay Updated with Nosana"
-  description: "Get the latest insights on AI infrastructure, GPU launches, and network innovations — all in one place"
-  image: "../../assets/images/newsletter.svg"
-
 ctaSection:
   heading: "Ready to get started?"
   description: "No Limits. Only Possibilities."
