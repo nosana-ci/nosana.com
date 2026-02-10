@@ -15,9 +15,9 @@ import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
   </p>
 
   <!-- Main Content Grid -->
-  <div class="grid md:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 lg:px-20">
+  <div class="w-full flex flex-col md:flex-row gap-y-6 justify-between items-center xl:px-20">
     <!-- Left Column - Form -->
-    <div class="space-y-8">
+    <div class="space-y-8 lg:w-[45%] w-full lg:pr-10">
       <!-- GPU Selection -->
       <div>
         <h3 class="text-primary body2 mb-3">
@@ -70,17 +70,17 @@ import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
     </div>
 
     <!-- Right Column - Earnings Card -->
-    <div class="lg:pl-8">
-      <div class="bg-surface border border-default rounded-lg sm:p-8 p-5 max-w-[624px] sm:space-y-12 space-y-8">
+    <div class="md:pl-10 w-full flex lg:flex-1 lg:border-l border-default/50 ">
+      <div class="bg-surface border border-default rounded-lg sm:p-8 p-5 w-full lg:space-y-12 space-y-4">
         <!-- Header Section -->
         <div class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"><p>Estimated price with</p> <Fragment set:html={nosanaLogoGray} /></div>
-        <div class="flex items-baseline justify-center sm:gap-5 gap-3">
+        <div class="flex items-baseline md:items-center lg:items-baseline justify-center sm:gap-5 gap-3 flex-row md:flex-col lg:flex-row w-full ">
           <span class="text-primary sm:text-6xl text-4xl  grotesk">$48.45</span>
           <span class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk">$24.4/month</span>
         </div>
 
         <!-- Details Section -->
-        <div class="flex flex-col md:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10">
+        <div class="flex flex-col lg:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10">
           <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
             <span class="text-[#C9C9C9] body4">GPU type:</span>
             <span class="body2 font-medium">NVIDIA GeForce RTX 4090</span>
