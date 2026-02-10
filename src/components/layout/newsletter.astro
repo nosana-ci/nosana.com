@@ -3,7 +3,7 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
 
-const entry = await getEntry("homepage", "index");
+const entry = await getEntry("layout", "index");
 
 if (!entry) {
   throw new Error("content not found");

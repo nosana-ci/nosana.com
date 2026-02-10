@@ -1,0 +1,33 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+const entry = await getEntry("layout", "index");
+if (!entry) {
+  throw new Error("Layout content not found");
+}
+
+const { socialLinks } = entry.data.socialBannerMarquee;
+---
+
+<div class="flex flex-wrap gap-3">
+  {
+    socialLinks.map((social) => (
+      <a
+        href={social.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={social.name}
+        class="w-10 h-10 rounded-full border border-white/15
+             flex items-center justify-center
+             hover:bg-white/10 transition"
+      >
+        <Image
+          src={social.icon}
+          alt={social.name}
+          class="w-[18px] h-[18px] select-none"
+        />
+      </a>
+    ))
+  }
+</div>

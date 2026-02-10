@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import NavColumn from "../../components/ui/footerNavColumn.astro";
+import Socials from "../../components/ui/socials.astro";
 
 const entry = await getEntry("footer", "index");
 if (!entry) {
@@ -13,7 +14,6 @@ const footer = entry.data;
 const {
   logo,
   description,
-  socials,
   navigation,
   copyright,
   termsAndConditionsUrl,
@@ -35,28 +35,7 @@ const {
       <p class="body2 text-secondary max-w-lg mb-8 md:mb-16 lg:mb-18">
         {description}
       </p>
-
-      <div class="flex flex-wrap gap-3">
-        {
-          socials.map((social) => (
-            <a
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
-              class="w-10 h-10 rounded-full border border-white/15
-                   flex items-center justify-center
-                   hover:bg-white/10 transition"
-            >
-              <Image
-                src={social.icon}
-                alt=""
-                class="w-[18px] h-[18px] select-none"
-              />
-            </a>
-          ))
-        }
-      </div>
+      <Socials />
     </div>
 
     <div

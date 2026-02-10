@@ -2,29 +2,6 @@
 logo: "../../assets/logos/nosanaLogoDark.svg"
 description: "An open-source GPU cloud with on-demand pricing, saving up to 6x on compute"
 
-socials:
-  - name: "X"
-    url: "https://x.com/nosana"
-    icon: "../../assets/icons/twitter.svg"
-  - name: "LinkedIn"
-    url: "https://linkedin.com/nosana"
-    icon: "../../assets/icons/linkedin.svg"
-  - name: "Medium"
-    url: "https://medium.com/nosana"
-    icon: "../../assets/icons/medium.svg"
-  - name: "GitHub"
-    url: "https://github.com/nosana"
-    icon: "../../assets/icons/github.svg"
-  - name: "Telegram"
-    url: "https://t.me/nosana"
-    icon: "../../assets/icons/telegram.svg"
-  - name: "Discord"
-    url: "https://discord.com/nosana"
-    icon: "../../assets/icons/discord.svg"
-  - name: "YouTube"
-    url: "https://youtube.com/nosana"
-    icon: "../../assets/icons/youtube.svg"
-
 navigation:
   product:
     - name: "Deploy GPU Workloads"

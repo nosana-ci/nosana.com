@@ -1,7 +1,6 @@
 ---
-caseStudyPage:
-  badge:
-    title: "Case Study"
-  heading: "Real Results From Users Powered by Nosana"
-  description: "Explore how teams and individuals are using Nosana to run compute, train models, and build the next generation of AI applications"
+badge:
+  title: "Case Studies"
+heading: "How Teams - Build and Scale with GPU Compute"
+description: "Real examples of how partners use Nosana to run production workloads"
 ---
