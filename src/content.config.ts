@@ -431,10 +431,54 @@ const gpuProvidersCollection = defineCollection({
     }),
 });
 
+const supportCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/support" }),
+  schema: ({ image }) => z.object({
+    heading: z.string(),
+    description: z.string(),
+    discord: z.object({
+      image: image(),
+      card1: z.object({
+        title: z.string(),
+        description: z.string(),
+        icon: image(),
+        button: z.object({
+          title: z.string(),
+          url: z.string(),
+          icon: image(),
+        }),
+      }),
+      card2: z.object({
+        title: z.string(),
+        description: z.string(),
+        icon: image(),
+        button: z.object({
+          title: z.string(),
+          url: z.string(),
+          icon: image(),
+        }),
+      }),
+    }),
+    github: z.object({
+      text: z.string(),
+      url: z.string(),
+      image: image(),
+      icon: image(),
+    }),
+    faqs: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    ),
+  }),
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
   footer: footerCollection,
+  support: supportCollection,
   caseStudy: caseStudyCollection,
   gpuProviders: gpuProvidersCollection,
 };

@@ -15,7 +15,7 @@ const { heading, description, image } = newsletter;
 
 <section class="w-full bg-bg-base px-4 md:px-12 mb-8 md:mb-16 lg:mb-18">
   <div
-    class="mx-auto max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-10"
+    class="mx-auto flex flex-col lg:flex-row items-center justify-between gap-10"
   >
     <div class="w-full lg:w-1/2">
       <h2
@@ -102,13 +102,11 @@ const { heading, description, image } = newsletter;
       </form>
     </div>
 
-    <div
-      class="w-full lg:w-1/2 aspect-4/3 lg:aspect-auto lg:h-[420px] flex items-center justify-center"
-    >
+    <div class="w-full lg:w-1/2 lg:h-[420px] flex items-center justify-center">
       <Image
         src={image}
         alt="Email section illustration"
-        class="w-full h-full object-contain object-center pointer-events-none select-none"
+        class="w-full h-full object-contain object-center select-none pointer-events-none"
         loading="lazy"
       />
     </div>
