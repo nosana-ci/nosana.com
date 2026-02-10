@@ -31,17 +31,19 @@ const testimonials = testimonialsSection.testimonials;
       <!-- Scrollable Container -->
       <div 
         id="testimonialScroll"
-        class="flex  gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar "
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar "
       >
         {testimonials.map((testimonial) => (
-          <div class="shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
+          <div class="shrink-0 w-full h-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
             <div class="relative w-full h-full">
-              <svg class="absolute inset-0 w-full h-auto " width="347" height="360" viewBox="0 0 347 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M212.719 0C223.932 0 233.022 9.09016 233.022 20.3034V32.6624C233.022 43.8757 242.113 52.9658 253.326 52.9658H326.697C337.91 52.9658 347 62.056 347 73.2693V339.697C347 350.91 337.91 360 326.697 360H20.3034C9.09014 360 0 350.91 0 339.697V20.3034C0 9.09016 9.09016 0 20.3034 0H212.719Z" fill="#1F1F1F"/>
+              
+              <svg class="absolute inset-0 w-full h-auto " width="411" height="498" viewBox="0 0 411 498" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M252 0C265.255 0 276 10.7452 276 24V49.2686C276 62.5234 286.745 73.2686 300 73.2686H387C400.255 73.2686 411 84.0137 411 97.2686V474C411 487.255 400.255 498 387 498H24C10.7452 498 0 487.255 0 474V24C0 10.7452 10.7452 0 24 0H252Z" fill="#1F1F1F"/>
               </svg>
 
 
-              <div class="relative aspect-34/36 z-10 w-full  md:p-10 p-8 flex flex-col justify-between">
+
+              <div class="relative aspect-41/50 z-10 w-full  md:p-10 p-8 flex flex-col justify-between">
                 <div>
                   <div class="mb-6">
                     <svg class="w-6 h-6 text-[#22c55e]" fill="currentColor" viewBox="0 0 24 24">
@@ -55,7 +57,7 @@ const testimonials = testimonialsSection.testimonials;
                 </div>
 
                 <div>
-                  <p class="text-[#7a7a7a] body">
+                  <p class="text-[#7a7a7a] body2">
                     {testimonial.author}
                   </p>
                 </div>
@@ -66,7 +68,7 @@ const testimonials = testimonialsSection.testimonials;
       </div>
 
       <!-- Bottom Controls: Progress Bar + Navigation Buttons -->
-      <div class="flex items-center md:justify-between justify-center">
+      <div class="flex items-center md:justify-between justify-center mt-4">
         <!-- Progress Bar (Left) -->
         <div class="flex-1 max-w-[140px] hidden md:block">
           <div class="h-1 bg-white/10 rounded-full overflow-hidden">

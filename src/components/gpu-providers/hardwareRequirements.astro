@@ -3,6 +3,7 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
+import chevronRightDouble from "../../assets/icons/chevronRightDouble.svg?raw";
 
 const entry = await getEntry("gpuProviders", "index");
 
@@ -19,8 +20,8 @@ const buttons = hardwareRequirementsSection.buttons;
 const requirements = hardwareRequirementsSection.requirements;
 ---
 
-<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14 flex flex-col lg:flex-row gap-x-6 justify-between items-start">
-  <div class="w-full">
+<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14 flex flex-col lg:flex-row justify-between items-start">
+  <div class="lg:w-[45%] w-full lg:pr-10">
     <!-- Badge -->
     <Badge title={badge.title} class="mb-4" />
 
@@ -50,9 +51,9 @@ const requirements = hardwareRequirementsSection.requirements;
     </div>
   </div>
     <!-- Requirements Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full flex-1">
       {requirements.map((requirement) => (
-        <div class="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-xl px-3 md:px-3 py-3 md:py-8 hover:border-green-400/30 transition-all duration-300 group">
+        <div class="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-xl px-3 md:px-3 py-3 md:py-8  transition-all duration-300 group">
           <!-- Icon -->
             <Image
               src={requirement.icon}
@@ -75,17 +76,17 @@ const requirements = hardwareRequirementsSection.requirements;
           </p>
 
           <!-- Optional Link -->
-          {/* {requirement.link && (
-            
-              href={requirement.link.url}
-              class="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group/link"
-            >
-              {requirement.link.title}
-              <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          )} */}
+          {
+            requirement.link && (
+              <a
+                class="inline-flex items-center gap-2 body4 font-semibold text-secondary hover:text-green-400 transition-colors group/link mt-4 hover:translate-y-3"
+              >
+                View the List
+                <Fragment set:html={chevronRightDouble} />
+              </a>
+            )
+          }
+          
         </div>
       ))}
     </div>
