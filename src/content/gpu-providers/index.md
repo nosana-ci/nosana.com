@@ -68,5 +68,35 @@ emailSection:
   description:     Get the latest insights on AI infrastructure, GPU launches, andnetwork innovations — all in one place  
   image: "./assets/mask.svg"   
 
-
+hardwareRequirementsSection:
+  badge:
+    title: "Earn with Your Idle Power"
+  heading: "Hardware Requirements"
+  description: "Join the Nosana network and leverage your idle processing power! To participate, ensure your setup meets the following requirements:"
+  buttons:
+    primary:
+      title: "Start Earning"
+      url: "/start-earning"
+    secondary:
+      title: "Contact Us"
+      url: "/contact"
+  requirements:
+    - icon: "./assets/wifiIcon.svg"
+      title: "Internet Connection"
+      description: "Minimum of 100 MB/s download and 50 MB/s upload."
+    
+    - icon: "./assets/ramIcon.svg"
+      title: "RAM"
+      description: "At least 12 GB."
+    
+    - icon: "./assets/storageIcon.svg"
+      title: "Storage"
+      description: "256 GB SSD or greater."
+    
+    - icon: "./assets/gpuIcon.svg"
+      title: "NVIDIA GPU"
+      description: "Check our approved models to see if yours qualifies!"
+      link:
+        title: "View the List"
+        url: "/gpu-models"
 ---

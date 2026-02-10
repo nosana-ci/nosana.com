@@ -26,7 +26,7 @@ const cta2 = heroSection.cta2;
 ---
 
 <section
-  class="relative w-full h-[calc(100vh-8rem)] lg:h-[762px] overflow-hidden pt-26 px-4 lg:px-[40px]"
+  class="relative w-full h-[670px] md:h-[800px] lg:h-[762px] overflow-hidden pt-10 md:pt-16 lg:pt-26 px-4 md:px-[40px]"
 >
   <video
     autoplay
@@ -40,7 +40,7 @@ const cta2 = heroSection.cta2;
   </video>
 
   <div
-    class="relative z-10 bg-bg-base rounded-xl overflow-hidden p-6 lg:p-[100px] h-[680px]"
+    class="relative z-10 bg-bg-base rounded-xl overflow-hidden p-6 lg:p-[100px] h-[680px] md:h-[785px] lg:h-[680px]"
   >
     <div class="absolute inset-0 pointer-events-none mix-blend-hard-light z-0">
       <Image
@@ -52,7 +52,7 @@ const cta2 = heroSection.cta2;
 
     <div class="absolute inset-0 pointer-events-none z-0">
       <!-- gpu image -->
-      <div class="absolute bottom-[42px] -right-40 lg:-right-8  h-full scale-[1.06]">
+      <div class="absolute left-0 lg:bottom-[42px] bottom-[100px] -right-32 md:-right-8  h-full lg:scale-[1.06] md:scale-[1.06] scale-[1.2]">
         <Image
           src={gpu}
           alt="GPU illustration"
@@ -61,10 +61,8 @@ const cta2 = heroSection.cta2;
       </div>
       <div
         class="absolute inset-0 pointer-events-none z-1 opacity-5
-              lg:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              [background-size:70px_70px] md:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              [background-size:58px_58px] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              [background-size:50px_50px]"
+              bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              lg:bg-size-[70px_70px] md:bg-size-[58px_58px] bg-size-[47px_47px]"
       ></div>
     </div>
 
