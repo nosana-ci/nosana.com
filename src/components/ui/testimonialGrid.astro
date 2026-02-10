@@ -3,12 +3,10 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import NavigateButton from "./navigateButton.astro";
 
-const entry = await getEntry("caseStudy", "index");
+const entry = await getEntry("testimonials", "index");
 if (!entry) throw new Error("Case study content not found");
 
-const { caseStudies } = entry.data;
-
-const ITEMS_PER_PAGE = 6;
+const { testimonialGridData } = entry.data;
 ---
 
 <section class="w-full">
@@ -16,7 +14,7 @@ const ITEMS_PER_PAGE = 6;
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default"
   >
     {
-      caseStudies.map((item, index) => (
+      testimonialGridData.map((item, index) => (
         <div
           class="case-card hidden border border-default p-6"
           data-index={index}

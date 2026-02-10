@@ -232,15 +232,6 @@ const homepageCollection = defineCollection({
       testimonials: z.object({
         heading: z.string(),
         description: z.array(z.string()),
-        testimonial: z.array(
-          z.object({
-            name: z.string(),
-            username: z.string(),
-            logo: image(),
-            message: z.string(),
-            rating: z.number(),
-          })
-        ),
       }),
 
       newsletter: z.object({
@@ -266,8 +257,8 @@ const homepageCollection = defineCollection({
 });
 
 const caseStudyCollection = defineCollection({
-  loader: glob({ pattern: "index.md", base: "src/content/case-study" }),
-  schema: ({ image }) => z.object({
+  loader: glob({ pattern: "index.md", base: "src/content/case-study-page" }),
+  schema: () => z.object({
     caseStudyPage: z.object({
       badge: z.object({
         title: z.string(),
@@ -275,7 +266,20 @@ const caseStudyCollection = defineCollection({
       heading: z.string(),
       description: z.string(),
     }),
-    caseStudies: z.array(z.object({
+  }),
+});
+
+const testimonialsCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/testimonials" }),
+  schema: ({ image }) => z.object({
+    testimonialCardsData: z.array(z.object({
+      name: z.string(),
+      username: z.string(),
+      logo: image(),
+      message: z.string(),
+      rating: z.number(),
+    })),
+    testimonialGridData: z.array(z.object({
       icon: image(),
       title: z.string(),
       description: z.string(),
@@ -431,4 +435,5 @@ export const collections = {
   support: supportCollection,
   caseStudy: caseStudyCollection,
   gpuProviders: gpuProvidersCollection,
+  testimonials: testimonialsCollection,
 };

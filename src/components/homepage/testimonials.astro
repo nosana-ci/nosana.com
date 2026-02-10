@@ -3,12 +3,20 @@ import { getEntry } from "astro:content";
 import TestimonialCard from "../ui/testimonialCard.astro";
 import NavigateButton from "../ui/navigateButton.astro";
 
-const entry = await getEntry("homepage", "index");
-if (!entry) {
+const homepageEntry = await getEntry("homepage", "index");
+if (!homepageEntry) {
   throw new Error("Homepage content not found");
 }
 
-const { testimonials } = entry.data;
+const testimonialsEntry = await getEntry("testimonials", "index");
+if (!testimonialsEntry) {
+  throw new Error("Testimonials content not found");
+}
+
+const { testimonials } = homepageEntry.data;
+const { testimonialCardsData } = testimonialsEntry.data;
+
+const cardsData = testimonialCardsData.slice(0, 5);
 ---
 
 <section
@@ -23,73 +31,53 @@ const { testimonials } = entry.data;
     set:html={testimonials.description.join("<br />")}
   />
 
-  <div class="relative w-[600px] max-w-full h-[220px] md:h-[380px]">
-    <!-- Cards -->
-    {
-      testimonials.testimonial.slice(0, 3).map((t, i) => (
-        <div
-          data-testimonial
-          class="absolute inset-0 transition-all duration-300 ease-out"
-          style={`
-            z-index: ${3 - i};
+  <div class="relative w-[600px] max-w-full">
+    <div class="relative h-[220px] md:h-[380px]">
+      {
+        cardsData.map((t, i) => (
+          <div
+            data-testimonial
+            class="absolute inset-0 transition-all duration-300 ease-out"
+            style={`
+            z-index: ${cardsData.length - i};
             transform: translate(0px, ${-i * 40}px) scale(${1 - i * 0.08});
           `}
-        >
-          <TestimonialCard
-            name={t.name}
-            username={t.username}
-            logo={t.logo}
-            message={t.message}
-            rating={t.rating}
-          />
-        </div>
-      ))
-    }
+          >
+            <TestimonialCard
+              name={t.name}
+              username={t.username}
+              logo={t.logo}
+              message={t.message}
+              rating={t.rating}
+            />
+          </div>
+        ))
+      }
+    </div>
 
-    <!-- Navigation buttons -->
     <div
       class="hidden md:flex absolute right-[-56px] top-1/2 -translate-y-1/2 flex-col gap-2"
     >
       <div data-nav="prev">
-        <NavigateButton
-          direction="up"
-          variant="secondary"
-          aria-label="Previous testimonial"
-        />
+        <NavigateButton direction="up" variant="secondary" />
       </div>
-
       <div data-nav="next">
-        <NavigateButton
-          direction="down"
-          variant="secondary"
-          aria-label="Next testimonial"
-        />
+        <NavigateButton direction="down" variant="secondary" />
       </div>
     </div>
   </div>
 
-  <!-- Mobile navigation buttons-->
   <div class="md:hidden w-full flex justify-end mt-6">
     <div class="flex gap-3">
       <div data-nav="prev">
-        <NavigateButton
-          direction="left"
-          variant="secondary"
-          aria-label="Previous testimonial"
-        />
+        <NavigateButton direction="left" variant="secondary" />
       </div>
-
       <div data-nav="next">
-        <NavigateButton
-          direction="right"
-          variant="secondary"
-          aria-label="Next testimonial"
-        />
+        <NavigateButton direction="right" variant="secondary" />
       </div>
     </div>
   </div>
 
-  <!-- Logic -->
   <script>
     let index = 0;
 
