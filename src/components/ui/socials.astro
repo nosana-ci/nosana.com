@@ -2,32 +2,44 @@
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 
+interface Props {
+  showTitle?: boolean;
+}
+
+const { showTitle = false } = Astro.props;
+
 const entry = await getEntry("layout", "index");
 if (!entry) {
   throw new Error("Layout content not found");
 }
 
-const { socialLinks } = entry.data.socialBannerMarquee;
+const { title, links } = entry.data.socials;
 ---
 
-<div class="flex flex-wrap gap-3">
+<div>
   {
-    socialLinks.map((social) => (
-      <a
-        href={social.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={social.name}
-        class="w-10 h-10 rounded-full border border-white/15
-             flex items-center justify-center
-             hover:bg-white/10 transition"
-      >
-        <Image
-          src={social.icon}
-          alt={social.name}
-          class="w-[18px] h-[18px] select-none"
-        />
-      </a>
-    ))
+    showTitle && (
+      <h5 class="text-pprimary text-center py-4 h5 grotesk">{title}</h5>
+    )
   }
+  <div class="flex flex-wrap gap-3">
+    {
+      links.map((social) => (
+        <a
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.name}
+          class="w-8 lg:w-10 h-8 lg:h-10 rounded-full border border-default
+               flex items-center justify-center group transition"
+        >
+          <Image
+            src={social.icon}
+            alt={social.name}
+            class="w-[14px] lg:w-[18px] h-[14px] lg:h-[18px] select-none group-hover:brightness-100 transition"
+          />
+        </a>
+      ))
+    }
+  </div>
 </div>

@@ -81,42 +81,23 @@ const layoutCollection = defineCollection({
       image: image(),
     }),
     socialBannerMarquee: z.object({
-      image1: image(),
-      image2: image(),
-      image3: image(),
-      content1: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      content2: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      content3: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      image4: image(),
-      image5: image(),
-      image6: image(),
-      content4: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      content5: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      content6: z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-      socialTitle: z.string(),
-      socialLinks: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-        icon: image(),
-      })),
+      items: z.array(
+        z.object({
+          image: image(),
+          value: z.string(),
+          label: z.string(),
+        })
+      ),
+    }),
+    socials: z.object({
+      title: z.string(),
+      links: z.array(
+        z.object({
+          name: z.string(),
+          url: z.string(),
+          icon: image(),
+        })
+      ),
     }),
   })
 })
