@@ -74,6 +74,19 @@
   }
 }
 
+.h5 {
+  font-size: 20px;
+  line-height: 1.3;
+
+  @media (min-width: 768px) {
+    font-size: 28px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 32px;
+  }
+}
+
 .h6 {
   font-size: 18px;
   line-height: 1.3;

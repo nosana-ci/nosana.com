@@ -6,6 +6,8 @@ import Newsletter from "../components/layout/newsletter.astro";
 import GithubBanner from "../components/support/githubBanner.astro";
 import Badge from "../components/ui/badge.astro";
 import Production from "../components/homepage/production.astro";
+import SocialBannerMarquee from "../components/layout/socialBannerMarquee.astro";
+import Socials from "../components/ui/socials.astro";
 
 const entry = await getEntry("caseStudy", "index");
 if (!entry) {
@@ -28,7 +30,10 @@ const [titleMain, titleSub] = entry.data.heading.split("-");
   <GithubBanner />
   <Divider />
   <Production />
-  <GithubBanner />
+  <SocialBannerMarquee />
+  <div class="px-4 md:px-12 flex items-center justify-center">
+    <Socials showTitle={true} />
+  </div>
   <Divider />
   <Newsletter />
   <Divider />
