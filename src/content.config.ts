@@ -1,38 +1,47 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const navbarCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/navbar" }),
-  schema: ({ image }) => z.object({
-    navLogo: z.object({
-      url: z.string(),
-      lightImage: image(),
-      darkImage: image(),
-      alt: z.string(),
-    }),
-    navItems: z.array(z.object({
-      type: z.enum(['link', 'dropdown']),
-      title: z.string(),
-      url: z.string().optional(),
-      target: z.string().optional(),
-      icon: image(),
-      subItems: z.object({
-        sectionTitle: z.string().optional(),
-        sectionSubtitle: z.string().optional(),
-        items: z.array(z.object({
+  schema: ({ image }) =>
+    z.object({
+      navLogo: z.object({
+        url: z.string(),
+        lightImage: image(),
+        darkImage: image(),
+        alt: z.string(),
+      }),
+      navItems: z.array(
+        z.object({
+          type: z.enum(["link", "dropdown"]),
+          title: z.string(),
+          url: z.string().optional(),
+          target: z.string().optional(),
+          icon: image(),
+          subItems: z
+            .object({
+              sectionTitle: z.string().optional(),
+              sectionSubtitle: z.string().optional(),
+              items: z.array(
+                z.object({
+                  title: z.string(),
+                  url: z.string(),
+                  description: z.string().optional(),
+                }),
+              ),
+            })
+            .optional(),
+        }),
+      ),
+      navCTA: z.array(
+        z.object({
           title: z.string(),
           url: z.string(),
-          description: z.string().optional(),
-        })),
-      }).optional(),
-    })),
-    navCTA: z.array(z.object({
-      title: z.string(),
-      url: z.string(),
-      target: z.string().optional(),
-      icon: image().optional(),
-    })),
-  }),
+          target: z.string().optional(),
+          icon: image().optional(),
+        }),
+      ),
+    }),
 });
 
 const homepageCollection = defineCollection({
@@ -40,33 +49,41 @@ const homepageCollection = defineCollection({
   schema: ({ image }) =>
     z.object({
       heroSection: z.object({
-        badge: z.object({
-          title: z.string(),
-          icon: image(),
-        }).optional(),
+        badge: z
+          .object({
+            title: z.string(),
+            icon: image(),
+          })
+          .optional(),
 
         heading: z.string(),
         description: z.string(),
 
-        cta1: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image().optional(),
-        }).optional(),
+        cta1: z
+          .object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          })
+          .optional(),
 
-        cta2: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image().optional(),
-        }).optional(),
+        cta2: z
+          .object({
+            title: z.string(),
+            url: z.string(),
+            icon: image().optional(),
+          })
+          .optional(),
       }),
 
-      brands: z.array(
-        z.object({
-          name: z.string(),
-          logo: image(),
-        })
-      ).optional(),
+      brands: z
+        .array(
+          z.object({
+            name: z.string(),
+            logo: image(),
+          }),
+        )
+        .optional(),
 
       pathSection: z.object({
         badge: z.object({
@@ -85,7 +102,7 @@ const homepageCollection = defineCollection({
           z.object({
             value: z.string(),
             label: z.string(),
-          })
+          }),
         ),
       }),
 
@@ -161,10 +178,9 @@ const homepageCollection = defineCollection({
             logo: image(),
             message: z.string(),
             rating: z.number(),
-          })
+          }),
         ),
       }),
-
     }),
 });
 
@@ -266,8 +282,95 @@ const gpuProvidersCollection = defineCollection({
     }),
 });
 
+const aboutCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/about" }),
+  schema: ({ image }) =>
+    z.object({
+      heroSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        heading: z.string(),
+        heroImage: image(),
+      }),
+      innovationSection: z.object({
+        heading: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+      aboutComputeSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        title: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+      visionSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        title: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+      teamSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        title: z.string(),
+        members: z.array(
+          z.object({
+            image: image(),
+            name: z.string(),
+            role: z.string(),
+            bio: z.string(),
+            button_1: z
+              .object({
+                text: z.string(),
+                icon: image(),
+              })
+              .optional(),
+            button_2: z
+              .object({
+                text: z.string(),
+                icon: image(),
+              })
+              .optional(),
+          }),
+        ),
+      }),
+      careersSection: z.object({
+        badge: z.object({
+          title: z.string(),
+        }),
+        title: z.string(),
+        description: z.string(),
+        button: z
+          .object({
+            text: z.string(),
+            icon: image(),
+          })
+          .optional(),
+        remoteSection: z.object({
+          badge: z.object({
+            title: z.string(),
+          }),
+          description: z.string(),
+          image: image(),
+        }),
+      }),
+      newsletterSection: z.object({
+        heading: z.string(),
+        description: z.string(),
+        image: image(),
+      }),
+    }),
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
   gpuProviders: gpuProvidersCollection,
+  about: aboutCollection,
 };

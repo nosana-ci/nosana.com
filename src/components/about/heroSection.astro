@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { heroSection } = entry.data;
+
+const badge = heroSection.badge;
+const heading = heroSection.heading;
+const heroImage = heroSection.heroImage;
+---
+
+<section class="flex flex-col items-center pt-16 md:pt-24 lg:pt-32 w-full relative overflow-hidden">
+  <div class="flex flex-col items-center text-center gap-6 md:gap-8 max-w-[900px] px-4 z-10">
+    <Badge title={badge.title} />
+    <h1 class="h4 md:text-5xl lg:text-5xl font-medium text-primary tracking-tight">
+      {heading}
+    </h1>
+  </div>
+
+  <div class="w-full max-w-[1400px] mt-10 md:mt-16 mx-auto relative z-0">
+    <Image 
+      src={heroImage} 
+      alt="Nosana Network" 
+      class="w-full h-auto object-contain"
+    />
+    
+    <!-- Gradient fade at bottom to blend with next section -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-bg-base via-bg-base/50 to-transparent pointer-events-none"></div>
+  </div>
+</section>

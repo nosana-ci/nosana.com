@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { careersSection } = entry.data;
+const { badge, title, description, button, remoteSection } = careersSection;
+---
+
+<section class="w-full py-16 md:py-24 relative overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-4 grid lg:grid-cols-[1fr_1.2fr] gap-16 items-center">
+    
+    <!-- Left Column: Careers Text -->
+    <div class="flex flex-col items-start gap-8 max-w-[500px]">
+      <Badge title={badge.title} />
+      <h2 class="h4 md:text-5xl font-medium text-primary tracking-tight">
+        {title}
+      </h2>
+      <p class="body1 text-secondary leading-relaxed">
+        {description}
+      </p>
+      
+      {button && (
+        <a 
+          href="#" 
+          class="inline-flex items-center gap-3 px-6 py-3 border border-default/50 text-primary rounded-full font-medium hover:bg-white/10 transition-colors"
+        >
+          {button.text}
+          <Image src={button.icon} alt="" class="w-4 h-4" />
+        </a>
+      )}
+    </div>
+
+    <!-- Right Column: Remote Section Card -->
+    <!-- Design: Dark card, Green Text for work from anywhere, Map image -->
+    <div class="bg-[#1A1A1A] rounded-3xl p-8 md:p-12 flex flex-col gap-6 relative overflow-hidden border border-default/10 w-full">
+       <div class="relative z-10 flex flex-col gap-4">
+        <!-- Badge Style adjustment for this specific card -->
+        <span class="inline-block px-4 py-1.5 rounded-full border border-brand-100/30 bg-brand-100/10 text-brand-100 text-sm font-medium w-fit">
+            {remoteSection.badge.title}
+        </span>
+        
+        <p class="body1 text-secondary leading-relaxed max-w-[90%]">
+            {remoteSection.description}
+        </p>
+       </div>
+
+       <div class="relative w-full mt-8 flex justify-center">
+            <Image 
+                src={remoteSection.image} 
+                alt="Remote Work Distribution" 
+                class="w-full h-auto object-contain mix-blend-screen opacity-90"
+            />
+       </div>
+    </div>
+
+  </div>
+</section>

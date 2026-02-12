@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { newsletterSection } = entry.data;
+const { heading, description, image } = newsletterSection;
+---
+
+<section class="w-full py-16 md:py-24 relative overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-4">
+    <div class="bg-surface rounded-3xl p-8 md:p-16 relative overflow-hidden border border-default/20">
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+        <!-- Left Column: Text and Form -->
+        <div class="flex flex-col items-start gap-6">
+          <h2 class="h4 md:text-5xl font-medium text-primary tracking-tight">
+              {heading}
+          </h2>
+          <p class="body1 text-secondary leading-relaxed">
+              {description}
+          </p>
+
+          <form class="flex w-full items-center gap-2 bg-bg-base p-1.5 rounded-lg border border-default/40 mt-6 focus-within:border-brand-100 transition-colors">
+              <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  class="flex-1 bg-transparent px-4 py-2 text-primary placeholder:text-default outline-none"
+                  required
+              />
+              <button 
+                  type="submit"
+                  class="bg-brand-100/10 text-brand-100 px-6 py-2.5 rounded-md font-medium hover:bg-brand-100 hover:text-bg-base transition-colors cursor-pointer"
+              >
+                  Subscribe
+              </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Image (Keyboard) -->
+        <div class="flex items-center justify-center md:justify-end">
+             <Image 
+                src={image} 
+                alt="Newsletter" 
+                class="w-full max-w-[400px] h-auto object-contain"
+            />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

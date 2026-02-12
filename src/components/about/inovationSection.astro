@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { innovationSection } = entry.data;
+
+const heading = innovationSection.heading
+const description = innovationSection.description
+const image = innovationSection.image;
+---
+
+<section class="relative w-full py-20 md:py-32 overflow-hidden flex flex-col items-center justify-center min-h-[600px]">
+  <!-- Abstract Globe Background -->
+  <div class="absolute inset-0 flex items-center justify-center z-0 translate-y-20 md:translate-y-0">
+      <Image 
+        src={image} 
+        alt="Globe Network" 
+        class="w-full max-w-[1200px] h-auto object-cover opacity-80" 
+      />
+  </div>
+
+  <div class="relative z-10 flex flex-col items-center text-center px-4 max-w-[800px] mx-auto gap-6 mt-0 md:-mt-20">
+    <h2 class="h1 font-medium text-primary">
+      {heading}
+    </h2>
+    <p class="body1 text-secondary leading-relaxed">
+      {description}
+    </p>
+  </div>
+</section>

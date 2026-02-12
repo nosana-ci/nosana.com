@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { aboutComputeSection } = entry.data;
+const { badge, title, description, image } = aboutComputeSection;
+---
+
+<section class="w-full py-16 md:py-24 relative overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-4 flex flex-col gap-12">
+    <!-- Header Content: Left Aligned -->
+    <div class="flex flex-col items-start gap-4 max-w-[800px]">
+      <Badge title={badge.title} />
+      <h2 class="h4 md:text-5xl font-medium text-primary tracking-tight">
+        {title}
+      </h2>
+      <p class="body1 text-secondary leading-relaxed max-w-[600px]">
+        {description}
+      </p>
+    </div>
+    
+    <!-- Image/Diagram Container: Full Width below text -->
+    <div class="w-full bg-surface/50 rounded-2xl border border-default/20 p-8 md:p-12 flex items-center justify-center overflow-hidden">
+       <Image 
+        src={image} 
+        alt={title} 
+        class="w-full h-auto object-contain max-h-[400px]"
+      />
+    </div>
+  </div>
+</section>
