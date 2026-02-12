@@ -1,448 +1,54 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import {
+  navbarSchema,
+  footerSchema,
+  layoutSchema,
+  homepageSchema,
+  caseStudySchema,
+  testimonialsSchema,
+  gpuProvidersSchema,
+  supportSchema
+} from './utils/schema';
 
 const navbarCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/navbar" }),
-  schema: ({ image }) => z.object({
-    navLogo: z.object({
-      url: z.string(),
-      lightImage: image(),
-      darkImage: image(),
-      alt: z.string(),
-    }),
-    navItems: z.array(z.object({
-      type: z.enum(['link', 'dropdown']),
-      title: z.string(),
-      url: z.string().optional(),
-      target: z.string().optional(),
-      icon: image(),
-      subItems: z.object({
-        sectionTitle: z.string().optional(),
-        sectionSubtitle: z.string().optional(),
-        items: z.array(z.object({
-          title: z.string(),
-          url: z.string(),
-          description: z.string().optional(),
-        })),
-      }).optional(),
-    })),
-    navCTA: z.array(z.object({
-      title: z.string(),
-      url: z.string(),
-      target: z.string().optional(),
-      icon: image().optional(),
-    })),
-  }),
+  schema: navbarSchema,
 });
 
 const footerCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/footer" }),
-  schema: ({ image }) => z.object({
-    logo: image(),
-    description: z.string(),
-    navigation: z.object({
-      product: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-      network: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-      grants: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-      learningCenter: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-      community: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-      resources: z.array(z.object({
-        name: z.string(),
-        url: z.string(),
-      })),
-    }),
-    copyright: z.string(),
-    termsAndConditionsUrl: z.string(),
-    privacyPolicyUrl: z.string(),
-  })
-})
+  schema: footerSchema,
+});
 
 const layoutCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/layout" }),
-  schema: ({ image }) => z.object({
-    newsletter: z.object({
-      heading: z.string(),
-      description: z.string(),
-      image: image(),
-    }),
-    socialBannerMarquee: z.object({
-      items: z.array(
-        z.object({
-          image: image(),
-          value: z.string(),
-          label: z.string(),
-        })
-      ),
-    }),
-    socials: z.object({
-      title: z.string(),
-      links: z.array(
-        z.object({
-          name: z.string(),
-          url: z.string(),
-          icon: image(),
-        })
-      ),
-    }),
-  })
-})
+  schema: layoutSchema,
+});
 
 const homepageCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/homepage" }),
-  schema: ({ image }) =>
-    z.object({
-      heroSection: z.object({
-        badge: z.object({
-          title: z.string(),
-          icon: image(),
-        }).optional(),
-
-        heading: z.string(),
-        description: z.string(),
-
-        cta1: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image().optional(),
-        }).optional(),
-
-        cta2: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image().optional(),
-        }).optional(),
-      }),
-
-      brands: z.array(
-        z.object({
-          name: z.string(),
-          logo: image(),
-        })
-      ).optional(),
-
-      pathSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        path1: z.object({
-          image: image(),
-          title: z.string(),
-          description: z.string(),
-          caption: z.string(),
-          url: z.string(),
-        }),
-        path2: z.object({
-          image: image(),
-          title: z.string(),
-          description: z.string(),
-          caption: z.string(),
-          url: z.string(),
-        }),
-      }),
-
-      ecosystemSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-        stats: z.array(
-          z.object({
-            value: z.string(),
-            label: z.string(),
-          })
-        ),
-      }),
-
-      whyNosanaSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-        features: z.array(
-          z.object({
-            title: z.string(),
-            description: z.string(),
-            icon: image(),
-          })
-        ),
-      }),
-
-      rentGPU: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-        premium: z.array(z.object({
-          gpu: z.string(),
-          price: z.string(),
-          availability: z.string(),
-        })),
-        community: z.array(z.object({
-          gpu: z.string(),
-          price: z.string(),
-          availability: z.string(),
-        })),
-        others: z.array(z.object({
-          gpu: z.string(),
-          price: z.string(),
-          availability: z.string(),
-        })),
-      }),
-
-      banner: z.object({
-        heading: z.string(),
-        description: z.string(),
-        cta: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image(),
-        }),
-        image: image(),
-      }),
-
-      production: z.object({
-        badge: z.object({
-          title: z.string(),
-          icon: image(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-      }),
-
-      upcomingEventsMock: z.object({
-        heading: z.string(),
-        date: z.string(),
-        time: z.string(),
-        title: z.string(),
-        description: z.string(),
-        image: image(),
-        button: z.object({
-          title: z.string(),
-          url: z.string(),
-        }),
-      }),
-
-      latestBlogsMock: z.object({
-        heading: z.string(),
-        date: z.string(),
-        time: z.string(),
-        title: z.string(),
-        description: z.string(),
-        image: image(),
-        button: z.object({
-          title: z.string(),
-          url: z.string(),
-        }),
-      }),
-
-      testimonials: z.object({
-        heading: z.string(),
-        description: z.array(z.string()),
-      }),
-
-      ctaSection: z.object({
-        heading: z.string(),
-        description: z.string(),
-        cta1: z.object({
-          title: z.string(),
-          url: z.string(),
-        }),
-        cta2: z.object({
-          title: z.string(),
-          url: z.string(),
-        }),
-      }),
-
-    }),
+  schema: homepageSchema,
 });
 
 const caseStudyCollection = defineCollection({
-  loader: glob({ pattern: "index.md", base: "src/content/case-study-page" }),
-  schema: () => z.object({
-    badge: z.object({
-      title: z.string(),
-    }),
-    heading: z.string(),
-    description: z.string(),
-  }),
+  loader: glob({ pattern: "index.md", base: "src/content/case-study-homepage" }),
+  schema: caseStudySchema,
 });
 
 const testimonialsCollection = defineCollection({
-  loader: glob({ pattern: "index.md", base: "src/content/testimonials" }),
-  schema: ({ image }) => z.object({
-    testimonialCardsData: z.array(z.object({
-      name: z.string(),
-      username: z.string(),
-      logo: image(),
-      message: z.string(),
-      rating: z.number(),
-    })),
-    testimonialGridData: z.array(z.object({
-      icon: image(),
-      title: z.string(),
-      description: z.string(),
-    })),
-  }),
+  loader: glob({ pattern: "**/index.md", base: "src/content/testimonials" }),
+  schema: testimonialsSchema,
 });
 
 const gpuProvidersCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/gpu-providers" }),
-  schema: ({ image }) =>
-    z.object({
-      heroSection: z.object({
-        badge: z
-          .object({
-            title: z.string(),
-            icon: image(),
-          })
-          .optional(),
-
-        heading: z.string(),
-        description: z.string(),
-
-        cta1: z
-          .object({
-            title: z.string(),
-            url: z.string(),
-            icon: image().optional(),
-          })
-          .optional(),
-
-        cta2: z
-          .object({
-            title: z.string(),
-            url: z.string(),
-            icon: image().optional(),
-          })
-          .optional(),
-      }),
-
-      whyProvideSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-        features: z.array(
-          z.object({
-            icon: image(),
-            title: z.string(),
-            description: z.string(),
-          }),
-        ),
-      }),
-
-      testimonialsSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        testimonials: z.array(
-          z.object({
-            quote: z.string(),
-            author: z.string(),
-          }),
-        ),
-      }),
-      emailSection: z.object({
-        heading: z.string(),
-        description: z.string(),
-        image: image(),
-      }),
-
-      hardwareRequirementsSection: z.object({
-        badge: z.object({
-          title: z.string(),
-        }),
-        heading: z.string(),
-        description: z.string(),
-        buttons: z.object({
-          primary: z.object({
-            title: z.string(),
-            url: z.string(),
-          }),
-          secondary: z.object({
-            title: z.string(),
-            url: z.string(),
-          }),
-        }),
-        requirements: z.array(
-          z.object({
-            icon: image(),
-            title: z.string(),
-            description: z.string(),
-            link: z
-              .object({
-                title: z.string(),
-                url: z.string(),
-              })
-              .optional(),
-          }),
-        ),
-      }),
-    }),
+  schema: gpuProvidersSchema,
 });
 
 const supportCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/support" }),
-  schema: ({ image }) => z.object({
-    heading: z.string(),
-    description: z.string(),
-    discord: z.object({
-      image: image(),
-      card1: z.object({
-        title: z.string(),
-        description: z.string(),
-        icon: image(),
-        button: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image(),
-        }),
-      }),
-      card2: z.object({
-        title: z.string(),
-        description: z.string(),
-        icon: image(),
-        button: z.object({
-          title: z.string(),
-          url: z.string(),
-          icon: image(),
-        }),
-      }),
-    }),
-    github: z.object({
-      text: z.string(),
-      url: z.string(),
-      image: image(),
-      icon: image(),
-    }),
-    faqs: z.array(
-      z.object({
-        question: z.string(),
-        answer: z.string(),
-      }),
-    ),
-  }),
+  schema: supportSchema,
 });
 
 export const collections = {

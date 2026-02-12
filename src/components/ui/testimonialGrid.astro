@@ -1,12 +1,13 @@
 ---
-import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import NavigateButton from "./navigateButton.astro";
 
-const entry = await getEntry("testimonials", "index");
-if (!entry) throw new Error("Case study content not found");
+const testimonials = await getCollection("testimonials", ({ data }) => {
+  return data.type === "grid";
+});
 
-const { testimonialGridData } = entry.data;
+const testimonialGridData = testimonials.map((t) => t.data);
 ---
 
 <section class="w-full">
@@ -14,24 +15,29 @@ const { testimonialGridData } = entry.data;
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default"
   >
     {
-      testimonialGridData.map((item, index) => (
-        <div
-          class="case-card hidden border border-default p-6"
-          data-index={index}
-        >
-          <div class="flex flex-col gap-4 h-full">
-            <Image
-              src={item.icon}
-              alt=""
-              class="w-12 h-12 select-none pointer-events-none"
-            />
+      testimonialGridData.map((item, index) => {
+        const { icon, title, description } = item;
+        if (!icon) return null;
 
-            <h3 class="text-primary body2 font-semibold">{item.title}</h3>
+        return (
+          <div
+            class="case-card hidden border border-default p-6"
+            data-index={index}
+          >
+            <div class="flex flex-col gap-4 h-full">
+              <Image
+                src={icon}
+                alt={title || ""}
+                class="w-12 h-12 select-none pointer-events-none"
+              />
 
-            <p class="text-primary body4">{item.description}</p>
+              <h3 class="text-primary body2 font-semibold">{title}</h3>
+
+              <p class="text-primary body4">{description}</p>
+            </div>
           </div>
-        </div>
-      ))
+        );
+      })
     }
   </div>
 
