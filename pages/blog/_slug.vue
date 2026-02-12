@@ -18,7 +18,7 @@
               >
               <div style="max-width: 900px; width: 100%; margin: 0 auto;">
                 <h2 class="mb-5 has-text-black mt-6 description">
-                  {{ blog.description }}
+                  {{ blog.description }}{{ blog.extendedDescription }}
                 </h2>
                 <nuxt-content :document="blog" />
                 <h3 class="mt-6 has-text-black">
