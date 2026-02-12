@@ -13,10 +13,12 @@ import Banner from "../components/homepage/banner.astro";
 import ProductionSection from "../components/homepage/production.astro";
 import MediaCard from "../components/ui/mediaCard.astro";
 import Testimonials from "../components/homepage/testimonials.astro";
+import Newsletter from "../components/layout/newsletter.astro";
+import CTA from "../components/homepage/cta.astro";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
-	throw new Error("Homepage content not found");
+	throw new Error("content not found");
 }
 
 const { upcomingEventsMock, latestBlogsMock } = entry.data;
@@ -58,5 +60,6 @@ const { upcomingEventsMock, latestBlogsMock } = entry.data;
 	<Divider />
 	<Testimonials />
 	<Divider />
-	<div class="h-screen w-full bg-red-500"></div>
+	<Newsletter />
+	<CTA />
 </Layout>

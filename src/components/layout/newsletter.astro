@@ -1,0 +1,114 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
+
+const entry = await getEntry("layout", "index");
+
+if (!entry) {
+  throw new Error("content not found");
+}
+
+const { newsletter } = entry.data;
+const { heading, description, image } = newsletter;
+---
+
+<section class="w-full bg-bg-base px-4 md:px-12 mb-8 md:mb-16 lg:mb-18">
+  <div
+    class="mx-auto flex flex-col lg:flex-row items-center justify-between gap-10"
+  >
+    <div class="w-full lg:w-1/2">
+      <h2
+        class="text-primary text-center lg:text-left h4 grotesk max-w-3xl mb-4"
+      >
+        {heading}
+      </h2>
+
+      <p
+        class="text-secondary text-center lg:text-left max-w-xl md:mb-10 mb-8 body2"
+      >
+        {description}
+      </p>
+
+      <form
+        class="flex flex-row flex-nowrap items-stretch gap-2
+              bg-elevated border border-default rounded-lg p-2
+              w-full max-w-lg
+              mx-auto lg:mx-0"
+        method="post"
+        action="/api/newsletter"
+      >
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your email"
+          class="flex-1 min-w-0
+                bg-transparent border-none
+                text-white placeholder:text-primary
+                text-sm px-4 py-3 outline-none"
+        />
+
+        <button
+          type="submit"
+          class="group inline-flex items-stretch whitespace-nowrap overflow-hidden
+                rounded-sm font-semibold
+                bg-white/15 hover:bg-white/20
+                border border-default text-primary
+                transition-all cursor-pointer"
+        >
+          <span class="flex items-center gap-2 p-2 lg:py-3 lg:px-4 body4">
+            Subscribe
+            <span class="hidden sm:inline">to Newsletter</span>
+          </span>
+
+          <span
+            class="flex items-center justify-center overflow-hidden
+                  border-l border-default p-2 lg:p-4"
+          >
+            <span class="w-3 h-3 lg:w-4 lg:h-4 relative">
+              <span
+                class="flex transition-transform duration-300
+                      -translate-x-3 lg:-translate-x-4
+                      group-hover:translate-x-0"
+              >
+                <span
+                  class="w-3 h-3 lg:w-4 lg:h-4
+                        flex items-center justify-center
+                        shrink-0 opacity-0
+                        group-hover:opacity-100
+                        transition-opacity duration-300
+                        [&_path]:fill-current -rotate-90
+                        pointer-events-none select-none"
+                >
+                  <Fragment set:html={chevronDownDouble} />
+                </span>
+
+                <span
+                  class="w-3 h-3 lg:w-4 lg:h-4
+                        flex items-center justify-center
+                        shrink-0 opacity-100
+                        group-hover:opacity-0
+                        transition-opacity duration-300
+                        [&_path]:fill-current -rotate-90
+                        pointer-events-none select-none"
+                >
+                  <Fragment set:html={chevronDownDouble} />
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <div class="w-full lg:w-1/2 lg:h-[420px] flex items-center justify-center">
+      <Image
+        src={image}
+        alt="Email section illustration"
+        class="w-full h-full object-contain object-center select-none pointer-events-none"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,87 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import nosanaLogo from "../../assets/logos/nosanaLogoDark.svg";
+
+const testimonials = await getCollection("testimonials", ({ data }) => {
+  return data.type === "stack";
+});
+
+// Sort DESC by order and take top 6
+const testimonialGridData = testimonials
+  .sort((a, b) => (b.data.order ?? 0) - (a.data.order ?? 0))
+  .slice(0, 6)
+  .map((t) => t.data);
+---
+
+<section class="w-full px-4 md:px-12">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default"
+  >
+    {
+      testimonialGridData.map((item, index) => {
+        const { name, username, logo, message, rating = 0 } = item;
+        if (!logo) return null;
+
+        const roundedRating = Math.round(rating);
+
+        return (
+          <div
+            class="case-card border border-default p-6 
+                   flex flex-col justify-between
+                   h-[340px] md:h-[340px] lg:h-[460px]"
+            data-index={index}
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-4">
+                <Image
+                  src={logo}
+                  alt={name ?? ""}
+                  class="w-16 h-16 rounded-full object-cover select-none pointer-events-none"
+                />
+
+                <div class="flex flex-col leading-tight">
+                  <h3 class="text-primary body1">{name}</h3>
+                  <p class="body4 text-primary">@{username}</p>
+                </div>
+              </div>
+
+              <p class="text-white/60 body3 line-clamp-6 lg:line-clamp-none mt-12">
+                “{message}”
+              </p>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <Image
+                src={nosanaLogo}
+                alt="Nosana"
+                class="h-5 w-auto select-none pointer-events-none"
+              />
+
+              <div class="flex items-center gap-2 body4 text-secondary">
+                <span class="-mt-1">{rating.toFixed(1)}</span>
+
+                <div class="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg
+                      viewBox="0 0 20 20"
+                      class="w-4 h-4"
+                      fill={
+                        i < roundedRating
+                          ? "rgba(122, 122, 122, 1.0)"
+                          : "rgba(122, 122, 122, 0.5)"
+                      }
+                      aria-hidden="true"
+                    >
+                      <path d="M0.34522 6.57083L3.19522 9.18333L2.40355 12.825C2.32439 13.3 2.48272 13.775 2.87855 14.0125C3.03689 14.1708 3.27439 14.25 3.51189 14.25C3.67022 14.25 3.82855 14.25 3.98689 14.1708C3.98689 14.1708 4.06605 14.1708 4.06605 14.0917L7.31189 12.2708L10.5577 14.0917C10.5577 14.0917 10.6369 14.0917 10.6369 14.1708C11.0327 14.3292 11.5077 14.3292 11.8244 14.0917C12.2202 13.8542 12.3786 13.3792 12.2994 12.9042L11.5077 9.2625C11.8244 9.025 12.2994 8.55 12.7744 8.075L14.2786 6.72917L14.3577 6.65C14.6744 6.33333 14.7536 5.85833 14.5952 5.4625C14.4369 5.06667 14.1202 4.75 13.6452 4.67083H13.5661L9.84522 4.275L8.34105 0.870833C8.34105 0.870833 8.34105 0.791667 8.26189 0.791667C8.18272 0.2375 7.78689 0 7.39105 0C6.99522 0 6.59939 0.2375 6.36189 0.633333C6.36189 0.633333 6.36189 0.7125 6.28272 0.7125L4.77855 4.11667L1.05772 4.5125H0.978554C0.582721 4.59167 0.186887 4.90833 0.0285538 5.30417C-0.0506128 5.77917 0.0285537 6.25417 0.34522 6.57083Z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>

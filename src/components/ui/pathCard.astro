@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import NavigateButton from "./navigateButton.astro";
+import glowImage from "../../content/homepage/assets/glowImg.svg";
+
+interface Props {
+  image: any;
+  title: string;
+  description: string;
+  caption: string;
+  url: string;
+}
+
+const { image, title, description, caption, url } = Astro.props;
+const [titleMain, titleSub] = title.split("-");
+---
+
+<div
+  class="group w-full h-full rounded-lg border border-elevated p-4 md:p-6 flex flex-col gap-4 md:gap-6"
+>
+  <div class="relative overflow-hidden">
+    <Image
+      src={glowImage}
+      alt="glow"
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-auto opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none z-20"
+    />
+
+    <Image
+      src={image}
+      alt={title}
+      class="relative z-10 w-full h-auto select-none border border-elevated"
+    />
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <h3 class="text-primary h4 grotesk max-w-[450px]">
+      {titleMain}
+      <span class="text-brand-100"> {titleSub}</span>
+    </h3>
+
+    <p class="text-secondary body2">{description}</p>
+  </div>
+
+  <div class="flex items-center justify-between pt-2">
+    <span class="text-secondary body4">{caption}</span>
+
+    <div class="flex items-center gap-2">
+      <span class="text-secondary body4">Learn More</span>
+
+      <a href={url}>
+        <NavigateButton variant="secondary" direction="right" />
+      </a>
+    </div>
+  </div>
+</div>
