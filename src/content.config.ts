@@ -5,10 +5,11 @@ import {
   footerSchema,
   layoutSchema,
   homepageSchema,
-  caseStudySchema,
+  caseStudyHomepageSchema,
   testimonialsSchema,
   gpuProvidersSchema,
-  supportSchema
+  supportSchema,
+  testimonialsHomepageSchema
 } from './utils/schema';
 
 const navbarCollection = defineCollection({
@@ -31,9 +32,9 @@ const homepageCollection = defineCollection({
   schema: homepageSchema,
 });
 
-const caseStudyCollection = defineCollection({
+const caseStudyHomepageCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/case-study-homepage" }),
-  schema: caseStudySchema,
+  schema: caseStudyHomepageSchema,
 });
 
 const testimonialsCollection = defineCollection({
@@ -51,13 +52,19 @@ const supportCollection = defineCollection({
   schema: supportSchema,
 });
 
+const testimonialsHomepageCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/testimonials-homepage" }),
+  schema: testimonialsHomepageSchema,
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
   footer: footerCollection,
   layout: layoutCollection,
   support: supportCollection,
-  caseStudy: caseStudyCollection,
+  caseStudyHomepage: caseStudyHomepageCollection,
   gpuProviders: gpuProvidersCollection,
   testimonials: testimonialsCollection,
+  testimonialsHomepage: testimonialsHomepageCollection,
 };

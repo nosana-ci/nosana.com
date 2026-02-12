@@ -1,6 +1,6 @@
 import { z } from 'astro:content';
 
-export const caseStudySchema = () => z.object({
+export const caseStudyHomepageSchema = () => z.object({
   badge: z.object({
     title: z.string(),
   }),

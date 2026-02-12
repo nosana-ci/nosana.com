@@ -1,13 +1,25 @@
-import { z, type SchemaContext } from 'astro:content';
+import { z, type SchemaContext } from "astro:content";
 
-export const testimonialsSchema = ({ image }: SchemaContext) => z.object({
-  type: z.enum(['card', 'grid']),
-  name: z.string().optional(),
-  username: z.string().optional(),
-  logo: image().optional(),
-  message: z.string().optional(),
-  rating: z.number().optional(),
-  icon: image().optional(),
-  title: z.string().optional(),
-  description: z.string().optional(),
-});
+export const testimonialsSchema = ({ image }: SchemaContext) =>
+  z.discriminatedUnion("type", [
+    z.object({
+      type: z.literal("slider"),
+      title: z.string(),
+      description: z.string(),
+    }),
+    z.object({
+      type: z.literal("grid"),
+      icon: image(),
+      title: z.string(),
+      description: z.string(),
+    }),
+    z.object({
+      type: z.literal("stack"),
+      order: z.number(),
+      name: z.string(),
+      username: z.string(),
+      logo: image(),
+      message: z.string(),
+      rating: z.number(),
+    }),
+  ]);

@@ -1,0 +1,128 @@
+---
+import { getCollection } from "astro:content";
+import SliderCard from "./testimonialSliderCard.astro";
+import NavigateButton from "./navigateButton.astro";
+
+const testimonials = await getCollection("testimonials", ({ data }) => {
+  return data.type === "slider";
+});
+---
+
+<section class="relative w-full overflow-hidden testimonial-slider">
+  <div class="overflow-hidden">
+    <div
+      class="slider-track flex gap-6 transition-transform duration-500 ease-out"
+    >
+      {
+        testimonials.map((t) => {
+          if (t.data.type !== "slider") return null;
+          return (
+            <SliderCard title={t.data.title} description={t.data.description} />
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mt-6">
+    <div class="w-40 h-[2px] bg-white/20 overflow-hidden rounded">
+      <div
+        class="slider-progress h-full bg-white transition-all duration-500"
+        style="width: 0%"
+      >
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <NavigateButton
+        direction="left"
+        variant="secondary"
+        data-action="prev2"
+      />
+      <NavigateButton
+        direction="right"
+        variant="secondary"
+        data-action="next2"
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sliders = document.querySelectorAll(".testimonial-slider");
+
+    sliders.forEach((slider) => {
+      const track = slider.querySelector(".slider-track") as HTMLElement;
+      const progressEl = slider.querySelector(
+        ".slider-progress",
+      ) as HTMLElement;
+      const prevBtn = slider.querySelector(
+        '[data-action="prev2"]',
+      ) as HTMLButtonElement;
+      const nextBtn = slider.querySelector(
+        '[data-action="next2"]',
+      ) as HTMLButtonElement;
+
+      if (!track) return;
+
+      const cards = Array.from(track.children) as HTMLElement[];
+
+      let currentIndex = 0;
+      let cardsPerView = 1;
+
+      function computeCardsPerView() {
+        const w = window.innerWidth;
+        if (w >= 1280) return 3;
+        if (w >= 768) return 2;
+        return 1;
+      }
+
+      function clampIndex(index: number) {
+        const maxIndex = cards.length - cardsPerView;
+        return Math.max(0, Math.min(index, maxIndex));
+      }
+
+      function update() {
+        cardsPerView = computeCardsPerView();
+        currentIndex = clampIndex(currentIndex);
+
+        const firstCard = cards[0];
+        if (!firstCard) return;
+
+        const cardWidth = firstCard.offsetWidth;
+        const gap = 24; // gap-6
+
+        const offset = currentIndex * (cardWidth + gap);
+        track.style.transform = `translateX(-${offset}px)`;
+
+        // Progress based on index
+        if (progressEl) {
+          const maxIndex = cards.length - cardsPerView;
+          const progress =
+            maxIndex <= 0 ? 100 : (currentIndex / maxIndex) * 100;
+
+          progressEl.style.width = `${progress}%`;
+        }
+
+        if (prevBtn) prevBtn.disabled = currentIndex === 0;
+        if (nextBtn)
+          nextBtn.disabled = currentIndex >= cards.length - cardsPerView;
+      }
+
+      prevBtn?.addEventListener("click", () => {
+        currentIndex--;
+        update();
+      });
+
+      nextBtn?.addEventListener("click", () => {
+        currentIndex++;
+        update();
+      });
+
+      window.addEventListener("resize", update);
+
+      update();
+    });
+  })();
+</script>

@@ -50,13 +50,8 @@ export const gpuProvidersSchema = ({ image }: SchemaContext) =>
         title: z.string(),
       }),
       heading: z.string(),
-      testimonials: z.array(
-        z.object({
-          quote: z.string(),
-          author: z.string(),
-        }),
-      ),
     }),
+
     emailSection: z.object({
       heading: z.string(),
       description: z.string(),

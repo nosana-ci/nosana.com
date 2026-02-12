@@ -1,5 +1,6 @@
 ---
-type: "card"
+type: "stack"
+order: 3
 name: "Top Ledger"
 username: "ledger_top"
 logo: "./assets/topledger.png"

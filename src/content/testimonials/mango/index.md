@@ -1,5 +1,6 @@
 ---
-type: "card"
+type: "stack"
+order: 2
 name: "Mango"
 username: "mangomarkets"
 logo: "./assets/mango.png"

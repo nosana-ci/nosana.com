@@ -1,5 +1,6 @@
 ---
-type: "card"
+type: "stack"
+order: 1
 name: "Chem X"
 username: "xchem"
 logo: "./assets/chemx.png"
