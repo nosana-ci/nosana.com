@@ -84,6 +84,14 @@ const { features } = entry.data.whyNosanaSection;
       "why-nosana-progress",
     ) as HTMLElement;
 
+    const container = track.closest("section") as HTMLElement | null;
+    const prevBtn = container?.querySelector<HTMLButtonElement>(
+      '[data-action="prev"]',
+    );
+    const nextBtn = container?.querySelector<HTMLButtonElement>(
+      '[data-action="next"]',
+    );
+
     const cards = Array.from(track.children) as HTMLElement[];
 
     const CARD_WIDTH = 300;
@@ -96,7 +104,7 @@ const { features } = entry.data.whyNosanaSection;
     function computeCardsPerPage() {
       const w = window.innerWidth;
 
-      if (w >= 1280) return 4;
+      if (w >= 1280) return 4; // Check if breakpoints match CSS
       if (w >= 1024) return 3;
       if (w >= 768) return 2;
       return 1;
@@ -129,6 +137,9 @@ const { features } = entry.data.whyNosanaSection;
 
       const totalPages = Math.ceil(cards.length / cardsPerPage);
       const pageStartIndex = currentPage * cardsPerPage;
+      // Wait, setActive(pageStartIndex) implies the first card on the page is always active?
+      // The original code did random hover activation, but update() forces the first visible card active?
+      // Yes, setActive(pageStartIndex) was present in previous code.
       setActive(pageStartIndex);
 
       const offset = pageStartIndex * (CARD_WIDTH + GAP);
@@ -141,6 +152,9 @@ const { features } = entry.data.whyNosanaSection;
 
         progressEl.style.width = `${progress}%`;
       }
+
+      if (prevBtn) prevBtn.disabled = currentPage === 0;
+      if (nextBtn) nextBtn.disabled = currentPage >= totalPages - 1;
     }
 
     cards.forEach((card, index) => {
@@ -148,16 +162,6 @@ const { features } = entry.data.whyNosanaSection;
         setActive(index);
       });
     });
-
-    const container = track.closest("section") as HTMLElement | null;
-    if (!container) return;
-
-    const prevBtn = container.querySelector<HTMLButtonElement>(
-      '[data-action="prev"]',
-    );
-    const nextBtn = container.querySelector<HTMLButtonElement>(
-      '[data-action="next"]',
-    );
 
     prevBtn?.addEventListener("click", () => {
       currentPage--;
