@@ -18,6 +18,8 @@ const heading = hardwareRequirementsSection.heading;
 const description = hardwareRequirementsSection.description;
 const buttons = hardwareRequirementsSection.buttons;
 const requirements = hardwareRequirementsSection.requirements;
+
+const headingParts = heading.split(" - ");
 ---
 
 <section class="w-full bg-bg-base px-6 sm:px-8 md:px-14 flex flex-col lg:flex-row justify-between items-start">
@@ -28,7 +30,8 @@ const requirements = hardwareRequirementsSection.requirements;
 
     <!-- Heading -->
     <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
-      {heading}
+      {headingParts[0]}
+      {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
     </h2>
 
     <!-- Description -->

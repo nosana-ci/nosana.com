@@ -1,25 +1,76 @@
 ---
+import { getEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
+import playIcon from "../../assets/icons/play.svg?raw";
+import pauseIcon from "../../assets/icons/pause.svg?raw";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { videoSection } = entry.data;
+
+const badge = videoSection.badge;
+const heading = videoSection.heading;
+const description = videoSection.description;
+
+const headingParts = heading.split(" - ");
 ---
 
 <section class="w-full flex flex-col lg:flex-row justify-between items-center bg-bg-base px-4 md:px-12">
   <!-- Badge -->
    <div class="lg:w-[45%] w-full lg:pr-10">
 
-     <Badge title="Video Tutorial" class="mb-4" />
+     <Badge title={badge.title} class="mb-4" />
    
    
      <!-- Heading -->
      <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
-       Launch your GPU in the <span class="text-brand-100">Nosana GPU Cloud</span>
+       {headingParts[0]}
+       {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
      </h2>
    
      <!-- Description -->
      <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
-       Follow this guide to configure your GPU, connect to the network, and start earning rewards
+       {description}
      </p>
    </div>
-   <div class="aspect-video w-full h-auto flex flex-1 bg-black rounded-lg">
-    
+   <div class="aspect-video w-full h-auto flex flex-1 bg-black rounded-lg relative overflow-hidden">
+      <!-- Video control button -->
+      <button 
+        id="video-control" 
+        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white cursor-pointer"
+      >
+        <div id="play-status" class="flex items-center justify-center">
+          <Fragment set:html={playIcon} />
+        </div>
+        <div id="pause-status" class="hidden items-center justify-center">
+          <Fragment set:html={pauseIcon} />
+        </div>
+      </button>
    </div>
 </section>
+
+<script>
+  const videoControl = document.getElementById("video-control");
+  const playStatus = document.getElementById("play-status");
+  const pauseStatus = document.getElementById("pause-status");
+
+  if (videoControl && playStatus && pauseStatus) {
+    videoControl.addEventListener("click", () => {
+      const isPlaying = playStatus.classList.contains("hidden");
+      
+      if (isPlaying) {
+        // Switch to play icon (stopped)
+        playStatus.classList.remove("hidden");
+        pauseStatus.classList.add("hidden");
+      } else {
+        // Switch to pause icon (playing)
+        playStatus.classList.add("hidden");
+        pauseStatus.classList.remove("hidden");
+      }
+    });
+  }
+</script>

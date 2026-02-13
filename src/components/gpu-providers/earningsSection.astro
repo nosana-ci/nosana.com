@@ -1,17 +1,32 @@
 ---
+import { getEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { earningSection } = entry.data;
+
+const heading = earningSection.heading;
+const description = earningSection.description;
+
+const headingParts = heading.split(" - ");
 ---
 
 <section class="w-full bg-bg-base px-4 md:px-12">
   <!-- Heading -->
   <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
-    Estimate Your <span class="text-brand-100">Earnings</span>
+    {headingParts[0]}
+    {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
   </h2>
 
   <!-- Description -->
   <p class="text-secondary md:max-w-xl mb-8 md:mb-12 body2">
-    Discover how much you can earn by providing your GPUs on Nosana
+    {description}
   </p>
 
   <!-- Main Content Grid -->

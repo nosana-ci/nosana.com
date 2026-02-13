@@ -45,17 +45,38 @@ export const gpuProvidersSchema = ({ image }: SchemaContext) =>
       ),
     }),
 
+    getStarted: z.object({
+      badge: z.object({
+        title: z.string(),
+      }),
+      heading: z.string(),
+      description: z.string(),
+      cta1: z
+        .object({
+          title: z.string(),
+          url: z.string(),
+        })
+        .optional(),
+      cta2: z
+        .object({
+          title: z.string(),
+          url: z.string(),
+        })
+        .optional(),
+      steps: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          image: image(),
+        }),
+      ),
+    }),
+
     testimonialsSection: z.object({
       badge: z.object({
         title: z.string(),
       }),
       heading: z.string(),
-    }),
-
-    emailSection: z.object({
-      heading: z.string(),
-      description: z.string(),
-      image: image(),
     }),
 
     hardwareRequirementsSection: z.object({
@@ -87,5 +108,18 @@ export const gpuProvidersSchema = ({ image }: SchemaContext) =>
             .optional(),
         }),
       ),
+    }),
+
+    videoSection: z.object({
+      badge: z.object({
+        title: z.string(),
+      }),
+      heading: z.string(),
+      description: z.string(),
+    }),
+
+    earningSection: z.object({
+      heading: z.string(),
+      description: z.string(),
     }),
   });
