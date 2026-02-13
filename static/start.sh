@@ -144,15 +144,15 @@
 
   # Build nosana run command
   nosana_run_cmd() {
-    docker exec podman sh -c 'podman ps -a -q --filter "ancestor=docker.io/matthammond962/test-node:no-tunnel" | xargs -r podman rm -f'
-    docker exec podman sh -c 'podman images -f "dangling=true" -f "reference=docker.io/matthammond962/test-node:no-tunnel" -q | xargs -r podman rmi -f'
+    docker exec podman sh -c 'podman ps -a -q --filter "ancestor=docker.io/nosana/nosana-node:latest" | xargs -r podman rm -f'
+    docker exec podman sh -c 'podman images -f "dangling=true" -f "reference=docker.io/nosana/nosana-node:latest" -q | xargs -r podman rmi -f'
 
     if ! docker exec podman podman network ls | grep NOSANA_GATEWAY > /dev/null 2>&1; then
-      docker exec podman podman network create NOSANA_GATEWAY > /dev/null 2>&1
+      docker exec podman podman network create --driver bridge --subnet=192.168.101.0/24 --gateway=192.168.101.1 NOSANA_GATEWAY > /dev/null 2>&1
     fi
     
     NOSANA_NODE_ARGS=(
-      node start
+      start
     )
     NOSANA_NODE_ARGS+=(--network "$SOL_NET_ENV")
 
@@ -179,7 +179,7 @@
 
     docker exec -it podman podman run \
       ${DOCKER_ARGS[@]} \
-      docker.io/matthammond962/test-node:no-tunnel \
+      docker.io/nosana/nosana-node:latest \
         ${NOSANA_NODE_ARGS[@]}
 
     log_std "\nNosana Node finished"
