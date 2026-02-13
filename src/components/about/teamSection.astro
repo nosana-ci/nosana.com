@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
 
 const entry = await getEntry("about", "index");
 
@@ -13,58 +14,61 @@ const { teamSection } = entry.data;
 const { badge, title, members } = teamSection;
 ---
 
-<section class="w-full py-16 md:py-24 relative overflow-hidden bg-[#141414]"> 
-  <!-- Assuming dark/bg-base background -->
-  
-  <div class="max-w-[1400px] mx-auto px-4 flex flex-col gap-12 md:gap-16">
+<section class="relative w-full overflow-hidden bg-[#141414]">
+  <div class="flex flex-col gap-8 px-4 md:gap-16 md:px-12 lg:gap-18">
     <!-- Header -->
     <div class="flex flex-col items-start gap-4">
       <Badge title={badge.title} />
-      <h2 class="h4 md:text-5xl font-medium text-primary tracking-tight">
+      <h2 class="h4 text-primary">
         {title}
       </h2>
     </div>
 
     <!-- Cards Grid -->
-    <div class="grid md:grid-cols-2 gap-6 w-full">
-      {members.map((member) => (
-        <div class="bg-[#1A1A1A] rounded-2xl p-6 md:p-8 flex flex-col gap-6 group border border-default/10 hover:border-default/30 transition-colors">
-          <!-- Member Info Top -->
-          <div class="flex flex-row items-center gap-6">
-             <div class="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                <Image 
-                  src={member.image} 
-                  alt={member.name} 
-                  class="w-full h-full object-cover"
-                />
-             </div>
-             <div class="flex flex-col gap-1">
-                <h3 class="text-2xl md:text-3xl font-medium text-primary">{member.name}</h3>
-                <p class="text-brand-100 font-medium">{member.role}</p>
-             </div>
-          </div>
-          
-          <p class="body2 text-secondary leading-relaxed grow">
-            {member.bio}
-          </p>
+    <div class="grid w-full gap-[42px] md:grid-cols-2 lg:gap-[118px]">
+      {
+        members.map((member) => (
+          <div class="gap-xl flex flex-col items-start gap-5">
+            <div class="aspect-[7/9] lg:w-[55%] w-full  shrink-0 overflow-hidden rounded-xl grayscale transition-all duration-500 group-hover:grayscale-0">
+              <Image
+                src={member.image}
+                alt={member.name}
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div class="items-end flex gap-4">
+              <h3 class="text-primary h6">{member.name}</h3>
+              <p class="body2">{member.role}</p>
+            </div>
 
-          <div class="pt-4 mt-auto">
-            {member.button_1 && (
-              <a href="#" class="inline-flex items-center gap-2 text-sm text-secondary hover:text-brand-100 transition-colors border border-default/30 px-4 py-2 rounded-lg hover:border-brand-100/50">
-                {member.button_1.text}
-                <Image src={member.button_1.icon} alt="" class="w-3 h-3 invert group-hover:invert-0 group-hover:sepia group-hover:saturate-200 group-hover:hue-rotate-50" />
-              </a>
-            )}
-             {/* If there's a second button (Jesse) */}
-             {member.button_2 && (
-              <a href="#" class="inline-flex items-center gap-2 text-sm text-secondary hover:text-brand-100 transition-colors border border-default/30 px-4 py-2 rounded-lg hover:border-brand-100/50">
-                {member.button_2.text}
-                 <Image src={member.button_2.icon} alt="" class="w-3 h-3 invert group-hover:invert-0 group-hover:sepia group-hover:saturate-200 group-hover:hue-rotate-50" />
-              </a>
-            )}
+            <p class="body2 text-secondary grow leading-relaxed">
+              {member.bio}
+            </p>
+
+            <div class="mt-auto pt-4">
+              {member.button_1 && (
+                <Button
+                  title={member.button_1.text}
+                  url={"#"}
+                  class="w-full"
+                  variant="secondary"
+                  iconColor="#fafafa"
+                />
+              )}
+              {/* If there's a second button (Jesse) */}
+              {member.button_2 && (
+                <Button
+                  title={member.button_2.text}
+                  url={"#"}
+                  class="w-full"
+                  variant="secondary"
+                  iconColor="#fafafa"
+                />
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
