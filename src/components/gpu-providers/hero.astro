@@ -26,7 +26,7 @@ const cta2 = heroSection.cta2;
 ---
 
 <section
-  class="relative w-full h-[670px] md:h-[800px] lg:h-[762px] overflow-hidden pt-10 md:pt-16 lg:pt-26 px-4 md:px-[40px]"
+  class="relative w-full h-[calc(100vh-5rem)] overflow-hidden pt-20 px-4 lg:px-12"
 >
   <video
     autoplay
@@ -40,19 +40,18 @@ const cta2 = heroSection.cta2;
   </video>
 
   <div
-    class="relative z-10 bg-bg-base rounded-xl overflow-hidden p-6 lg:p-[100px] h-[680px] md:h-[785px] lg:h-[680px]"
+    class="relative z-10 bg-bg-base h-full rounded-t-xl overflow-hidden p-6 lg:p-20"
   >
     <div class="absolute inset-0 pointer-events-none mix-blend-hard-light z-0">
       <Image
         src={texture}
-        alt=""
+        alt="texture"
         class="w-full h-full object-cover pointer-events-none select-none"
       />
     </div>
 
     <div class="absolute inset-0 pointer-events-none z-0">
-      <!-- gpu image -->
-      <div class="absolute left-0 lg:bottom-[42px] bottom-[100px] -right-32 md:-right-8  h-full lg:scale-[1.06] md:scale-[1.06] scale-[1.2]">
+      <div class="absolute right-0 bottom-0 lg:right-20 w-full h-full">
         <Image
           src={gpu}
           alt="GPU illustration"
@@ -61,39 +60,42 @@ const cta2 = heroSection.cta2;
       </div>
       <div
         class="absolute inset-0 pointer-events-none z-1 opacity-5
-              bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              lg:bg-size-[70px_70px] md:bg-size-[58px_58px] bg-size-[47px_47px]"
-      ></div>
+              [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:72px_72px]"
+      >
+      </div>
     </div>
 
     <div class="relative z-10 max-w-3xl">
-      {
-        badge && (
-          <Badge title={badge.title} icon={badge.icon} class="mb-4" />
-        )
-      }
+      {badge && <Badge title={badge.title} icon={badge.icon} class="mb-4" />}
 
-      <h1 class="text-primary md:max-w-full max-w-[200px] mb-4 grotesk h4">{heading}</h1>
-      <p class="text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10 body2">{description}</p>
+      <h1 class="text-primary mb-4 grotesk h4">{heading}</h1>
+      <p class="text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10 body2">
+        {description}
+      </p>
 
       <div class="flex flex-wrap gap-4">
-        {cta1 && (
-          <Button
-            title={cta1.title}
-            url={cta1.url}
-            variant="secondary"
-          />
-        )}
-      
-        {cta2 && (
-          <Button
-            title={cta2.title}
-            url={cta2.url}
-            variant="secondary"
-          />
-        )}
+        {
+          cta1 && (
+            <Button
+              title={cta1.title}
+              url={cta1.url}
+              variant="secondary"
+            />
+          )
+        }
+
+        {
+          cta2 && (
+            <Button
+              title={cta2.title}
+              url={cta2.url}
+              icon={cta2.icon}
+              variant="secondary"
+            />
+          )
+        }
       </div>
-      
     </div>
   </div>
 </section>

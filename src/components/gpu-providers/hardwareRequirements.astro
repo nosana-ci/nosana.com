@@ -3,7 +3,7 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
-import chevronRightDouble from "../../assets/icons/chevronRightDouble.svg?raw";
+
 
 const entry = await getEntry("gpuProviders", "index");
 
@@ -18,6 +18,8 @@ const heading = hardwareRequirementsSection.heading;
 const description = hardwareRequirementsSection.description;
 const buttons = hardwareRequirementsSection.buttons;
 const requirements = hardwareRequirementsSection.requirements;
+
+const headingParts = heading.split(" - ");
 ---
 
 <section class="w-full bg-bg-base px-6 sm:px-8 md:px-14 flex flex-col lg:flex-row justify-between items-start">
@@ -28,7 +30,8 @@ const requirements = hardwareRequirementsSection.requirements;
 
     <!-- Heading -->
     <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
-      {heading}
+      {headingParts[0]}
+      {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
     </h2>
 
     <!-- Description -->
@@ -53,20 +56,20 @@ const requirements = hardwareRequirementsSection.requirements;
     <!-- Requirements Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full flex-1">
       {requirements.map((requirement) => (
-        <div class="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-xl px-3 md:px-3 py-3 md:py-8  transition-all duration-300 group">
+        <div class="bg-surface border border-white/10 rounded-xl px-4 md:px-4 py-4 md:py-8 transition-all duration-300">
           <!-- Icon -->
             <Image
               src={requirement.icon}
               alt={requirement.title}
               width={40}
               height={40}
-              class="text-green-400 h-10 w-10"
+              class="text-brand-100 h-10 w-10 select-none pointer-events-none"
             />
 
-            <div class="h-px w-full bg-gradient-to-r from-white/20 to-transparent my-4"></div>
+            <div class="h-[2px] w-full bg-linear-to-r from-white/10 to-transparent my-4"></div>
 
           <!-- Title -->
-          <h3 class="body2 text-primary font-semibold mb-1">
+          <h3 class="body2 text-primary font-semibold mb-2">
             {requirement.title}
           </h3>
 
@@ -78,12 +81,12 @@ const requirements = hardwareRequirementsSection.requirements;
           <!-- Optional Link -->
           {
             requirement.link && (
-              <a
-                class="inline-flex items-center gap-2 body4 font-semibold text-secondary hover:text-green-400 transition-colors group/link mt-4 hover:translate-y-3"
-              >
-                View the List
-                <Fragment set:html={chevronRightDouble} />
-              </a>
+              <Button
+                title={requirement.link.title}
+                url={requirement.link.url}
+                variant="ghost"
+                class="mt-4 w-fit"
+              />
             )
           }
           

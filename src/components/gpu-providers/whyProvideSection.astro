@@ -17,10 +17,10 @@ const heading = whyProvideSection.heading;
 const description = whyProvideSection.description;
 const features = whyProvideSection.features;
 
-const headingParts = heading.split("GPU Hardware");
+const headingParts = heading.split(" - ");
 ---
 
-<section class="w-full bg-bg-base px-6 sm:px-8 md:px-14">
+<section class="w-full bg-bg-base px-4 md:px-12">
   <!-- Badge -->
   <Badge title={badge.title} class="mb-4" />
 
@@ -28,19 +28,20 @@ const headingParts = heading.split("GPU Hardware");
   <!-- Heading -->
   <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
     {headingParts[0]}
-    <span class="text-green-400">GPU Hardware</span>
-    {headingParts[1]}
+    <span class="text-brand-100">{headingParts[1]}</span>
+    {headingParts[2]}
+    <span class="text-brand-100">{headingParts[3]}</span>
   </h2>
 
   <!-- Description -->
-  <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
+  <p class="text-secondary max-w-2xl mb-8 md:mb-16 lg:mb-18 body2">
     {description}
   </p>
 
   <!-- Features Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       {features.map((feature: any) => (
-        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6`}>
+        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 h-[280px] md:h-[360px] lg:h-[440px]`}>
           <!-- Icon -->
           <div class="mb-6">
             <Image 
@@ -48,17 +49,17 @@ const headingParts = heading.split("GPU Hardware");
               alt={feature.title}
               width={100}
               height={100}
-              class="invert opacity-70 w-[100px] h-[100px] md:w-[120px] md:h-[120px]"
+              class="invert opacity-70 w-[100px] h-[100px] md:w-[120px] md:h-[120px] pointer-events-none select-none"
             />
           </div>
 
           <!-- Title -->
-          <h3 class="text-primary body2 mb-1.5">
+          <h3 class="text-primary body1 mb-2">
             {feature.title}
           </h3>
 
           <!-- Description -->
-          <p class="text-secondary body3 lg:mb-10">
+          <p class="text-secondary body3">
             {feature.description}
           </p>
         </div>

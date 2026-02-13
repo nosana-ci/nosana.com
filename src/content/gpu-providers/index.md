@@ -17,10 +17,35 @@ heroSection:
     title: "Contact Us"
     url: "/gpu-workloads"
 
+getStarted:
+  badge:
+    title: "How to Get Started"
+  heading: "A Step-by-Step Guide"
+  description: "Follow These 4 Simple Steps to Set Up, Verify, and Start Earning with Your GPU"
+  cta1:
+    title: "Start Earning"
+    url: "/gpu-workloads"
+  cta2:
+    title: "Contact Us"
+    url: "/gpu-workloads"
+  steps:
+    - title: "Install the Nosana Node"
+      description: "Set up your local node and connect your GPU to the Nosana network"
+      image: "./assets/steps/step1.svg"
+    - title: "Register and Verify"
+      description: "Join the network and verify your hardware."
+      image: "./assets/steps/step2.svg"
+    - title: "Start Earning"
+      description: "Get paid for every second your GPUs are used by Nosana Clients."
+      image: "./assets/steps/step3.svg"
+    - title: "Track Performance"
+      description: "Monitor performance and payments in your dashboard."
+      image: "./assets/steps/step4.svg"
+
 whyProvideSection:
   badge:
     title: "Why Provide GPUs"
-  heading: "Put Your GPU Hardware to Work"
+  heading: "Put Your - GPU Hardware - to - Work"
   description: "Provide your GPUs to Nosana, run real workloads, and earn revenue, we handle scheduling, orchestration, and payments"
   features:
     - icon: "./assets/passive-income.svg"
@@ -47,11 +72,6 @@ testimonialsSection:
   badge:
     title: "GPU Provider Testimonials"
   heading: "What Our GPU Providers Say"
-
-emailSection:
-  heading: Stay Updated with Nosana
-  description:     Get the latest insights on AI infrastructure, GPU launches, andnetwork innovations — all in one place  
-  image: "./assets/mask.svg"   
 
 hardwareRequirementsSection:
   badge:
@@ -84,4 +104,15 @@ hardwareRequirementsSection:
       link:
         title: "View the List"
         url: "/gpu-models"
+
+videoSection:
+  badge:
+    title: "Video Tutorial"
+  heading: "Launch your GPU in the - Nosana GPU Cloud"
+  description: "Follow this guide to configure your GPU, connect to the network, and start earning rewards"
+
+earningSection:
+  heading: "Estimate Your - Earnings"
+  description: "Discover how much you can earn by providing your GPUs on Nosana"
+  
 ---

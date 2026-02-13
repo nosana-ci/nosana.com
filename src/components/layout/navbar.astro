@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
-import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
+import externalLink from "../../assets/icons/externalLink.svg";
 import hamburgerIcon from "../../assets/icons/hamburger.svg?raw";
 import closeIcon from "../../assets/icons/close.svg?raw";
 import Button from "../ui/button.astro";
@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname;
 
 <nav-container class="block w-full z-100">
   <nav
-    class="h-fit py-4 w-full bg-bg-base flex items-center justify-between px-5 lg:px-8 relative z-50"
+    class="h-fit py-4 w-full bg-bg-base flex items-center justify-between px-4 lg:px-12 relative z-50"
   >
     <div class="flex items-center">
       <a href={navLogo.url} class="flex items-center py-4">
@@ -69,14 +69,130 @@ const currentPath = Astro.url.pathname;
               </button>
 
               {item.type === "dropdown" && (
-                <div class="mega-menu absolute left-0 top-full w-full h-40 bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
-                  <div class="container mx-auto h-full flex items-center justify-center">
-                    <div class="text-primary italic">
-                      {item.title} content will go here...
-                    </div>
+                <div class="mega-menu absolute left-0 top-full w-full bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
+                  <div class="mx-auto px-4 md:px-12 py-10">
+
+                    {/* community dropdown */}
+                    {item.title === "Community" ? (
+                      <div class="grid grid-cols-14 gap-12">
+                        <div class="col-span-4">
+                          <h3 class="body1 grotesk font-medium text-primary mb-2">
+                            {item.subItems.sectionTitle}
+                          </h3>
+                          <p class="text-secondary body4">
+                            {item.subItems.sectionSubtitle}
+                          </p>
+                        </div>
+                        <div class="col-span-6 grid grid-cols-2 gap-x-10 gap-y-8">
+                          {item.subItems.items.map((subItem: any) => (
+                            <a
+                              href={subItem.url}
+                              target={subItem.target}
+                              rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                              class="group/subitem flex flex-col items-start transition-all duration-200"
+                            >
+                              {subItem.icon && (
+                                <Image
+                                  src={subItem.icon}
+                                  alt={subItem.title}
+                                  width={32}
+                                  height={32}
+                                  class="mb-2 shrink-0 select-none"
+                                />
+                              )}
+
+                              <div>
+                                <div class="flex items-center gap-1 font-semibold body4 text-primary group-hover/subitem:text-brand-100 transition-colors">
+                                  {subItem.title}
+
+                                  {subItem.target === "_blank" && (
+                                    <Image
+                                      src={externalLink}
+                                      alt="External link"
+                                      width={14}
+                                      height={14}
+                                      class="select-none text-brand-100"
+                                    />
+                                  )}
+                                </div>
+                                <p class="text-secondary body4 mt-1">
+                                  {subItem.description}
+                                </p>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+
+                        <div class="col-span-4">
+                          <div class="h-full">
+                            <h3 class="body4 text-secondary mb-4">
+                              Featured event
+                            </h3>
+                            <div class="h-full w-full pb-4">
+                              <div class="h-full w-full bg-surface"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    ) : (
+                      // ecosystem dropdown
+                      <div class="grid grid-cols-14 gap-12">
+                        <div class="col-span-4">
+                          <h3 class="body1 grotesk font-medium text-primary mb-2">
+                            {item.subItems.sectionTitle}
+                          </h3>
+                          <p class="text-secondary body4">
+                            {item.subItems.sectionSubtitle}
+                          </p>
+                        </div>
+                        <div class="col-span-9 grid grid-cols-3 gap-x-12 gap-y-8">
+                          {item.subItems.items.map((subItem: any) => (
+                            <a
+                              href={subItem.url}
+                              target={subItem.target}
+                              rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                              class="group/subitem flex flex-col items-start transition-all duration-200"
+                            >
+                              {subItem.icon && (
+                                <Image
+                                  src={subItem.icon}
+                                  alt={subItem.title}
+                                  class="w-8 h-8 mb-2 shrink-0 select-none"
+                                />
+                              )}
+
+                              <div>
+                                <div class="flex items-center gap-1 font-semibold body4 text-primary group-hover/subitem:text-brand-100 transition-colors">
+                                  {subItem.title}
+
+                                  {subItem.target === "_blank" && (
+                                    <Image
+                                      src={externalLink}
+                                      alt="External link"
+                                      width={14}
+                                      height={14}
+                                      class="text-brand-100 select-none"
+                                    />
+                                  )}
+                                </div>
+
+                                <p class="text-secondary body4 mt-1">
+                                  {subItem.description}
+                                </p>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+
+                      </div>
+                    )}
+
                   </div>
                 </div>
               )}
+
             </div>
           );
         })
