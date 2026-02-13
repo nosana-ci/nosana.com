@@ -1,19 +1,25 @@
-name: Trigger Deployment on Vercel for Frontend Merges
-
+name: Vercel Deploy on Frontend Merge
 on:
   pull_request:
-    branches:
-      - frontend
-    types:
-      - closed
-
+    branches: [frontend]
+    types: [closed]
 permissions:
-  contents: write # Not strictly needed now, but kept for safety
-
+  contents: write
 jobs:
-  deploy-if-merged:
+  deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Notify Deployment Triggered
-        run: echo "PR merged into frontend - Vercel will auto-deploy!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Create empty commit
+        run: |
+          git commit --allow-empty -m "chore: Vercel deploy (bot)"
+          git push
