@@ -18,7 +18,9 @@ export const navbarSchema = ({ image }: SchemaContext) => z.object({
       sectionSubtitle: z.string().optional(),
       items: z.array(z.object({
         title: z.string(),
+        icon: image(),
         url: z.string(),
+        target: z.string().optional(),
         description: z.string().optional(),
       })),
     }).optional(),
