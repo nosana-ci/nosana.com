@@ -20,7 +20,7 @@ heroSection:
 whyProvideSection:
   badge:
     title: "Why Provide GPUs"
-  heading: "Put Your GPU Hardware to Work"
+  heading: "Put Your - GPU Hardware - to - Work"
   description: "Provide your GPUs to Nosana, run real workloads, and earn revenue, we handle scheduling, orchestration, and payments"
   features:
     - icon: "./assets/passive-income.svg"
