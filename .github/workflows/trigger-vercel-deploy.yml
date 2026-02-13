@@ -1,0 +1,19 @@
+name: Trigger Deployment on Vercel for Frontend Merges
+
+on:
+  pull_request:
+    branches:
+      - frontend
+    types:
+      - closed
+
+permissions:
+  contents: write # Not strictly needed now, but kept for safety
+
+jobs:
+  deploy-if-merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Deployment Triggered
+        run: echo "PR merged into frontend - Vercel will auto-deploy!"
