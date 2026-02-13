@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { teamSection } = entry.data;
+const { badge, title, members } = teamSection;
+---
+
+<section class="relative w-full overflow-hidden bg-[#141414]">
+  <div class="flex flex-col gap-8 px-4 md:gap-16 md:px-12 lg:gap-18">
+    <!-- Header -->
+    <div class="flex flex-col items-start gap-4">
+      <Badge title={badge.title} />
+      <h2 class="h4 text-primary">
+        {title}
+      </h2>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid w-full gap-[42px] md:grid-cols-2 lg:gap-[118px]">
+      {
+        members.map((member) => (
+          <div class="gap-xl flex flex-col items-start gap-5">
+            <div class="aspect-[7/9] lg:w-[55%] w-full  shrink-0 overflow-hidden rounded-xl grayscale transition-all duration-500 group-hover:grayscale-0">
+              <Image
+                src={member.image}
+                alt={member.name}
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div class="items-end flex gap-4">
+              <h3 class="text-primary h6">{member.name}</h3>
+              <p class="body2">{member.role}</p>
+            </div>
+
+            <p class="body2 text-secondary grow leading-relaxed">
+              {member.bio}
+            </p>
+
+            <div class="mt-auto pt-4">
+              {member.button_1 && (
+                <Button
+                  title={member.button_1.text}
+                  url={"#"}
+                  class="w-full"
+                  variant="secondary"
+                  iconColor="#fafafa"
+                />
+              )}
+              {/* If there's a second button (Jesse) */}
+              {member.button_2 && (
+                <Button
+                  title={member.button_2.text}
+                  url={"#"}
+                  class="w-full"
+                  variant="secondary"
+                  iconColor="#fafafa"
+                />
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

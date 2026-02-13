@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { visionSection } = entry.data;
+const { badge, title, description, image } = visionSection;
+---
+
+<section class="w-full relative overflow-hidden">
+  <div class="px-4 md:px-12 flex flex-col gap-12">
+    <!-- Header Content: Left Aligned -->
+    <div class="flex flex-col items-start gap-4 max-w-[800px]">
+      <Badge title={badge.title} />
+      <h2 class="h4 md:text-5xl font-medium text-primary grotesk">
+        {title}
+      </h2>
+      <p class="body2 text-secondary leading-relaxed max-w-[900px]">
+        {description}
+      </p>
+    </div>
+
+    <!-- Image/Diagram Container: Full Width below text -->
+    <Image 
+      src={image} 
+      alt={title} 
+      class="w-full h-auto object-contain"
+    />
+  </div>
+</section>

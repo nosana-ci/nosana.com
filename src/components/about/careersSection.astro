@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { careersSection } = entry.data;
+const { badge, title, description, button, remoteSection } = careersSection;
+---
+
+<section class="relative w-full overflow-hidden">
+  <div class="grid items-start gap-16 px-4 md:px-12 lg:grid-cols-[1fr_1.4fr]">
+    <!-- Left Column: Careers Text -->
+    <div class="flex flex-col items-start gap-4">
+      <Badge title={badge.title} />
+      <h2 class="h4">
+        {title}
+      </h2>
+      <p class="body2 text-secondary">
+        {description}
+      </p>
+
+      {
+        button && (
+          <Button
+            title={button.text}
+            url={"#"}
+            class="mt-5 w-min"
+            variant="secondary"
+            iconColor="#fafafa"
+          />
+        )
+      }
+    </div>
+
+    <!-- Right Column: Remote Section Card -->
+    <!-- Design: Dark card, Green Text for work from anywhere, Map image -->
+    <div
+      class="border-default/10 relative flex w-full flex-col gap-6 overflow-hidden rounded-md border bg-[#1A1A1A] p-8 md:p-12"
+    >
+      <div class="relative z-10 flex flex-col gap-4">
+        <!-- Badge Style adjustment for this specific card -->
+        <p
+          class="body1 bg-gradient-to-r from-green-500 to-green-900 text-center bg-clip-text text-transparent"
+        >
+          [{remoteSection.badge.title}]
+        </p>
+
+        <p class="body4 text-center text-secondary/70 max-w-[90%] mx-auto leading-relaxed">
+          {remoteSection.description}
+        </p>
+      </div>
+
+      <div class="relative mt-8 flex w-full justify-center">
+        <Image
+          src={remoteSection.image}
+          alt="Remote Work Distribution"
+          class="h-auto w-full object-contain opacity-90 mix-blend-screen"
+        />
+      </div>
+    </div>
+  </div>
+</section>

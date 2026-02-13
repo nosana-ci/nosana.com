@@ -11,6 +11,7 @@ import {
   supportSchema,
   testimonialsHomepageSchema
 } from './utils/schema';
+import { aboutPageSchema } from './utils/schema/about-page';
 
 const navbarCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/navbar" }),
@@ -57,6 +58,11 @@ const testimonialsHomepageCollection = defineCollection({
   schema: testimonialsHomepageSchema,
 });
 
+const aboutCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/about" }),
+  schema: aboutPageSchema,
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
@@ -67,4 +73,5 @@ export const collections = {
   gpuProviders: gpuProvidersCollection,
   testimonials: testimonialsCollection,
   testimonialsHomepage: testimonialsHomepageCollection,
+  about: aboutCollection,
 };

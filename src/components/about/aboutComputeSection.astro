@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("About content not found");
+}
+
+const { aboutComputeSection } = entry.data;
+const { badge, title, description, image } = aboutComputeSection;
+---
+
+<section class="relative w-full overflow-hidden">
+  <div class="flex w-full flex-col gap-12 px-4 md:px-12">
+    <!-- Header Content: Left Aligned -->
+    <div class="flex max-w-[800px] flex-col items-start gap-4">
+      <Badge title={badge.title} />
+      <h2 class="h4">
+        {title}
+      </h2>
+      <p class="body2 text-secondary">
+        {description}
+      </p>
+    </div>
+
+    <!-- Image/Diagram Container: Full Width below text -->
+    <div class="bg-surface border border-default/80 flex xl:flex-row flex-col w-full justify-center rounded-lg p-6">
+      <p class="body3 text-secondary max-w-[300px] w-full">The Nosana Compute Loop</p>
+      <Image
+        src={image}
+        alt={title}
+        class="h-auto max-h-[400px] w-full object-contain lg:mb-10 lg:mt-24 mt-10"
+      />
+    </div>
+  </div>
+</section>
