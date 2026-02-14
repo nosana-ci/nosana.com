@@ -48,14 +48,14 @@ const customStyle =
 >
   <span
     class:list={[
-      "flex flex-1 items-center gap-2 transition-colors body4",
-      variant === "ghost" ? "py-2 px-1" : "p-2 lg:py-3 lg:px-4",
+      "body4 flex flex-1 items-center gap-2 transition-colors",
+      variant === "ghost" ? "px-1 py-2" : "p-2 lg:px-4 lg:py-3",
     ]}
   >
     {
       icon && (
         <span
-          class="flex items-center justify-center shrink-0 transition-colors"
+          class="flex shrink-0 items-center justify-center transition-colors"
           style={{
             width: `${iconSize}px`,
             height: `${iconSize}px`,
@@ -63,13 +63,14 @@ const customStyle =
           }}
         >
           {typeof icon === "string" && icon.includes("<svg") ? (
-            <span class="w-full h-full [&_path]:fill-current pointer-events-none select-none">
+            <span class="pointer-events-none h-full w-full select-none [&_path]:fill-current">
               <Fragment set:html={icon} />
             </span>
           ) : (
             <div
-              class="w-full h-full bg-current pointer-events-none select-none"
-              style={`mask: url(${typeof icon === "string" ? icon : icon.src}) no-repeat center;
+              class="pointer-events-none h-full w-full bg-current select-none"
+              style={`
+                    mask: url(${typeof icon === "string" ? icon : icon.src}) no-repeat center;
                     -webkit-mask: url(${typeof icon === "string" ? icon : icon.src}) no-repeat center;
                     mask-size: contain;
                     -webkit-mask-size: contain;`}
@@ -83,27 +84,21 @@ const customStyle =
 
   <div
     class:list={[
-      "shrink-0 flex items-center justify-center overflow-hidden transition-all",
-      variant !== "ghost" ? "border-l border-default p-2 lg:p-4" : "py-2 px-1",
+      "flex shrink-0 items-center justify-center overflow-hidden transition-all",
+      variant !== "ghost" ? "border-default border-l p-2 lg:p-4" : "px-1 py-2",
     ]}
   >
-    <div class="w-3 h-3 lg:w-4 lg:h-4 relative">
+    <div class="relative h-3 w-3 lg:h-4 lg:w-4">
       <div
-        class="flex transition-transform duration-300 -translate-x-3 lg:-translate-x-4 group-hover:translate-x-0"
+        class="flex -translate-x-3 transition-transform duration-300 group-hover:translate-x-0 lg:-translate-x-4"
       >
         <span
-          class="w-3 h-3 lg:w-4 lg:h-4 pointer-events-none select-none
-                 flex items-center justify-center shrink-0
-                 opacity-0 group-hover:opacity-100 transition-opacity
-                 duration-300 [&_path]:fill-current -rotate-90"
+          class="pointer-events-none flex h-3 w-3 shrink-0 -rotate-90 items-center justify-center opacity-0 transition-opacity duration-300 select-none group-hover:opacity-100 lg:h-4 lg:w-4 [&_path]:fill-current"
         >
           <Fragment set:html={chevronDownDouble} />
         </span>
         <span
-          class="w-3 h-3 lg:w-4 lg:h-4 pointer-events-none select-none
-                 flex items-center justify-center shrink-0
-                 opacity-100 group-hover:opacity-0 transition-opacity
-                 duration-300 [&_path]:fill-current -rotate-90"
+          class="pointer-events-none flex h-3 w-3 shrink-0 -rotate-90 items-center justify-center opacity-100 transition-opacity duration-300 select-none group-hover:opacity-0 lg:h-4 lg:w-4 [&_path]:fill-current"
         >
           <Fragment set:html={chevronDownDouble} />
         </span>

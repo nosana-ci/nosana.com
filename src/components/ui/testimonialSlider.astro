@@ -8,7 +8,7 @@ const testimonials = await getCollection("testimonials", ({ data }) => {
 });
 ---
 
-<section class="relative w-full overflow-hidden testimonial-slider">
+<section class="testimonial-slider relative w-full overflow-hidden">
   <div class="overflow-hidden">
     <div
       class="slider-track flex gap-6 transition-transform duration-500 ease-out"
@@ -24,8 +24,8 @@ const testimonials = await getCollection("testimonials", ({ data }) => {
     </div>
   </div>
 
-  <div class="flex items-center justify-between mt-6">
-    <div class="w-40 h-[2px] bg-white/20 overflow-hidden rounded">
+  <div class="mt-6 flex items-center justify-between">
+    <div class="h-0.5 w-40 overflow-hidden rounded bg-white/20">
       <div
         class="slider-progress h-full bg-white transition-all duration-500"
         style="width: 0%"
