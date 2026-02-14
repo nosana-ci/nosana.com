@@ -1,5 +1,247 @@
-<section class="how-to-get-start h-[50vh]">
-    <div class="container">
-        <h2 class="text-center ">How to get started</h2>
+---
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+import NavigateButton from "../ui/navigateButton.astro";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const { getStarted } = entry.data;
+
+const badge = getStarted.badge;
+const heading = getStarted.heading;
+const description = getStarted.description;
+const cta1 = getStarted.cta1;
+const cta2 = getStarted.cta2;
+const steps = getStarted.steps;
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12" id="get-started-section">
+  <div>
+    <Badge title={badge.title} />
+    <h2 class="text-primary h4 grotesk mt-4 mb-3 max-w-3xl">
+      {heading}
+    </h2>
+    <p class="text-secondary body2 mb-6 md:max-w-xl">
+      {description}
+    </p>
+
+    <div class="mb-10 flex gap-3">
+      {cta1 && <Button title={cta1.title} url={cta1.url} variant="secondary" />}
+      {cta2 && <Button title={cta2.title} url={cta2.url} variant="secondary" />}
     </div>
+  </div>
+
+  <div
+    class="bg-surface/30 border-default/30 relative h-full w-full overflow-hidden"
+  >
+    {
+      steps.map((step: any, index: number) => (
+        <div class:list={["step-image", index === 0 ? "active" : ""]}>
+          <img
+            src={step.image.src}
+            alt={step.title}
+            style="width: 100%; height: auto; display: block; object-fit: contain;"
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div>
+    <div class="w-full">
+      <div class="h-px w-full"></div>
+      <div class="grid w-full grid-cols-4">
+        {
+          steps.map((step: any, index: number) => (
+            <div class="relative">
+              <button
+                class:list={[
+                  "step-tab group relative w-full pt-4 pr-4 pb-2 text-left transition-colors",
+                  index === 0 ? "is-active" : "",
+                ]}
+                data-step-tab={index}
+              >
+                <div
+                  class:list={[
+                    "my-4 h-0.5 transition-opacity duration-300",
+                    index === 0 ? "bg-primary" : "bg-elevated",
+                  ]}
+                  data-step-indicator={index}
+                />
+                <span
+                  class:list={[
+                    "md:body2 text-md transition-colors",
+                    index === 0 ? "text-brand-100" : "text-secondary",
+                  ]}
+                  data-step-label={index}
+                >
+                  Step {String(index + 1).padStart(2, "0")}
+                </span>
+              </button>
+              <div
+                class:list={[
+                  "step-content mt-4 transition-opacity duration-400",
+                  index === 0 ? "visible opacity-100" : "invisible opacity-0",
+                ]}
+                data-step-content={index}
+              >
+                <h3 class="text-primary h4 grotesk mb-2 max-w-xs">
+                  {step.title}
+                </h3>
+                <p class="text-secondary body2 mb-6 max-w-sm">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <!-- Fixed height wrapper to prevent layout shift -->
+    <div style="height: 0px;"></div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-between">
+    <div class="h-0.5 w-40 overflow-hidden rounded bg-white/20">
+      <div
+        class="slider-progress h-full bg-white transition-all duration-500"
+        style="width: 0%"
+      >
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <NavigateButton
+        direction="left"
+        variant="secondary"
+        data-action="prev2"
+      />
+      <NavigateButton
+        direction="right"
+        variant="secondary"
+        data-action="next2"
+      />
+    </div>
+  </div>
 </section>
+
+<style>
+  .step-image {
+    display: none;
+    width: 100%;
+  }
+
+  .step-image.active {
+    display: block;
+  }
+
+  .step-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .step-content {
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+
+  .step-content.invisible {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .step-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  (() => {
+    const section = document.getElementById("get-started-section");
+    if (!section) return;
+
+    const images = Array.from(
+      section.querySelectorAll(".step-image"),
+    ) as HTMLElement[];
+    const tabs = Array.from(
+      section.querySelectorAll("[data-step-tab]"),
+    ) as HTMLButtonElement[];
+    const contents = Array.from(
+      section.querySelectorAll("[data-step-content]"),
+    ) as HTMLElement[];
+    const indicators = Array.from(
+      section.querySelectorAll("[data-step-indicator]"),
+    ) as HTMLElement[];
+    const labels = Array.from(
+      section.querySelectorAll("[data-step-label]"),
+    ) as HTMLElement[];
+    const progressEl = section.querySelector(".slider-progress") as HTMLElement;
+    const prevBtn = section.querySelector(
+      '[data-action="prev2"]',
+    ) as HTMLButtonElement;
+    const nextBtn = section.querySelector(
+      '[data-action="next2"]',
+    ) as HTMLButtonElement;
+
+    const totalSteps = tabs.length;
+    let currentStep = 0;
+
+    function goToStep(index: number) {
+      if (index < 0 || index >= totalSteps) return;
+      currentStep = index;
+
+      images.forEach((img, i) => {
+        img.classList.toggle("active", i === currentStep);
+      });
+
+      indicators.forEach((ind, i) => {
+        ind.classList.toggle("bg-primary", i === currentStep);
+        ind.classList.toggle("bg-elevated", i !== currentStep);
+      });
+
+      labels.forEach((label, i) => {
+        label.classList.toggle("text-brand-100", i === currentStep);
+        label.classList.toggle("text-secondary", i !== currentStep);
+      });
+
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle("is-active", i === currentStep);
+      });
+
+      contents.forEach((content, i) => {
+        if (i === currentStep) {
+          content.classList.remove("opacity-0", "invisible");
+          content.classList.add("opacity-100", "visible");
+        } else {
+          content.classList.remove("opacity-100", "visible");
+          content.classList.add("opacity-0", "invisible");
+        }
+      });
+
+      if (progressEl) {
+        const maxIndex = totalSteps - 1;
+        const progress = maxIndex <= 0 ? 100 : (currentStep / maxIndex) * 100;
+        progressEl.style.width = `${progress}%`;
+      }
+
+      if (prevBtn) prevBtn.disabled = currentStep === 0;
+      if (nextBtn) nextBtn.disabled = currentStep === totalSteps - 1;
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => goToStep(i));
+    });
+
+    prevBtn?.addEventListener("click", () => goToStep(currentStep - 1));
+    nextBtn?.addEventListener("click", () => goToStep(currentStep + 1));
+    goToStep(0);
+  })();
+</script>
