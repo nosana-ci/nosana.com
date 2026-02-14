@@ -6,6 +6,7 @@ export const layoutSchema = ({ image }: SchemaContext) => z.object({
     description: z.string(),
     image: image(),
   }),
+
   socialBannerMarquee: z.object({
     items: z.array(
       z.object({
@@ -15,6 +16,7 @@ export const layoutSchema = ({ image }: SchemaContext) => z.object({
       })
     ),
   }),
+
   socials: z.object({
     title: z.string(),
     links: z.array(
@@ -25,4 +27,12 @@ export const layoutSchema = ({ image }: SchemaContext) => z.object({
       })
     ),
   }),
+
+  brands: z.array(
+    z.object({
+      name: z.string(),
+      logo: image(),
+    })
+  ).optional()
+
 });

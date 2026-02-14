@@ -8,6 +8,7 @@ import {
   caseStudyHomepageSchema,
   testimonialsSchema,
   gpuProvidersSchema,
+  gpuWorkloadsSchema,
   supportSchema,
   testimonialsHomepageSchema
 } from './utils/schema';
@@ -48,6 +49,11 @@ const gpuProvidersCollection = defineCollection({
   schema: gpuProvidersSchema,
 });
 
+const gpuWorkloadsCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/gpu-workloads" }),
+  schema: gpuWorkloadsSchema,
+});
+
 const supportCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/support" }),
   schema: supportSchema,
@@ -71,6 +77,7 @@ export const collections = {
   support: supportCollection,
   caseStudyHomepage: caseStudyHomepageCollection,
   gpuProviders: gpuProvidersCollection,
+  gpuWorkloads: gpuWorkloadsCollection,
   testimonials: testimonialsCollection,
   testimonialsHomepage: testimonialsHomepageCollection,
   about: aboutCollection,
