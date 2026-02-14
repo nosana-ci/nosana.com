@@ -24,13 +24,6 @@ export const homepageSchema = ({ image }: SchemaContext) =>
       }).optional(),
     }),
 
-    brands: z.array(
-      z.object({
-        name: z.string(),
-        logo: image(),
-      })
-    ).optional(),
-
     pathSection: z.object({
       badge: z.object({
         title: z.string(),
