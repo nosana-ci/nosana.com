@@ -2,6 +2,7 @@
 heroSection:
   badge:
     text: "$NOS"
+    icon: "./assets/greenDot.svg"
   title: "NOS Token"
   description:
     "NOS is the native Solana-based token of the Nosana network. It is used to
@@ -22,16 +23,14 @@ nosToken:
   title: "How $NOS powers the Nosana network"
   description: "$NOS is an SPL token on Solana that secures the Nosana network through staking. Participants lock tokens as collateral and earn rewards for helping maintain the network’s integrity and reliability."
   features:
-    features_1:
-      image: "./assets/security.svg"
+    - image: "./assets/security.svg"
       tab:
         icon: "./assets/securityIcon.svg"
         text: "Security"
       title: "Secured by Proof of Stake"
       description: "$NOS is an SPL token on Solana that secures the Nosana network through staking. Participants lock tokens as collateral and earn rewards for helping maintain the network’s integrity and reliability."
 
-    features_2:
-      image: "./assets/governance.svg"
+    - image: "./assets/governance.svg"
       tab:
         icon: "./assets/governanceIcon.svg"
         text: "Governance"
@@ -41,8 +40,7 @@ nosToken:
         text: " Participate in Governance"
         icon: "./assets/buttonIcon_1.svg"
 
-    features_3:
-      image: "./assets/valueAndincntive.svg"
+    - image: "./assets/valueAndincntive.svg"
       tab:
         icon: "./assets/valueAndincentivesIcon.svg"
         text: "Value and Incentives"

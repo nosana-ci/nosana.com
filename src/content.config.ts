@@ -86,4 +86,6 @@ export const collections = {
   testimonials: testimonialsCollection,
   testimonialsHomepage: testimonialsHomepageCollection,
   about: aboutCollection,
+  nosanaToken: tokenCollection,
+  brandAssets: brandAssetsCollection,
 };

@@ -1,7 +1,24 @@
 ---
+import Newsletter from "../components/layout/newsletter.astro";
+import CommunitySection from "../components/nosana-token/communitySection.astro";
+import ExchangeSection from "../components/nosana-token/exchangeSection.astro";
+import FeaturesSection from "../components/nosana-token/featuresSection.astro";
+import HeroSection from "../components/nosana-token/heroSection.astro";
+import StakingSection from "../components/nosana-token/stakingSection.astro";
+import Divider from "../components/ui/divider.astro";
 import Layout from "../layouts/Layout.astro";
+
 ---
 
 <Layout title="Nosana | Token">
-
+  <HeroSection />
+  <FeaturesSection />
+  <Divider />
+  <CommunitySection />
+  <Divider />
+  <StakingSection />
+  <Divider />
+  <ExchangeSection />
+  <Divider />
+  <Newsletter/>
 </Layout>

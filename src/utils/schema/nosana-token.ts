@@ -5,6 +5,7 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
     heroSection: z.object({
       badge: z.object({
         text: z.string(),
+        icon: image(),
       }),
       title: z.string(),
       description: z.string(),
@@ -23,17 +24,8 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
       badge: z.string(),
       title: z.string(),
       description: z.string(),
-      features: z.object({
-        features_1: z.object({
-          image: image(),
-          tab: z.object({
-            icon: image(),
-            text: z.string(),
-          }),
-          title: z.string(),
-          description: z.string(),
-        }),
-        features_2: z.object({
+      features: z.array(
+        z.object({
           image: image(),
           tab: z.object({
             icon: image(),
@@ -48,16 +40,7 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
             })
             .optional(),
         }),
-        features_3: z.object({
-          image: image(),
-          tab: z.object({
-            icon: image(),
-            text: z.string(),
-          }),
-          title: z.string(),
-          description: z.string(),
-        }),
-      }),
+      ),
     }),
     community: z.object({
       badge: z.string(),

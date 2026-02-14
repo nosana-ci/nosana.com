@@ -1,0 +1,57 @@
+---
+import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("nosanaToken", "index");
+
+if (!entry) {
+  throw new Error("Nosana Token content not found");
+}
+
+const { community } = entry.data;
+
+const metrics = [
+  { label: "Nodes", value: "18,044", icon: "gpu" },
+  { label: "Job Market", value: "$2,475,302", icon: "chart" },
+  { label: "Total Warriors", value: "244,775", icon: "users" },
+  { label: "Total Staked", value: "$123M+", icon: "dollar" },
+  { label: "Distributed", value: "3,042,100", icon: "gift" },
+  { label: "Inference Time", value: "245,670 h", icon: "clock" },
+];
+---
+
+<section class="flex w-full flex-col gap-8 px-4 md:px-12">
+  <!-- Header -->
+  <div class="flex flex-col gap-8 max-w-2xl">
+    <Badge title={community.badge} class="w-max" />
+    <h2 class="h4 grotesk text-primary">
+      {community.title}
+    </h2>
+  </div>
+
+  <!-- Metrics Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {metrics.map((metric) => (
+      <div class="flex items-center gap-5 p-4 ">
+        <div class="relative overflow-hidden w-12 h-12 border border-elevated flex items-center justify-center text-brand-100 rounded-xl ">
+            <!-- Simple SVG icons placeholder -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                {metric.icon === 'gpu' && <path d="M4 4h16v16H4z M9 9h6v6H9z" />}
+                {metric.icon === 'chart' && <path d="M3 3v18h18 M18 17l-6-10-6 10" />}
+                {metric.icon === 'users' && <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M16 3.13a4 4 0 0 1 0 7.75" />}
+                {metric.icon === 'dollar' && <path d="M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />}
+                {metric.icon === 'gift' && <path d="M20 12v10H4V12 M2 7h20v5H2z M12 22V7 M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />}
+                {metric.icon === 'clock' && <circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" />}
+            </svg>
+            <div class="absolute inset-0 pointer-events-none z-1 opacity-5
+              [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:9.5px_9.5px]"></div>
+        </div>
+        <div>
+          <div class="text-secondary body4 tracking-wider mb-1">{metric.label}</div>
+          <div class="text-primary h6 leading-none">{metric.value}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
