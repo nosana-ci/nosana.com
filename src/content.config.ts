@@ -12,6 +12,8 @@ import {
   testimonialsHomepageSchema
 } from './utils/schema';
 import { aboutPageSchema } from './utils/schema/about-page';
+import { nosanaTokenSchema } from './utils/schema/nosana-token';
+import { brandAssetsSchema } from './utils/schema/brand-assets';
 
 const navbarCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/navbar" }),
@@ -61,6 +63,16 @@ const testimonialsHomepageCollection = defineCollection({
 const aboutCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "src/content/about" }),
   schema: aboutPageSchema,
+});
+
+const tokenCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/nosana-token" }),
+  schema: nosanaTokenSchema,
+});
+
+const brandAssetsCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/brand-assets" }),
+  schema: brandAssetsSchema,
 });
 
 export const collections = {
