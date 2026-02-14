@@ -55,7 +55,7 @@ const steps = getStarted.steps;
   <div>
     <div class="w-full">
       <div class="h-px w-full"></div>
-      <div class="grid w-full grid-cols-4">
+      <div class="steps-grid w-full">
         {
           steps.map((step: any, index: number) => (
             <div class="relative">
@@ -102,7 +102,6 @@ const steps = getStarted.steps;
         }
       </div>
     </div>
-    <!-- Fixed height wrapper to prevent layout shift -->
     <div style="height: 0px;"></div>
   </div>
 
@@ -160,6 +159,66 @@ const steps = getStarted.steps;
   .step-content.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
+
+  @media (max-width: 899px) and (min-width: 640px) {
+    .steps-grid {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .steps-grid > div {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .steps-grid > div:has(.step-tab.is-active) {
+      flex: 4;
+    }
+
+    .steps-grid > div:not(:has(.step-tab.is-active)) .step-content {
+      display: none;
+    }
+
+    .steps-grid > div:not(:has(.step-tab.is-active)) [data-step-label] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .steps-grid {
+      display: block;
+    }
+
+    .steps-grid .step-tab:not(.is-active) {
+      display: none;
+    }
+
+    .steps-grid .step-tab.is-active [data-step-indicator] {
+      display: none;
+    }
+
+    .steps-grid {
+      min-height: 200px;
+      position: relative;
+    }
+
+    .steps-grid > div {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .step-content.invisible {
+      display: none;
+    }
   }
 </style>
 
