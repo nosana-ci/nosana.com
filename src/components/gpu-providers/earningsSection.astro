@@ -1,5 +1,6 @@
 ---
 import { getEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
 import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
 
 const entry = await getEntry("gpuProviders", "index");
@@ -16,365 +17,133 @@ const description = earningSection.description;
 const headingParts = heading.split(" - ");
 ---
 
-<section class="bg-bg-base w-full px-4 md:px-12">
-  <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
+<section class="w-full bg-bg-base px-4 md:px-12">
+  <!-- Heading -->
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
     {headingParts[0]}
     {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
   </h2>
 
-  <p class="text-secondary body2 mb-8 md:mb-12 md:max-w-xl">
+  <!-- Description -->
+  <p class="text-secondary md:max-w-xl mb-8 md:mb-12 body2">
     {description}
   </p>
 
-  <div
-    class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-y-6 md:flex-row"
-  >
-    <div class="w-full space-y-8 lg:w-[45%] lg:pr-10">
+  <!-- Main Content Grid -->
+  <div class="w-full flex flex-col md:flex-row gap-y-6 justify-between items-center max-w-7xl mx-auto">
+    <!-- Left Column - Form -->
+    <div class="space-y-8 lg:w-[45%] w-full lg:pr-10">
+      <!-- GPU Selection -->
       <div>
-        <h3 class="text-primary body2 mb-3">What GPU type you have?</h3>
-        <div class="bg-surface relative rounded-lg" id="gpuDropdown">
-          <button
-            type="button"
-            id="gpuDropdownBtn"
-            class="text-primary hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
-          >
-            <span id="gpuSelectedText">NVIDIA GeForce RTX 4090</span>
-            <div
-              class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transition-transform duration-200"
-              id="dropdownArrow"
-            >
-              <svg
-                class="text-secondary h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </div>
-          </button>
-
-          <div id="gpuSeparator" class="border-default mx-4 hidden border-b">
+        <h3 class="text-primary body2 mb-3">
+          What GPU type you have?
+        </h3>
+        <div class="relative">
+          <div class="w-full bg-surface rounded-lg px-4 py-3 text-primary appearance-none cursor-pointer hover:border-default transition-colors pr-10 outline-none focus:outline-none " >
+            <p>NVIDIA RTX 4090</p>
           </div>
-
-          <ul
-            id="gpuOptions"
-            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1"
-          >
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090"
-              data-selected="true"
-            >
-              NVIDIA GeForce RTX 4090
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA RTX 6000 Ada Generation"
-            >
-              NVIDIA RTX 6000 Ada Generation
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 3080"
-            >
-              NVIDIA GeForce RTX 3080
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 3080 Ti"
-            >
-              NVIDIA GeForce RTX 3080 Ti
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090"
-            >
-              NVIDIA GeForce RTX 4090
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090 D"
-            >
-              NVIDIA GeForce RTX 4090 D
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 5070"
-            >
-              NVIDIA GeForce RTX 5070
-            </li>
-            <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 5070 Ti"
-            >
-              NVIDIA GeForce RTX 5070 Ti
-            </li>
-          </ul>
+          <!-- Dropdown arrow -->
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </div>
 
+      <!-- Hours Slider -->
       <div class="sm:mr-16">
         <h3 class="text-primary body2 mb-3">
-          How many available hours do <br /> you have per month?
+          How many available hours do <br/> you have per month?
         </h3>
-        <p class="text-secondary body4 mb-6 italic">
-          These are the hours when your GPU is not in use. Use the slider to
-          indicate the total idle hours you can contribute.
+        <p class="text-secondary body4 italic mb-6">
+          These are the hours when your GPU is not in use. Use the slider to indicate the total idle hours you can contribute. 
         </p>
-
-        <div class="relative pt-1 pb-10">
-          <div class="bg-surface relative h-2 w-full rounded-lg">
-            <div
-              id="progressFill"
-              class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
-              style="width: 22.6%"
+        
+        <!-- Slider Container -->
+        <div class="space-y-4">
+          <!-- Slider with relative positioning for progress bar -->
+          <div class="relative h-2 bg-surface rounded-lg">
+            <input 
+              type="range" 
+              id="hoursSlider"
+              min="0" 
+              max="744" 
+              value="168" 
+              class="absolute inset-0 w-full h-2 opacity-0 cursor-pointer z-10"
             >
-            </div>
+            <!-- Progress fill -->
+            <div id="progressFill" class="absolute top-0 left-0 h-2 bg-brand-100/30 rounded-lg pointer-events-none" style="width: 22.6%"></div>
           </div>
-
-          <input
-            type="range"
-            id="hoursSlider"
-            min="0"
-            max="744"
-            value="168"
-            class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
-          />
-
-          <div
-            id="sliderTooltip"
-            class="pointer-events-none absolute z-20 -translate-x-1/2"
-            style="left: 22.6%; top: 20px;"
-          >
-            <div
-              class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
-            >
-              <div
-                class="absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-b-[var(--color-brand-100)] border-l-transparent"
-              >
-              </div>
-              <span id="tooltipValue">7 Days</span>
-            </div>
+          
+          <!-- Display Value -->
+          <div class="flex justify-between items-center">
+            <span id="displayValue" class="text-secondary text-[14px]">7 Days</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="border-default/50 flex w-full md:pl-10 lg:flex-1 lg:border-l">
-      <div
-        class="bg-surface border-default w-full space-y-4 rounded-lg border p-5 sm:p-8 lg:space-y-12"
-      >
-        <div
-          class="text-default/80 mt-2 flex items-center justify-center gap-4 text-center text-[12px] font-medium sm:text-sm"
-        >
-          <p>Estimated price with</p>
-          <Fragment set:html={nosanaLogoGray} />
-        </div>
-        <div
-          class="flex w-full flex-row items-baseline justify-center gap-3 sm:gap-5 md:flex-col md:items-center lg:flex-row lg:items-baseline"
-        >
-          <span
-            id="totalPrice"
-            class="text-primary grotesk text-4xl sm:text-6xl">$48.43</span
-          >
-          <span
-            id="monthlyPrice"
-            class="grotesk text-xl font-medium text-[#C9C9C9] sm:text-2xl"
-            >$24.44/month</span
-          >
+    <!-- Right Column - Earnings Card -->
+    <div class="md:pl-10 w-full flex lg:flex-1 lg:border-l border-default/50 ">
+      <div class="bg-surface border border-default rounded-lg sm:p-8 p-5 w-full lg:space-y-12 space-y-4">
+        <!-- Header Section -->
+        <div class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"><p>Estimated price with</p> <Fragment set:html={nosanaLogoGray} /></div>
+        <div class="flex items-baseline md:items-center lg:items-baseline justify-center sm:gap-5 gap-3 flex-row md:flex-col lg:flex-row w-full ">
+          <span class="text-primary sm:text-6xl text-4xl  grotesk">$48.45</span>
+          <span class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk">$24.4/month</span>
         </div>
 
-        <div
-          class="border-default flex flex-col items-center justify-between gap-y-4 border-t pt-6 md:gap-10 lg:flex-row"
-        >
-          <div
-            class="flex w-full flex-col items-start justify-between gap-y-0.5"
-          >
-            <span class="body4 text-[#C9C9C9]">GPU type:</span>
-            <span id="gpuTypeDisplay" class="body2 font-medium"
-              >NVIDIA GeForce RTX 4090</span
-            >
+        <!-- Details Section -->
+        <div class="flex flex-col lg:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10">
+          <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
+            <span class="text-[#C9C9C9] body4">GPU type:</span>
+            <span class="body2 font-medium">NVIDIA GeForce RTX 4090</span>
           </div>
-
-          <div
-            class="flex w-full flex-col items-start justify-between gap-y-0.5"
-          >
-            <span class="body4 text-[#C9C9C9]">Duration:</span>
-            <span id="durationDisplay" class="body2 font-medium">7 Days</span>
+          
+          <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
+            <span class="text-[#C9C9C9] body4">Duration:</span>
+            <span class="body2 font-medium">7 Days 17 hours</span>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<style>
-  .earnings-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #000000;
-    border: 2.5px solid var(--color-brand-100);
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    margin-top: -3px;
-  }
-
-  .earnings-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #000000;
-    border: 2.5px solid var(--color-brand-100);
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-  }
-
-  .earnings-slider::-webkit-slider-runnable-track {
-    background: transparent;
-    height: 8px;
-  }
-
-  .earnings-slider::-moz-range-track {
-    background: transparent;
-    height: 8px;
-  }
-
-  .earnings-slider:focus {
-    outline: none;
-  }
-
-  .gpu-option[data-selected="true"] {
-    background-color: var(--color-surface);
-  }
-</style>
-
 <script>
-  const dropdownBtn = document.getElementById("gpuDropdownBtn");
-  const dropdownOptions = document.getElementById("gpuOptions");
-  const dropdownArrow = document.getElementById("dropdownArrow");
-  const gpuSeparator = document.getElementById("gpuSeparator");
-  const selectedText = document.getElementById("gpuSelectedText");
-  const gpuTypeDisplay = document.getElementById("gpuTypeDisplay");
-  const options = document.querySelectorAll(".gpu-option");
-
-  let isOpen = false;
-
-  const dropdownContainer = document.getElementById("gpuDropdown");
-
-  function toggleDropdown() {
-    isOpen = !isOpen;
-    if (isOpen) {
-      dropdownOptions?.classList.remove("hidden");
-      gpuSeparator?.classList.remove("hidden");
-      dropdownArrow?.classList.add("rotate-180");
-      dropdownContainer?.classList.remove("rounded-lg");
-      dropdownContainer?.classList.add("rounded-t-lg");
-    } else {
-      dropdownOptions?.classList.add("hidden");
-      gpuSeparator?.classList.add("hidden");
-      dropdownArrow?.classList.remove("rotate-180");
-      dropdownContainer?.classList.remove("rounded-t-lg");
-      dropdownContainer?.classList.add("rounded-lg");
-    }
-  }
-
-  function closeDropdown() {
-    isOpen = false;
-    dropdownOptions?.classList.add("hidden");
-    gpuSeparator?.classList.add("hidden");
-    dropdownArrow?.classList.remove("rotate-180");
-    dropdownContainer?.classList.remove("rounded-t-lg");
-    dropdownContainer?.classList.add("rounded-lg");
-  }
-
-  dropdownBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleDropdown();
-  });
-
-  options.forEach((option) => {
-    option.addEventListener("click", () => {
-      const value = option.getAttribute("data-value") || "";
-
-      options.forEach((opt) => opt.removeAttribute("data-selected"));
-      option.setAttribute("data-selected", "true");
-
-      if (selectedText) selectedText.textContent = value;
-      if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
-
-      closeDropdown();
-    });
-  });
-
-  document.addEventListener("click", (e) => {
-    const dropdown = document.getElementById("gpuDropdown");
-    if (dropdown && !dropdown.contains(e.target as Node)) {
-      closeDropdown();
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDropdown();
-  });
-
-  const slider = document.getElementById("hoursSlider") as HTMLInputElement;
-  const progressFill = document.getElementById("progressFill");
-  const tooltipValue = document.getElementById("tooltipValue");
-  const sliderTooltip = document.getElementById("sliderTooltip");
-  const durationDisplay = document.getElementById("durationDisplay");
-
-  if (
-    slider &&
-    progressFill &&
-    tooltipValue &&
-    sliderTooltip &&
-    durationDisplay
-  ) {
+  // Slider interaction
+  const slider = document.getElementById('hoursSlider');
+  const progressFill = document.getElementById('progressFill');
+  const displayValue = document.getElementById('displayValue');
+  const durationDisplay = document.getElementById('durationDisplay');
+  
+  if (slider && progressFill && displayValue && durationDisplay) {
     const updateSlider = () => {
-      const value = parseInt(slider.value);
-      const max = parseInt(slider.max);
+      const value = parseInt((slider as HTMLInputElement).value);
+      const max = parseInt((slider as HTMLInputElement).max);
       const percentage = (value / max) * 100;
-
+      
+      // Update progress fill
       progressFill.style.width = `${percentage}%`;
-
-      const thumbOffset = 9; // half of thumb width (18px / 2)
-      const sliderWidth = slider.offsetWidth;
-      const pixelPos =
-        (percentage / 100) * (sliderWidth - thumbOffset * 2) + thumbOffset;
-      const correctedPercentage = (pixelPos / sliderWidth) * 100;
-      sliderTooltip.style.left = `${correctedPercentage}%`;
-
-      // Calculate days and hours
+      
+      // Update display text
       const days = Math.floor(value / 24);
       const hours = value % 24;
-
-      let displayText: string;
-      if (days > 0 && hours > 0) {
-        displayText = `${days} Days ${hours} hours`;
-      } else if (days > 0) {
-        displayText = `${days} Days`;
+      
+      let displayText;
+      if (days > 0) {
+        displayText = hours > 0 ? `${days} Days ${hours} hours` : `${days} Days`;
       } else {
         displayText = `${hours} hours`;
       }
-
-      tooltipValue.textContent = displayText;
+      
+      displayValue.textContent = displayText;
       durationDisplay.textContent = displayText;
     };
-
-    slider.addEventListener("input", updateSlider);
-
-    updateSlider();
-
-    window.addEventListener("resize", updateSlider);
+    
+    slider.addEventListener('input', updateSlider);
+    updateSlider(); // Initialize
   }
 </script>
