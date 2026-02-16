@@ -1,13 +1,72 @@
 ---
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/gpu-workloads/hero.astro";
 import Brands from "../components/layout/brands.astro";
+import Hero from "../components/gpu-workloads/hero.astro";
+import VideoSection from "../components/gpu-workloads/video-section.astro";
+import HowItWorks from "../components/gpu-workloads/howItWorks.astro";
+import EarningSection from "../components/gpu-workloads/earningsSection.astro";
+import FeaturesSection from "../components/gpu-workloads/featuresSection.astro";
+import HighlightsSection from "../components/gpu-workloads/highlightsSection.astro";
+import CtaSection from "../components/gpu-workloads/ctaSection.astro";
+import CaseStudySection from "../components/gpu-workloads/caseStudySection.astro";
+import NewsletterSection from "../components/layout/newsletter.astro";
+import Divider from "../components/ui/divider.astro";
+
+import video1 from "../content/gpu-workloads/assets/video-1.mp4";
+import thumbnail1 from "../content/gpu-workloads/assets/thumbnail-1.jpg";
+import video2 from "../content/gpu-workloads/assets/video-2.mp4";
+import thumbnail2 from "../content/gpu-workloads/assets/thumbnail-2.jpg";
+
+const entry = await getEntry("gpuWorkloads", "index");
+
+if (!entry) {
+  throw new Error("GPU Workloads content not found");
+}
+
+const {
+  heroSection,
+  caseStudySection,
+  ctaSection,
+  howItWorks,
+  highlightsSection,
+  earningSection,
+  featuresSection,
+} = entry.data;
 ---
 
 <Layout title="Nosana | GPU Workloads">
-  <Hero />
-  <div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full text-center">
+  <Hero heroSection={heroSection} />
+  <div class="bg-bg-base my-16 w-full py-8 text-center md:py-16 lg:py-18">
     <h2 class="h4 text-tertiary grotesk mb-8 md:mb-16 lg:mb-18">Trusted by</h2>
     <Brands />
   </div>
+  <VideoSection
+    videoSrc={video1}
+    poster={thumbnail1.src}
+    cta={{ title: "Request a Demo", url: "/contact" }}
+  />
+  <Divider />
+  <HighlightsSection highlights={highlightsSection} />
+  <Divider />
+  <HowItWorks howItWorks={howItWorks} />
+  <Divider />
+  <VideoSection
+    heading="How to launch your first GPU Workload on Nosana"
+    videoSrc={video2}
+    poster={thumbnail2.src}
+    cta={{ title: "Request a Demo", url: "/contact" }}
+    darkControls
+  />
+  <Divider />
+  <FeaturesSection featuresSection={featuresSection} />
+  <Divider />
+  <EarningSection earningSection={earningSection} />
+  <Divider />
+  <CtaSection ctaSection={ctaSection} />
+  <Divider />
+  <CaseStudySection caseStudy={caseStudySection} />
+  <Divider />
+  <NewsletterSection />
+  <Divider />
 </Layout>

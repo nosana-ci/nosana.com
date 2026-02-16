@@ -1,4 +1,5 @@
 ---
+import { getEntry } from "astro:content";
 import Hero from "../components/gpu-providers/hero.astro";
 import WhyProvideSection from "../components/gpu-providers/whyProvideSection.astro";
 import Divider from "../components/ui/divider.astro";
@@ -9,23 +10,39 @@ import VideoSection from "../components/gpu-providers/videoSection.astro";
 import EarningsSection from "../components/gpu-providers/earningsSection.astro";
 import NewsletterSection from "../components/layout/newsletter.astro";
 import HardwareRequirements from "../components/gpu-providers/hardwareRequirements.astro";
+
+const entry = await getEntry("gpuProviders", "index");
+
+if (!entry) {
+  throw new Error("GPU Providers content not found");
+}
+
+const {
+  heroSection,
+  whyProvideSection,
+  testimonialsSection,
+  getStarted,
+  videoSection,
+  earningSection,
+  hardwareRequirementsSection,
+} = entry.data;
 ---
 
 <Layout title="Nosana | GPU Providers">
-  <Hero/>
+  <Hero heroSection={heroSection} />
   <Divider />
-  <WhyProvideSection/>
+  <WhyProvideSection whyProvideSection={whyProvideSection} />
   <Divider />
-  <Testimonials />
+  <Testimonials testimonialsSection={testimonialsSection} />
   <Divider />
-  <HowToGetStart />
+  <HowToGetStart getStarted={getStarted} />
   <Divider />
-  <VideoSection />
+  <VideoSection videoSection={videoSection} />
   <Divider />
-  <EarningsSection/>
+  <EarningsSection earningSection={earningSection} />
   <Divider />
-  <HardwareRequirements/>
+  <HardwareRequirements hardwareRequirementsSection={hardwareRequirementsSection} />
   <Divider />
-  <NewsletterSection/>
+  <NewsletterSection />
   <Divider />
 </Layout>

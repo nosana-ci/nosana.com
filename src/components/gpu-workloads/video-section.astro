@@ -1,0 +1,170 @@
+---
+import Button from "../ui/button.astro";
+import playIcon from "../../assets/icons/play.svg?raw";
+import pauseIcon from "../../assets/icons/pause.svg?raw";
+import muteIcon from "../../assets/icons/mute.svg?raw";
+
+interface Props {
+  heading?: string;
+  videoSrc: string;
+  poster?: string;
+  cta?: {
+    title: string;
+    url: string;
+  };
+  darkControls?: boolean;
+}
+
+const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12" data-video-section>
+  {
+    heading && (
+      <h2 class="text-primary grotesk h2 mb-16 max-w-3xl">{heading}</h2>
+    )
+  }
+
+  <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    <video
+      class="h-full w-full object-cover"
+      poster={poster}
+      preload="metadata"
+      muted
+      data-video
+    >
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+
+    <div
+      class="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-between bg-linear-to-t from-black/50 to-transparent p-2 sm:p-4 md:p-10"
+    >
+      <button
+        class="pointer-events-auto flex h-8 w-8 cursor-pointer items-center justify-center text-white transition-opacity"
+        aria-label="Toggle mute"
+        data-mute-btn
+      >
+        <span
+          data-muted-icon
+          class:list={["[&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-8 md:[&_svg]:w-8"]}
+        >
+          <Fragment set:html={muteIcon} />
+        </span>
+        <span
+          data-unmuted-icon
+          class:list={[
+            "hidden [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-8 md:[&_svg]:w-8",
+          ]}
+        >
+          <Fragment set:html={muteIcon} />
+        </span>
+      </button>
+
+      <div class="pointer-events-auto flex items-center gap-3">
+        <button
+          class="flex cursor-pointer items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-9 md:[&_svg]:w-9"
+          aria-label="Play / Pause"
+          data-play-btn
+        >
+          <span data-play-icon class:list={[darkControls && "invert"]}
+            ><Fragment set:html={playIcon} /></span
+          >
+          <span
+            data-pause-icon
+            class:list={["hidden", darkControls && "invert"]}
+            ><Fragment set:html={pauseIcon} /></span
+          >
+        </button>
+
+        {/* DESKTOP CTA (Hidden on mobile) */}
+        {
+          cta && (
+            <div class="hidden items-center gap-3 md:flex">
+              <div
+                class:list={[
+                  "h-9 w-px",
+                  darkControls ? "bg-black/20" : "bg-white/20",
+                ]}
+              />
+              <Button
+                title={cta.title}
+                url={cta.url}
+                variant="secondary"
+                class={darkControls ? "text-black!" : undefined}
+              />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  {/* MOBILE CTA (Hidden on desktop) */}
+  {
+    cta && (
+      <div class="mt-6 flex w-full justify-center md:hidden">
+        <Button title={cta.title} url={cta.url} variant="secondary" />
+      </div>
+    )
+  }
+</section>
+
+<script>
+  document.querySelectorAll("[data-video-section]").forEach((section) => {
+    const video = section.querySelector(
+      "[data-video]",
+    ) as HTMLVideoElement | null;
+    const playBtn = section.querySelector(
+      "[data-play-btn]",
+    ) as HTMLButtonElement | null;
+    const muteBtn = section.querySelector(
+      "[data-mute-btn]",
+    ) as HTMLButtonElement | null;
+    const playIconEl = section.querySelector(
+      "[data-play-icon]",
+    ) as HTMLElement | null;
+    const pauseIconEl = section.querySelector(
+      "[data-pause-icon]",
+    ) as HTMLElement | null;
+    const mutedIconEl = section.querySelector(
+      "[data-muted-icon]",
+    ) as HTMLElement | null;
+    const unmutedIconEl = section.querySelector(
+      "[data-unmuted-icon]",
+    ) as HTMLElement | null;
+
+    if (!video) return;
+
+    function syncPlayIcons() {
+      if (!video || !playIconEl || !pauseIconEl) return;
+      const playing = !video.paused;
+      playIconEl.classList.toggle("hidden", playing);
+      pauseIconEl.classList.toggle("hidden", !playing);
+    }
+
+    function syncMuteIcons() {
+      if (!video || !mutedIconEl || !unmutedIconEl) return;
+      mutedIconEl.classList.toggle("hidden", !video.muted);
+      unmutedIconEl.classList.toggle("hidden", video.muted);
+    }
+
+    playBtn?.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    muteBtn?.addEventListener("click", () => {
+      video.muted = !video.muted;
+      syncMuteIcons();
+    });
+
+    video.addEventListener("play", syncPlayIcons);
+    video.addEventListener("pause", syncPlayIcons);
+
+    syncPlayIcons();
+    syncMuteIcons();
+  });
+</script>

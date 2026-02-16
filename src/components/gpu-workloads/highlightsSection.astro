@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  highlights: CollectionEntry<"gpuWorkloads">["data"]["highlightsSection"];
+};
+
+const { highlights } = Astro.props;
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12">
+  <div class="mx-auto grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+    {
+      highlights.map((item, i) => (
+        <div
+          class:list={[
+            "flex flex-col justify-between rounded-2xl p-6 md:p-8",
+            "border-elevated rounded-none border-t first:border-t-0 md:border-l md:pr-8",
+          ]}
+        >
+          <div>
+            <Image
+              src={item.icon}
+              alt={item.title}
+              width={150}
+              height={150}
+              class="mb-16"
+            />
+            <h3 class="text-primary body1 mb-3 font-medium">{item.title}</h3>
+            <p class="text-secondary body3">{item.description}</p>
+          </div>
+
+          {item.cta && (
+            <a
+              href={item.cta.url}
+              class="text-brand-100 body3 mt-4 inline-block font-medium"
+            >
+              {item.cta.title}
+            </a>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -6,6 +6,11 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<div class:list={["w-full py-8 md:py-16 lg:py-18 px-4 md:px-12 bg-bg-base", className]}>
-  <div class="w-full h-px bg-elevated" />
+<div
+  class:list={[
+    "bg-bg-base w-full px-4 py-8 md:px-16 md:py-16 lg:py-20",
+    className,
+  ]}
+>
+  <div class="bg-elevated h-px w-full"></div>
 </div>

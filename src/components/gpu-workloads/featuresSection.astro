@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import arrowIcon from "../../content/gpu-workloads/assets/arrow.svg?raw";
+
+type Props = {
+  featuresSection: CollectionEntry<"gpuWorkloads">["data"]["featuresSection"];
+};
+
+const { featuresSection } = Astro.props;
+const { badge, heading, description, features } = featuresSection;
+---
+
+<section class="bg-bg-base w-full">
+  <div class="px-4 md:px-12">
+    <Badge title={badge} />
+    <h2 class="text-primary h4 grotesk mt-6 mb-4 max-w-2xl">{heading}</h2>
+    <p class="text-secondary body2 mb-10 max-w-lg md:mb-16">{description}</p>
+  </div>
+
+  <div class="mx-auto flex w-full flex-col">
+    {
+      features.map((feature) => (
+        <div class="group border-elevated to-brand-100/50 flex flex-col gap-6 border-b bg-linear-to-r from-black from-50% p-6 transition-colors md:flex-row md:items-center md:justify-between md:p-8 md:py-16">
+          <div class="flex items-center gap-5 md:w-2/5">
+            <Image
+              src={feature.icon}
+              alt={feature.title}
+              width={64}
+              height={64}
+            />
+            <h3 class="text-primary body1 font-medium">{feature.title}</h3>
+          </div>
+
+          <div class="flex gap-10 md:w-2/5">
+            <div class="hidden shrink-0 md:block">
+              <Fragment set:html={arrowIcon} />
+            </div>
+            <p class="text-secondary body3">{feature.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

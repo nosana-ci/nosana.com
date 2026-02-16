@@ -5,12 +5,12 @@ import Button from "../ui/button.astro";
 import NavigateButton from "../ui/navigateButton.astro";
 
 type Props = {
-  getStarted: CollectionEntry<"gpuProviders">["data"]["getStarted"];
+  howItWorks: CollectionEntry<"gpuWorkloads">["data"]["howItWorks"];
 };
 
-const { getStarted } = Astro.props;
+const { howItWorks } = Astro.props;
 
-const { badge, heading, description, cta1, cta2, steps } = getStarted;
+const { badge, heading, description, cta1, cta2, steps } = howItWorks;
 ---
 
 <section class="bg-bg-base w-full px-4 md:px-12" id="get-started-section">
@@ -156,7 +156,7 @@ const { badge, heading, description, cta1, cta2, steps } = getStarted;
 
   .steps-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
   }
 

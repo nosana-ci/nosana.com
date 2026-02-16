@@ -1,20 +1,16 @@
 ---
-import { getEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import playIcon from "../../assets/icons/play.svg?raw";
 import pauseIcon from "../../assets/icons/pause.svg?raw";
 
-const entry = await getEntry("gpuProviders", "index");
+type Props = {
+  videoSection: CollectionEntry<"gpuProviders">["data"]["videoSection"];
+};
 
-if (!entry) {
-  throw new Error("GPU Providers content not found");
-}
+const { videoSection } = Astro.props;
 
-const { videoSection } = entry.data;
-
-const badge = videoSection.badge;
-const heading = videoSection.heading;
-const description = videoSection.description;
+const { badge, heading, description } = videoSection;
 
 const headingParts = heading.split(" - ");
 ---

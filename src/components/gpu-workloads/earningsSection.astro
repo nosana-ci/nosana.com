@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
 
 type Props = {
-  earningSection: CollectionEntry<"gpuProviders">["data"]["earningSection"];
+  earningSection: CollectionEntry<"gpuWorkloads">["data"]["earningSection"];
 };
 
 const { earningSection } = Astro.props;
@@ -28,7 +28,7 @@ const headingParts = heading.split(" - ");
   >
     <div class="w-full space-y-8 lg:w-[45%] lg:pr-10">
       <div>
-        <h3 class="text-primary body2 mb-3">What GPU type you have?</h3>
+        <h3 class="text-primary body2 mb-3">What GPU Type do you need?</h3>
         <div class="bg-surface relative rounded-lg" id="gpuDropdown">
           <button
             type="button"
@@ -115,53 +115,111 @@ const headingParts = heading.split(" - ");
         </div>
       </div>
 
-      <div class="sm:mr-16">
-        <h3 class="text-primary body2 mb-3">
-          How many available hours do <br /> you have per month?
-        </h3>
-        <p class="text-secondary body4 mb-6 italic">
-          These are the hours when your GPU is not in use. Use the slider to
-          indicate the total idle hours you can contribute.
-        </p>
+      <div>
+        <h3 class="text-primary body2 mb-3">Number of GPUs that you need</h3>
+        <div class="flex items-center gap-0">
+          <button
+            type="button"
+            id="gpuDecrement"
+            class="bg-surface hover:bg-surface/80 text-primary border-elevated flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-lg border text-xl font-medium transition-colors"
+          >
+            &minus;
+          </button>
+          <div
+            id="gpuCountDisplay"
+            class="bg-elevated text-primary border-elevated flex h-10 w-14 items-center justify-center border-y text-sm font-medium"
+          >
+            1
+          </div>
+          <button
+            type="button"
+            id="gpuIncrement"
+            class="bg-surface hover:bg-surface/80 text-primary border-elevated flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-lg border text-xl font-medium transition-colors"
+          >
+            +
+          </button>
+        </div>
+      </div>
 
-        <div class="relative pt-1 pb-10">
-          <div class="bg-surface relative h-2 w-full rounded-lg">
+      <div>
+        <h3 class="text-primary body2 mb-6">
+          How many days / hours do you need?
+        </h3>
+
+        <div class="flex gap-6">
+          <!-- Days Slider -->
+          <div class="relative w-1/2 pt-1 pb-12">
+            <div class="bg-surface relative h-2 w-full rounded-lg">
+              <div
+                id="daysProgressFill"
+                class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
+                style="width: 23.3%"
+              >
+              </div>
+            </div>
+            <input
+              type="range"
+              id="daysSlider"
+              min="0"
+              max="30"
+              value="7"
+              class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+            />
             <div
-              id="progressFill"
-              class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
-              style="width: 22.6%"
+              id="daysTooltip"
+              class="pointer-events-none absolute z-20 -translate-x-1/2"
+              style="left: 23.3%; top: 20px;"
             >
+              <div
+                class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
+              >
+                <div
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                >
+                </div>
+                <span id="daysTooltipValue">7 Days</span>
+              </div>
             </div>
           </div>
 
-          <input
-            type="range"
-            id="hoursSlider"
-            min="0"
-            max="744"
-            value="168"
-            class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
-          />
-
-          <div
-            id="sliderTooltip"
-            class="pointer-events-none absolute z-20 -translate-x-1/2"
-            style="left: 22.6%; top: 20px;"
-          >
-            <div
-              class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
-            >
+          <div class="relative w-1/2 pt-1 pb-12">
+            <div class="bg-surface relative h-2 w-full rounded-lg">
               <div
-                class="absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-b-[var(--color-brand-100)] border-l-transparent"
+                id="hoursProgressFill"
+                class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
+                style="width: 4.2%"
               >
               </div>
-              <span id="tooltipValue">7 Days</span>
+            </div>
+            <input
+              type="range"
+              id="hoursSlider"
+              min="0"
+              max="23"
+              value="1"
+              class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+            />
+            <div
+              id="hoursTooltip"
+              class="pointer-events-none absolute z-20 -translate-x-1/2"
+              style="left: 4.2%; top: 20px;"
+            >
+              <div
+                class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
+              >
+                <div
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                >
+                </div>
+                <span id="hoursTooltipValue">1 hours</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Price Display Card -->
     <div class="border-default/50 flex w-full md:pl-10 lg:flex-1 lg:border-l">
       <div
         class="bg-surface border-default w-full space-y-4 rounded-lg border p-5 sm:p-8 lg:space-y-12"
@@ -172,17 +230,10 @@ const headingParts = heading.split(" - ");
           <p>Estimated price with</p>
           <Fragment set:html={nosanaLogoGray} />
         </div>
-        <div
-          class="flex w-full flex-row items-baseline justify-center gap-3 sm:gap-5 md:flex-col md:items-center lg:flex-row lg:items-baseline"
-        >
+        <div class="flex w-full items-baseline justify-center">
           <span
             id="totalPrice"
-            class="text-primary grotesk text-4xl sm:text-6xl">$48.43</span
-          >
-          <span
-            id="monthlyPrice"
-            class="grotesk text-xl font-medium text-[#C9C9C9] sm:text-2xl"
-            >$24.44/month</span
+            class="text-primary grotesk text-4xl sm:text-6xl">$21.76</span
           >
         </div>
 
@@ -192,7 +243,7 @@ const headingParts = heading.split(" - ");
           <div
             class="flex w-full flex-col items-start justify-between gap-y-0.5"
           >
-            <span class="body4 text-[#C9C9C9]">GPU type:</span>
+            <span class="body4 text-[#C9C9C9]">GPU Type:</span>
             <span id="gpuTypeDisplay" class="body2 font-medium"
               >NVIDIA GeForce RTX 4090</span
             >
@@ -202,7 +253,9 @@ const headingParts = heading.split(" - ");
             class="flex w-full flex-col items-start justify-between gap-y-0.5"
           >
             <span class="body4 text-[#C9C9C9]">Duration:</span>
-            <span id="durationDisplay" class="body2 font-medium">7 Days</span>
+            <span id="durationDisplay" class="body2 font-medium"
+              >7 Days 1 hours</span
+            >
           </div>
         </div>
       </div>
@@ -256,6 +309,7 @@ const headingParts = heading.split(" - ");
 </style>
 
 <script>
+  // Dropdown logic
   const dropdownBtn = document.getElementById("gpuDropdownBtn");
   const dropdownOptions = document.getElementById("gpuOptions");
   const dropdownArrow = document.getElementById("dropdownArrow");
@@ -265,7 +319,6 @@ const headingParts = heading.split(" - ");
   const options = document.querySelectorAll(".gpu-option");
 
   let isOpen = false;
-
   const dropdownContainer = document.getElementById("gpuDropdown");
 
   function toggleDropdown() {
@@ -302,13 +355,10 @@ const headingParts = heading.split(" - ");
   options.forEach((option) => {
     option.addEventListener("click", () => {
       const value = option.getAttribute("data-value") || "";
-
       options.forEach((opt) => opt.removeAttribute("data-selected"));
       option.setAttribute("data-selected", "true");
-
       if (selectedText) selectedText.textContent = value;
       if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
-
       closeDropdown();
     });
   });
@@ -324,54 +374,108 @@ const headingParts = heading.split(" - ");
     if (e.key === "Escape") closeDropdown();
   });
 
-  const slider = document.getElementById("hoursSlider") as HTMLInputElement;
-  const progressFill = document.getElementById("progressFill");
-  const tooltipValue = document.getElementById("tooltipValue");
-  const sliderTooltip = document.getElementById("sliderTooltip");
+  // GPU Count logic
+  let gpuCount = 1;
+  const gpuCountDisplay = document.getElementById("gpuCountDisplay");
+  const gpuDecrement = document.getElementById("gpuDecrement");
+  const gpuIncrement = document.getElementById("gpuIncrement");
+
+  gpuDecrement?.addEventListener("click", () => {
+    if (gpuCount > 1) {
+      gpuCount--;
+      if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+    }
+  });
+
+  gpuIncrement?.addEventListener("click", () => {
+    gpuCount++;
+    if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+  });
+
+  // Slider helpers
+  function updateSliderUI(
+    slider: HTMLInputElement,
+    progressFill: HTMLElement,
+    tooltip: HTMLElement,
+    tooltipValueEl: HTMLElement,
+    formatLabel: (val: number) => string,
+  ) {
+    const value = parseInt(slider.value);
+    const max = parseInt(slider.max);
+    const percentage = (value / max) * 100;
+
+    progressFill.style.width = `${percentage}%`;
+
+    const thumbOffset = 9;
+    const sliderWidth = slider.offsetWidth;
+    const pixelPos =
+      (percentage / 100) * (sliderWidth - thumbOffset * 2) + thumbOffset;
+    const correctedPercentage = (pixelPos / sliderWidth) * 100;
+    tooltip.style.left = `${correctedPercentage}%`;
+
+    tooltipValueEl.textContent = formatLabel(value);
+  }
+
+  // Days slider
+  const daysSlider = document.getElementById("daysSlider") as HTMLInputElement;
+  const daysProgressFill = document.getElementById("daysProgressFill");
+  const daysTooltip = document.getElementById("daysTooltip");
+  const daysTooltipValue = document.getElementById("daysTooltipValue");
+
+  // Hours slider
+  const hoursSlider = document.getElementById(
+    "hoursSlider",
+  ) as HTMLInputElement;
+  const hoursProgressFill = document.getElementById("hoursProgressFill");
+  const hoursTooltip = document.getElementById("hoursTooltip");
+  const hoursTooltipValue = document.getElementById("hoursTooltipValue");
+
   const durationDisplay = document.getElementById("durationDisplay");
 
-  if (
-    slider &&
-    progressFill &&
-    tooltipValue &&
-    sliderTooltip &&
-    durationDisplay
-  ) {
-    const updateSlider = () => {
-      const value = parseInt(slider.value);
-      const max = parseInt(slider.max);
-      const percentage = (value / max) * 100;
+  function updateDurationDisplay() {
+    const days = parseInt(daysSlider?.value || "0");
+    const hours = parseInt(hoursSlider?.value || "0");
 
-      progressFill.style.width = `${percentage}%`;
+    let text = "";
+    if (days > 0 && hours > 0) {
+      text = `${days} Days  ${hours} hours`;
+    } else if (days > 0) {
+      text = `${days} Days`;
+    } else {
+      text = `${hours} hours`;
+    }
+    if (durationDisplay) durationDisplay.textContent = text;
+  }
 
-      const thumbOffset = 9; // half of thumb width (18px / 2)
-      const sliderWidth = slider.offsetWidth;
-      const pixelPos =
-        (percentage / 100) * (sliderWidth - thumbOffset * 2) + thumbOffset;
-      const correctedPercentage = (pixelPos / sliderWidth) * 100;
-      sliderTooltip.style.left = `${correctedPercentage}%`;
-
-      // Calculate days and hours
-      const days = Math.floor(value / 24);
-      const hours = value % 24;
-
-      let displayText: string;
-      if (days > 0 && hours > 0) {
-        displayText = `${days} Days ${hours} hours`;
-      } else if (days > 0) {
-        displayText = `${days} Days`;
-      } else {
-        displayText = `${hours} hours`;
-      }
-
-      tooltipValue.textContent = displayText;
-      durationDisplay.textContent = displayText;
+  if (daysSlider && daysProgressFill && daysTooltip && daysTooltipValue) {
+    const update = () => {
+      updateSliderUI(
+        daysSlider,
+        daysProgressFill,
+        daysTooltip,
+        daysTooltipValue,
+        (v) => `${v} Days`,
+      );
+      updateDurationDisplay();
     };
+    daysSlider.addEventListener("input", update);
+    update();
+    window.addEventListener("resize", update);
+  }
 
-    slider.addEventListener("input", updateSlider);
-
-    updateSlider();
-
-    window.addEventListener("resize", updateSlider);
+  if (hoursSlider && hoursProgressFill && hoursTooltip && hoursTooltipValue) {
+    const update = () => {
+      updateSliderUI(
+        hoursSlider,
+        hoursProgressFill,
+        hoursTooltip,
+        hoursTooltipValue,
+        (v) => `${v} hours`,
+      );
+      updateDurationDisplay();
+    };
+    hoursSlider.addEventListener("input", update);
+    update();
+    window.addEventListener("resize", update);
   }
 </script>
