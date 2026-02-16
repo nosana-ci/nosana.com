@@ -14,21 +14,20 @@ const description = innovationSection.description
 const image = innovationSection.image;
 ---
 
-<section class="relative w-full py-10 sm:py-32 md:pt-52 overflow-hidden flex flex-col items-center justify-center lg:min-h-[600px]">
-  <!-- Abstract Globe Background -->
-  <div class="absolute inset-0 flex items-center justify-center z-0 translate-y-0 w-full overflow-hidden">
-      <Image 
-        src={image} 
-        alt="Globe Network" 
-        class="w-full max-w-[1200px] h-auto object-cover opacity-80 max-md:scale-[1.2]" 
-      />
+<section class="grid grid-cols-1 grid-rows-1 w-full max-w-7xl mx-auto overflow-hidden">
+  <div class="col-start-1 row-start-1 z-0 flex items-center justify-center">
+    <Image 
+      src={image} 
+      alt="Globe Network" 
+      class="w-full h-auto min-h-full object-cover select-none pointer-events-none" 
+    />
   </div>
 
-  <div class="relative z-10 flex flex-col items-center text-center px-4 max-w-[900px] mx-auto gap-6 mt-0 md:-mt-20">
-    <h2 class="h2 text-primary grotesk">
+  <div class="col-start-1 row-start-1 z-10 flex flex-col items-center justify-center text-center gap-6 py-10 md:py-20 px-4 md:px-12">
+    <h2 class="h24 text-primary grotesk max-w-5xl">
       {heading}
     </h2>
-    <p class="body2 text-secondary leading-relaxed">
+    <p class="body2 text-primary max-w-4xl">
       {description}
     </p>
   </div>

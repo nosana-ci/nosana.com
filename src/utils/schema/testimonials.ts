@@ -10,6 +10,7 @@ export const testimonialsSchema = ({ image }: SchemaContext) =>
     z.object({
       type: z.literal("grid"),
       icon: image(),
+      iconWhite: image().optional(),
       title: z.string(),
       description: z.string(),
     }),
