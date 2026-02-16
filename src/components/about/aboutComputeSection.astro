@@ -18,21 +18,21 @@ const { badge, title, description, image } = aboutComputeSection;
     <!-- Header Content: Left Aligned -->
     <div class="flex max-w-[800px] flex-col items-start gap-4">
       <Badge title={badge.title} />
-      <h2 class="h4">
+      <h2 class="h4 text-primary max-w-lg grotesk">
         {title}
       </h2>
-      <p class="body2 text-secondary">
+      <p class="body2 text-secondary max-w-5xl">
         {description}
       </p>
     </div>
 
     <!-- Image/Diagram Container: Full Width below text -->
-    <div class="bg-surface border border-default/80 flex xl:flex-row flex-col w-full justify-center rounded-lg p-6">
-      <p class="body3 text-secondary max-w-[300px] w-full">The Nosana Compute Loop</p>
+    <div class="bg-surface border border-default flex xl:flex-row flex-col w-full justify-center rounded-lg p-6">
+      <p class="body3 text-secondary max-w-xs w-full">The Nosana Compute Loop</p>
       <Image
         src={image}
         alt={title}
-        class="h-auto max-h-[400px] w-full object-contain lg:mb-10 lg:mt-24 mt-10"
+        class="h-auto max-h-[400px] w-full object-contain lg:mb-10 lg:mt-24 lg:mr-8 mt-10 pointer-events-none select-none"
       />
     </div>
   </div>

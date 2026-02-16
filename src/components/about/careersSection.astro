@@ -15,11 +15,11 @@ const { badge, title, description, button, remoteSection } = careersSection;
 ---
 
 <section class="relative w-full overflow-hidden">
-  <div class="grid items-start gap-16 px-4 md:px-12 lg:grid-cols-[1fr_1.4fr]">
+  <div class="grid items-start gap-8 md:gap-16 lg:gap-18 px-4 md:px-12 lg:grid-cols-[1fr_1.4fr]">
     <!-- Left Column: Careers Text -->
     <div class="flex flex-col items-start gap-4">
       <Badge title={badge.title} />
-      <h2 class="h4">
+      <h2 class="h4 grotesk">
         {title}
       </h2>
       <p class="body2 text-secondary">
@@ -31,7 +31,7 @@ const { badge, title, description, button, remoteSection } = careersSection;
           <Button
             title={button.text}
             url={"#"}
-            class="mt-5 w-min"
+            class="mt-4 w-min"
             variant="secondary"
             iconColor="#fafafa"
           />
@@ -47,12 +47,12 @@ const { badge, title, description, button, remoteSection } = careersSection;
       <div class="relative z-10 flex flex-col gap-4">
         <!-- Badge Style adjustment for this specific card -->
         <p
-          class="body1 bg-gradient-to-r from-green-500 to-green-900 text-center bg-clip-text text-transparent"
+          class="body1 grotesk bg-linear-to-r from-brand-100 to-[#078205BA] text-center bg-clip-text text-transparent"
         >
           [{remoteSection.badge.title}]
         </p>
 
-        <p class="body4 text-center text-secondary/70 max-w-[90%] mx-auto leading-relaxed">
+        <p class="body4 text-center text-secondary max-w-lg mx-auto leading-relaxed">
           {remoteSection.description}
         </p>
       </div>
@@ -61,7 +61,7 @@ const { badge, title, description, button, remoteSection } = careersSection;
         <Image
           src={remoteSection.image}
           alt="Remote Work Distribution"
-          class="h-auto w-full object-contain opacity-90 mix-blend-screen"
+          class="h-auto w-full object-contain select-none pointer-events-none"
         />
       </div>
     </div>

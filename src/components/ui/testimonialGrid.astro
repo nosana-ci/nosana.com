@@ -2,12 +2,25 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import NavigateButton from "./navigateButton.astro";
+import collabBg from "../../assets/testimonialGridTopBg.png";
+
+interface Props {
+  variant?: "default" | "collaboration";
+}
+
+const { variant = "default" } = Astro.props;
 
 const testimonials = await getCollection("testimonials", ({ data }) => {
   return data.type === "grid";
 });
 
-const testimonialGridData = testimonials.map((t) => t.data);
+const testimonialGridData = testimonials.map((t) => t.data) as Array<{
+  type: "grid";
+  icon: any;
+  iconWhite?: any;
+  title: string;
+  description: string;
+}>;
 ---
 
 <section class="w-full" id="grid-pagination-section">
@@ -16,8 +29,9 @@ const testimonialGridData = testimonials.map((t) => t.data);
   >
     {
       testimonialGridData.map((item, index) => {
-        const { icon, title, description } = item;
-        if (!icon) return null;
+        const { icon, iconWhite, title, description } = item;
+        const displayIcon = variant === "collaboration" && iconWhite ? iconWhite : icon;
+        if (!displayIcon) return null;
 
         return (
           <div
@@ -25,15 +39,39 @@ const testimonialGridData = testimonials.map((t) => t.data);
             data-index={index}
           >
             <div class="flex flex-col gap-4 h-full">
-              <Image
-                src={icon}
-                alt={title || ""}
-                class="w-12 h-12 select-none pointer-events-none"
-              />
+              <div class={`flex items-center gap-3 relative ${variant === "collaboration" ? "justify-center h-[78px]" : ""}`}>
+                {variant === "collaboration" && (
+                  <Image 
+                    src={collabBg} 
+                    alt="" 
+                    class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+                  />
+                )}
+                <div class="relative z-10 flex items-center gap-3">
+                  <Image
+                    src={displayIcon}
+                    alt={title || ""}
+                    class={`${variant === "collaboration" ? "h-[30px] w-auto" : "w-12 h-12"} select-none pointer-events-none`}
+                  />
+
+                  {variant === "collaboration" && (
+                    <>
+                      <span class="text-primary body2">x</span>
+                      <Image
+                        src="/nosanaWhite.svg"
+                        alt="Nosana"
+                        width={48}
+                        height={48}
+                        class="h-[30px] w-auto select-none pointer-events-none"
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
 
               <h3 class="text-primary body2 font-semibold">{title}</h3>
 
-              <p class="text-primary body4">{description}</p>
+              <p class="text-secondary body4">{description}</p>
             </div>
           </div>
         );
