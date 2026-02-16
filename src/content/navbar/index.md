@@ -42,7 +42,7 @@ navItems:
           description: "Get help using Nosana, troubleshoot issues."
         - title: "$NOS Token"
           icon: "./assets/crop.svg"
-          url: "/nos-token"
+          url: "/nosana-token"
           description: "Learn how the Nosana network is powered and coordinated."
         - title: "Staking"
           icon: "./assets/crop.svg"

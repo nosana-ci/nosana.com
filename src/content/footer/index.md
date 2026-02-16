@@ -12,7 +12,7 @@ navigation:
     - name: "Explore Network"
       url: "/network"
     - name: "$NOS Token"
-      url: "/nos-token"
+      url: "/nosana-token"
     - name: "Stake"
       url: "https://stake.nosana.com/"
     - name: "Govern"

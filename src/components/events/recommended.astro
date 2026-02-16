@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+
+const events = await getCollection("blogs", ({ data }) => {
+  return data.category === "event";
+});
+
+const recommendedEvents = events
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+  .slice(0, 2);
+
+if (recommendedEvents.length === 0) return null;
+---
+
+<section class="w-full">
+  <div class="px-4 md:px-12">
+    <div class="flex items-center justify-between mb-8 md:mb-10">
+      <h2 class="text-primary h4 grotesk">
+        Nosana Events
+      </h2>
+
+      <Button
+        title="View all Events"
+        url="/events"
+        variant="ghost"
+      />
+    </div>
+
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 relative">
+      {recommendedEvents.map((event, index) => {
+        const data = event.data;
+        if (data.category !== "event") return null;
+        
+        return (
+        <a 
+          href={data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class:list={[
+            "group flex flex-col md:flex-row-reverse items-start md:items-center justify-between gap-4 lg:px-12 first:lg:pl-0 last:lg:pr-0",
+            index === 1 ? "lg:border-l lg:border-elevated" : ""
+          ]}
+        >
+          <div class="w-full md:w-[280px] lg:w-[260px] shrink-0 aspect-video overflow-hidden">
+            <Image 
+              src={data.thumbnail} 
+              alt={data.title} 
+              class="w-full h-full object-cover select-none pointer-events-none"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 md:gap-4 flex-1 relative overflow-hidden">
+             <div class="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-8">
+              <!-- Date -->
+              <span class="text-secondary caption1 h-6 mb-2 group-hover:opacity-0 transition-opacity duration-300 block">
+                {data.createdAt.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+
+              <!-- Title -->
+              <h3 class="text-primary body2 line-clamp-3 max-w-full md:max-w-sm lg:max-w-md transition-colors duration-300">
+                {data.title}
+              </h3>
+               
+              <!-- Description -->
+              <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <p class="text-secondary body4 line-clamp-4 max-w-full md:max-w-sm lg:max-w-md">
+                  {data.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      )})}
+    </div>
+  </div>
+</section>

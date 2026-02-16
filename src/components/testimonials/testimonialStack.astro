@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import TestimonialStackCard from "./testimonialStackCard.astro";
-import NavigateButton from "./navigateButton.astro";
+import NavigateButton from "../ui/navigateButton.astro";
 
 const allTestimonials = await getCollection("testimonials");
 const testimonialsCollection = allTestimonials.filter(
