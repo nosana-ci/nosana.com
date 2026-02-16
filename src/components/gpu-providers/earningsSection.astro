@@ -1,18 +1,14 @@
 ---
-import { getEntry } from "astro:content";
-import Badge from "../ui/badge.astro";
+import type { CollectionEntry } from "astro:content";
 import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
 
-const entry = await getEntry("gpuProviders", "index");
+type Props = {
+  earningSection: CollectionEntry<"gpuProviders">["data"]["earningSection"];
+};
 
-if (!entry) {
-  throw new Error("GPU Providers content not found");
-}
+const { earningSection } = Astro.props;
 
-const { earningSection } = entry.data;
-
-const heading = earningSection.heading;
-const description = earningSection.description;
+const { heading, description } = earningSection;
 
 const headingParts = heading.split(" - ");
 ---

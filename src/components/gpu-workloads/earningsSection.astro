@@ -1,0 +1,481 @@
+---
+import type { CollectionEntry } from "astro:content";
+import nosanaLogoGray from "../../assets/logos/nosanaLogoGray.svg?raw";
+
+type Props = {
+  earningSection: CollectionEntry<"gpuWorkloads">["data"]["earningSection"];
+};
+
+const { earningSection } = Astro.props;
+
+const { heading, description } = earningSection;
+
+const headingParts = heading.split(" - ");
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12">
+  <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
+    {headingParts[0]}
+    {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
+  </h2>
+
+  <p class="text-secondary body2 mb-8 md:mb-12 md:max-w-xl">
+    {description}
+  </p>
+
+  <div
+    class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-y-6 md:flex-row"
+  >
+    <div class="w-full space-y-8 lg:w-[45%] lg:pr-10">
+      <div>
+        <h3 class="text-primary body2 mb-3">What GPU Type do you need?</h3>
+        <div class="bg-surface relative rounded-lg" id="gpuDropdown">
+          <button
+            type="button"
+            id="gpuDropdownBtn"
+            class="text-primary hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
+          >
+            <span id="gpuSelectedText">NVIDIA GeForce RTX 4090</span>
+            <div
+              class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transition-transform duration-200"
+              id="dropdownArrow"
+            >
+              <svg
+                class="text-secondary h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <div id="gpuSeparator" class="border-default mx-4 hidden border-b">
+          </div>
+
+          <ul
+            id="gpuOptions"
+            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1"
+          >
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 4090"
+              data-selected="true"
+            >
+              NVIDIA GeForce RTX 4090
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA RTX 6000 Ada Generation"
+            >
+              NVIDIA RTX 6000 Ada Generation
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 3080"
+            >
+              NVIDIA GeForce RTX 3080
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 3080 Ti"
+            >
+              NVIDIA GeForce RTX 3080 Ti
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 4090"
+            >
+              NVIDIA GeForce RTX 4090
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 4090 D"
+            >
+              NVIDIA GeForce RTX 4090 D
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 5070"
+            >
+              NVIDIA GeForce RTX 5070
+            </li>
+            <li
+              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              data-value="NVIDIA GeForce RTX 5070 Ti"
+            >
+              NVIDIA GeForce RTX 5070 Ti
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-primary body2 mb-3">Number of GPUs that you need</h3>
+        <div class="flex items-center gap-0">
+          <button
+            type="button"
+            id="gpuDecrement"
+            class="bg-surface hover:bg-surface/80 text-primary border-elevated flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-lg border text-xl font-medium transition-colors"
+          >
+            &minus;
+          </button>
+          <div
+            id="gpuCountDisplay"
+            class="bg-elevated text-primary border-elevated flex h-10 w-14 items-center justify-center border-y text-sm font-medium"
+          >
+            1
+          </div>
+          <button
+            type="button"
+            id="gpuIncrement"
+            class="bg-surface hover:bg-surface/80 text-primary border-elevated flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-lg border text-xl font-medium transition-colors"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-primary body2 mb-6">
+          How many days / hours do you need?
+        </h3>
+
+        <div class="flex gap-6">
+          <!-- Days Slider -->
+          <div class="relative w-1/2 pt-1 pb-12">
+            <div class="bg-surface relative h-2 w-full rounded-lg">
+              <div
+                id="daysProgressFill"
+                class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
+                style="width: 23.3%"
+              >
+              </div>
+            </div>
+            <input
+              type="range"
+              id="daysSlider"
+              min="0"
+              max="30"
+              value="7"
+              class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+            />
+            <div
+              id="daysTooltip"
+              class="pointer-events-none absolute z-20 -translate-x-1/2"
+              style="left: 23.3%; top: 20px;"
+            >
+              <div
+                class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
+              >
+                <div
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                >
+                </div>
+                <span id="daysTooltipValue">7 Days</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative w-1/2 pt-1 pb-12">
+            <div class="bg-surface relative h-2 w-full rounded-lg">
+              <div
+                id="hoursProgressFill"
+                class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
+                style="width: 4.2%"
+              >
+              </div>
+            </div>
+            <input
+              type="range"
+              id="hoursSlider"
+              min="0"
+              max="23"
+              value="1"
+              class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+            />
+            <div
+              id="hoursTooltip"
+              class="pointer-events-none absolute z-20 -translate-x-1/2"
+              style="left: 4.2%; top: 20px;"
+            >
+              <div
+                class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
+              >
+                <div
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                >
+                </div>
+                <span id="hoursTooltipValue">1 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Display Card -->
+    <div class="border-default/50 flex w-full md:pl-10 lg:flex-1 lg:border-l">
+      <div
+        class="bg-surface border-default w-full space-y-4 rounded-lg border p-5 sm:p-8 lg:space-y-12"
+      >
+        <div
+          class="text-default/80 mt-2 flex items-center justify-center gap-4 text-center text-[12px] font-medium sm:text-sm"
+        >
+          <p>Estimated price with</p>
+          <Fragment set:html={nosanaLogoGray} />
+        </div>
+        <div class="flex w-full items-baseline justify-center">
+          <span
+            id="totalPrice"
+            class="text-primary grotesk text-4xl sm:text-6xl">$21.76</span
+          >
+        </div>
+
+        <div
+          class="border-default flex flex-col items-center justify-between gap-y-4 border-t pt-6 md:gap-10 lg:flex-row"
+        >
+          <div
+            class="flex w-full flex-col items-start justify-between gap-y-0.5"
+          >
+            <span class="body4 text-[#C9C9C9]">GPU Type:</span>
+            <span id="gpuTypeDisplay" class="body2 font-medium"
+              >NVIDIA GeForce RTX 4090</span
+            >
+          </div>
+
+          <div
+            class="flex w-full flex-col items-start justify-between gap-y-0.5"
+          >
+            <span class="body4 text-[#C9C9C9]">Duration:</span>
+            <span id="durationDisplay" class="body2 font-medium"
+              >7 Days 1 hours</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .earnings-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000000;
+    border: 2.5px solid var(--color-brand-100);
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    margin-top: -3px;
+  }
+
+  .earnings-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000000;
+    border: 2.5px solid var(--color-brand-100);
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+  }
+
+  .earnings-slider::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .earnings-slider::-moz-range-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .earnings-slider:focus {
+    outline: none;
+  }
+
+  .gpu-option[data-selected="true"] {
+    background-color: var(--color-surface);
+  }
+</style>
+
+<script>
+  // Dropdown logic
+  const dropdownBtn = document.getElementById("gpuDropdownBtn");
+  const dropdownOptions = document.getElementById("gpuOptions");
+  const dropdownArrow = document.getElementById("dropdownArrow");
+  const gpuSeparator = document.getElementById("gpuSeparator");
+  const selectedText = document.getElementById("gpuSelectedText");
+  const gpuTypeDisplay = document.getElementById("gpuTypeDisplay");
+  const options = document.querySelectorAll(".gpu-option");
+
+  let isOpen = false;
+  const dropdownContainer = document.getElementById("gpuDropdown");
+
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      dropdownOptions?.classList.remove("hidden");
+      gpuSeparator?.classList.remove("hidden");
+      dropdownArrow?.classList.add("rotate-180");
+      dropdownContainer?.classList.remove("rounded-lg");
+      dropdownContainer?.classList.add("rounded-t-lg");
+    } else {
+      dropdownOptions?.classList.add("hidden");
+      gpuSeparator?.classList.add("hidden");
+      dropdownArrow?.classList.remove("rotate-180");
+      dropdownContainer?.classList.remove("rounded-t-lg");
+      dropdownContainer?.classList.add("rounded-lg");
+    }
+  }
+
+  function closeDropdown() {
+    isOpen = false;
+    dropdownOptions?.classList.add("hidden");
+    gpuSeparator?.classList.add("hidden");
+    dropdownArrow?.classList.remove("rotate-180");
+    dropdownContainer?.classList.remove("rounded-t-lg");
+    dropdownContainer?.classList.add("rounded-lg");
+  }
+
+  dropdownBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+  });
+
+  options.forEach((option) => {
+    option.addEventListener("click", () => {
+      const value = option.getAttribute("data-value") || "";
+      options.forEach((opt) => opt.removeAttribute("data-selected"));
+      option.setAttribute("data-selected", "true");
+      if (selectedText) selectedText.textContent = value;
+      if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
+      closeDropdown();
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("gpuDropdown");
+    if (dropdown && !dropdown.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDropdown();
+  });
+
+  // GPU Count logic
+  let gpuCount = 1;
+  const gpuCountDisplay = document.getElementById("gpuCountDisplay");
+  const gpuDecrement = document.getElementById("gpuDecrement");
+  const gpuIncrement = document.getElementById("gpuIncrement");
+
+  gpuDecrement?.addEventListener("click", () => {
+    if (gpuCount > 1) {
+      gpuCount--;
+      if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+    }
+  });
+
+  gpuIncrement?.addEventListener("click", () => {
+    gpuCount++;
+    if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+  });
+
+  // Slider helpers
+  function updateSliderUI(
+    slider: HTMLInputElement,
+    progressFill: HTMLElement,
+    tooltip: HTMLElement,
+    tooltipValueEl: HTMLElement,
+    formatLabel: (val: number) => string,
+  ) {
+    const value = parseInt(slider.value);
+    const max = parseInt(slider.max);
+    const percentage = (value / max) * 100;
+
+    progressFill.style.width = `${percentage}%`;
+
+    const thumbOffset = 9;
+    const sliderWidth = slider.offsetWidth;
+    const pixelPos =
+      (percentage / 100) * (sliderWidth - thumbOffset * 2) + thumbOffset;
+    const correctedPercentage = (pixelPos / sliderWidth) * 100;
+    tooltip.style.left = `${correctedPercentage}%`;
+
+    tooltipValueEl.textContent = formatLabel(value);
+  }
+
+  // Days slider
+  const daysSlider = document.getElementById("daysSlider") as HTMLInputElement;
+  const daysProgressFill = document.getElementById("daysProgressFill");
+  const daysTooltip = document.getElementById("daysTooltip");
+  const daysTooltipValue = document.getElementById("daysTooltipValue");
+
+  // Hours slider
+  const hoursSlider = document.getElementById(
+    "hoursSlider",
+  ) as HTMLInputElement;
+  const hoursProgressFill = document.getElementById("hoursProgressFill");
+  const hoursTooltip = document.getElementById("hoursTooltip");
+  const hoursTooltipValue = document.getElementById("hoursTooltipValue");
+
+  const durationDisplay = document.getElementById("durationDisplay");
+
+  function updateDurationDisplay() {
+    const days = parseInt(daysSlider?.value || "0");
+    const hours = parseInt(hoursSlider?.value || "0");
+
+    let text = "";
+    if (days > 0 && hours > 0) {
+      text = `${days} Days  ${hours} hours`;
+    } else if (days > 0) {
+      text = `${days} Days`;
+    } else {
+      text = `${hours} hours`;
+    }
+    if (durationDisplay) durationDisplay.textContent = text;
+  }
+
+  if (daysSlider && daysProgressFill && daysTooltip && daysTooltipValue) {
+    const update = () => {
+      updateSliderUI(
+        daysSlider,
+        daysProgressFill,
+        daysTooltip,
+        daysTooltipValue,
+        (v) => `${v} Days`,
+      );
+      updateDurationDisplay();
+    };
+    daysSlider.addEventListener("input", update);
+    update();
+    window.addEventListener("resize", update);
+  }
+
+  if (hoursSlider && hoursProgressFill && hoursTooltip && hoursTooltipValue) {
+    const update = () => {
+      updateSliderUI(
+        hoursSlider,
+        hoursProgressFill,
+        hoursTooltip,
+        hoursTooltipValue,
+        (v) => `${v} hours`,
+      );
+      updateDurationDisplay();
+    };
+    hoursSlider.addEventListener("input", update);
+    update();
+    window.addEventListener("resize", update);
+  }
+</script>

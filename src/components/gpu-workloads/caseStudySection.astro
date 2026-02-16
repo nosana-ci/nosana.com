@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+
+type Props = {
+  caseStudy: CollectionEntry<"gpuWorkloads">["data"]["caseStudySection"];
+};
+
+const { caseStudy } = Astro.props;
+const {
+  badge,
+  badgeIcon,
+  quote,
+  authorName,
+  authorRole,
+  companyLogo,
+  companyName,
+  image,
+  ctaTitle,
+  ctaUrl,
+  stats,
+} = caseStudy;
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12">
+  <div class="mx-auto flex w-full flex-col gap-10 md:flex-row md:items-stretch">
+    <!-- Left side -->
+    <div class="flex flex-col justify-between md:w-2/3">
+      <div>
+        <Badge title={badge} icon={badgeIcon} />
+
+        <blockquote class="text-primary h4 grotesk mt-8 mb-8 font-medium">
+          {quote}
+        </blockquote>
+
+        <div class="mb-8 flex items-center gap-4">
+          <div>
+            <p class="text-primary body3">{authorName}</p>
+            <p class="text-secondary body4">{authorRole}</p>
+          </div>
+          <div class="border-default h-10 border-l"></div>
+          <div class="flex items-center gap-2">
+            <Image
+              src={companyLogo}
+              alt={companyName}
+              width={24}
+              height={24}
+              class="rounded-full"
+            />
+            <span class="text-primary body3">{companyName}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-16 pt-10">
+        {
+          stats.map((stat) => (
+            <div>
+              <p class="text-secondary body4">{stat.label}</p>
+              <p class="text-primary grotesk h5 pt-4 font-medium">
+                {stat.value}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="relative md:w-1/2">
+      <div class="relative h-full min-h-[400px] overflow-hidden">
+        <Image
+          src={image}
+          alt="Case study"
+          width={600}
+          height={500}
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute right-6 bottom-6">
+          <Button title={ctaTitle} url={ctaUrl} variant="secondary" class="bg-white! text-black! border-white!" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

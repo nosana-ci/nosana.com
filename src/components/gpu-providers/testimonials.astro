@@ -1,18 +1,15 @@
 ---
-import { getEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import TestimonialsSlider from "../ui/testimonialSlider.astro";
 
-const entry = await getEntry("gpuProviders", "index");
+type Props = {
+  testimonialsSection: CollectionEntry<"gpuProviders">["data"]["testimonialsSection"];
+};
 
-if (!entry) {
-  throw new Error("GPU Providers content not found");
-}
+const { testimonialsSection } = Astro.props;
 
-const { testimonialsSection } = entry.data;
-
-const badge = testimonialsSection.badge;
-const heading = testimonialsSection.heading;
+const { badge, heading } = testimonialsSection;
 ---
 
 <section class="w-full px-4 md:px-12">
