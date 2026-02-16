@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Button from "../ui/button.astro";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("nosanaToken", "index");
+
+if (!entry) {
+  throw new Error("Nosana Token content not found");
+}
+
+const { nosToken } = entry.data;
+const { features } = nosToken;
+
+---
+
+<section
+  class="mt-18 flex w-full flex-col gap-16 overflow-hidden px-4 md:px-12 md:py-10"
+>
+  <!-- Header -->
+  <div class="flex max-w-[800px] flex-col gap-4">
+    <Badge title={nosToken.badge} class="mb-4 w-max" />
+    <h2 class="h4 grotesk text-primary">
+      {nosToken.title}
+    </h2>
+    <p class="body2 text-secondary">
+      {nosToken.description}
+    </p>
+  </div>
+
+  <!-- Features List -->
+  <div class="flex flex-col md:gap-12 gap-8">
+    {
+      features.map((feature, idx) => {
+        return (
+          <div class={`flex flex-col-reverse items-start gap-12 p-4 md:gap-6 md:p-6 lg:flex-row ${idx % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} lg:gap-12`}>
+            <div class="relative flex w-full justify-center lg:w-1/2 lg:justify-start">
+              <Image
+                src={feature.image}
+                alt="Security"
+                class="relative z-10 w-full max-w-[500px] object-contain"
+              />
+            </div>
+            <div class="flex w-full flex-col gap-6 lg:w-1/2">
+              <Badge
+                title={feature.tab.text}
+                icon={feature.tab.icon}
+                class="w-max lg:mt-8"
+              />
+              <h3 class="h4 grotesk text-primary">{feature.title}</h3>
+              <p class="body2 text-secondary">{feature.description}</p>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
