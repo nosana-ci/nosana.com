@@ -12,7 +12,7 @@ export const navbarSchema = ({ image }: SchemaContext) => z.object({
     title: z.string(),
     url: z.string().optional(),
     target: z.string().optional(),
-    icon: image(),
+    icon: image().optional(),
     subItems: z.object({
       sectionTitle: z.string().optional(),
       sectionSubtitle: z.string().optional(),

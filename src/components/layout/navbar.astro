@@ -224,28 +224,34 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Nav -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 top-20 bg-bg-base z-40 hidden lg:hidden overflow-y-auto pt-4"
+    class="fixed inset-0 top-20 bg-bg-base z-40 hidden lg:hidden overflow-y-auto overscroll-contain pt-4"
   >
     <div class="flex flex-col px-6 pb-20">
       {
-        navItems.map((item: any) => (
-          <div
-            class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
-            data-type={item.type}
-            data-url={item.url}
-            data-target={item.target}
-          >
-            <div class="flex items-center justify-between w-full group cursor-pointer mobile-trigger">
-              <span class="text-lg font-semibold text-primary group-hover:text-brand-100 transition-colors">
-                {item.title}
-              </span>
+        navItems.map((item: any) => {
+          const isActive = currentPath === item.url;
+          return (
+            <div
+              class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
+              data-type={item.type}
+              data-url={item.url}
+              data-target={item.target}
+            >
+              <div class="flex items-center justify-start gap-2 w-full group cursor-pointer mobile-trigger">
+                <span
+                  class:list={[
+                    "text-lg font-semibold transition-colors",
+                    isActive
+                      ? "text-brand-100"
+                      : "text-primary group-hover:text-brand-100",
+                  ]}
+                >
+                  {item.title}
+                </span>
               {item.icon && (
                 <div
                   class:list={[
                     "w-5 h-5 flex items-center justify-center transition-transform duration-300 mobile-icon",
-                    item.type === "dropdown"
-                      ? ""
-                      : "-rotate-90 text-primary/50",
                   ]}
                 >
                   <div
@@ -256,18 +262,58 @@ const currentPath = Astro.url.pathname;
               )}
             </div>
 
-            {item.type === "dropdown" && (
-              <div class="mobile-dropdown-content hidden mt-4 pl-4 border-l border-brand-100/30">
-                <div class="flex flex-col gap-4">
-                  <div class="text-secondarydark italic text-sm">
-                    {item.title} subitems demo...
-                  </div>
+            {item.type === "dropdown" && item.subItems && (
+              <div class="mobile-dropdown-content hidden mt-4">
+                <div class="flex flex-col gap-6 pt-2 pb-4">
+                  {item.subItems.items.map((subItem: any) => (
+                    <a
+                      href={subItem.url}
+                      target={subItem.target}
+                      rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                      class="flex items-start gap-2 group/sub"
+                    >
+                      {subItem.icon && (
+                        <Image
+                          src={subItem.icon}
+                          alt={subItem.title}
+                          width={34}
+                          height={34}
+                          class="shrink-0 select-none rounded-lg"
+                        />
+                      )}
+                      <div class="flex flex-col">
+                        <span class="font-semibold text-primary body4 group-hover/sub:text-brand-100 transition-colors">
+                          {subItem.title}
+                          {subItem.target === "_blank" && (
+                            <Image
+                              src={externalLink}
+                              alt="External link"
+                              width={12}
+                              height={12}
+                              class="inline-block ml-1 align-baseline opacity-70"
+                            />
+                          )}
+                        </span>
+                        {subItem.description && (
+                          <p class="text-secondary body4 leading-snug mt-1">
+                            {subItem.description}
+                          </p>
+                        )}
+                      </div>
+                    </a>
+                  ))}
+
                 </div>
               </div>
             )}
-          </div>
-        ))
+            </div>
+          );
+        })
       }
+      <div class="mt-12">
+        <h3 class="body4 text-secondary mb-4">Featured Article</h3>
+        <div class="aspect-4/3 w-full bg-surface rounded-md"></div>
+      </div>
     </div>
   </div>
 </nav-container>
@@ -295,11 +341,13 @@ const currentPath = Astro.url.pathname;
           hamburgerIcon?.classList.add("hidden");
           closeIcon?.classList.remove("hidden");
           document.body.style.overflow = "hidden";
+          document.documentElement.style.overflow = "hidden";
         } else {
           mobileMenu?.classList.add("hidden");
           hamburgerIcon?.classList.remove("hidden");
           closeIcon?.classList.add("hidden");
           document.body.style.overflow = "";
+          document.documentElement.style.overflow = "";
         }
       });
 

@@ -16,9 +16,9 @@ const heading = heroSection.heading;
 const heroImage = heroSection.heroImage;
 ---
 
-<section class="flex flex-col items-center pt-16 md:pt-24 lg:pt-32 px-4 md:px-12 w-full xl:h-[900px] lg:h-[800px] md:h-[600px] h-[550px] relative overflow-hidden">
-    <div class="flex flex-col items-center text-center gap-4 md:gap-6 max-w-[888px] px-4 z-10">
-      <p class="body1 bg-gradient-to-r from-green-500 to-green-700 bg-clip-text text-transparent ">
+<section class="relative w-full h-[60vh] lg:h-[110vh] 2xl:h-[calc(100vh-5rem)] flex items-end overflow-hidden">
+    <div class="absolute top-16 md:top-24 lg:top-32 inset-x-0 flex flex-col items-center text-center gap-4 md:gap-6 max-w-4xl mx-auto px-4 z-10">
+      <p class="body1 grotesk bg-linear-to-r from-brand-100 to-[#078205BA] bg-clip-text text-transparent ">
         [{badge.title}]
       </p>
       <h1 class="h4 grotesk">
@@ -26,14 +26,11 @@ const heroImage = heroSection.heroImage;
       </h1>
     </div>
   
-    <div class="w-full max-w-full mt-10 md:mt-16 mx-auto absolute md:bottom-0 bottom-10 left-0 right-0 z-0  max-md:scale-[1.2]">
+    <div class="relative w-full flex justify-center items-end z-0">
       <Image 
         src={heroImage} 
         alt="Nosana Network" 
-        class="w-full h-auto object-contain"
+        class="w-full h-auto object-contain pointer-events-none scale-200 lg:scale-100 mx-auto select-none"
       />
-      
-      <!-- Gradient fade at bottom to blend with next section -->
-      <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-bg-base via-bg-base/50 to-transparent pointer-events-none"></div>
     </div>
 </section>

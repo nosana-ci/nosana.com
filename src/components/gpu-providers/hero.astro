@@ -20,7 +20,7 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-20 lg:px-12"
+  class="relative w-full h-[calc(100vh-5rem)] overflow-hidden pt-20 px-4 lg:px-12"
 >
   <video
     autoplay
@@ -28,33 +28,34 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
     muted
     playsinline
     poster={heroBg.src}
-    class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover select-none"
+    class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
   >
     <source src={heroVideo} type="video/mp4" />
   </video>
 
   <div
-    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 lg:p-20"
+    class="relative z-10 bg-bg-base h-full rounded-t-xl overflow-hidden p-6 lg:p-20"
   >
-    <div class="pointer-events-none absolute inset-0 z-0 mix-blend-hard-light">
+    <div class="absolute inset-0 pointer-events-none mix-blend-hard-light z-0">
       <Image
         src={texture}
         alt="texture"
-        class="pointer-events-none h-full w-full object-cover select-none"
+        class="w-full h-full object-cover pointer-events-none select-none"
       />
     </div>
 
-    <div class="pointer-events-none absolute inset-0 z-0">
-      <div class="absolute right-0 bottom-0 z-10 h-full w-full lg:right-20">
+    <div class="absolute inset-0 pointer-events-none z-0">
+      <div class="absolute right-0 bottom-0 lg:right-20 w-full h-full">
         <Image
           src={gpu}
           alt="GPU illustration"
-          class="pointer-events-none h-full w-full object-cover object-bottom-right select-none"
+          class="w-full h-full object-cover object-bottom-right pointer-events-none select-none"
         />
       </div>
       <div
-        class="background-grid pointer-events-none absolute inset-0 z-1"
-        style="isolation: isolate;"
+        class="absolute inset-0 pointer-events-none z-1 opacity-5
+              [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+              [background-size:72px_72px]"
       >
       </div>
     </div>
@@ -62,15 +63,19 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
     <div class="relative z-10 max-w-3xl">
       {badge && <Badge title={badge.title} icon={badge.icon} class="mb-4" />}
 
-      <h1 class="text-primary grotesk h4 mb-4">{heading}</h1>
-      <p class="text-secondary body2 mb-6 leading-relaxed md:max-w-xl lg:mb-10">
+      <h1 class="text-primary mb-4 grotesk h4">{heading}</h1>
+      <p class="text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10 body2">
         {description}
       </p>
 
       <div class="flex flex-wrap gap-4">
         {
           cta1 && (
-            <Button title={cta1.title} url={cta1.url} variant="secondary" />
+            <Button
+              title={cta1.title}
+              url={cta1.url}
+              variant="secondary"
+            />
           )
         }
 
@@ -87,15 +92,4 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
       </div>
     </div>
   </div>
-
-  <style>
-    .background-grid {
-      background-color: transparent;
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNDQnIGhlaWdodD0nMTQ0JyB2aWV3Qm94PScwIDAgMTQ0IDE0NCc+PHBhdGggZD0nTTcyLjUgMHYxNDRNMCA3Mi41aDE0NE0wLjUgMHYxNDRNMCAwLjVoMTQ0JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC4xNSknIHN0cm9rZS13aWR0aD0nTScvPjxwYXRoIGQ9J003Mi41IDcwdjVNNzAgNzIuNWg1JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC41NSknIHN0cm9rZS13aWR0aD0nTScvPjwvc3ZnPg==");
-      background-size: 144px 144px;
-      background-position: 0 72px;
-      background-position: center center;
-      opacity: 0.3;
-    }
-  </style>
 </section>

@@ -5,26 +5,26 @@ description: "An open-source GPU cloud with on-demand pricing, saving up to 6x o
 navigation:
   product:
     - name: "Deploy GPU Workloads"
-      url: "/deploy-gpu-workloads"
+      url: "/gpu-workloads"
     - name: "Provide GPUs"
-      url: "/provide-gpus"
+      url: "/gpu-providers"
   network:
     - name: "Explore Network"
       url: "/network"
     - name: "$NOS Token"
       url: "/nos-token"
     - name: "Stake"
-      url: "/stake"
+      url: "https://stake.nosana.com/"
     - name: "Govern"
       url: "/govern"
   grants:
     - name: "Apply for Grants"
-      url: "/apply-for-grants"
+      url: "https://grants.nosana.com/"
   learningCenter:
     - name: "Nosana Docs"
-      url: "/nosana-docs"
+      url: "https://learn.nosana.com/"
     - name: "GPU Provider Guide"
-      url: "/gpu-provider-guide"
+      url: "/gpu-providers"
   community:
     - name: "Faces of Nosana"
       url: "/faces-of-nosana"
@@ -36,9 +36,9 @@ navigation:
       url: "/community-calls"
   resources:
     - name: "About Nosana"
-      url: "/about-nosana"
+      url: "/about"
     - name: "Blog"
-      url: "/blog"
+      url: "/blogs"
     - name: "Support"
       url: "/support"
     - name: "Brand Assets"

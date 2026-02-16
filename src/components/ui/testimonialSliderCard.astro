@@ -8,11 +8,12 @@ const { title, description } = Astro.props;
 ---
 
 <div
-  class="w-full shrink-0 snap-start md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+  class="shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start"
 >
-  <div class="relative h-[350px] w-full md:h-[400px] lg:h-[600px]">
+  <div class="relative w-full h-[350px] md:h-[400px] lg:h-[500px]">
+    <!-- Background Shape -->
     <svg
-      class="absolute inset-0 h-full w-full"
+      class="absolute inset-0 w-full h-full"
       viewBox="0 0 411 498"
       fill="none"
       preserveAspectRatio="none"
@@ -22,13 +23,15 @@ const { title, description } = Astro.props;
         fill="#1F1F1F"></path>
     </svg>
 
+    <!-- Content -->
     <div
-      class="relative z-10 flex h-full flex-col justify-between p-6 md:px-8 md:py-12"
+      class="relative z-10 h-full p-6 md:px-8 md:py-12 flex flex-col justify-between"
     >
       <div>
+        <!-- Quote Icon -->
         <div class="mb-8">
           <svg
-            class="text-brand-100 h-6 w-6"
+            class="w-6 h-6 text-brand-100"
             fill="currentColor"
             viewBox="0 0 26 24"
           >
@@ -38,11 +41,13 @@ const { title, description } = Astro.props;
           </svg>
         </div>
 
+        <!-- Description -->
         <p class="body3 text-primary line-clamp-12 md:line-clamp-none">
           {description}
         </p>
       </div>
 
+      <!-- Title -->
       <p class="body2 text-tertiary">
         {title}
       </p>

@@ -1,29 +1,25 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import TestimonialStackCard from "./testimonialStackCard.astro";
 import NavigateButton from "./navigateButton.astro";
 
-const testimonialsCollection = await getCollection(
-  "testimonials",
-  ({ data }) => {
-    return data.type === "stack";
-  },
+const allTestimonials = await getCollection("testimonials");
+const testimonialsCollection = allTestimonials.filter(
+  (t): t is CollectionEntry<"testimonials"> & { data: { type: "stack" } } =>
+    t.data.type === "stack",
 );
 
 const cardsData = testimonialsCollection
-  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .sort((a, b) => a.data.order - b.data.order)
   .map((t) => t.data)
   .slice(0, 3);
 ---
 
 <div class="relative w-[600px] max-w-full">
-  <div class="relative h-[220px] md:h-[380px]">
+  <div class="relative aspect-601/375">
     {
       cardsData.map((t, i) => {
         const { name, username, logo, message, rating } = t;
-        if (!name || !username || !logo || !message || rating === undefined) {
-          return null;
-        }
 
         return (
           <div
