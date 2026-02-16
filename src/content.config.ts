@@ -10,7 +10,9 @@ import {
   gpuProvidersSchema,
   gpuWorkloadsSchema,
   supportSchema,
-  testimonialsHomepageSchema
+  testimonialsHomepageSchema,
+  blogsSchema,
+  blogsHomepageSchema
 } from './utils/schema';
 import { aboutPageSchema } from './utils/schema/about-page';
 import { nosanaTokenSchema } from './utils/schema/nosana-token';
@@ -81,6 +83,16 @@ const brandAssetsCollection = defineCollection({
   schema: brandAssetsSchema,
 });
 
+const blogsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.md", base: "src/content/blogs" }),
+  schema: blogsSchema,
+});
+
+const blogsHomepageCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/blogs-homepage" }),
+  schema: blogsHomepageSchema,
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
@@ -95,4 +107,6 @@ export const collections = {
   about: aboutCollection,
   nosanaToken: tokenCollection,
   brandAssets: brandAssetsCollection,
+  blogs: blogsCollection,
+  blogsHomepage: blogsHomepageCollection,
 };

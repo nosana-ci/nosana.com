@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import SliderCard from "./testimonialSliderCard.astro";
-import NavigateButton from "./navigateButton.astro";
+import NavigateButton from "../ui/navigateButton.astro";
 
 const testimonials = await getCollection("testimonials", ({ data }) => {
   return data.type === "slider";
