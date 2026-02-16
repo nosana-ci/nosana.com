@@ -1,7 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/gpu-workloads/hero.astro";
+import Brands from "../components/layout/brands.astro";
 ---
 
 <Layout title="Nosana | GPU Workloads">
-  <h1>GPU Workloads</h1>
+  <Hero />
+  <div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full text-center">
+    <h2 class="h4 text-tertiary grotesk mb-8 md:mb-16 lg:mb-18">Trusted by</h2>
+    <Brands />
+  </div>
 </Layout>

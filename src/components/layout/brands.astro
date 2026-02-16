@@ -2,10 +2,10 @@
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 
-const entry = await getEntry("homepage", "index");
+const entry = await getEntry("layout", "index");
 
 if (!entry) {
-  throw new Error("Homepage content not found");
+  throw new Error("brands not found");
 }
 
 const brands = entry.data.brands ?? [];

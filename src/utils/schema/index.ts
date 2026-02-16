@@ -5,5 +5,6 @@ export * from './homepage';
 export * from './case-study-homepage';
 export * from './testimonials';
 export * from './gpu-providers';
+export * from './gpu-workloads';
 export * from './support';
 export * from './testimonials-homepage';
