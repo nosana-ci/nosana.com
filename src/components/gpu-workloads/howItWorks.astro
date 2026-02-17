@@ -10,14 +10,14 @@ type Props = {
 
 const { howItWorks } = Astro.props;
 
-const { badge, heading, description, cta1, cta2, steps } = howItWorks;
+const { badge, heading, headingHighlight, description, cta1, cta2, steps } = howItWorks;
 ---
 
 <section class="bg-bg-base w-full px-4 md:px-12" id="get-started-section">
   <div>
     <Badge title={badge.title} />
     <h2 class="text-primary h4 grotesk mt-4 mb-3 max-w-3xl">
-      {heading}
+      {heading}{headingHighlight && <span class="text-brand-100"> {headingHighlight}</span>}
     </h2>
     <p class="text-secondary body2 mb-6 md:max-w-xl">
       {description}
@@ -86,9 +86,15 @@ const { badge, heading, description, cta1, cta2, steps } = howItWorks;
                 <h3 class="text-primary h4 grotesk mb-2 max-w-xs">
                   {step.title}
                 </h3>
-                <p class="text-secondary body2 mb-6 max-w-sm">
+                <p class="text-secondary body2 max-w-sm">
                   {step.description}
                 </p>
+                {step.note && (
+                  <p class="text-secondary body2 mb-6 mt-4 max-w-sm">
+                    {step.note}
+                  </p>
+                )}
+                {!step.note && <div class="mb-6" />}
               </div>
             </div>
           ))
