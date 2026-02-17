@@ -19,7 +19,6 @@ const { heroSection, logoSection } = Astro.props;
 ---
 
 <div class="px-4 md:px-12">
-  <!-- Hero: on mobile logo goes up (col-reverse), on md+ side by side -->
   <section class="bg-bg-base w-full pt-8 md:pt-16 lg:pt-18">
     <div
       class="flex flex-col-reverse gap-10 md:flex-row md:items-start md:justify-between"
@@ -41,7 +40,6 @@ const { heroSection, logoSection } = Astro.props;
         </div>
       </div>
 
-      <!-- Logo: centered on mobile, normal on md+ -->
       <Image
         src={safezoneSmall}
         alt="Nosana Logo"
@@ -53,7 +51,6 @@ const { heroSection, logoSection } = Astro.props;
   <div class="bg-elevated my-12 h-px w-full md:my-18"></div>
 
   <section class="bg-bg-base w-full">
-    <!-- Button stacks below text on md and below, beside on lg+ -->
     <div
       class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between"
     >
@@ -72,99 +69,105 @@ const { heroSection, logoSection } = Astro.props;
 
     <div class="bg-elevated my-12 h-px w-full md:my-18"></div>
 
-    <!-- 3-col logo grid: 1-col on mobile, 3-col on sm+ -->
-    <div class="grid grid-cols-1 sm:grid-cols-3">
-      <!-- Row 1: labels -->
-      <div
-        class="border-elevated flex h-36 items-end justify-center border-b px-6 py-5 sm:h-40 sm:border-r md:h-44"
-      >
-        <span class="text-primary body3">Nosana Official Logo</span>
-      </div>
-      <div
-        class="border-elevated flex h-36 items-end justify-center border-b px-6 py-5 sm:h-40 sm:border-r md:h-44"
-      >
-        <span class="text-primary body3">Nosana-logo</span>
-      </div>
-      <div
-        class="border-elevated flex h-36 items-end justify-center border-b px-6 py-5 sm:h-40 md:h-44"
-      >
-        <span class="text-primary body3">Nosana-Wordmark</span>
-      </div>
-
-      <!-- Row 2: logos -->
-      <div
-        class="border-elevated flex h-28 items-center justify-center border-b sm:border-r md:h-36"
-      >
-        <Image
-          src={officialLogo}
-          alt="Nosana Official Logo"
-          class="h-full select-none py-4"
-        />
-      </div>
-      <div
-        class="border-elevated flex h-28 items-center justify-center border-b sm:border-r md:h-36"
-      >
-        <Image
-          src={logoMark}
-          alt="Nosana Logo Mark"
-          class="h-full select-none py-4"
-        />
-      </div>
-      <div
-        class="border-elevated flex h-28 items-center justify-center border-b md:h-36"
-      >
-        <Image
-          src={wordmark}
-          alt="Nosana Wordmark"
-          class="h-full select-none py-4"
-        />
+    <div class="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-y-0">
+      <!-- Official Logo -->
+      <div class="border-elevated sm:border-r">
+        <div
+          class="border-elevated flex items-center justify-center px-6 py-5 sm:h-40 sm:items-end sm:border-b md:h-44"
+        >
+          <span class="text-primary body3">Nosana Official Logo</span>
+        </div>
+        <div
+          class="border-elevated flex h-28 items-center justify-center border-y px-4 sm:border-t-0 sm:border-b md:h-36"
+        >
+          <Image
+            src={officialLogo}
+            alt="Nosana Official Logo"
+            class="h-full py-4 select-none"
+          />
+        </div>
+        <div class="hidden h-32 sm:block"></div>
       </div>
 
-      <!-- Row 3: empty bottom — hidden on mobile -->
-      <div class="border-elevated hidden h-32 border-r sm:block"></div>
-      <div class="border-elevated hidden h-32 border-r sm:block"></div>
-      <div class="hidden h-32 sm:block"></div>
+      <!-- Logo -->
+      <div class="border-elevated sm:border-r">
+        <div
+          class="border-elevated flex items-center justify-center px-6 py-5 sm:h-40 sm:items-end sm:border-b md:h-44"
+        >
+          <span class="text-primary body3">Nosana-logo</span>
+        </div>
+        <div
+          class="border-elevated flex h-28 items-center justify-center border-y px-4 sm:border-t-0 sm:border-b md:h-36"
+        >
+          <Image
+            src={logoMark}
+            alt="Nosana Logo Mark"
+            class="h-full py-4 select-none"
+          />
+        </div>
+        <div class="hidden h-32 sm:block"></div>
+      </div>
+
+      <!-- Wordmark -->
+      <div>
+        <div
+          class="border-elevated flex items-center justify-center px-6 py-5 sm:h-40 sm:items-end sm:border-b md:h-44"
+        >
+          <span class="text-primary body3">Nosana-Wordmark</span>
+        </div>
+        <div
+          class="border-elevated flex h-28 items-center justify-center border-y px-4 sm:border-t-0 sm:border-b md:h-36"
+        >
+          <Image
+            src={wordmark}
+            alt="Nosana Wordmark"
+            class="h-full py-4 select-none"
+          />
+        </div>
+        <div class="hidden h-32 sm:block"></div>
+      </div>
     </div>
 
-    <div class="bg-elevated my-12 h-px w-full md:my-18"></div>
-
-    <!-- 2-col safezone grid: 1-col on mobile, 2-col on sm+ -->
-    <div class="grid grid-cols-1 sm:grid-cols-2">
-      <!-- Row 1: labels -->
-      <div
-        class="border-elevated flex h-36 items-end justify-center border-b pb-5 sm:h-44 sm:border-r"
-      >
-        <span class="text-primary body3">Safezone</span>
-      </div>
-      <div
-        class="border-elevated flex h-36 items-end justify-center border-b pb-5 sm:h-44"
-      >
-        <span class="text-primary body3">Safe Zone</span>
-      </div>
-
-      <!-- Row 2: images -->
-      <div
-        class="border-elevated flex h-28 items-center justify-center border-b sm:h-36 sm:border-r"
-      >
-        <Image
-          src={safezone}
-          alt="Nosana Safezone"
-          class="h-full w-auto select-none py-4"
-        />
-      </div>
-      <div
-        class="border-elevated flex h-28 items-center justify-center border-b sm:h-36"
-      >
-        <Image
-          src={safezoneSmall}
-          alt="Nosana Safe Zone Small"
-          class="h-full w-auto select-none py-4"
-        />
+    <div
+      class="grid grid-cols-1 gap-y-16 max-sm:mt-16 sm:grid-cols-2 sm:gap-y-0"
+    >
+      <!-- Safezone -->
+      <div class="border-elevated sm:border-r">
+        <div
+          class="border-elevated flex items-center justify-center px-6 py-5 sm:h-44 sm:items-end sm:border-b"
+        >
+          <span class="text-primary body3">Safezone</span>
+        </div>
+        <div
+          class="border-elevated flex h-28 items-center justify-center border-y px-4 sm:h-36 sm:border-t-0 sm:border-b"
+        >
+          <Image
+            src={safezone}
+            alt="Nosana Safezone"
+            class="h-full w-auto py-4 select-none"
+          />
+        </div>
+        <div class="hidden h-32 sm:block"></div>
       </div>
 
-      <!-- Row 3: empty bottom — hidden on mobile -->
-      <div class="border-elevated hidden h-32 border-r sm:block"></div>
-      <div class="hidden h-32 sm:block"></div>
+      <!-- Safe Zone -->
+      <div>
+        <div
+          class="border-elevated flex items-center justify-center px-6 py-5 sm:h-44 sm:items-end sm:border-b"
+        >
+          <span class="text-primary body3">Safe Zone</span>
+        </div>
+        <div
+          class="border-elevated flex h-28 items-center justify-center border-y px-4 sm:h-36 sm:border-t-0 sm:border-b"
+        >
+          <Image
+            src={safezoneSmall}
+            alt="Nosana Safe Zone Small"
+            class="h-full w-auto py-4 select-none"
+          />
+        </div>
+        <div class="hidden h-32 sm:block"></div>
+      </div>
     </div>
   </section>
 </div>
