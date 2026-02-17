@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import CaseStudyCard from "./latestCaseStudyCard.astro";
+
+const allBlogs = await getCollection("blogs");
+
+const caseStudies = allBlogs
+  .filter(
+    (entry): entry is typeof entry & {
+      data: Extract<typeof entry.data, { category: "case-study" }>;
+    } => entry.data.category === "case-study"
+  )
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+  .slice(0, 4);
+
+if (!caseStudies.length) return null;
+---
+
+<section
+  class="case-study-slider relative w-full overflow-hidden"
+  aria-label="Latest Case Studies"
+>
+  <!-- Slider Container -->
+  <div class="relative w-full">
+    <!-- Track -->
+    <div class="flex transition-transform duration-500 ease-out slider-track will-change-transform">
+      {
+        caseStudies.map((blog) => (
+          <div class="w-full shrink-0 slider-item">
+            <CaseStudyCard
+              title={blog.data.title}
+              description={blog.data.description}
+              thumbnail={blog.data.thumbnail}
+              logo={blog.data.logo}
+              author={blog.data.author}
+              role={blog.data.role}
+              blogUrl={`/blog/${blog.id}`}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="flex px-4 md:px-12 gap-2 mt-8 slider-dots">
+      {
+        caseStudies.map((_, index) => (
+          <button
+            class="w-2 h-2 rounded-full transition-all duration-300 bg-secondary hover:bg-primary/50 aria-current:bg-primary"
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === 0 ? "true" : "false"}
+            data-index={index}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <script>
+    function initSliders() {
+      const sliders = document.querySelectorAll(".case-study-slider");
+
+      sliders.forEach((slider) => {
+        const track = slider.querySelector(".slider-track") as HTMLElement;
+        const dots = slider.querySelectorAll("[data-index]");
+        let currentIndex = 0;
+        let startX = 0;
+        let isDragging = false;
+        let interval: number;
+
+        const updateSlider = (index: number) => {
+          currentIndex = index;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          
+          dots.forEach((dot, i) => {
+            dot.setAttribute("aria-current", i === currentIndex ? "true" : "false");
+          });
+        };
+
+        const nextSlide = () => {
+          currentIndex = (currentIndex + 1) % dots.length;
+          updateSlider(currentIndex);
+        };
+
+        const startAutoPlay = () => {
+          clearInterval(interval);
+          interval = setInterval(nextSlide, 3000);
+        };
+
+        const stopAutoPlay = () => clearInterval(interval);
+
+        // Dot Navigation
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+             updateSlider(index);
+             startAutoPlay();
+          });
+        });
+
+        // Touch Support
+        track.addEventListener("touchstart", (e) => {
+            startX = (e as TouchEvent).touches[0].clientX;
+            isDragging = true;
+            stopAutoPlay();
+            track.style.transition = 'none';
+        }, { passive: true });
+
+        track.addEventListener("touchmove", (e) => {
+            if (!isDragging) return;
+            const currentX = (e as TouchEvent).touches[0].clientX;
+            const diff = startX - currentX;
+        }, { passive: true });
+
+        track.addEventListener("touchend", (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = '';
+            const endX = (e as TouchEvent).changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    currentIndex = (currentIndex + 1) % dots.length;
+                } else {
+                     currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+                }
+            }
+            updateSlider(currentIndex);
+            startAutoPlay();
+        });
+
+        // Pause on hover
+        slider.addEventListener("mouseenter", stopAutoPlay);
+        slider.addEventListener("mouseleave", startAutoPlay);
+
+        // Initialize
+        updateSlider(0);
+        startAutoPlay();
+      });
+    }
+
+    // Run on load and after Astro swaps
+    document.addEventListener("DOMContentLoaded", initSliders);
+    document.addEventListener("astro:page-load", initSliders);
+  </script>
+</section>

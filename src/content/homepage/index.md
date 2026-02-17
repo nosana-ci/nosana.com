@@ -12,12 +12,12 @@ heroSection:
 
   cta1:
     title: "Free GPU Credits"
-    url: "/gpu-workloads"
+    url: "/"
     icon: "../../assets/icons/coin.svg"
 
   cta2:
     title: "Earn with your GPU"
-    url: "/gpu-workloads"
+    url: "/gpu-providers"
 
 pathSection:
   badge:
@@ -34,7 +34,7 @@ pathSection:
     title: "Turn Your - GPUs Into Profit"
     description: "Share idle GPU capacity and earn by running workloads on your hardware, with built-in security"
     caption: "Provide GPUs"
-    url: "/gpu-workloads"
+    url: "/gpu-providers"
 
 ecosystemSection:
   badge:
@@ -177,7 +177,7 @@ banner:
   description: "Deploy directly from the Dashboard and watch your workload go live in real time"
   cta:
     title: "Get Free GPU Credits"
-    url: "/gpu-workloads"
+    url: "/"
     icon: "../../assets/icons/coin.svg"
   image: "./assets/bannerImg.png"
 
@@ -197,7 +197,7 @@ upcomingEventsMock:
   image: "./assets/eventBanner.png"
   button:
     title: "Explore Other Events"
-    url: "/"
+    url: "/events"
 
 latestBlogsMock:
   heading: "Latest Blogs"
@@ -208,7 +208,7 @@ latestBlogsMock:
   image: "./assets/eventBanner.png"
   button:
     title: "Explore Other Blogs"
-    url: "/"
+    url: "/blogs"
 
 testimonials:
   heading: "Voices from the Community"
@@ -221,8 +221,8 @@ ctaSection:
   description: "No Limits. Only Possibilities."
   cta1:
     title: "Free GPU Credits"
-    url: "/gpu-workloads"
+    url: "/"
   cta2:
     title: "Book Free Call"
-    url: "/gpu-workloads"
+    url: "/"
 ---
