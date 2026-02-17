@@ -2,16 +2,26 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
-const blogs = await getCollection("blogs", ({ data }) => {
-  return data.category === "blog" && data.tags?.includes("recommended");
-});
+const allBlogs = (await getCollection("blogs")).filter(
+  (blog) => blog.data.category === "blog"
+);
 
-const recommendedBlogs = blogs
-  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-  .slice(0, 2);
+const sortedBlogs = allBlogs.sort(
+  (a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()
+);
+
+const recommendedTagged = sortedBlogs.filter((blog) =>
+  blog.data.tags?.includes("recommended")
+);
+
+const recommendedBlogs =
+  recommendedTagged.length > 0
+    ? recommendedTagged.slice(0, 2)
+    : sortedBlogs.slice(0, 2);
 
 if (recommendedBlogs.length === 0) return null;
 ---
+
 
 <section class="w-full">
   <div class="px-4 md:px-12">

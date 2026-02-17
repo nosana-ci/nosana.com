@@ -10,4 +10,4 @@ export * from './support';
 export * from './testimonials-homepage';
 export * from './blogs';
 export * from './blogs-homepage';
-
+export * from './events';

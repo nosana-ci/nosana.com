@@ -1,0 +1,91 @@
+---
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import NosanaLogo from "../../assets/logos/nosanaLogoDark.svg";
+
+interface Props {
+  title: string;
+  description: string;
+  thumbnail: any;
+  logo?: any;
+  author?: string;
+  role?: string;
+  blogUrl: string;
+}
+
+const {
+  title,
+  description,
+  thumbnail,
+  logo,
+  author,
+  role,
+  blogUrl
+} = Astro.props;
+
+const displayAuthor = author ?? "Nosana Team";
+const displayRole = role ?? "Founders, Nosana";
+---
+
+<section class="w-full">
+  <div class="px-4 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
+      <div class="w-full overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          class="w-full h-auto select-none pointer-events-none"
+        />
+      </div>
+
+      <div class="flex flex-col flex-1">
+
+        <Badge title="New Read" class="w-fit mb-4" />
+
+        <div class="flex items-center gap-3 mb-4">
+          {logo ? (
+            <>
+              <Image src={logo} alt="Partner Logo" class="h-6 w-auto" />
+              <span class="text-secondary caption1">×</span>
+              <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" />
+            </>
+          ) : (
+            <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" />
+          )}
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h2 class="text-primary h4 grotesk lg:line-clamp-2 lg:max-w-xl">
+            {title}
+          </h2>
+
+          <p class="text-secondary body2 lg:max-w-2xl lg:line-clamp-3">
+            {description}
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between mt-6">
+
+          <div class="flex flex-col">
+            <span class="text-primary caption1">
+              {displayAuthor}
+            </span>
+            <span class="text-secondary caption1">
+              {displayRole}
+            </span>
+          </div>
+
+          <a
+            href={blogUrl}
+            class="caption1 text-brand-100 hover:opacity-80 transition-opacity underline"
+          >
+            Read full story
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
