@@ -1,0 +1,28 @@
+---
+import { getEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Divider from "../components/ui/divider.astro";
+import NewsletterSection from "../components/layout/newsletter.astro";
+import Section1 from "../components/brand-assets/section1.astro";
+import Section2 from "../components/brand-assets/section2.astro";
+import Section3 from "../components/brand-assets/section3.astro";
+
+const entry = await getEntry("brandAssets", "index");
+
+if (!entry) {
+  throw new Error("Brand Assets content not found");
+}
+
+const { heroSection, logoSection, colorsSection, typographySection } = entry.data;
+---
+
+<Layout title="Nosana | Brand Assets">
+  <Section1 heroSection={heroSection} logoSection={logoSection} />
+  <Divider />
+  <Section2 colorsSection={colorsSection} />
+  <Divider />
+  <Section3 typographySection={typographySection} />
+  <Divider />
+  <NewsletterSection />
+  <Divider />
+</Layout>
