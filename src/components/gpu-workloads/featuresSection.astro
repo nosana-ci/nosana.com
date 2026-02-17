@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import arrowIcon from "../../content/gpu-workloads/assets/arrow.svg?raw";
+import plusIcon from "../../content/gpu-workloads/assets/plus.svg?raw";
+import minusIcon from "../../content/gpu-workloads/assets/minus.svg?raw";
 
 type Props = {
   featuresSection: CollectionEntry<"gpuWorkloads">["data"]["featuresSection"];
@@ -22,25 +24,90 @@ const { badge, heading, description, features } = featuresSection;
   <div class="mx-auto flex w-full flex-col">
     {
       features.map((feature) => (
-        <div class="group border-elevated to-brand-100/50 flex flex-col gap-6 border-b bg-linear-to-r from-black from-50% p-6 transition-colors md:flex-row md:items-center md:justify-between md:p-8 md:py-16">
-          <div class="flex items-center gap-5 md:w-2/5">
-            <Image
-              src={feature.icon}
-              alt={feature.title}
-              width={64}
-              height={64}
-            />
-            <h3 class="text-primary body1 font-medium">{feature.title}</h3>
-          </div>
-
-          <div class="flex gap-10 md:w-2/5">
-            <div class="hidden shrink-0 md:block">
-              <Fragment set:html={arrowIcon} />
+        <feature-card class="border-elevated block border-b">
+          <div class="feature-card-inner flex flex-col gap-6 p-6 transition-all duration-300 md:flex-row md:items-center md:justify-between md:p-8 md:py-16">
+            <div class="md:flex md:w-2/5 md:items-center md:gap-5">
+              <div class="flex items-center justify-between">
+                <Image
+                  src={feature.icon}
+                  alt={feature.title}
+                  width={64}
+                  height={64}
+                />
+                <button
+                  class="feature-toggle text-tertiary flex h-8 w-8 items-center justify-center md:hidden"
+                  aria-label="Toggle details"
+                >
+                  <span class="toggle-icon plus-icon" set:html={plusIcon} />
+                  <span class="toggle-icon minus-icon hidden" set:html={minusIcon} />
+                </button>
+              </div>
+              <h3 class="text-primary body1 mt-4 font-medium md:mt-0">{feature.title}</h3>
             </div>
-            <p class="text-secondary body3">{feature.description}</p>
+
+            <div class="feature-details hidden md:flex md:w-2/5 md:gap-10 md:opacity-0 md:transition-opacity md:duration-300">
+              <div class="hidden shrink-0 md:block">
+                <Fragment set:html={arrowIcon} />
+              </div>
+              <div class="flex items-start gap-3 md:gap-0">
+                <div class="shrink-0 md:hidden">
+                  <Fragment set:html={arrowIcon} />
+                </div>
+                <p class="text-secondary body3">{feature.description}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        </feature-card>
       ))
     }
   </div>
 </section>
+
+<style>
+  feature-card .feature-card-inner {
+    background: transparent;
+  }
+
+  /* Desktop: hover shows gradient and description */
+  @media (min-width: 768px) {
+    feature-card:hover .feature-card-inner {
+      background: linear-gradient(to right, black 50%, rgb(16 232 12 / 0.2));
+    }
+
+    feature-card:hover .feature-details {
+      opacity: 1 !important;
+    }
+  }
+
+  /* Mobile: expanded state */
+  feature-card.expanded .feature-card-inner {
+    background: linear-gradient(to right, black 50%, rgb(16 232 12 / 0.2));
+  }
+
+  feature-card.expanded .feature-details {
+    display: block !important;
+    margin-top: 1rem;
+  }
+
+  feature-card.expanded .plus-icon {
+    display: none;
+  }
+
+  feature-card.expanded .minus-icon {
+    display: block !important;
+  }
+</style>
+
+<script>
+  class FeatureCard extends HTMLElement {
+    connectedCallback() {
+      const toggle = this.querySelector(".feature-toggle");
+
+      toggle?.addEventListener("click", () => {
+        this.classList.toggle("expanded");
+      });
+    }
+  }
+
+  customElements.define("feature-card", FeatureCard);
+</script>
