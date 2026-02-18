@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 
 import heroBg from "../../content/homepage/assets/heroBg.png";
 import heroVideo from "../../content/homepage/assets/heroBg.mp4";
-import gpu from "../../content/homepage/assets/gpu.svg";
+import gpuRaw from "../../content/homepage/assets/gpu.svg?raw";
 import texture from "../../content/homepage/assets/texture.png";
 
 import Button from "../ui/button.astro";
@@ -23,6 +23,8 @@ const heading = heroSection.heading;
 const description = heroSection.description;
 const cta1 = heroSection.cta1;
 const cta2 = heroSection.cta2;
+
+const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice" ');
 ---
 
 <section
@@ -52,10 +54,9 @@ const cta2 = heroSection.cta2;
 
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="absolute right-0 bottom-0 lg:right-20 w-full h-full">
-        <Image
-          src={gpu}
-          alt="GPU illustration"
-          class="w-full h-full object-cover object-bottom-right pointer-events-none select-none"
+        <div
+          class="w-full h-full pointer-events-none select-none [&>svg]:w-full [&>svg]:h-full"
+          set:html={gpuSvg}
         />
       </div>
       <div

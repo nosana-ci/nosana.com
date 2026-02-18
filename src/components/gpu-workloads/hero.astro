@@ -4,7 +4,7 @@ import type { CollectionEntry } from "astro:content";
 
 import heroBg from "../../content/homepage/assets/heroBg.png";
 import heroVideo from "../../content/homepage/assets/heroBg.mp4";
-import heroImg from "../../content/gpu-workloads/assets/heroImg.svg";
+import heroImgRaw from "../../content/gpu-workloads/assets/heroImg.svg?raw";
 import texture from "../../content/homepage/assets/texture.png";
 
 import Button from "../ui/button.astro";
@@ -46,10 +46,9 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
 
     <div class="pointer-events-none absolute inset-0 z-0">
       <div class="absolute right-0 bottom-0 h-full w-full">
-        <Image
-          src={heroImg}
-          alt="illustration"
-          class="pointer-events-none h-full w-full object-cover object-bottom-right pb-8 select-none md:pb-16 lg:pb-18"
+        <div
+          class="pointer-events-none h-full w-full pb-8 select-none md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover [&>svg]:object-right-bottom"
+          set:html={heroImgRaw}
         />
       </div>
       <div
