@@ -13,7 +13,7 @@ const { heading, description } = earningSection;
 const headingParts = heading.split(" - ");
 ---
 
-<section class="bg-bg-base w-full px-4 md:px-12">
+<section class="bg-bg-base w-full px-4 pt-8 md:px-12 lg:pt-32">
   <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
     {headingParts[0]}
     {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
@@ -33,7 +33,7 @@ const headingParts = heading.split(" - ");
           <button
             type="button"
             id="gpuDropdownBtn"
-            class="text-primary hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
+            class="text-primary body2 md:caption1 hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
           >
             <span id="gpuSelectedText">NVIDIA GeForce RTX 4090</span>
             <div
@@ -63,50 +63,50 @@ const headingParts = heading.split(" - ");
             class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1"
           >
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 4090"
               data-selected="true"
             >
               NVIDIA GeForce RTX 4090
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA RTX 6000 Ada Generation"
             >
               NVIDIA RTX 6000 Ada Generation
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 3080"
             >
               NVIDIA GeForce RTX 3080
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 3080 Ti"
             >
               NVIDIA GeForce RTX 3080 Ti
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 4090"
             >
               NVIDIA GeForce RTX 4090
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 4090 D"
             >
               NVIDIA GeForce RTX 4090 D
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 5070"
             >
               NVIDIA GeForce RTX 5070
             </li>
             <li
-              class="gpu-option caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
               data-value="NVIDIA GeForce RTX 5070 Ti"
             >
               NVIDIA GeForce RTX 5070 Ti

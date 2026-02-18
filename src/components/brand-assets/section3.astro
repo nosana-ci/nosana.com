@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  typographySection: CollectionEntry<"brandAssets">["data"]["typographySection"];
+};
+
+const { typographySection } = Astro.props;
+const { heading, description, typefaces } = typographySection;
+
+const weightClass: Record<string, string> = {
+  Regular: "font-normal",
+  Semibold: "font-semibold",
+  Bold: "font-bold",
+};
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12">
+  <h2 class="text-primary h4 grotesk mb-2">{heading}</h2>
+  <p class="text-secondary body2 mb-10">{description}</p>
+
+  <div class="border-elevated grid grid-cols-1 gap-0 md:grid-cols-2">
+    {
+      typefaces.map((typeface, index) => (
+        <div
+          class:list={[
+            "py-8",
+            index === 0
+              ? "border-elevated border-b md:border-r md:border-b-0 md:pr-12"
+              : "md:pl-12",
+          ]}
+        >
+          <p class="text-tertiary caption1 mb-3 tracking-widest uppercase">
+            Typeface
+          </p>
+          <h3 class:list={["text-primary mb-6 text-3xl"]}>{typeface.name}</h3>
+
+          <div class:list={["flex gap-3", index === 0 ? "flex-wrap" : "sm:flex-wrap"]}>
+            {typeface.weights.map((weight) => (
+              <div class:list={[
+                "border-elevated flex flex-col gap-2 rounded-xl border p-4",
+                index === 0 ? "min-w-40" : "flex-1 sm:flex-none sm:min-w-40",
+              ]}>
+                <span
+                  class:list={[
+                    "text-primary text-4xl leading-none",
+                    index === 0 ? "grotesk" : "",
+                    weightClass[weight] ?? "font-normal",
+                  ]}
+                >
+                  Aa
+                </span>
+                <span class="text-tertiary caption1">{weight}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

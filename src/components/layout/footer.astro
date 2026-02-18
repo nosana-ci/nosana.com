@@ -21,25 +21,25 @@ const {
 } = footer;
 ---
 
-<footer class="w-full bg-bg-base text-primary">
-  <div class="mx-auto px-4 md:px-12 py-8 md:py-16 lg:py-18">
-    <div class="w-full mb-14">
+<footer class="bg-bg-base text-primary mx-auto w-full max-w-[1728px]">
+  <div class="mx-auto px-4 py-8 md:px-12 md:py-16 lg:py-18">
+    <div class="mb-14 w-full">
       <a href="/"
         ><Image
           src={logo}
           alt="Nosana logo"
-          class="h-5 w-auto mb-4 cursor-pointer"
+          class="mb-4 h-5 w-auto cursor-pointer"
         /></a
       >
 
-      <p class="body2 text-secondary max-w-lg mb-8 md:mb-16 lg:mb-18">
+      <p class="body2 text-secondary mb-8 max-w-lg md:mb-16 lg:mb-18">
         {description}
       </p>
       <Socials />
     </div>
 
     <div
-      class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-10"
+      class="grid w-full grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 lg:grid-cols-6"
     >
       <NavColumn title="Product" items={navigation.product} />
       <NavColumn title="Network" items={navigation.network} />
@@ -52,13 +52,13 @@ const {
 
   <div class="border-t border-white/15"></div>
 
-  <div class="mx-auto px-4 md:px-12 py-6">
+  <div class="mx-auto px-4 py-6 md:px-12">
     <div
-      class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 body4 text-secondary"
+      class="body4 text-secondary flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
     >
       <span>{copyright}</span>
 
-      <div class="flex gap-6 body4">
+      <div class="body4 flex gap-6">
         <a href={termsAndConditionsUrl} class="hover:text-brand-100 transition">
           Terms & Conditions
         </a>

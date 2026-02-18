@@ -76,7 +76,6 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
           >
         </button>
 
-        {/* DESKTOP CTA (Hidden on mobile) */}
         {
           cta && (
             <div class="hidden items-center gap-3 md:flex">
@@ -99,10 +98,9 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
     </div>
   </div>
 
-  {/* MOBILE CTA (Hidden on desktop) */}
   {
     cta && (
-      <div class="mt-6 flex w-full justify-center md:hidden">
+      <div class="mt-2 flex w-full md:hidden">
         <Button title={cta.title} url={cta.url} variant="secondary" />
       </div>
     )

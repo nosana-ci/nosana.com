@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  colorsSection: CollectionEntry<"brandAssets">["data"]["colorsSection"];
+};
+
+const { colorsSection } = Astro.props;
+const { heading, description, brandColors, neutralColors } = colorsSection;
+---
+
+<section class="bg-bg-base w-full px-4 md:px-12">
+  <h2 class="text-primary h4 grotesk mb-2">{heading}</h2>
+  <p class="text-secondary body2 mb-8">{description}</p>
+
+  <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
+    {
+      brandColors.map((color) => (
+        <div
+          class="relative h-60 rounded-sm p-5"
+          style={`background-color: ${color.hex};`}
+        >
+          <div class="absolute bottom-5 left-5">
+            <p
+              class:list={[
+                "body3 font-medium",
+                color.textDark ? "text-black" : "text-white",
+              ]}
+            >
+              {color.name}
+            </p>
+            <p
+              class:list={[
+                "caption1 mt-0.5",
+                color.textDark ? "text-black/70" : "text-white/70",
+              ]}
+            >
+              {color.hex}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+    {
+      neutralColors.map((color) => (
+        <div
+          class="border-elevated relative h-32 rounded-sm border p-4"
+          style={`background-color: ${color.hex};`}
+        >
+          <div class="absolute bottom-4 left-4">
+            <p
+              class:list={[
+                "body3 font-medium",
+                color.textDark ? "text-black" : "text-white",
+              ]}
+            >
+              {color.name}
+            </p>
+            <p
+              class:list={[
+                "caption1 mt-0.5",
+                color.textDark ? "text-black/70" : "text-white/70",
+              ]}
+            >
+              {color.hex}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

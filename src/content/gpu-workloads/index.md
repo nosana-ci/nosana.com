@@ -47,7 +47,8 @@ ctaSection:
 howItWorks:
   badge:
     title: "How It Works"
-  heading: "Run AI GPU workloads Smarter, Faster, Cheaper"
+  heading: "Run AI GPU workloads"
+  headingHighlight: "Smarter, Faster, Cheaper"
   description: "Running AI workloads on Nosana is simple by design. Go from a template or your own setup to live GPU compute in just a few steps. Here’s how it works"
   cta1:
     title: "Start Deploying GPU Workloads"
@@ -57,7 +58,8 @@ howItWorks:
     url: "/contact"
   steps:
     - title: "Set up your account"
-      description: "Get started on the Nosana Deploy page by connecting your wallet or signing in with email.  (Claim free credits when you log in with email.)"
+      description: "Get started on the Nosana Deploy page by connecting your wallet or signing in with email."
+      note: "(Claim free credits when you log in with email.)"
       image: "./assets/step1.svg"
     - title: "Configure & launch"
       description: "Choose a ready-made template or customize your own workload and launch it in a few clicks."

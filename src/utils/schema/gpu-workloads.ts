@@ -35,6 +35,7 @@ export const gpuWorkloadsSchema = ({ image }: SchemaContext) =>
         title: z.string(),
       }),
       heading: z.string(),
+      headingHighlight: z.string().optional(),
       description: z.string(),
       cta1: z
         .object({
@@ -52,6 +53,7 @@ export const gpuWorkloadsSchema = ({ image }: SchemaContext) =>
         z.object({
           title: z.string(),
           description: z.string(),
+          note: z.string().optional(),
           image: image(),
         }),
       ),
