@@ -58,7 +58,7 @@ navItems:
       items:
         - title: "Faces of Nosana"
           icon: "./assets/chip.svg"
-          url: "/faces-of-nosana"
+          url: "/about#team"
           description: "Meet the team building Nosana."
         - title: "Case studies"
           icon: "./assets/crop.svg"
@@ -66,7 +66,7 @@ navItems:
           description: "See how teams use Nosana’s GPU cloud to run real-world workloads."
         - title: "Community Calls"
           icon: "./assets/card.svg"
-          url: "/community-calls"
+          url: "/events#community-calls"
           description: "Join live sessions with product updates, demos, and open discussions."
         - title: "Events"
           icon: "./assets/card.svg"

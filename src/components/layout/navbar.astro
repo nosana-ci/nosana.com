@@ -13,6 +13,16 @@ if (!navbarEntry) {
 }
 const { navLogo, navItems, navCTA } = navbarEntry.data;
 const currentPath = Astro.url.pathname;
+
+const normalizePath = (path: string) => {
+  if (!path) return "";
+  // Strip hash for comparison
+  const base = path.split('#')[0];
+  // Remove trailing slash except for root
+  return base === "/" ? "/" : base.replace(/\/$/, "");
+};
+
+const normalizedCurrentPath = normalizePath(currentPath);
 ---
 
 <nav-container class="block w-full z-100">
@@ -37,7 +47,10 @@ const currentPath = Astro.url.pathname;
     <div class="hidden lg:flex items-center gap-6 h-full">
       {
         navItems.map((item: any) => {
-          const isActive = currentPath === item.url;
+          const itemUrl = normalizePath(item.url);
+          const isBaseActive = normalizedCurrentPath === itemUrl;
+          const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
+          const isActive = isBaseActive || isSubActive;
           return (
             <div
               class="nav-item group h-full flex items-center"
@@ -85,43 +98,51 @@ const currentPath = Astro.url.pathname;
                           </p>
                         </div>
                         <div class="col-span-6 grid grid-cols-2 gap-x-10 gap-y-8">
-                          {item.subItems.items.map((subItem: any) => (
-                            <a
-                              href={subItem.url}
-                              target={subItem.target}
-                              rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
-                              class="group/subitem flex flex-col items-start transition-all duration-200"
-                            >
-                              {subItem.icon && (
-                                <Image
-                                  src={subItem.icon}
-                                  alt={subItem.title}
-                                  width={32}
-                                  height={32}
-                                  class="mb-2 shrink-0 select-none"
-                                />
-                              )}
+                          {item.subItems.items.map((subItem: any) => {
+                            const isSubActive = normalizePath(subItem.url) === normalizedCurrentPath;
+                            return (
+                              <a
+                                href={subItem.url}
+                                target={subItem.target}
+                                rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                                class="group/subitem flex flex-col items-start transition-all duration-200"
+                              >
+                                {subItem.icon && (
+                                  <Image
+                                    src={subItem.icon}
+                                    alt={subItem.title}
+                                    width={32}
+                                    height={32}
+                                    class="mb-2 shrink-0 select-none"
+                                  />
+                                )}
 
-                              <div>
-                                <div class="flex items-center gap-1 font-semibold body4 text-primary group-hover/subitem:text-brand-100 transition-colors">
-                                  {subItem.title}
+                                <div>
+                                  <div 
+                                    class:list={[
+                                      "flex items-center gap-1 font-semibold body4 transition-colors",
+                                      isSubActive ? "text-brand-100" : "text-primary group-hover/subitem:text-brand-100"
+                                    ]}
+                                  >
+                                    {subItem.title}
 
-                                  {subItem.target === "_blank" && (
-                                    <Image
-                                      src={externalLink}
-                                      alt="External link"
-                                      width={14}
-                                      height={14}
-                                      class="select-none text-brand-100"
-                                    />
-                                  )}
+                                    {subItem.target === "_blank" && (
+                                      <Image
+                                        src={externalLink}
+                                        alt="External link"
+                                        width={14}
+                                        height={14}
+                                        class="select-none text-brand-100"
+                                      />
+                                    )}
+                                  </div>
+                                  <p class="text-secondary body4 mt-1">
+                                    {subItem.description}
+                                  </p>
                                 </div>
-                                <p class="text-secondary body4 mt-1">
-                                  {subItem.description}
-                                </p>
-                              </div>
-                            </a>
-                          ))}
+                              </a>
+                            );
+                          })}
                         </div>
 
                         <div class="col-span-4">
@@ -149,42 +170,50 @@ const currentPath = Astro.url.pathname;
                           </p>
                         </div>
                         <div class="col-span-9 grid grid-cols-3 gap-x-12 gap-y-8">
-                          {item.subItems.items.map((subItem: any) => (
-                            <a
-                              href={subItem.url}
-                              target={subItem.target}
-                              rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
-                              class="group/subitem flex flex-col items-start transition-all duration-200"
-                            >
-                              {subItem.icon && (
-                                <Image
-                                  src={subItem.icon}
-                                  alt={subItem.title}
-                                  class="w-8 h-8 mb-2 shrink-0 select-none"
-                                />
-                              )}
+                          {item.subItems.items.map((subItem: any) => {
+                            const isSubActive = normalizePath(subItem.url) === normalizedCurrentPath;
+                            return (
+                              <a
+                                href={subItem.url}
+                                target={subItem.target}
+                                rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                                class="group/subitem flex flex-col items-start transition-all duration-200"
+                              >
+                                {subItem.icon && (
+                                  <Image
+                                    src={subItem.icon}
+                                    alt={subItem.title}
+                                    class="w-8 h-8 mb-2 shrink-0 select-none"
+                                  />
+                                )}
 
-                              <div>
-                                <div class="flex items-center gap-1 font-semibold body4 text-primary group-hover/subitem:text-brand-100 transition-colors">
-                                  {subItem.title}
+                                <div>
+                                  <div 
+                                    class:list={[
+                                      "flex items-center gap-1 font-semibold body4 transition-colors",
+                                      isSubActive ? "text-brand-100" : "text-primary group-hover/subitem:text-brand-100"
+                                    ]}
+                                  >
+                                    {subItem.title}
 
-                                  {subItem.target === "_blank" && (
-                                    <Image
-                                      src={externalLink}
-                                      alt="External link"
-                                      width={14}
-                                      height={14}
-                                      class="text-brand-100 select-none"
-                                    />
-                                  )}
+                                    {subItem.target === "_blank" && (
+                                      <Image
+                                        src={externalLink}
+                                        alt="External link"
+                                        width={14}
+                                        height={14}
+                                        class="text-brand-100 select-none"
+                                      />
+                                    )}
+                                  </div>
+
+                                  <p class="text-secondary body4 mt-1">
+                                    {subItem.description}
+                                  </p>
                                 </div>
-
-                                <p class="text-secondary body4 mt-1">
-                                  {subItem.description}
-                                </p>
-                              </div>
-                            </a>
-                          ))}
+                              </a>
+                            );
+                          })}
                         </div>
 
                       </div>
@@ -230,7 +259,10 @@ const currentPath = Astro.url.pathname;
     <div class="flex flex-col px-6 pb-20">
       {
         navItems.map((item: any) => {
-          const isActive = currentPath === item.url;
+          const itemUrl = normalizePath(item.url);
+          const isBaseActive = normalizedCurrentPath === itemUrl;
+          const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
+          const isActive = isBaseActive || isSubActive;
           return (
             <div
               class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
@@ -266,43 +298,51 @@ const currentPath = Astro.url.pathname;
             {item.type === "dropdown" && item.subItems && (
               <div class="mobile-dropdown-content hidden mt-4">
                 <div class="flex flex-col gap-6 pt-2 pb-4">
-                  {item.subItems.items.map((subItem: any) => (
-                    <a
-                      href={subItem.url}
-                      target={subItem.target}
-                      rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
-                      class="flex items-start gap-2 group/sub"
-                    >
-                      {subItem.icon && (
-                        <Image
-                          src={subItem.icon}
-                          alt={subItem.title}
-                          width={34}
-                          height={34}
-                          class="shrink-0 select-none rounded-lg"
-                        />
-                      )}
-                      <div class="flex flex-col">
-                        <span class="font-semibold text-primary body4 group-hover/sub:text-brand-100 transition-colors">
-                          {subItem.title}
-                          {subItem.target === "_blank" && (
-                            <Image
-                              src={externalLink}
-                              alt="External link"
-                              width={12}
-                              height={12}
-                              class="inline-block ml-1 align-baseline opacity-70"
-                            />
-                          )}
-                        </span>
-                        {subItem.description && (
-                          <p class="text-secondary body4 leading-snug mt-1">
-                            {subItem.description}
-                          </p>
+                  {item.subItems.items.map((subItem: any) => {
+                    const isSubItemActive = normalizePath(subItem.url) === normalizedCurrentPath;
+                    return (
+                      <a
+                        href={subItem.url}
+                        target={subItem.target}
+                        rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                        class="flex items-start gap-2 group/sub"
+                      >
+                        {subItem.icon && (
+                          <Image
+                            src={subItem.icon}
+                            alt={subItem.title}
+                            width={34}
+                            height={34}
+                            class="shrink-0 select-none rounded-lg"
+                          />
                         )}
-                      </div>
-                    </a>
-                  ))}
+                        <div class="flex flex-col">
+                          <span 
+                            class:list={[
+                              "font-semibold body4 transition-colors",
+                              isSubItemActive ? "text-brand-100" : "text-primary group-hover/sub:text-brand-100"
+                            ]}
+                          >
+                            {subItem.title}
+                            {subItem.target === "_blank" && (
+                              <Image
+                                src={externalLink}
+                                alt="External link"
+                                width={12}
+                                height={12}
+                                class="inline-block ml-1 align-baseline opacity-70"
+                              />
+                            )}
+                          </span>
+                          {subItem.description && (
+                            <p class="text-secondary body4 leading-snug mt-1">
+                              {subItem.description}
+                            </p>
+                          )}
+                        </div>
+                      </a>
+                    );
+                  })}
 
                 </div>
               </div>
@@ -332,6 +372,12 @@ const currentPath = Astro.url.pathname;
 
       let isMobileMenuOpen = false;
       let activeDropdown: Element | null = null;
+
+      const normalizePath = (p: string | null) => {
+        if (!p) return "";
+        const base = p.split('#')[0];
+        return base === "/" ? "/" : base.replace(/\/$/, "");
+      };
 
       // Mobile Toggle Logic
       mobileToggle?.addEventListener("click", () => {
@@ -367,11 +413,58 @@ const currentPath = Astro.url.pathname;
           } else {
             const url = item.getAttribute("data-url") || "/";
             const target = item.getAttribute("data-target");
+            const isExternal = url?.startsWith("http");
+            const hasHash = url?.includes("#");
+            const [baseUrl, hash] = url?.split("#") || [];
+
             if (target === "_blank") {
               window.open(url, "_blank");
+            } else if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
+              // Same page anchor: scroll and close menu
+              const element = document.getElementById(hash);
+              if (element) {
+                // Close menu first
+                mobileToggle?.dispatchEvent(new Event('click'));
+                setTimeout(() => {
+                  element.scrollIntoView({ behavior: "smooth" });
+                  history.pushState(null, "", url);
+                }, 300);
+              }
             } else {
-              window.location.href = url;
+              // Regular link: close menu then navigate
+              mobileToggle?.dispatchEvent(new Event('click'));
+              setTimeout(() => {
+                window.location.href = url;
+              }, 150); // Small delay to allow menu animation
             }
+          }
+        });
+      });
+
+      // Mobile Menu Link Clicks (Submenus, Featured Articles, etc.)
+      const mobileMenuLinks = this.querySelectorAll("#mobile-menu a");
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const url = link.getAttribute("href");
+          if (!url) return;
+
+          const isExternal = url.startsWith("http") || link.getAttribute("target") === "_blank";
+          const hasHash = url.includes("#");
+          const [baseUrl, hash] = url.split("#");
+
+          if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
+            e.preventDefault();
+            const element = document.getElementById(hash);
+            if (element) {
+              mobileToggle?.dispatchEvent(new Event('click'));
+              setTimeout(() => {
+                element.scrollIntoView({ behavior: "smooth" });
+                history.pushState(null, "", url);
+              }, 300);
+            }
+          } else {
+            // Close menu on any other link click
+            mobileToggle?.dispatchEvent(new Event('click'));
           }
         });
       });
@@ -387,8 +480,20 @@ const currentPath = Astro.url.pathname;
         if (type === "link") {
           button?.addEventListener("click", () => {
             const target = item.getAttribute("data-target");
+            const isExternal = url?.startsWith("http");
+            const hasHash = url?.includes("#");
+            const [baseUrl, hash] = url?.split("#") || [];
+
             if (target === "_blank") {
               window.open(url || "/", "_blank");
+            } else if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
+              // Same page anchor link
+              const element = document.getElementById(hash);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+                // Update URL without reload
+                history.pushState(null, "", url);
+              }
             } else {
               window.location.href = url || "/";
             }
@@ -407,7 +512,7 @@ const currentPath = Astro.url.pathname;
                 const prevUrl = activeDropdown
                   .closest(".nav-item")
                   ?.getAttribute("data-url");
-                const isPageActive = window.location.pathname === prevUrl;
+                const isPageActive = normalizePath(window.location.pathname) === normalizePath(prevUrl || "");
                 prevButton.style.color = isPageActive
                   ? "var(--color-brand-100)"
                   : "";
@@ -421,7 +526,7 @@ const currentPath = Astro.url.pathname;
           const hideMenu = () => {
             timeout = setTimeout(() => {
               megaMenu?.classList.add("hidden");
-              const isPageActive = window.location.pathname === url;
+              const isPageActive = normalizePath(window.location.pathname) === normalizePath(url || "");
               if (button)
                 button.style.color = isPageActive
                   ? "var(--color-brand-100)"
@@ -436,6 +541,18 @@ const currentPath = Astro.url.pathname;
           megaMenu?.addEventListener("mouseleave", hideMenu);
         }
       });
+
+      // Handle Smooth Scroll on Page Load
+      if (window.location.hash) {
+        const hash = window.location.hash;
+        // Small delay to ensure layout is ready
+        setTimeout(() => {
+          const element = document.getElementById(hash.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
     }
   }
 

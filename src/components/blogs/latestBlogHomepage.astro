@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+
+const blogs = await getCollection("blogs", ({ data }) => {
+  return data.category === "blog";
+});
+
+// Sort newest first
+const sortedBlogs = blogs.sort(
+  (a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()
+);
+
+const latestBlog = sortedBlogs[0];
+
+if (!latestBlog) return null;
+
+const { title, description, thumbnail, createdAt } = latestBlog.data;
+
+const formattedDate = createdAt.toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+// In this project, time often refers to reading time. 
+// We'll use a placeholder as it's not in the schema.
+---
+<section class="w-full">
+  {/* Section heading */}
+  <h3 class="text-primary mb-4 grotesk h4">
+    Latest Blogs
+  </h3>
+
+  {/* Card */}
+  <a 
+    href={`/blog/${latestBlog.id}`}
+    class="flex flex-col md:flex-row gap-6 bg-surface border border-elevated rounded-lg p-4 group/blog transition-all duration-300"
+  >
+    
+    <div class="w-full md:w-[320px] h-[200px] rounded-md overflow-hidden shrink-0">
+      <Image
+        src={thumbnail}
+        alt={title}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Content */}
+    <div class="flex flex-col gap-3 flex-1 justify-center">
+      {/* Meta */}
+      <div class="flex items-center gap-3 caption1 text-secondary">
+        <span>{formattedDate}</span>
+        <!-- <span class="text-elevated">|</span> -->
+        <!-- <span>{time}</span> -->
+      </div>
+
+      {/* Title — max 2 lines */}
+      <h4
+        class="text-primary font-semibold body1 line-clamp-2 transition-colors group-hover/blog:text-brand-100"
+      >
+        {title}
+      </h4>
+
+      {/* Description — max 3 lines */}
+      <p
+        class="text-secondary body3 line-clamp-3"
+      >
+        {description}
+      </p>
+    </div>
+  </a>
+
+  {/* CTA (outside card) */}
+  <div class="mt-6">
+    <Button
+      title="Read Blogs"
+      url="/blogs"
+      variant="secondary"
+    />
+  </div>
+</section>

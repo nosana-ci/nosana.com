@@ -3,6 +3,7 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
 import GPUGrid from "../ui/gpuGrid.astro";
+import { getGPUMarkets } from "../../utils/gpuMarkets";
 
 import searchIcon from "../../assets/icons/search.svg";
 import filterIcon from "../../assets/icons/filter.svg";
@@ -14,7 +15,7 @@ if (!entry) {
 }
 
 const { rentGPU } = entry.data;
-const { premium, community, others } = rentGPU;
+const { premium, community, others } = await getGPUMarkets();
 ---
 
 <section class="w-full h-fit bg-bg-base px-4 md:px-12">
