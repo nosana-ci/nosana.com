@@ -25,6 +25,7 @@
 <path opacity="0.83" d="M1067 1044C1067 1030.19 1055.81 1019 1042 1019L1041 1019C1027.19 1019 1016 1030.19 1016 1044C1016 1057.81 1027.19 1069 1041 1069L1042 1069C1055.81 1069 1067 1057.81 1067 1044Z" stroke="white" stroke-opacity="0.54" stroke-dasharray="2 2"/>
 <path opacity="0.83" d="M1054 1044C1054 1037.37 1048.63 1032 1042 1032L1041 1032C1034.37 1032 1029 1037.37 1029 1044C1029 1050.63 1034.37 1056 1041 1056L1042 1056C1048.63 1056 1054 1050.63 1054 1044Z" fill="#D9D9D9"/>
 </g>
+<g transform="translate(173 635)">
 <path opacity="0.83" d="M982 219V598H1210V219H982Z" stroke="white" stroke-opacity="0.18"/>
 <path opacity="0.83" d="M754 296V598H982V296H754Z" stroke="white" stroke-opacity="0.18"/>
 <path opacity="0.83" d="M1210 296V598H1438V296H1210Z" stroke="white" stroke-opacity="0.23"/>
@@ -50,5 +51,6 @@
 <path d="M824 346L824 471" stroke="#717171"/>
 <path d="M982 409H1210" stroke="#717171"/>
 <path d="M1096 296L1096 522" stroke="#717171"/>
+</g>
 </g>
 </svg>

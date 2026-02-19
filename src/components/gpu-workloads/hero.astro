@@ -17,6 +17,8 @@ type Props = {
 const { heroSection } = Astro.props;
 
 const { badge, heading, description, cta1, cta2 } = heroSection;
+
+const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice" ');
 ---
 
 <section
@@ -47,8 +49,8 @@ const { badge, heading, description, cta1, cta2 } = heroSection;
     <div class="pointer-events-none absolute inset-0 z-0">
       <div class="absolute right-0 bottom-0 h-full w-full">
         <div
-          class="pointer-events-none h-full w-full pb-8 select-none md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover [&>svg]:object-right-bottom"
-          set:html={heroImgRaw}
+          class="pointer-events-none h-full w-full pb-8 select-none md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full"
+          set:html={heroSvg}
         />
       </div>
       <div
