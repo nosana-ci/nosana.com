@@ -4,6 +4,12 @@ import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
 import NavigateButton from "../ui/navigateButton.astro";
 
+import step1Raw from "../../content/gpu-workloads/assets/step1.svg?raw";
+import step2Raw from "../../content/gpu-workloads/assets/step2.svg?raw";
+import step3Raw from "../../content/gpu-workloads/assets/step3.svg?raw";
+
+const stepSvgs = [step1Raw, step2Raw, step3Raw];
+
 type Props = {
   howItWorks: CollectionEntry<"gpuWorkloads">["data"]["howItWorks"];
 };
@@ -33,12 +39,11 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
     class="bg-surface/30 border-default/30 relative h-full w-full overflow-hidden"
   >
     {
-      steps.map((step: any, index: number) => (
+      steps.map((_step: any, index: number) => (
         <div class:list={["step-image", index === 0 ? "active" : ""]}>
-          <img
-            src={step.image.src}
-            alt={step.title}
-            style="width: 100%; height: auto; display: block; object-fit: contain;"
+          <div
+            class="step-svg-wrapper"
+            set:html={stepSvgs[index]}
           />
         </div>
       ))
@@ -138,11 +143,19 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
     display: block;
   }
 
-  .step-image img {
+  .step-svg-wrapper :global(svg) {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: contain;
+  }
+
+  .step-svg-wrapper :global(.step-glow) {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .step-image:hover .step-svg-wrapper :global(.step-glow) {
+    opacity: 1;
   }
   .step-content {
     transition:

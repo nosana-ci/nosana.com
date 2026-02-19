@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
+import activeAstronaut from "../../content/gpu-workloads/assets/active-astronaut.png";
 
 type Props = {
   caseStudy: CollectionEntry<"gpuWorkloads">["data"]["caseStudySection"];
@@ -69,7 +70,7 @@ const {
     </div>
 
     <div class="relative md:w-1/2">
-      <div class="relative h-full min-h-[400px] overflow-hidden">
+      <div class="case-study-image group relative h-full min-h-[400px] overflow-hidden">
         <Image
           src={image}
           alt="Case study"
@@ -77,7 +78,14 @@ const {
           height={500}
           class="absolute inset-0 h-full w-full object-cover"
         />
-        <div class="absolute right-6 bottom-6">
+        <Image
+          src={activeAstronaut}
+          alt="Case study active"
+          width={600}
+          height={500}
+          class="absolute inset-0 h-full w-full scale-110 object-cover opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100"
+        />
+        <div class="absolute right-6 bottom-6 z-10">
           <Button title={ctaTitle} url={ctaUrl} variant="secondary" class="bg-white! text-black! border-white!" />
         </div>
       </div>
