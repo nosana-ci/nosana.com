@@ -5,6 +5,7 @@ import externalLink from "../../assets/icons/externalLink.svg";
 import hamburgerIcon from "../../assets/icons/hamburger.svg?raw";
 import closeIcon from "../../assets/icons/close.svg?raw";
 import Button from "../ui/button.astro";
+import FeaturedEvent from "../events/featuredEvent.astro";
 
 const navbarEntry = await getEntry("navbar", "index");
 if (!navbarEntry) {
@@ -129,7 +130,7 @@ const currentPath = Astro.url.pathname;
                               Featured event
                             </h3>
                             <div class="h-full w-full pb-4">
-                              <div class="h-full w-full bg-surface"></div>
+                              <FeaturedEvent />
                             </div>
                           </div>
                         </div>
@@ -312,7 +313,7 @@ const currentPath = Astro.url.pathname;
       }
       <div class="mt-12">
         <h3 class="body4 text-secondary mb-4">Featured Article</h3>
-        <div class="aspect-4/3 w-full bg-surface rounded-md"></div>
+        <FeaturedEvent />
       </div>
     </div>
   </div>

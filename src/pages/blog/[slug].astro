@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import NewsletterCard from "../../components/layout/newsletterCard.astro";
+
+export async function getStaticPaths() {
+  const blogs = await getCollection("blogs");
+
+  return blogs.map((blog) => ({
+    params: { slug: blog.id },
+    props: { blog },
+  }));
+}
+
+const { blog } = Astro.props;
+const { Content } = await render(blog);
+
+const { title, description, thumbnail, createdAt } = blog.data;
+
+const formattedDate = createdAt.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout title={title}>
+  <article class="px-4 md:px-12">
+    <p class="mt-8 lg:mt-12 mb-2 body3 text-primary">
+      {formattedDate}
+    </p>
+    <h1 class="mb-2 h4 grotesk text-primary">
+      {title}
+    </h1>
+    <p class="mb-8 lg:mb-12 body2 text-secondary">
+      {description}
+    </p>
+    <div class="mb-8 lg:mb-12">
+      <Image
+        src={thumbnail}
+        alt={title}
+        class="w-full h-auto rounded-xl border border-default"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+      <div class="hidden md:block md:col-span-3">
+        <NewsletterCard />
+      </div>
+
+      <div class="md:col-span-9">
+        <Content />
+        <div class="mt-8 lg:mt-12 block md:hidden">
+          <NewsletterCard />
+        </div>
+      </div>
+
+    </div>
+
+  </article>
+</Layout>

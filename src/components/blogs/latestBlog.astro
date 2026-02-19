@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import pinIcon from "../../assets/icons/pin.svg";
+
+const blogs = await getCollection("blogs", ({ data }) => {
+  return data.category === "blog";
+});
+
+const latestBlog = blogs
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())[0];
+
+if (!latestBlog) return null;
+
+const { title, description, thumbnail, createdAt } = latestBlog.data;
+
+const formattedDate = createdAt.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const blogUrl = `/blog/${latestBlog.id}`;
+---
+
+<section class="w-full">
+  <div class="px-4 md:px-12">
+    <a
+      href={blogUrl}
+      class="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center cursor-pointer"
+    >
+      <div class="w-full overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          class="w-full h-auto select-none pointer-events-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-8 lg:gap-10 flex-1">
+        <Badge title="Latest Blog" class="w-fit" />
+
+        <div class="flex flex-col gap-4">
+          <h2 class="text-primary h4 grotesk lg:line-clamp-2 lg:max-w-xl transition-colors duration-300 group-hover:text-brand-100">
+            {title}
+          </h2>
+
+          <p class="text-secondary body2 lg:max-w-2xl lg:line-clamp-3">
+            {description}
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <Image
+            src={pinIcon}
+            alt="date icon"
+            class="w-4 md:w-6 h-4 md:h-6 select-none pointer-events-none"
+          />
+          <span class="text-secondary caption1">{formattedDate}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>

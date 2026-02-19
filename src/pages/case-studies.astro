@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getEntry } from "astro:content";
 import Divider from "../components/ui/divider.astro";
 import Newsletter from "../components/layout/newsletter.astro";
-import GithubBanner from "../components/support/githubBanner.astro";
+import LatestCaseStudy from "../components/case-study/latestCaseStudySlider.astro";
 import Badge from "../components/ui/badge.astro";
 import Production from "../components/case-study/production.astro";
 import SocialBannerMarquee from "../components/layout/socialBannerMarquee.astro";
@@ -27,7 +27,7 @@ const [titleMain, titleSub] = entry.data.heading.split("-");
     <p class="body2 text-secondary max-w-3xl">{entry.data.description}</p>
   </div>
   <Divider />
-  <GithubBanner />
+  <LatestCaseStudy />
   <Divider />
   <Production />
   <SocialBannerMarquee />
