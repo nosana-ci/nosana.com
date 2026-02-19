@@ -39,7 +39,7 @@ const { ecosystemSection } = entry.data;
               "border-b md:border-b-0 md:border-r border-elevated"
           ]}
         >
-          <h3 class="text-primary h4 grotesk mb-2">
+          <h3 class="text-primary h4 grotesk mb-2 stat-number" data-value={stat.value}>
             {stat.value}
           </h3>
       
@@ -51,3 +51,69 @@ const { ecosystemSection } = entry.data;
     </div>
   </div>
 </section>
+
+<script>
+  const animateValue = (el: HTMLElement) => {
+    const fullValue = el.getAttribute('data-value') || '';
+    // Extract numbers, including decimals and commas
+    const match = fullValue.match(/([\d,.]+)/);
+    if (!match) return;
+
+    const numericString = match[1].replace(/,/g, '');
+    const finalValue = parseFloat(numericString);
+    const prefix = fullValue.split(match[1])[0] || '';
+    const suffix = fullValue.split(match[1])[1] || '';
+    
+    // Determine decimal places
+    const decimalMatch = numericString.split('.');
+    const decimals = decimalMatch.length > 1 ? decimalMatch[1].length : 0;
+
+    let startTimestamp: number | null = null;
+    const duration = 2000; // 2 seconds
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      
+      // Easing function: easeOutExpo
+      const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      
+      const current = easedProgress * finalValue;
+      
+      // Format number with commas and correct decimals
+      let formatted = current.toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
+
+      el.innerText = `${prefix}${formatted}${suffix}`;
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        el.innerText = fullValue; // Ensure exact final value
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  };
+
+  const observerOptions = {
+    threshold: 0.2,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const stats = entry.target.querySelectorAll('.stat-number');
+        stats.forEach((stat) => animateValue(stat as HTMLElement));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const section = document.querySelector('section.bg-bg-base:has(.stat-number)');
+  if (section) {
+    observer.observe(section);
+  }
+</script>

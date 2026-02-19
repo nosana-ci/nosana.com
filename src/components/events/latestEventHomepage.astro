@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+
+const allEvents = await getCollection("events");
+const now = new Date();
+
+// Filter for upcoming events (date is today or in the future)
+// Note: Using createdAt as the event date based on schema observation
+const upcomingEvents = allEvents
+  .filter((event) => new Date(event.data.createdAt) >= now)
+  .sort((a, b) => new Date(a.data.createdAt).getTime() - new Date(b.data.createdAt).getTime());
+
+const latestPastEvents = allEvents
+  .filter((event) => new Date(event.data.createdAt) < now)
+  .sort((a, b) => new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime());
+
+const isUpcoming = upcomingEvents.length > 0;
+const eventToShow = isUpcoming ? upcomingEvents[0] : latestPastEvents[0];
+
+if (!eventToShow) return null;
+
+const { title, description, thumbnail, createdAt } = eventToShow.data;
+
+const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+<section class="w-full">
+  {/* Section heading */}
+  <h3 class="text-primary mb-4 grotesk h4">
+    {isUpcoming ? "Upcoming Events" : "Latest Events"}
+  </h3>
+
+  {/* Card */}
+  <a 
+    href={eventToShow.data.url}
+    target={eventToShow.data.url.startsWith('http') ? "_blank" : "_self"}
+    rel={eventToShow.data.url.startsWith('http') ? "noopener noreferrer" : undefined}
+    class="flex flex-col md:flex-row gap-6 bg-surface border border-elevated rounded-lg p-4 group/event transition-all duration-300"
+  >
+    
+    <div class="w-full md:w-[320px] h-[200px] rounded-md overflow-hidden shrink-0">
+      <Image
+        src={thumbnail}
+        alt={title}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Content */}
+    <div class="flex flex-col gap-3 flex-1 justify-center">
+      {/* Meta */}
+      <div class="flex items-center gap-3 caption1 text-secondary">
+        <span>{formattedDate}</span>
+      </div>
+
+      {/* Title — max 2 lines */}
+      <h4
+        class="text-primary font-semibold body1 line-clamp-2 transition-colors group-hover/event:text-brand-100"
+      >
+        {title}
+      </h4>
+
+      {/* Description — max 3 lines */}
+      <p
+        class="text-secondary body3 line-clamp-3"
+      >
+        {description}
+      </p>
+    </div>
+  </a>
+
+  {/* CTA (outside card) */}
+  <div class="mt-6">
+    <Button
+      title="View all events"
+      url="/events"
+      variant="secondary"
+    />
+  </div>
+</section>
