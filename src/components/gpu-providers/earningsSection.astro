@@ -31,115 +31,426 @@ const headingParts = heading.split(" - ");
     <div class="space-y-8 lg:w-[45%] w-full lg:pr-10">
       <!-- GPU Selection -->
       <div>
-        <h3 class="text-primary body2 mb-3">
-          What GPU type you have?
-        </h3>
-        <div class="relative">
-          <div class="w-full bg-surface rounded-lg px-4 py-3 text-primary appearance-none cursor-pointer hover:border-default transition-colors pr-10 outline-none focus:outline-none " >
-            <p>NVIDIA RTX 4090</p>
+        <h3 class="text-primary body2 mb-3">What GPU type you have?</h3>
+        <div class="bg-surface relative rounded-lg" id="gpuDropdown">
+          <button
+            type="button"
+            id="gpuDropdownBtn"
+            class="text-primary body2 md:caption1 hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
+          >
+            <span id="gpuSelectedText">Loading...</span>
+            <div
+              class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transition-transform duration-200"
+              id="dropdownArrow"
+            >
+              <svg
+                class="text-secondary h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <div id="gpuSeparator" class="border-default mx-4 hidden border-b">
           </div>
-          <!-- Dropdown arrow -->
-          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </div>
+
+          <ul
+            id="gpuOptions"
+            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto"
+          >
+            <li class="gpu-option body2 md:caption1 text-secondary px-4 py-3">
+              Loading GPUs...
+            </li>
+          </ul>
         </div>
       </div>
 
       <!-- Hours Slider -->
       <div class="sm:mr-16">
         <h3 class="text-primary body2 mb-3">
-          How many available hours do <br/> you have per month?
+          How many available hours do <br /> you have per month?
         </h3>
         <p class="text-secondary body4 italic mb-6">
-          These are the hours when your GPU is not in use. Use the slider to indicate the total idle hours you can contribute. 
+          These are the hours when your GPU is not in use. Use the slider to
+          indicate the total idle hours you can contribute.
         </p>
-        
+
         <!-- Slider Container -->
-        <div class="space-y-4">
-          <!-- Slider with relative positioning for progress bar -->
-          <div class="relative h-2 bg-surface rounded-lg">
-            <input 
-              type="range" 
-              id="hoursSlider"
-              min="0" 
-              max="744" 
-              value="168" 
-              class="absolute inset-0 w-full h-2 opacity-0 cursor-pointer z-10"
+        <div class="space-y-4 pt-1 pb-12 relative">
+          <div class="bg-surface relative h-2 w-full rounded-lg">
+            <div
+              id="progressFill"
+              class="bg-brand-100/30 pointer-events-none absolute top-0 left-0 h-2 rounded-lg"
+              style="width: 22.6%"
             >
-            <!-- Progress fill -->
-            <div id="progressFill" class="absolute top-0 left-0 h-2 bg-brand-100/30 rounded-lg pointer-events-none" style="width: 22.6%"></div>
+            </div>
           </div>
-          
-          <!-- Display Value -->
-          <div class="flex justify-between items-center">
-            <span id="displayValue" class="text-secondary text-[14px]">7 Days</span>
+          <input
+            type="range"
+            id="hoursSlider"
+            min="0"
+            max="744"
+            value="168"
+            class="earnings-slider absolute top-1 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+          />
+          <div
+            id="hoursTooltip"
+            class="pointer-events-none absolute z-20 -translate-x-1/2"
+            style="left: 22.6%; top: 25px;"
+          >
+            <div
+              class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
+            >
+              <div
+                class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+              >
+              </div>
+              <span id="hoursTooltipValue">7 Days</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Right Column - Earnings Card -->
-    <div class="md:pl-10 w-full flex lg:flex-1 lg:border-l border-default/50 ">
-      <div class="bg-surface border border-default rounded-lg sm:p-8 p-5 w-full lg:space-y-12 space-y-4">
-        <!-- Header Section -->
-        <div class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"><p>Estimated price with</p> <Fragment set:html={nosanaLogoGray} /></div>
-        <div class="flex items-baseline md:items-center lg:items-baseline justify-center sm:gap-5 gap-3 flex-row md:flex-col lg:flex-row w-full ">
-          <span class="text-primary sm:text-6xl text-4xl  grotesk">$48.45</span>
-          <span class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk">$24.4/month</span>
+    <div class="md:pl-10 w-full flex lg:flex-1 lg:border-l border-default/50">
+      <div
+        class="bg-surface border border-default rounded-lg sm:p-8 p-5 w-full lg:space-y-12 space-y-4"
+      >
+        <!-- Header -->
+        <div
+          class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"
+        >
+          <p>Estimated earnings with</p>
+          <Fragment set:html={nosanaLogoGray} />
         </div>
 
-        <!-- Details Section -->
-        <div class="flex flex-col lg:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10">
+        <!-- Price Display -->
+        <div
+          class="flex items-baseline md:items-center lg:items-baseline justify-center sm:gap-5 gap-3 flex-row md:flex-col lg:flex-row w-full"
+        >
+          <span id="totalEarnings" class="text-primary sm:text-6xl text-4xl grotesk"
+            >...</span
+          >
+          <span id="monthlyEarnings" class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk"
+            >.../month</span
+          >
+        </div>
+
+        <!-- Details -->
+        <div
+          class="flex flex-col lg:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10"
+        >
           <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
             <span class="text-[#C9C9C9] body4">GPU type:</span>
-            <span class="body2 font-medium">NVIDIA GeForce RTX 4090</span>
+            <span id="gpuTypeDisplay" class="body2 font-medium">...</span>
           </div>
-          
+
           <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
             <span class="text-[#C9C9C9] body4">Duration:</span>
-            <span class="body2 font-medium">7 Days 17 hours</span>
+            <span id="durationDisplay" class="body2 font-medium">...</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<script>
-  // Slider interaction
-  const slider = document.getElementById('hoursSlider');
-  const progressFill = document.getElementById('progressFill');
-  const displayValue = document.getElementById('displayValue');
-  const durationDisplay = document.getElementById('durationDisplay');
-  
-  if (slider && progressFill && displayValue && durationDisplay) {
-    const updateSlider = () => {
-      const value = parseInt((slider as HTMLInputElement).value);
-      const max = parseInt((slider as HTMLInputElement).max);
-      const percentage = (value / max) * 100;
-      
-      // Update progress fill
-      progressFill.style.width = `${percentage}%`;
-      
-      // Update display text
-      const days = Math.floor(value / 24);
-      const hours = value % 24;
-      
-      let displayText;
-      if (days > 0) {
-        displayText = hours > 0 ? `${days} Days ${hours} hours` : `${days} Days`;
-      } else {
-        displayText = `${hours} hours`;
-      }
-      
-      displayValue.textContent = displayText;
-      durationDisplay.textContent = displayText;
-    };
-    
-    slider.addEventListener('input', updateSlider);
-    updateSlider(); // Initialize
+<style>
+  .earnings-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000000;
+    border: 2.5px solid var(--color-brand-100);
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    margin-top: -3px;
   }
+
+  .earnings-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000000;
+    border: 2.5px solid var(--color-brand-100);
+    cursor: pointer;
+  }
+
+  .earnings-slider::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .earnings-slider::-moz-range-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .earnings-slider:focus {
+    outline: none;
+  }
+
+  .gpu-option[data-selected="true"] {
+    background-color: var(--color-elevated);
+  }
+
+  #gpuOptions {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-surface) var(--color-surface);
+  }
+
+  #gpuOptions::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #gpuOptions::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  #gpuOptions::-webkit-scrollbar-thumb {
+    background-color: var(--color-surface);
+    border-radius: 3px;
+  }
+
+  #gpuOptions:hover {
+    scrollbar-color: var(--color-elevated) var(--color-surface);
+  }
+
+  #gpuOptions:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-elevated);
+  }
+</style>
+
+<script>
+  // State
+  let gpuPrices: Record<string, number> = {};
+  let selectedGpu = "";
+  let nosPrice = 0;
+  let isOpen = false;
+
+  // Elements
+  const dropdownBtn = document.getElementById("gpuDropdownBtn");
+  const dropdownOptions = document.getElementById("gpuOptions");
+  const dropdownArrow = document.getElementById("dropdownArrow");
+  const gpuSeparator = document.getElementById("gpuSeparator");
+  const selectedText = document.getElementById("gpuSelectedText");
+  const gpuTypeDisplay = document.getElementById("gpuTypeDisplay");
+  const dropdownContainer = document.getElementById("gpuDropdown");
+  const totalEarningsEl = document.getElementById("totalEarnings");
+  const monthlyEarningsEl = document.getElementById("monthlyEarnings");
+  const durationDisplay = document.getElementById("durationDisplay");
+  const hoursSlider = document.getElementById("hoursSlider") as HTMLInputElement;
+  const progressFill = document.getElementById("progressFill");
+  const hoursTooltip = document.getElementById("hoursTooltip");
+  const hoursTooltipValue = document.getElementById("hoursTooltipValue");
+
+  // Earnings calculation
+  function updateEarnings() {
+    if (!selectedGpu || !gpuPrices[selectedGpu] || !nosPrice) {
+      if (totalEarningsEl) totalEarningsEl.textContent = "...";
+      if (monthlyEarningsEl) monthlyEarningsEl.textContent = ".../month";
+      return;
+    }
+    const pricePerHour = gpuPrices[selectedGpu];
+    const hours = parseInt(hoursSlider?.value || "0");
+    const usdEarnings = pricePerHour * hours;
+    const nosEarnings = usdEarnings / nosPrice;
+
+    if (totalEarningsEl) totalEarningsEl.textContent = `${nosEarnings.toFixed(2)} NOS`;
+    if (monthlyEarningsEl)
+      monthlyEarningsEl.textContent = `$${usdEarnings.toFixed(2)}/month`;
+  }
+
+  // Slider UI
+  function updateSliderUI() {
+    if (!hoursSlider || !progressFill || !hoursTooltip || !hoursTooltipValue)
+      return;
+
+    const value = parseInt(hoursSlider.value);
+    const max = parseInt(hoursSlider.max);
+    const percentage = (value / max) * 100;
+
+    progressFill.style.width = `${percentage}%`;
+
+    const thumbOffset = 9;
+    const sliderWidth = hoursSlider.offsetWidth;
+    const pixelPos =
+      (percentage / 100) * (sliderWidth - thumbOffset * 2) + thumbOffset;
+    const correctedPercentage = (pixelPos / sliderWidth) * 100;
+    hoursTooltip.style.left = `${correctedPercentage}%`;
+    hoursTooltip.style.top = "25px";
+
+    const days = Math.floor(value / 24);
+    const remainingHours = value % 24;
+    let label = "";
+    if (days > 0 && remainingHours > 0) {
+      label = `${days} Days ${remainingHours}h`;
+    } else if (days > 0) {
+      label = `${days} Days`;
+    } else {
+      label = `${value} hours`;
+    }
+    hoursTooltipValue.textContent = label;
+
+    // Duration display in card
+    let durationText = "";
+    if (days > 0 && remainingHours > 0) {
+      durationText = `${days} Days ${remainingHours} hours`;
+    } else if (days > 0) {
+      durationText = `${days} Days`;
+    } else {
+      durationText = `${value} hours`;
+    }
+    if (durationDisplay) durationDisplay.textContent = durationText;
+  }
+
+  hoursSlider?.addEventListener("input", () => {
+    updateSliderUI();
+    updateEarnings();
+  });
+
+  window.addEventListener("resize", updateSliderUI);
+
+  // Dropdown logic
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      dropdownOptions?.classList.remove("hidden");
+      gpuSeparator?.classList.remove("hidden");
+      dropdownArrow?.classList.add("rotate-180");
+      dropdownContainer?.classList.remove("rounded-lg");
+      dropdownContainer?.classList.add("rounded-t-lg");
+    } else {
+      dropdownOptions?.classList.add("hidden");
+      gpuSeparator?.classList.add("hidden");
+      dropdownArrow?.classList.remove("rotate-180");
+      dropdownContainer?.classList.remove("rounded-t-lg");
+      dropdownContainer?.classList.add("rounded-lg");
+    }
+  }
+
+  function closeDropdown() {
+    isOpen = false;
+    dropdownOptions?.classList.add("hidden");
+    gpuSeparator?.classList.add("hidden");
+    dropdownArrow?.classList.remove("rotate-180");
+    dropdownContainer?.classList.remove("rounded-t-lg");
+    dropdownContainer?.classList.add("rounded-lg");
+  }
+
+  function selectGpu(value: string) {
+    selectedGpu = value;
+    if (selectedText) selectedText.textContent = value;
+    if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
+    document.querySelectorAll(".gpu-option").forEach((opt) => {
+      if (opt.getAttribute("data-value") === value) {
+        opt.setAttribute("data-selected", "true");
+      } else {
+        opt.removeAttribute("data-selected");
+      }
+    });
+    updateEarnings();
+    closeDropdown();
+  }
+
+  function buildDropdown(prices: Record<string, number>) {
+    if (!dropdownOptions) return;
+    dropdownOptions.innerHTML = "";
+    const gpuTypes = Object.keys(prices);
+    gpuTypes.forEach((gpu, i) => {
+      const li = document.createElement("li");
+      li.className =
+        "gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors";
+      li.setAttribute("data-value", gpu);
+      li.textContent = gpu;
+      li.addEventListener("click", () => selectGpu(gpu));
+      dropdownOptions.appendChild(li);
+      if (i === 0) {
+        li.setAttribute("data-selected", "true");
+        selectedGpu = gpu;
+        if (selectedText) selectedText.textContent = gpu;
+        if (gpuTypeDisplay) gpuTypeDisplay.textContent = gpu;
+      }
+    });
+    updateSliderUI();
+    updateEarnings();
+  }
+
+  dropdownBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      dropdownContainer &&
+      !dropdownContainer.contains(e.target as Node)
+    ) {
+      closeDropdown();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDropdown();
+  });
+
+  // Fetch markets + NOS price
+  async function loadData() {
+    try {
+      const [marketsRes, statsRes] = await Promise.all([
+        fetch("https://dashboard.k8s.prd.nos.ci/api/markets/?type=PREMIUM"),
+        fetch("https://dashboard.k8s.prd.nos.ci/api/stats/"),
+      ]);
+
+      const [data, stats] = await Promise.all([
+        marketsRes.json(),
+        statsRes.json(),
+      ]);
+
+      if (stats?.price) nosPrice = stats.price;
+
+      const excludeMarkets = [
+        "columbia-uni-4090",
+        "sogni-4090",
+        "alpha-4090",
+        "nvidia-8x-a5000",
+      ];
+      const markets = data.filter(
+        (market: any) =>
+          !excludeMarkets.includes(market.slug) &&
+          market.type === "PREMIUM" &&
+          !market.slug.includes("laptop"),
+      );
+
+      const pricePerGpu: Record<string, number> = {};
+      markets.forEach((market: any) => {
+        if (market.gpu_types && market.gpu_types.length) {
+          market.gpu_types.forEach((gpu: string) => {
+            pricePerGpu[gpu] = market.usd_reward_per_hour;
+          });
+        }
+      });
+
+      gpuPrices = pricePerGpu;
+      buildDropdown(gpuPrices);
+    } catch (error) {
+      console.error("Failed to load data:", error);
+      if (dropdownOptions)
+        dropdownOptions.innerHTML =
+          '<li class="gpu-option body2 text-secondary px-4 py-3">Failed to load GPUs</li>';
+    }
+  }
+
+  loadData();
 </script>

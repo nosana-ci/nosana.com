@@ -27,37 +27,34 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
 
 <Layout title={title}>
   <article class="px-4 md:px-12">
-    <p class="mt-8 lg:mt-12 mb-2 body3 text-primary">
+    <p class="body3 text-primary mt-8 mb-2 lg:mt-12">
       {formattedDate}
     </p>
-    <h1 class="mb-2 h4 grotesk text-primary">
+    <h1 class="h4 grotesk text-primary mb-2">
       {title}
     </h1>
-    <p class="mb-8 lg:mb-12 body2 text-secondary">
-      {description}
-    </p>
     <div class="mb-8 lg:mb-12">
       <Image
         src={thumbnail}
         alt={title}
-        class="w-full h-auto rounded-xl border border-default"
+        class="border-default h-auto w-full rounded-xl border"
       />
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-
-      <div class="hidden md:block md:col-span-3">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
+      <div class="hidden md:col-span-3 md:block">
         <NewsletterCard />
       </div>
 
       <div class="md:col-span-9">
+        <p class="mb-4 lg:mb-8">
+          {description}
+        </p>
         <Content />
-        <div class="mt-8 lg:mt-12 block md:hidden">
+        <div class="mt-8 block md:hidden lg:mt-12">
           <NewsletterCard />
         </div>
       </div>
-
     </div>
-
   </article>
 </Layout>
