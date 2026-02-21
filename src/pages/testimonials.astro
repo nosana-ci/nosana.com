@@ -10,6 +10,7 @@ import SocialBannerMarquee from "../components/layout/socialBannerMarquee.astro"
 import Socials from "../components/ui/socials.astro";
 import TestimonialGrid2 from "../components/testimonials/testimonialGrid2.astro";
 import TestimonialSlider from "../components/gpu-providers/testimonials.astro";
+import Features from "../components/testimonials/features.astro";
 
 const entry = await getEntry("testimonialsHomepage", "index");
 if (!entry) {
@@ -43,6 +44,7 @@ if (!gpuProvidersEntry) {
   <div class="px-4 md:px-12 flex items-center justify-center">
     <Socials showTitle={true} />
   </div>
+  <Features />
   <Divider />
   <Newsletter />
   <Divider />
