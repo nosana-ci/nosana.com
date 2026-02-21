@@ -1,18 +1,24 @@
 ---
 import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import NewsletterCard from "../../components/layout/newsletterCard.astro";
 import Divider from "../../components/ui/divider.astro";
-import RecentBlogs from "../../components/blogs/recentBlogs.astro";
+import RecentCaseStudeis from "../../components/case-study/recentCaseStudeis.astro";
 
 export async function getStaticPaths() {
-  const blogs = await getCollection("blogs");
+  const allBlogs = await getCollection("blogs");
+  const blogs = allBlogs.filter((b) => b.data.category === "case-study");
 
   return blogs.map((blog) => ({
     params: { slug: blog.id },
     props: { blog },
   }));
+}
+
+interface Props {
+  blog: CollectionEntry<"blogs">;
 }
 
 const { blog } = Astro.props;
@@ -87,7 +93,7 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
     </div>
 
   <Divider />
-  <RecentBlogs currentSlug={blog.id} />
+  <RecentCaseStudeis currentSlug={blog.id} />
 
   </article>
 </Layout>

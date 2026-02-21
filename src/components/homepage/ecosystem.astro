@@ -60,7 +60,7 @@ const liveStats = apiStats
   : ecosystemSection.stats;
 ---
 
-<section class="bg-bg-base w-full px-4 md:px-12">
+<section class="bg-bg-base ecosystem-section w-full px-4 md:px-12">
   <Badge title={ecosystemSection.badge.title} class="mb-4" />
 
   <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
@@ -167,10 +167,8 @@ const liveStats = apiStats
     });
   }, observerOptions);
 
-  const section = document.querySelector(
-    "section.bg-bg-base:has(.stat-number)",
-  );
-  if (section) {
+  // Use a more reliable selector and observe all matching sections
+  document.querySelectorAll(".ecosystem-section").forEach((section) => {
     observer.observe(section);
-  }
+  });
 </script>
