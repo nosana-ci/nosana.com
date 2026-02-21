@@ -8,22 +8,22 @@ tags:
   - "news"
 ---
 
-## **Powering a New Wave of Networked Compute**
+## Powering a New Wave of Networked Compute
 
 [Sallar](https://sallar.io/) is building an innovative network that turns smartphones into active participants in a new digital economy. By unlocking the idle computing power of billions of mobile devices, Sallar gives people a way to contribute to real AI workloads while earning rewards for their participation.
 
 This approach makes compute more accessible, more distributed, and more community driven than traditional centralized systems.
 
-## **Expanding Possibilities with Nosana**
+## Expanding Possibilities with Nosana
 
 As AI applications grow more sophisticated, infrastructure needs are becoming increasingly diverse. No single type of compute is optimal for every stage of the AI lifecycle, different tasks require different trade-offs between cost, speed, scale, and latency.
 
 Some workloads are perfectly suited for large pools of distributed mobile devices such as:
 
 * Web crawling and data collection  
-  Cleaning and preprocessing raw data  
-  Running small LLMs and lightweight AI tasks  
-  Generating embeddings in batches  
+* Cleaning and preprocessing raw data  
+* Running small LLMs and lightweight AI tasks  
+* Generating embeddings in batches  
 * Filtering, chunking, and preparing data for AI systems
 
 These tasks benefit from massive scale and steady throughput rather than peak performance per job. Sallar’s mobile network is particularly effective here, allowing builders to process large volumes of data efficiently using widely distributed devices.
@@ -44,12 +44,12 @@ Through this partnership, Nosana provides a high-performance GPU layer that comp
 
 Together, the two networks create a clear two-tier system:
 
-* **Small-device layer (Sallar):** Ideal for ingestion, preprocessing, and scalable data tasks that require broad distribution and cost efficiency.  
-* **GPU layer (Nosana):** Designed for heavy models, interactive agents, real-time inference, and performance-critical workloads.
+* Small-device layer (Sallar): Ideal for ingestion, preprocessing, and scalable data tasks that require broad distribution and cost efficiency.  
+* GPU layer (Nosana): Designed for heavy models, interactive agents, real-time inference, and performance-critical workloads.
 
 This layered architecture makes the overall system more flexible, cost-effective, and capable of supporting a wider range of AI use cases \- from data preparation to production-grade AI services, within a single, connected ecosystem.
 
-## **What This Means for Builders and Users**
+## What This Means for Builders and Users
 
 For Sallar’s ecosystem, this collaboration unlocks
 
@@ -59,7 +59,7 @@ For Sallar’s ecosystem, this collaboration unlocks
 
 For Nosana, this partnership strengthens its role as a core compute provider for next generation AI infrastructure, supporting innovative networks and real world applications.
 
-## **A Shared Vision**
+## A Shared Vision
 
 Both Nosana and Sallar believe in a future where compute is widely distributed, accessible, and economically inclusive. By combining Sallar’s massive mobile network with Nosana’s GPU infrastructure, this partnership moves that vision forward in a practical, builder friendly way.
 
@@ -67,11 +67,11 @@ We are excited to see what developers and companies will create at the intersect
 
 Stay tuned, more to come.
 
-**Useful Links**
+Useful Links
 
-* [**Nosana Grants Program Page**](https://grants.nosana.com/)  
-* [**Nosana Website**](https://nosana.com/)  
-* [**Join the Discord**](https://nosana.com/discord)  
-* [**Follow us on X**](https://nosana.com/x)  
-* [**Nosana on GitHub**](https://nosana.com/github)  
-* [**Sallar Website**](https://sallar.io/)
+* [Nosana Grants Program Page](https://grants.nosana.com/)  
+* [Nosana Website](https://nosana.com/)  
+* [Join the Discord](https://nosana.com/discord)  
+* [Follow us on X](https://nosana.com/x)  
+* [Nosana on GitHub](https://nosana.com/github)  
+* [Sallar Website](https://sallar.io/)
