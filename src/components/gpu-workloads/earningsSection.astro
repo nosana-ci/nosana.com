@@ -35,7 +35,7 @@ const headingParts = heading.split(" - ");
             id="gpuDropdownBtn"
             class="text-primary body2 md:caption1 hover:border-default relative w-full cursor-pointer appearance-none px-4 py-3 pr-10 text-left transition-colors outline-none focus:outline-none"
           >
-            <span id="gpuSelectedText">NVIDIA GeForce RTX 4090</span>
+            <span id="gpuSelectedText">Loading...</span>
             <div
               class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transition-transform duration-200"
               id="dropdownArrow"
@@ -60,56 +60,12 @@ const headingParts = heading.split(" - ");
 
           <ul
             id="gpuOptions"
-            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1"
+            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto"
           >
             <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090"
-              data-selected="true"
+              class="gpu-option body2 md:caption1 text-secondary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
             >
-              NVIDIA GeForce RTX 4090
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA RTX 6000 Ada Generation"
-            >
-              NVIDIA RTX 6000 Ada Generation
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 3080"
-            >
-              NVIDIA GeForce RTX 3080
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 3080 Ti"
-            >
-              NVIDIA GeForce RTX 3080 Ti
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090"
-            >
-              NVIDIA GeForce RTX 4090
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 4090 D"
-            >
-              NVIDIA GeForce RTX 4090 D
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 5070"
-            >
-              NVIDIA GeForce RTX 5070
-            </li>
-            <li
-              class="gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
-              data-value="NVIDIA GeForce RTX 5070 Ti"
-            >
-              NVIDIA GeForce RTX 5070 Ti
+              Loading GPUs...
             </li>
           </ul>
         </div>
@@ -233,7 +189,7 @@ const headingParts = heading.split(" - ");
         <div class="flex w-full items-baseline justify-center">
           <span
             id="totalPrice"
-            class="text-primary grotesk text-4xl sm:text-6xl">$21.76</span
+            class="text-primary grotesk text-4xl sm:text-6xl">...</span
           >
         </div>
 
@@ -245,7 +201,7 @@ const headingParts = heading.split(" - ");
           >
             <span class="body4 text-[#C9C9C9]">GPU Type:</span>
             <span id="gpuTypeDisplay" class="body2 font-medium"
-              >NVIDIA GeForce RTX 4090</span
+              >...</span
             >
           </div>
 
@@ -306,21 +262,78 @@ const headingParts = heading.split(" - ");
   .gpu-option[data-selected="true"] {
     background-color: var(--color-surface);
   }
+
+  #gpuOptions {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-surface) var(--color-surface);
+  }
+
+  #gpuOptions::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #gpuOptions::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  #gpuOptions::-webkit-scrollbar-thumb {
+    background-color: var(--color-surface);
+    border-radius: 3px;
+  }
+
+  #gpuOptions:hover {
+    scrollbar-color: var(--color-elevated) var(--color-surface);
+  }
+
+  #gpuOptions:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-elevated);
+  }
 </style>
 
 <script>
-  // Dropdown logic
+  // State
+  let gpuPrices: Record<string, number> = {};
+  let selectedGpu = "";
+  let gpuCount = 1;
+  let isOpen = false;
+
+  // Elements
   const dropdownBtn = document.getElementById("gpuDropdownBtn");
   const dropdownOptions = document.getElementById("gpuOptions");
   const dropdownArrow = document.getElementById("dropdownArrow");
   const gpuSeparator = document.getElementById("gpuSeparator");
   const selectedText = document.getElementById("gpuSelectedText");
   const gpuTypeDisplay = document.getElementById("gpuTypeDisplay");
-  const options = document.querySelectorAll(".gpu-option");
-
-  let isOpen = false;
   const dropdownContainer = document.getElementById("gpuDropdown");
+  const gpuCountDisplay = document.getElementById("gpuCountDisplay");
+  const gpuDecrement = document.getElementById("gpuDecrement");
+  const gpuIncrement = document.getElementById("gpuIncrement");
+  const totalPriceEl = document.getElementById("totalPrice");
+  const durationDisplay = document.getElementById("durationDisplay");
+  const daysSlider = document.getElementById("daysSlider") as HTMLInputElement;
+  const hoursSlider = document.getElementById("hoursSlider") as HTMLInputElement;
+  const daysProgressFill = document.getElementById("daysProgressFill");
+  const daysTooltip = document.getElementById("daysTooltip");
+  const daysTooltipValue = document.getElementById("daysTooltipValue");
+  const hoursProgressFill = document.getElementById("hoursProgressFill");
+  const hoursTooltip = document.getElementById("hoursTooltip");
+  const hoursTooltipValue = document.getElementById("hoursTooltipValue");
 
+  // Price calculation
+  function updatePrice() {
+    if (!selectedGpu || !gpuPrices[selectedGpu]) {
+      if (totalPriceEl) totalPriceEl.textContent = "...";
+      return;
+    }
+    const pricePerHour = gpuPrices[selectedGpu] * 1.1;
+    const days = parseInt(daysSlider?.value || "0");
+    const hours = parseInt(hoursSlider?.value || "0");
+    const totalHours = days * 24 + hours;
+    const total = pricePerHour * gpuCount * totalHours;
+    if (totalPriceEl) totalPriceEl.textContent = `$${total.toFixed(2)}`;
+  }
+
+  // Dropdown logic
   function toggleDropdown() {
     isOpen = !isOpen;
     if (isOpen) {
@@ -347,20 +360,43 @@ const headingParts = heading.split(" - ");
     dropdownContainer?.classList.add("rounded-lg");
   }
 
+  function selectGpu(value: string) {
+    selectedGpu = value;
+    if (selectedText) selectedText.textContent = value;
+    if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
+    document.querySelectorAll(".gpu-option").forEach((opt) => {
+      if (opt.getAttribute("data-value") === value) {
+        opt.setAttribute("data-selected", "true");
+      } else {
+        opt.removeAttribute("data-selected");
+      }
+    });
+    updatePrice();
+    closeDropdown();
+  }
+
+  function buildDropdown(prices: Record<string, number>) {
+    if (!dropdownOptions) return;
+    dropdownOptions.innerHTML = "";
+    const gpuTypes = Object.keys(prices);
+    gpuTypes.forEach((gpu, i) => {
+      const li = document.createElement("li");
+      li.className =
+        "gpu-option body2 md:caption1 text-primary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors";
+      li.setAttribute("data-value", gpu);
+      li.textContent = gpu;
+      li.addEventListener("click", () => selectGpu(gpu));
+      dropdownOptions.appendChild(li);
+      if (i === 0) {
+        selectGpu(gpu);
+        li.setAttribute("data-selected", "true");
+      }
+    });
+  }
+
   dropdownBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     toggleDropdown();
-  });
-
-  options.forEach((option) => {
-    option.addEventListener("click", () => {
-      const value = option.getAttribute("data-value") || "";
-      options.forEach((opt) => opt.removeAttribute("data-selected"));
-      option.setAttribute("data-selected", "true");
-      if (selectedText) selectedText.textContent = value;
-      if (gpuTypeDisplay) gpuTypeDisplay.textContent = value;
-      closeDropdown();
-    });
   });
 
   document.addEventListener("click", (e) => {
@@ -375,21 +411,18 @@ const headingParts = heading.split(" - ");
   });
 
   // GPU Count logic
-  let gpuCount = 1;
-  const gpuCountDisplay = document.getElementById("gpuCountDisplay");
-  const gpuDecrement = document.getElementById("gpuDecrement");
-  const gpuIncrement = document.getElementById("gpuIncrement");
-
   gpuDecrement?.addEventListener("click", () => {
     if (gpuCount > 1) {
       gpuCount--;
       if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+      updatePrice();
     }
   });
 
   gpuIncrement?.addEventListener("click", () => {
     gpuCount++;
     if (gpuCountDisplay) gpuCountDisplay.textContent = String(gpuCount);
+    updatePrice();
   });
 
   // Slider helpers
@@ -416,22 +449,6 @@ const headingParts = heading.split(" - ");
     tooltipValueEl.textContent = formatLabel(value);
   }
 
-  // Days slider
-  const daysSlider = document.getElementById("daysSlider") as HTMLInputElement;
-  const daysProgressFill = document.getElementById("daysProgressFill");
-  const daysTooltip = document.getElementById("daysTooltip");
-  const daysTooltipValue = document.getElementById("daysTooltipValue");
-
-  // Hours slider
-  const hoursSlider = document.getElementById(
-    "hoursSlider",
-  ) as HTMLInputElement;
-  const hoursProgressFill = document.getElementById("hoursProgressFill");
-  const hoursTooltip = document.getElementById("hoursTooltip");
-  const hoursTooltipValue = document.getElementById("hoursTooltipValue");
-
-  const durationDisplay = document.getElementById("durationDisplay");
-
   function updateDurationDisplay() {
     const days = parseInt(daysSlider?.value || "0");
     const hours = parseInt(hoursSlider?.value || "0");
@@ -457,6 +474,7 @@ const headingParts = heading.split(" - ");
         (v) => `${v} Days`,
       );
       updateDurationDisplay();
+      updatePrice();
     };
     daysSlider.addEventListener("input", update);
     update();
@@ -473,9 +491,51 @@ const headingParts = heading.split(" - ");
         (v) => `${v} hours`,
       );
       updateDurationDisplay();
+      updatePrice();
     };
     hoursSlider.addEventListener("input", update);
     update();
     window.addEventListener("resize", update);
   }
+
+  // Fetch markets API
+  async function loadMarkets() {
+    try {
+      const response = await fetch(
+        "https://dashboard.k8s.prd.nos.ci/api/markets/?type=PREMIUM",
+      );
+      const data = await response.json();
+      const excludeMarkets = [
+        "columbia-uni-4090",
+        "sogni-4090",
+        "alpha-4090",
+        "nvidia-8x-a5000",
+      ];
+      const markets = data.filter(
+        (market: any) =>
+          !excludeMarkets.includes(market.slug) &&
+          market.type === "PREMIUM" &&
+          !market.slug.includes("laptop"),
+      );
+
+      const pricePerGpu: Record<string, number> = {};
+      markets.forEach((market: any) => {
+        if (market.gpu_types && market.gpu_types.length) {
+          market.gpu_types.forEach((gpu: string) => {
+            pricePerGpu[gpu] = market.usd_reward_per_hour;
+          });
+        }
+      });
+
+      gpuPrices = pricePerGpu;
+      buildDropdown(gpuPrices);
+    } catch (error) {
+      console.error("Failed to load GPU markets:", error);
+      if (dropdownOptions)
+        dropdownOptions.innerHTML =
+          '<li class="gpu-option body2 text-secondary px-4 py-3">Failed to load GPUs</li>';
+    }
+  }
+
+  loadMarkets();
 </script>

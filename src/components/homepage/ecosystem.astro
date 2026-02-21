@@ -7,65 +7,121 @@ if (!entry) {
   throw new Error("Homepage content not found");
 }
 const { ecosystemSection } = entry.data;
+
+type ApiStats = {
+  marketCap: number;
+  usdValueStaked: string;
+  stakers: number;
+  price: number;
+};
+
+let apiStats: ApiStats | null = null;
+try {
+  const res = await fetch("https://dashboard.k8s.prd.nos.ci/api/stats/");
+  if (res.ok) {
+    apiStats = await res.json();
+  }
+} catch {
+  // fall back to content values
+}
+
+const formatMarketCap = (value: number) => {
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M+`;
+  if (value >= 1_000) return `$${(value / 1_000).toFixed(0)}K+`;
+  return `$${value}`;
+};
+
+const formatUSD = (value: string | number) => {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  if (num >= 1_000_000) return `$${(num / 1_000_000).toFixed(0)}M+`;
+  if (num >= 1_000) return `$${(num / 1_000).toFixed(0)}K+`;
+  return `$${num}`;
+};
+
+const liveStats = apiStats
+  ? [
+      {
+        value: formatMarketCap(apiStats.marketCap),
+        label: ecosystemSection.stats[0]?.label ?? "Market cap of NOS",
+      },
+      {
+        value: formatUSD(apiStats.usdValueStaked),
+        label: ecosystemSection.stats[1]?.label ?? "Value secured on the network",
+      },
+      {
+        value: `${apiStats.stakers.toLocaleString("en-US")}+`,
+        label: ecosystemSection.stats[2]?.label ?? "Active stakers",
+      },
+      {
+        value: `$${apiStats.price.toFixed(2)}`,
+        label: ecosystemSection.stats[3]?.label ?? "Current NOS price",
+      },
+    ]
+  : ecosystemSection.stats;
 ---
 
-<section class="w-full bg-bg-base px-4 md:px-12">
+<section class="bg-bg-base w-full px-4 md:px-12">
   <Badge title={ecosystemSection.badge.title} class="mb-4" />
 
-  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+  <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
     {ecosystemSection.heading}
   </h2>
 
-  <p class="text-secondary md:max-w-xl leading-relaxed mb-8 md:mb-16 lg:mb-18 body2">
+  <p
+    class="text-secondary body2 mb-8 leading-relaxed md:mb-16 md:max-w-xl lg:mb-18"
+  >
     {ecosystemSection.description}
   </p>
 
   <div class="w-full md:pb-4">
     <div class="grid grid-cols-1 md:grid-cols-4">
-      {ecosystemSection.stats.map((stat, index) => (
-        <div
-          class:list={[
-            "text-center md:py-0",
+      {
+        liveStats.map((stat, index) => (
+          <div
+            class:list={[
+              "text-center md:py-0",
 
-            // Mobile spacing logic
-            index === 0 && "pt-0 pb-6",
-            index === ecosystemSection.stats.length - 1 && "pt-6 pb-0",
-            index !== 0 &&
-              index !== ecosystemSection.stats.length - 1 &&
-              "py-6",
+              // Mobile spacing logic
+              index === 0 && "pt-0 pb-6",
+              index === liveStats.length - 1 && "pt-6 pb-0",
+              index !== 0 &&
+                index !== liveStats.length - 1 &&
+                "py-6",
 
-            // Borders
-            index !== ecosystemSection.stats.length - 1 &&
-              "border-b md:border-b-0 md:border-r border-elevated"
-          ]}
-        >
-          <h3 class="text-primary h4 grotesk mb-2 stat-number" data-value={stat.value}>
-            {stat.value}
-          </h3>
-      
-          <p class="text-secondary body3 max-w-48 mx-auto text-center">
-            {stat.label}
-          </p>
-        </div>
-      ))}      
+              // Borders
+              index !== liveStats.length - 1 &&
+                "border-elevated border-b md:border-r md:border-b-0",
+            ]}
+          >
+            <h3
+              class="text-primary h4 grotesk stat-number mb-2"
+              data-value={stat.value}
+            >
+              {stat.value}
+            </h3>
+
+            <p class="text-secondary body3 mx-auto max-w-48 text-center">
+              {stat.label}
+            </p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
   const animateValue = (el: HTMLElement) => {
-    const fullValue = el.getAttribute('data-value') || '';
-    // Extract numbers, including decimals and commas
+    const fullValue = el.getAttribute("data-value") || "";
     const match = fullValue.match(/([\d,.]+)/);
     if (!match) return;
 
-    const numericString = match[1].replace(/,/g, '');
+    const numericString = match[1].replace(/,/g, "");
     const finalValue = parseFloat(numericString);
-    const prefix = fullValue.split(match[1])[0] || '';
-    const suffix = fullValue.split(match[1])[1] || '';
-    
-    // Determine decimal places
-    const decimalMatch = numericString.split('.');
+    const prefix = fullValue.split(match[1])[0] || "";
+    const suffix = fullValue.split(match[1])[1] || "";
+
+    const decimalMatch = numericString.split(".");
     const decimals = decimalMatch.length > 1 ? decimalMatch[1].length : 0;
 
     let startTimestamp: number | null = null;
@@ -74,14 +130,13 @@ const { ecosystemSection } = entry.data;
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
-      // Easing function: easeOutExpo
-      const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      
+
+      const easedProgress =
+        progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+
       const current = easedProgress * finalValue;
-      
-      // Format number with commas and correct decimals
-      let formatted = current.toLocaleString('en-US', {
+
+      let formatted = current.toLocaleString("en-US", {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       });
@@ -105,14 +160,16 @@ const { ecosystemSection } = entry.data;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const stats = entry.target.querySelectorAll('.stat-number');
+        const stats = entry.target.querySelectorAll(".stat-number");
         stats.forEach((stat) => animateValue(stat as HTMLElement));
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  const section = document.querySelector('section.bg-bg-base:has(.stat-number)');
+  const section = document.querySelector(
+    "section.bg-bg-base:has(.stat-number)",
+  );
   if (section) {
     observer.observe(section);
   }

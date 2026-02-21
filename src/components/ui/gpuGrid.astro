@@ -1,5 +1,6 @@
 ---
 interface GPUItem {
+  address: string;
   gpu: string;
   price: string;
   availability: string;
@@ -28,8 +29,8 @@ const { items } = Astro.props;
   <div class="divide-y divide-default border-b border-default">
     {items.map((item) => (
       <div
-        class="px-4 md:px-6 py-6 body2
-               md:grid md:grid-cols-3"
+        class="px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3"
+        data-market-address={item.address}
       >
         <!-- GPU -->
         <div class="text-primary font-medium mb-2 md:mb-0">
@@ -44,7 +45,7 @@ const { items } = Astro.props;
           </div>
           <div class="text-primary text-right">
             <span class="text-secondary">Availability: </span>
-            {item.availability}
+            <span class="availability-value">{item.availability}</span>
           </div>
         </div>
 
@@ -55,7 +56,7 @@ const { items } = Astro.props;
 
         <!-- Desktop: Availability -->
         <div class="hidden md:block md:text-right text-primary">
-          {item.availability}
+          <span class="availability-value">{item.availability}</span>
         </div>
       </div>
     ))}
