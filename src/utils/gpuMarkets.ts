@@ -1,3 +1,5 @@
+import { Client, type Market } from "@nosana/sdk";
+
 export interface GPUItem {
   address: string;
   gpu: string;
@@ -12,6 +14,7 @@ export interface CategorizedGPUs {
 }
 
 export async function getGPUMarkets(): Promise<CategorizedGPUs> {
+  // 1. Fetch REST API data (name, slug, type, price) + running jobs
   const [marketsRes, runningRes] = await Promise.all([
     fetch("https://dashboard.k8s.prd.nos.ci/api/markets/"),
     fetch("https://dashboard.k8s.prd.nos.ci/api/jobs/running"),
@@ -26,36 +29,84 @@ export async function getGPUMarkets(): Promise<CategorizedGPUs> {
     runningData = await runningRes.json();
   }
 
+  // 2. Fetch on-chain data from Nosana SDK (queue, queueType)
+  const nosana = new Client("mainnet");
+  const onChainMarkets: Market[] = await nosana.jobs.allMarkets();
+
+  // Index REST API markets by address for O(1) lookup
+  const restMap = new Map<string, any>();
+  for (const m of restMarkets) {
+    restMap.set(m.address, m);
+  }
+
   const categorized: CategorizedGPUs = {
     premium: [],
     community: [],
     others: [],
   };
 
-  for (const market of restMarkets) {
-    const addr: string = market.address;
+  // Iterate on-chain markets (same as Vue component iterates props.markets)
+  for (const onChainMarket of onChainMarkets) {
+    const addr: string = onChainMarket.address.toString();
     const running: number = runningData[addr]?.running ?? 0;
+    const queueLength: number = onChainMarket.queue?.length ?? 0;
+    const queueType = onChainMarket.queueType;
+
+    // Look up REST API data for this market (name, slug, type, price)
+    const marketInfo = restMap.get(addr);
+
+    // Matches Vue component availability logic exactly:
+    // queueType === 1 (NODE_QUEUE/FIFO): queue.length / (queue.length + running) hosts
+    // other queueType:                   0 / running hosts
+    let availability: string;
+    if (queueType === 1) {
+      const total = queueLength + running;
+      availability = `${queueLength} / ${total} hosts`;
+    } else {
+      availability = `0 / ${running} hosts`;
+    }
+
+    const name: string = marketInfo?.name || addr;
+    const isNvidia = marketInfo?.slug?.toLowerCase().startsWith("nvidia");
+    const type = (marketInfo?.type || "").toUpperCase();
 
     const item: GPUItem = {
       address: addr,
-      gpu: market.name,
-      price: market.usd_reward_per_hour
-        ? `$${market.usd_reward_per_hour.toFixed(3)}/h`
-        : market.nos_job_price_per_second > 0
-          ? `${(market.nos_job_price_per_second * 3600).toFixed(2)} NOS/h`
-          : "$0.000/h",
-      availability: running > 0 ? `${running} available` : "Unavailable",
+      gpu: name,
+      // Matches useMarketUsdPrice: usd_reward_per_hour * 1.1 (10% network fee)
+      price: marketInfo?.usd_reward_per_hour
+        ? `$${(marketInfo.usd_reward_per_hour * 1.1).toFixed(3)}/h`
+        : "N/A",
+      availability,
     };
 
-    const type = market.type?.toUpperCase();
-    if (type === "PREMIUM") {
+    // If no market info exists in REST API, it goes to others (same as Vue)
+    if (!marketInfo) {
+      categorized.others.push(item);
+    } else if (isNvidia && type === "PREMIUM") {
       categorized.premium.push(item);
-    } else if (type === "COMMUNITY") {
+    } else if (isNvidia && type === "COMMUNITY") {
       categorized.community.push(item);
     } else {
       categorized.others.push(item);
     }
   }
+
+  // Sort by price ascending (N/A items at the top)
+  // We return 0 for equal prices to preserve the original on-chain order (stable sort)
+  const sortByPrice = (a: GPUItem, b: GPUItem) => {
+    if (a.price === "N/A" && b.price === "N/A") return 0;
+    if (a.price === "N/A") return -1;
+    if (b.price === "N/A") return 1;
+
+    const priceA = parseFloat(a.price.replace("$", ""));
+    const priceB = parseFloat(b.price.replace("$", ""));
+
+    return priceA - priceB;
+  };
+  categorized.premium.sort(sortByPrice);
+  categorized.community.sort(sortByPrice);
+  categorized.others.sort(sortByPrice);
 
   return categorized;
 }

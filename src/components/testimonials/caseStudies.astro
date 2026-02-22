@@ -1,0 +1,188 @@
+---
+import { getEntry, getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+
+const testimonialEntry = await getEntry("testimonialsHomepage", "index");
+if (!testimonialEntry) {
+  throw new Error("Testimonials homepage content not found");
+}
+
+const { caseStudySection } = testimonialEntry.data;
+
+const caseStudies = await getCollection("blogs", ({ data }) => {
+  return data.category === "case-study";
+});
+
+// Sort by date descending and take top 3
+const latestCaseStudies = caseStudies
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+  .slice(0, 3);
+---
+
+<section class="w-full px-4 md:px-12">
+  <Badge
+    title={caseStudySection.badge.title}
+    icon={caseStudySection.badge.icon}
+    variant="filled"
+    class="mb-4"
+  />
+
+  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+    {caseStudySection.heading}
+  </h2>
+
+  <p class="text-secondary max-w-4xl leading-relaxed mb-8 lg:mb-10 body2">
+    {caseStudySection.description}
+  </p>
+
+  <div class="md:px-8">
+    <div
+      class="hidden md:grid grid-cols-[1fr_1.5fr_2fr_50px] gap-8 px-6 py-4 text-tertiary body2"
+    >
+      <div>Partner</div>
+      <div>Project Focus</div>
+      <div>Impact</div>
+      <div></div>
+    </div>
+
+    <div class="flex flex-col">
+      {
+        latestCaseStudies.map((study) => {
+          const partnerName = study.data.title.split(" partnered")[0].split(" has")[0];
+          return (
+            <case-study-item 
+              class="block border-b border-elevated overflow-hidden" 
+              data-id={study.id}
+            >
+              {/* Main Row / Header */}
+              <div 
+                class="mobile-trigger grid grid-cols-[auto_1fr_24px] md:grid-cols-[1fr_1.5fr_2fr_50px] gap-4 md:gap-8 items-center px-4 md:px-6 py-6 md:py-8 hover:bg-white/2 transition-colors cursor-pointer group"
+              >
+                {/* Partner Column */}
+                <div class="flex items-center gap-3 md:gap-4 overflow-hidden">
+                  {study.data.logo && (
+                    <div class="h-8 md:h-10 w-auto flex items-center justify-center shrink-0">
+                      <Image
+                        src={study.data.logo}
+                        alt={study.data.title}
+                        height={40}
+                        class="h-full w-auto object-contain"
+                      />
+                    </div>
+                  )}
+                  <span class="md:hidden text-primary font-medium body3 truncate">
+                    {partnerName}
+                  </span>
+                </div>
+
+                {/* Project Focus */}
+                <div class="overflow-hidden">
+                  <p class="text-primary body3 md:body2 line-clamp-2 md:line-clamp-none">
+                    {study.data.focus || "Decentralized AI Compute"}
+                  </p>
+                </div>
+
+                {/* Impact (Desktop Only) */}
+                <div class="hidden md:block">
+                  <p class="text-primary body2">
+                    {study.data.impact || "Enabling scalable, on-demand GPU workloads"}
+                  </p>
+                </div>
+
+                {/* Arrow Column */}
+                <div class="flex justify-end items-center">
+                  {/* Desktop Diagonal Arrow */}
+                  <div class="hidden md:flex w-12 h-12 border border-tertiary rounded-xl items-center justify-center">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-tertiary" />
+                    </svg>
+                  </div>
+                  {/* Mobile Chevron */}
+                  <div class="md:hidden text-tertiary transition-transform duration-300 chevron-icon">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Expanded Content */}
+              <div class="mobile-content hidden md:hidden px-4 pb-6 bg-white/[0.02]">
+                <div class="pt-4 border-t border-white/5">
+                  <span class="text-tertiary text-[10px] uppercase tracking-widest font-bold block mb-2">Impact</span>
+                  <p class="text-primary body3 mb-6">
+                    {study.data.impact || "Enabling scalable, on-demand GPU workloads"}
+                  </p>
+                  <div class="flex justify-end">
+                    <a 
+                      href={`/case-study/${study.id}`} 
+                      class="w-12 h-12 border border-tertiary rounded-xl flex items-center justify-center hover:border-primary transition-colors"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-tertiary" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </case-study-item>
+          );
+        })
+      }
+    </div>
+
+    {/* Button */}
+    <div class="mt-12 flex justify-end">
+      <Button
+        title="View All Case Studies"
+        url="/case-studies"
+        variant="secondary"
+        class="rounded-md!"
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  class CaseStudyItem extends HTMLElement {
+    constructor() {
+      super();
+      const trigger = this.querySelector('.mobile-trigger');
+      const content = this.querySelector('.mobile-content');
+      const chevron = this.querySelector('.chevron-icon');
+      const id = this.dataset.id;
+
+      trigger?.addEventListener('click', () => {
+        if (window.innerWidth >= 768) {
+          window.location.href = `/case-study/${id}`;
+          return;
+        }
+
+        const isExpanded = !content?.classList.contains('hidden');
+
+        // Close all other items
+        document.querySelectorAll('case-study-item').forEach((item: any) => {
+          if (item !== this) {
+            item.querySelector('.mobile-content')?.classList.add('hidden');
+            item.querySelector('.chevron-icon')?.classList.remove('rotate-180');
+          }
+        });
+
+        // Toggle current item
+        content?.classList.toggle('hidden');
+        chevron?.classList.toggle('rotate-180');
+      });
+    }
+  }
+
+  customElements.define('case-study-item', CaseStudyItem);
+</script>
+
+<style>
+  /* Optional: Ensure text wrapping for long focus/impact text */
+  .body2 {
+    word-break: break-word;
+  }
+</style>

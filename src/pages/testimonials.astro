@@ -11,6 +11,7 @@ import Socials from "../components/ui/socials.astro";
 import TestimonialGrid2 from "../components/testimonials/testimonialGrid2.astro";
 import TestimonialSlider from "../components/gpu-providers/testimonials.astro";
 import Features from "../components/testimonials/features.astro";
+import CaseStudies from "../components/testimonials/caseStudies.astro";
 
 const entry = await getEntry("testimonialsHomepage", "index");
 if (!entry) {
@@ -45,6 +46,8 @@ if (!gpuProvidersEntry) {
     <Socials showTitle={true} />
   </div>
   <Features />
+  <Divider />
+  <CaseStudies />
   <Divider />
   <Newsletter />
   <Divider />

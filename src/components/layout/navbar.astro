@@ -408,6 +408,17 @@ const normalizedCurrentPath = normalizePath(currentPath);
         trigger?.addEventListener("click", () => {
           if (type === "dropdown") {
             const isHidden = dropdown?.classList.contains("hidden");
+            
+            // Close all other dropdowns
+            mobileNavItems.forEach((otherItem) => {
+              if (otherItem !== item) {
+                const otherDropdown = otherItem.querySelector(".mobile-dropdown-content");
+                const otherIcon = otherItem.querySelector(".mobile-icon");
+                otherDropdown?.classList.add("hidden");
+                otherIcon?.classList.remove("rotate-180");
+              }
+            });
+
             dropdown?.classList.toggle("hidden");
             icon?.classList.toggle("rotate-180");
           } else {

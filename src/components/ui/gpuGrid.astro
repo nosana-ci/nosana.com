@@ -29,8 +29,10 @@ const { items } = Astro.props;
   <div class="divide-y divide-default border-b border-default">
     {items.map((item) => (
       <div
-        class="px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3"
+        class="gpu-row px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3"
         data-market-address={item.address}
+        data-gpu-name={item.gpu.toLowerCase()}
+        data-gpu-price={item.price.toLowerCase()}
       >
         <!-- GPU -->
         <div class="text-primary font-medium mb-2 md:mb-0">
