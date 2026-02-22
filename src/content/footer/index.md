@@ -27,7 +27,7 @@ navigation:
       url: "/gpu-providers"
   community:
     - name: "Faces of Nosana"
-      url: "/faces-of-nosana"
+      url: "/about#team"
     - name: "Case Studies"
       url: "/case-studies"
     - name: "Events"

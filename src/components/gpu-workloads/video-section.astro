@@ -3,6 +3,7 @@ import Button from "../ui/button.astro";
 import playIcon from "../../assets/icons/play.svg?raw";
 import pauseIcon from "../../assets/icons/pause.svg?raw";
 import muteIcon from "../../assets/icons/mute.svg?raw";
+import speakerIcon from "../../assets/icons/speaker.svg?raw";
 
 interface Props {
   heading?: string;
@@ -56,7 +57,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
             "hidden [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-8 md:[&_svg]:w-8",
           ]}
         >
-          <Fragment set:html={muteIcon} />
+          <Fragment set:html={speakerIcon} />
         </span>
       </button>
 

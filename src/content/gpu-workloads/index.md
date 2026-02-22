@@ -25,7 +25,7 @@ caseStudySection:
   companyName: "Sogni AI"
   image: "./assets/astronaut.png"
   ctaTitle: "Read Case Study"
-  ctaUrl: "/case-studies/sogni"
+  ctaUrl: "/case-studies"
   stats:
     - label: "Generated Images"
       value: "16,605,326"
