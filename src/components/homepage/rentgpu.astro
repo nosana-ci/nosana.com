@@ -40,6 +40,7 @@ const { premium, community, others } = await getGPUMarkets();
         class="mr-4 opacity-60"
       />
       <input
+        id="gpu-search-input"
         type="text"
         placeholder="Search here"
         class="w-full bg-transparent outline-none body2
@@ -90,18 +91,65 @@ const { premium, community, others } = await getGPUMarkets();
     <div class="tabs-content">
       <div class="panel premium">
         <GPUGrid items={premium} />
+        <div class="no-results hidden text-center py-10 text-secondary">No GPUs found matching your search.</div>
       </div>
 
       <div class="panel community">
         <GPUGrid items={community} />
+        <div class="no-results hidden text-center py-10 text-secondary">No GPUs found matching your search.</div>
       </div>
 
       <div class="panel others">
         <GPUGrid items={others} />
+        <div class="no-results hidden text-center py-10 text-secondary">No GPUs found matching your search.</div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  function initSearch() {
+    const searchInput = document.getElementById('gpu-search-input') as HTMLInputElement;
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      const panels = document.querySelectorAll('.panel');
+
+      panels.forEach(panel => {
+        const rows = panel.querySelectorAll('.gpu-row');
+        const noResults = panel.querySelector('.no-results');
+        let hasVisibleRows = false;
+
+        rows.forEach(row => {
+          const name = (row as HTMLElement).dataset.gpuName || '';
+          const price = (row as HTMLElement).dataset.gpuPrice || '';
+          
+          if (name.includes(query) || price.includes(query)) {
+            (row as HTMLElement).classList.remove('hidden');
+            (row as HTMLElement).classList.add('md:grid'); // Restore grid layout
+            hasVisibleRows = true;
+          } else {
+            (row as HTMLElement).classList.add('hidden');
+            (row as HTMLElement).classList.remove('md:grid');
+          }
+        });
+
+        if (noResults) {
+          if (hasVisibleRows || query === '') {
+            noResults.classList.add('hidden');
+          } else {
+            noResults.classList.remove('hidden');
+          }
+        }
+      });
+    });
+  }
+
+  // Initialize on page load and after swaps (Astro view transitions)
+  initSearch();
+  document.addEventListener('astro:after-swap', initSearch);
+</script>
 
 <style>
   input[type="radio"] {

@@ -12,4 +12,12 @@ export const testimonialsHomepageSchema = ({ image }: SchemaContext) => z.object
       title: z.string(),
     })
   ),
+  caseStudySection: z.object({
+    badge: z.object({
+      title: z.string(),
+      icon: image(),
+    }),
+    heading: z.string(),
+    description: z.string(),
+  })
 });

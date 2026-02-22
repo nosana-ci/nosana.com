@@ -6,34 +6,25 @@ const entry = await getEntry("testimonialsHomepage", "index");
 const { features = [] } = entry?.data || {};
 ---
 
-<section class="w-full bg-bg-base px-4 md:px-12 pb-16 md:pb-24">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+<section class="w-full bg-bg-base px-4 md:px-12 pt-8 md:pt-16 lg:pt-18">
+  <div class="grid grid-cols-1 md:grid-cols-3">
     {features.map((feature, index) => (
       <div 
-        class:list={[
-          "border-white/20 sm:p-8 py-6 h-[280px] md:h-[320px] lg:h-[380px] flex flex-col justify-start",
-          // Left borders
-          index === 1 && "sm:border-l lg:border-l",
-          index === 2 && "lg:border-l",
-          // Bottom borders for mobile
-          "border-b lg:border-b-0",
-          index === 1 && "sm:border-b-0", // Remove bottom border for Item 1 on sm 
-          index === 0 && "sm:border-b"      // Item 0 keeps bottom border on sm? No, usually grid items have borders on shared edges.
-        ]}
+        class="border-t md:border-t-0 md:border-l border-elevated md:px-6 py-8 md:py-6 flex flex-col justify-start"
       >
         <!-- Icon -->
-        <div class="mb-6">
+        <div class="mb-8 lg:mb-12">
           <Image 
             src={feature.icon} 
             alt={feature.title}
             width={120}
             height={120}
-            class="invert opacity-70 w-[100px] h-[100px] md:w-[120px] md:h-[120px] pointer-events-none select-none"
+            class="h-[100px] lg::h-[125px] w-auto aspect-square pointer-events-none select-none text-tertiary"
           />
         </div>
 
         <!-- Title -->
-        <h3 class="text-primary body1 max-w-[200px]">
+        <h3 class="text-primary body1 max-w-sm">
           {feature.title}
         </h3>
       </div>
