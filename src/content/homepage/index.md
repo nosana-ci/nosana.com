@@ -1,4 +1,5 @@
 ---
+seoDescription: "Nosana is an open-source GPU cloud for AI inference and high-performance workloads. Rent affordable GPUs on demand or provide idle GPU power to the network."
 heroSection:
   badge:
     title: "GPU Cloud"

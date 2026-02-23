@@ -1,4 +1,5 @@
 ---
+seoDescription: "Earn rewards by providing your idle GPU power to the Nosana network. Learn how to become a GPU provider and monetize your hardware."
 heroSection:
   badge:
     title: "Provide GPUs"

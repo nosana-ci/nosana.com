@@ -1,6 +1,9 @@
 import { z, type SchemaContext } from 'astro:content';
 
 export const supportSchema = ({ image }: SchemaContext) => z.object({
+  seoDescription: z.string().optional(),
+  seoImage: z.string().optional(),
+  noIndex: z.boolean().optional(),
   heading: z.string(),
   description: z.string(),
   discord: z.object({

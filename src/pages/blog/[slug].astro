@@ -30,7 +30,7 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
 });
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description} ogImage={thumbnail.src} ogType="article">
   <article class="px-4 md:px-12">
     <p class="body3 text-primary mt-8 mb-2 lg:mt-12">
       {formattedDate}

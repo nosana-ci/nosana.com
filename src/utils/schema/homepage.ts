@@ -2,6 +2,9 @@ import { z, type SchemaContext } from 'astro:content';
 
 export const homepageSchema = ({ image }: SchemaContext) =>
   z.object({
+    seoDescription: z.string().optional(),
+    seoImage: z.string().optional(),
+    noIndex: z.boolean().optional(),
     heroSection: z.object({
       badge: z.object({
         title: z.string(),

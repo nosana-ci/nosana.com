@@ -25,10 +25,13 @@ const {
   videoSection,
   earningSection,
   hardwareRequirementsSection,
+  seoDescription,
+  seoImage,
+  noIndex,
 } = entry.data;
 ---
 
-<Layout title="Nosana | GPU Providers">
+<Layout title="Nosana | GPU Providers" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <Hero heroSection={heroSection} />
   <Divider />
   <WhyProvideSection whyProvideSection={whyProvideSection} />

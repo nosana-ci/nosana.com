@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noIndex?: boolean;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  image = "/og-image.png",
+  noIndex = false,
+  type = "website",
+} = Astro.props;
+
+const formattedTitle = title.includes("Nosana") ? title : `${title} | Nosana`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
+---
+
+<!-- SEO -->
+<title>{formattedTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.href} />
+
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL.href} />
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageURL.href} />
+<meta property="og:site_name" content="Nosana - GPU Cloud" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@nosana_ai" />
+<meta name="twitter:title" content={formattedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL.href} />
+<meta name="twitter:url" content={canonicalURL.href} />

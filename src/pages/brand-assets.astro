@@ -13,10 +13,10 @@ if (!entry) {
   throw new Error("Brand Assets content not found");
 }
 
-const { heroSection, logoSection, colorsSection, typographySection } = entry.data;
+const { heroSection, logoSection, colorsSection, typographySection, seoDescription, seoImage, noIndex } = entry.data;
 ---
 
-<Layout title="Nosana | Brand Assets">
+<Layout title="Nosana | Brand Assets" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <Section1 heroSection={heroSection} logoSection={logoSection} />
   <Divider />
   <Section2 colorsSection={colorsSection} />

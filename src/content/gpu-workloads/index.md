@@ -1,4 +1,5 @@
 ---
+seoDescription: "Run GPU workloads on Nosana's distributed cloud. Affordable, scalable on-demand GPUs for AI inference, training, and high-performance computing."
 heroSection:
   badge:
     title: "On-demand GPUs"
