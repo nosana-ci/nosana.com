@@ -26,144 +26,134 @@ if (!entry) {
 
 const { community } = entry.data;
 
-let apiStats: StatsResponse | null = null;
+// --------------------
+// Fetch API (SSR)
+// --------------------
+let stats: StatsResponse | null = null;
 
 try {
   const res = await fetch("https://dashboard.k8s.prd.nos.ci/api/stats");
-  if (res.ok) {
-    apiStats = (await res.json()) as StatsResponse;
-    // console.log("API Stats:", apiStats);
-  }
+  const text = await res.text();
+  stats = JSON.parse(text) as StatsResponse;
 } catch (e) {
-  console.warn("Stats API failed, using fallback values.");
+  console.error("FETCH FAILED:", e);
 }
 
-// -----------------------------
-// Format Helpers (typed)
-// -----------------------------
+// --------------------
+// Format Helpers
+// --------------------
 const formatCurrency = (num: number | string): string =>
-  `$${Number(num).toLocaleString()}`;
+  "$" + Number(num).toLocaleString();
 
 const formatNumber = (num: number | string): string =>
   Number(num).toLocaleString();
 
 const formatPrice = (num: number): string =>
-  `$${num.toFixed(4)}`;
+  "$" + Number(num).toFixed(4);
 
-// -----------------------------
-// Map Metrics
-// -----------------------------
-function resolveMetric(metric: typeof community.metrics[number]) {
-  if (!apiStats) return metric;
+// --------------------
+// Map Values by Index
+// --------------------
+function resolveValue(index: number): string {
+  if (!stats) return "--";
 
-  switch (metric.label) {
-    case "Stakers":
-      return { ...metric, value: formatNumber(apiStats.stakers) };
-
-    case "USD Value Staked":
-      return { ...metric, value: formatCurrency(apiStats.usdValueStaked) };
-
-    case "NOS Marketcap":
-      return { ...metric, value: formatCurrency(apiStats.marketCap) };
-
-    case "NOS Price":
-      return {
-        ...metric,
-        value: formatPrice(apiStats.price),
-        subvalue: `${apiStats.dailyPriceChange.toFixed(2)}%`,
-      };
-
-    case "Volume (24h)":
-      return { ...metric, value: formatCurrency(apiStats.dailyVolume) };
-
-    case "Circulating Supply":
-      return { ...metric, value: formatNumber(apiStats.circulatingSupply) };
-
-    case "Total Supply":
-      return { ...metric, value: formatNumber(apiStats.totalSupply) };
-
-    case "Fully Diluted Market Cap":
-      return {
-        ...metric,
-        value: formatCurrency(apiStats.fullyDilutedMarketCap),
-      };
-
+  switch (index) {
+    case 0:
+      return formatNumber(stats.stakers);
+    case 1:
+      return formatCurrency(stats.usdValueStaked);
+    case 2:
+      return formatCurrency(stats.marketCap);
+    case 3:
+      return formatPrice(stats.price);
+    case 4:
+      return formatCurrency(stats.dailyVolume);
+    case 5:
+      return formatNumber(stats.circulatingSupply);
+    case 6:
+      return formatNumber(stats.totalSupply);
+    case 7:
+      return formatCurrency(stats.fullyDilutedMarketCap);
     default:
-      return metric;
+      return "--";
   }
 }
 
-const resolvedMetrics = community.metrics.map(resolveMetric);
+const priceChange: number | null =
+  stats?.dailyPriceChange ?? null;
+
+const isNegative = priceChange !== null && priceChange < 0;
+const isPositive = priceChange !== null && priceChange > 0;
 ---
 
 <section class="flex w-full flex-col gap-8 md:gap-16 lg:gap-18 px-4 md:px-12">
+  <!-- Header -->
   <div class="flex flex-col gap-4">
     <Badge title={community.badge} class="w-fit" />
     <h2 class="h4 grotesk text-primary">
       {community.title}
     </h2>
+    <p class="text-red-500 body2">
+      DEBUG: {stats ? "STATS LOADED" : "NO STATS"}
+    </p>
   </div>
 
+  <!-- Metrics Grid -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-    {resolvedMetrics.map((metric) => {
-      const change = apiStats?.dailyPriceChange ?? null;
-      const isNegative = change !== null && change < 0;
-      const isPositive = change !== null && change > 0;
+    {community.metrics.map((metric, index) => (
+      <div class="flex items-center gap-5 md:flex-col md:items-start md:gap-4 lg:flex-row lg:items-center">
+        
+        <!-- Icon -->
+        <div class="shrink-0">
+          <Image
+            src={metric.icon}
+            alt={metric.label}
+            class="w-[45px] md:w-[60px] lg:w-[80px] aspect-square object-contain select-none pointer-events-none"
+          />
+        </div>
 
-      return (
-        <div class="flex items-center gap-5 md:flex-col md:items-start md:gap-4 lg:flex-row lg:items-center">
-          
-          <div class="shrink-0">
-            <Image
-              src={metric.icon}
-              alt={metric.label}
-              class="w-[45px] md:w-[60px] lg:w-[80px] aspect-square object-contain select-none pointer-events-none"
-            />
+        <!-- Content -->
+        <div>
+          <div class="body4 text-secondary mb-1">
+            {metric.label}
           </div>
 
-          <div>
-            <div class="body4 text-secondary mb-1">
-              {metric.label}
+          <div class="flex items-end gap-2">
+            <div class="h6 text-primary leading-none grotesk">
+              {resolveValue(index)}
             </div>
 
-            <div class="flex items-end gap-2">
-              <div class="h6 text-primary leading-none grotesk">
-                {metric.value}
-              </div>
-
-              {metric.label === "NOS Price" && metric.subvalue && (
-                <div
-                  class={`flex items-center body4 ${
-                    isNegative
-                      ? "text-[#BA2323]"
-                      : isPositive
-                      ? "text-green-500"
-                      : ""
+            {index === 3 && priceChange !== null && (
+              <div
+                class={`flex items-center body4 ${
+                  isNegative
+                    ? "text-[#BA2323]"
+                    : isPositive
+                    ? "text-green-500"
+                    : ""
+                }`}
+              >
+                {priceChange.toFixed(2)}%
+                <svg
+                  class={`w-4 h-4 ml-1 ${
+                    isPositive ? "rotate-180" : ""
                   }`}
+                  viewBox="0 0 20 20"
+                  fill="none"
                 >
-                  {metric.subvalue}
-
-                  <svg
-                    class={`w-4 h-4 ml-1 transition-transform ${
-                      isPositive ? "rotate-180" : ""
-                    }`}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      d="M6.22686 6.22876L13.7693 13.7712M13.7693 13.7712L13.7693 8.11438M13.7693 13.7712L8.11248 13.7712"
-                      stroke="currentColor"
-                      stroke-width="1.0625"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-              )}
-            </div>
+                  <path
+                    d="M6.22686 6.22876L13.7693 13.7712M13.7693 13.7712L13.7693 8.11438M13.7693 13.7712L8.11248 13.7712"
+                    stroke="currentColor"
+                    stroke-width="1.0625"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
-      );
-    })}
+      </div>
+    ))}
   </div>
 </section>
