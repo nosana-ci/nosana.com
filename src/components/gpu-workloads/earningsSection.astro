@@ -60,7 +60,8 @@ const headingParts = heading.split(" - ");
 
           <ul
             id="gpuOptions"
-            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto"
+            data-lenis-prevent
+            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto overscroll-contain"
           >
             <li
               class="gpu-option body2 md:caption1 text-secondary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
@@ -130,7 +131,7 @@ const headingParts = heading.split(" - ");
                 class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
               >
                 <div
-                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[8px] border-b-[8px] border-l-[8px] border-r-transparent border-l-transparent"
                 >
                 </div>
                 <span id="daysTooltipValue">7 Days</span>
@@ -164,7 +165,7 @@ const headingParts = heading.split(" - ");
                 class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
               >
                 <div
-                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                  class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[8px] border-b-[8px] border-l-[8px] border-r-transparent border-l-transparent"
                 >
                 </div>
                 <span id="hoursTooltipValue">1 hours</span>

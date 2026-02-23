@@ -20,7 +20,7 @@ export const blogsSchema = ({ image }: SchemaContext) =>
       role: z.string().optional(),
       createdAt: z.coerce.date(),
       tags: z.array(z.string()).optional(),
-      focus: z.string().default('Decentralized AI Compute'),
-      impact: z.string().default('Enabling scalable, on-demand GPU workloads'),
+      focus: z.string().default('AI-Powered Art Generation'),
+      impact: z.string().default('Unlocking decentralized creativity with on-demand GPU power'),
     }),
   ]);

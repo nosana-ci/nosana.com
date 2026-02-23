@@ -27,13 +27,13 @@ navigation:
       url: "/gpu-providers"
   community:
     - name: "Faces of Nosana"
-      url: "/faces-of-nosana"
+      url: "/about#team"
     - name: "Case Studies"
       url: "/case-studies"
     - name: "Events"
       url: "/events"
     - name: "Community Calls"
-      url: "/community-calls"
+      url: "/events#community-calls"
   resources:
     - name: "About Nosana"
       url: "/about"

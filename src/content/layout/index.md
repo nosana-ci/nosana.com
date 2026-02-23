@@ -8,28 +8,35 @@ socials:
   title: "Join the community"
   links:
     - name: "X"
-      url: "https://x.com/nosana"
+      url: "https://x.com/nosana_ai"
       icon: "./assets/socials/x.svg"
+
     - name: "LinkedIn"
-      url: "https://linkedin.com/nosana"
+      url: "https://www.linkedin.com/company/nosana"
       icon: "./assets/socials/linkedin.svg"
+
     - name: "Medium"
-      url: "https://medium.com/nosana"
+      url: "https://nosana.medium.com/"
       icon: "./assets/socials/medium.svg"
+
     - name: "GitHub"
-      url: "https://github.com/nosana"
+      url: "https://github.com/nosana-ci"
       icon: "./assets/socials/github.svg"
+
     - name: "Telegram"
-      url: "https://t.me/nosana"
+      url: "https://t.me/NosanaCompute"
       icon: "./assets/socials/telegram.svg"
+
     - name: "Discord"
-      url: "https://discord.com/nosana"
+      url: "https://discord.gg/nosana-ai"
       icon: "./assets/socials/discord.svg"
+
     - name: "YouTube"
-      url: "https://youtube.com/nosana"
+      url: "https://www.youtube.com/@NosanaAI"
       icon: "./assets/socials/youtube.svg"
+
     - name: "Reddit"
-      url: "https://reddit.com/nosana"
+      url: "https://www.reddit.com/r/Nosana_AI/"
       icon: "./assets/socials/reddit.svg"
 
 socialBannerMarquee:
@@ -139,5 +146,4 @@ brands:
     logo: "./assets/brands/verticalai.svg"
   - name: "WebSummit"
     logo: "./assets/brands/websummit.svg"
-    
 ---

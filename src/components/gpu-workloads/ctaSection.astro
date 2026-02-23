@@ -1,8 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Button from "../ui/button.astro";
 import sideFaces from "../../content/gpu-workloads/assets/side-faces.svg?raw";
 import logoFace from "../../content/gpu-workloads/assets/logo-face.svg?raw";
+import ctaBG from "../../content/gpu-workloads/assets/ctaBG.png";
+import ctaBGmobile from "../../content/gpu-workloads/assets/ctaBGmobile.png";
+import ctaBorder from "../../content/gpu-workloads/assets/ctaBorder.png";
 
 type Props = {
   ctaSection: CollectionEntry<"gpuWorkloads">["data"]["ctaSection"];
@@ -13,52 +17,74 @@ const { heading, headingHighlight, headingEnd, description, cta1, cta2 } =
   ctaSection;
 ---
 
-<section class="bg-bg-base relative w-full px-4 md:px-12">
-  <div class="background-grid absolute inset-0 z-0 size-full"></div>
-  <div
-    class="pointer-events-none absolute inset-0 z-10 size-full"
-    style="background: linear-gradient(to right, rgba(20, 20, 20, 1) 20%, transparent 100%);"
-  >
-  </div>
-  <div
-    class="relative z-20 mx-auto flex w-full flex-col gap-10 md:flex-row md:items-center md:justify-between"
-  >
-    <div class="md:w-1/3">
-      <h2 class="text-primary h4 grotesk mb-4">
-        {heading}
-        <span class="text-brand-100">{headingHighlight}</span>
-        {headingEnd}
-      </h2>
-      <p class="text-secondary body2 mb-8 max-w-md">{description}</p>
-      <div class="flex flex-wrap gap-4">
-        <Button title={cta1.title} url={cta1.url} variant="secondary" />
-        <Button title={cta2.title} url={cta2.url} variant="secondary" />
-      </div>
+<section class="bg-bg-base relative w-full h-[700px] lg:h-[580px] overflow-hidden">
+  <!-- Full Width Background -->
+  <div class="absolute inset-0 z-0 size-full">
+    <Image
+      src={ctaBGmobile}
+      alt=""
+      class="lg:hidden h-full w-full object-cover pointer-events-none select-none scale-110"
+    />
+    <Image src={ctaBG} alt="" class="hidden lg:block h-full w-full object-cover pointer-events-none select-none" />
+    <div
+      class="pointer-events-none absolute inset-0 z-10 size-full lg:hidden"
+      style="background: linear-gradient(to bottom, #141414 20%, transparent 100%);"
+    >
     </div>
-
-    <div class="flex w-full justify-center md:w-1/2 md:items-center">
-      <div class="cta-stack relative h-70 w-[450px] md:h-140">
-        <div
-          class="cta-layer cta-layer-1 absolute inset-x-0 bottom-0 flex justify-center"
-        >
-          <Fragment set:html={sideFaces} />
-        </div>
-        <div
-          class="cta-layer cta-layer-2 absolute inset-x-0 bottom-[30px] flex justify-center"
-        >
-          <Fragment set:html={sideFaces} />
-        </div>
-        <div
-          class="cta-layer cta-layer-3 absolute inset-x-0 bottom-[60px] flex justify-center"
-        >
-          <Fragment set:html={sideFaces} />
-        </div>
-        <div
-          class="cta-layer cta-layer-4 absolute inset-x-0 bottom-[180px] flex justify-center"
-        >
-          <Fragment set:html={logoFace} />
+    <div
+      class="pointer-events-none absolute inset-0 z-10 size-full hidden lg:block"
+      style="background: linear-gradient(to right, #141414 20%, transparent 100%);"
+    >
+    </div>
+  </div>
+  
+  <!-- Content Container -->
+  <div class="relative z-20 px-4 md:px-12 w-full h-full absolute inset-0">
+    <div class="flex flex-col lg:flex-row w-full h-full justify-between">
+      
+      <!-- Left Side - Content -->
+      <div class="lg:w-1/2 flex flex-col items-start justify-start lg:mt-12">
+        <h2 class="text-primary h4 grotesk mb-4 max-w-md">
+          {heading}
+          <span class="text-brand-100">{headingHighlight}</span>
+          {headingEnd}
+        </h2>
+        <p class="text-secondary body2 mb-8 max-w-lg">{description}</p>
+        <div class="flex flex-wrap gap-4">
+          <Button title={cta1.title} url={cta1.url} variant="secondary" />
+          <Button title={cta2.title} url={cta2.url} variant="secondary" />
         </div>
       </div>
+
+      <!-- Right Side - Animation -->
+      <div class="lg:w-1/2 flex justify-center items-center h-full pointer-events-none select-none">
+        <div class="cta-stack relative h-[380px] w-[380px]">
+          <div
+            class="cta-layer cta-layer-1 absolute inset-x-0 bottom-0 flex justify-center"
+          >
+            <Fragment set:html={sideFaces} />
+          </div>
+          <div
+            class="cta-layer cta-layer-2 absolute inset-x-0 bottom-[30px] flex justify-center"
+          >
+            <Fragment set:html={sideFaces} />
+          </div>
+          <div
+            class="cta-layer cta-layer-3 absolute inset-x-0 bottom-[60px] flex justify-center"
+          >
+            <Fragment set:html={sideFaces} />
+          </div>
+          <div
+            class="cta-layer cta-layer-4 absolute inset-x-0 bottom-[180px] flex justify-center"
+          >
+            <Fragment set:html={logoFace} />
+          </div>
+          <div class="absolute inset-x-0 -bottom-10 flex justify-center z-30">
+            <Image src={ctaBorder} alt="" class="w-full h-auto object-contain" />
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
 
@@ -110,13 +136,7 @@ const { heading, headingHighlight, headingEnd, description, cta1, cta2 } =
     }
 
     .background-grid {
-      background-color: transparent;
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNDQnIGhlaWdodD0nMTQ0JyB2aWV3Qm94PScwIDAgMTQ0IDE0NCc+PHBhdGggZD0nTTcyLjUgMHYxNDRNMCA3Mi41aDE0NE0wLjUgMHYxNDRNMCAwLjVoMTQ0JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC4xNSknIHN0cm9rZS13aWR0aD0nTScvPjxwYXRoIGQ9J003Mi41IDcwdjVNNzAgNzIuNWg1JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC41NSknIHN0cm9rZS13aWR0aD0nTScvPjwvc3ZnPg==");
-      background-size: 144px 144px;
-      background-position: 0 0px;
-      background-position: center center;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      opacity: 0.3;
+      display: none;
     }
   </style>
 </section>

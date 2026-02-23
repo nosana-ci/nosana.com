@@ -70,12 +70,13 @@ export async function getGPUMarkets(): Promise<CategorizedGPUs> {
     const isNvidia = marketInfo?.slug?.toLowerCase().startsWith("nvidia");
     const type = (marketInfo?.type || "").toUpperCase();
 
+    const feeFactor = 1 + (marketInfo?.network_fee_percentage ?? 10) / 100;
+
     const item: GPUItem = {
       address: addr,
       gpu: name,
-      // Matches useMarketUsdPrice: usd_reward_per_hour * 1.1 (10% network fee)
       price: marketInfo?.usd_reward_per_hour
-        ? `$${(marketInfo.usd_reward_per_hour * 1.1).toFixed(3)}/h`
+        ? `$${(marketInfo.usd_reward_per_hour * feeFactor).toFixed(3)}/h`
         : "N/A",
       availability,
     };
