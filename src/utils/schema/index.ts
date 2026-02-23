@@ -13,3 +13,4 @@ export * from './blogs-homepage';
 export * from './events';
 export * from './sessions';
 export * from './community-calls';
+export * from './grants';

@@ -69,7 +69,7 @@ Stay tuned, more to come.
 
 Useful Links
 
-* [Nosana Grants Program Page](https://grants.nosana.com/)  
+* [Nosana Grants Program Page](https://nosana.com/grants)  
 * [Nosana Website](https://nosana.com/)  
 * [Join the Discord](https://nosana.com/discord)  
 * [Follow us on X](https://nosana.com/x)  

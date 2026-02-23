@@ -16,6 +16,7 @@ import {
   eventsSchema,
   sessionsSchema,
   communityCallsSchema,
+  grantsSchema,
 } from './utils/schema';
 import { aboutPageSchema } from './utils/schema/about-page';
 import { nosanaTokenSchema } from './utils/schema/nosana-token';
@@ -111,6 +112,11 @@ const communityCallsCollection = defineCollection({
   schema: communityCallsSchema,
 });
 
+const grantsCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/grants" }),
+  schema: grantsSchema,
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
@@ -130,4 +136,5 @@ export const collections = {
   events: eventsCollection,
   sessions: sessionsCollection,
   communityCalls: communityCallsCollection,
+  grants: grantsCollection,
 };

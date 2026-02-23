@@ -19,7 +19,7 @@ navigation:
       url: "/govern"
   grants:
     - name: "Apply for Grants"
-      url: "https://grants.nosana.com/"
+      url: "/grants"
   learningCenter:
     - name: "Nosana Docs"
       url: "https://learn.nosana.com/"
