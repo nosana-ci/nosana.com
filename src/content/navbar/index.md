@@ -78,7 +78,7 @@ navItems:
           description: "See what people say about Nosana."
   - type: "link"
     title: "Nosana Grants"
-    url: "https://grants.nosana.com/"
+    url: "/grants"
     target: "_blank"
     icon: "../../assets/icons/externalLink.svg"
 navCTA:

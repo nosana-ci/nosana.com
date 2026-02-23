@@ -1,22 +1,8 @@
 ---
-import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
-
-interface StatsResponse {
-  date: string;
-  usdValueStaked: string;
-  nosStaked: string;
-  totalXNosStaked: string;
-  stakers: number;
-  price: number;
-  marketCap: number;
-  dailyVolume: number;
-  totalSupply: number;
-  circulatingSupply: number;
-  fullyDilutedMarketCap: number;
-  dailyPriceChange: number;
-}
+import chevronRightDouble from "../../assets/icons/chevronRightDouble.svg?raw";
 
 const entry = await getEntry("nosanaToken", "index");
 
@@ -24,136 +10,92 @@ if (!entry) {
   throw new Error("Nosana Token content not found");
 }
 
-const { community } = entry.data;
-
-// --------------------
-// Fetch API (SSR)
-// --------------------
-let stats: StatsResponse | null = null;
-
-try {
-  const res = await fetch("https://dashboard.k8s.prd.nos.ci/api/stats");
-  const text = await res.text();
-  stats = JSON.parse(text) as StatsResponse;
-} catch (e) {
-  console.error("FETCH FAILED:", e);
-}
-
-// --------------------
-// Format Helpers
-// --------------------
-const formatCurrency = (num: number | string): string =>
-  "$" + Number(num).toLocaleString();
-
-const formatNumber = (num: number | string): string =>
-  Number(num).toLocaleString();
-
-const formatPrice = (num: number): string =>
-  "$" + Number(num).toFixed(4);
-
-// --------------------
-// Map Values by Index
-// --------------------
-function resolveValue(index: number): string {
-  if (!stats) return "--";
-
-  switch (index) {
-    case 0:
-      return formatNumber(stats.stakers);
-    case 1:
-      return formatCurrency(stats.usdValueStaked);
-    case 2:
-      return formatCurrency(stats.marketCap);
-    case 3:
-      return formatPrice(stats.price);
-    case 4:
-      return formatCurrency(stats.dailyVolume);
-    case 5:
-      return formatNumber(stats.circulatingSupply);
-    case 6:
-      return formatNumber(stats.totalSupply);
-    case 7:
-      return formatCurrency(stats.fullyDilutedMarketCap);
-    default:
-      return "--";
-  }
-}
-
-const priceChange: number | null =
-  stats?.dailyPriceChange ?? null;
-
-const isNegative = priceChange !== null && priceChange < 0;
-const isPositive = priceChange !== null && priceChange > 0;
+const { guideSection } = entry.data;
 ---
 
-<section class="flex w-full flex-col gap-8 md:gap-16 lg:gap-18 px-4 md:px-12">
+<section class="flex w-full flex-col gap-8 lg:gap-10 px-4 md:px-12">
   <!-- Header -->
   <div class="flex flex-col gap-4">
-    <Badge title={community.badge} class="w-fit" />
+    <Badge title={guideSection.badge} class="w-fit" />
     <h2 class="h4 grotesk text-primary">
-      {community.title}
+      {guideSection.heading}
     </h2>
-    <p class="text-red-500 body2">
-      DEBUG: {stats ? "STATS LOADED" : "NO STATS"}
+    <p class="body2 text-secondary">
+      {guideSection.description}
     </p>
   </div>
 
-  <!-- Metrics Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-    {community.metrics.map((metric, index) => (
-      <div class="flex items-center gap-5 md:flex-col md:items-start md:gap-4 lg:flex-row lg:items-center">
-        
-        <!-- Icon -->
-        <div class="shrink-0">
+  <!-- Grid -->
+  <div class="grid w-full grid-cols-2 lg:grid-cols-4 gap-6">
+    {guideSection.exchanges.map((exchange) => (
+      <a
+        href={exchange.url}
+        class="group relative flex flex-col w-full aspect-video overflow-hidden rounded-xl border border-default bg-surface transition-all duration-300"
+      >
+        <!-- Hover Gradient SVG -->
+        <div
+          class="pointer-events-none absolute -top-8 -right-6 opacity-0 transition-opacity duration-300 group-hover:opacity-40"
+          style={`color: ${exchange.color}`}
+        >
+          <svg
+            width="228"
+            height="155"
+            viewBox="0 0 228 155"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g filter="url(#filter0_f_5019_31183)">
+              <ellipse
+                cx="191"
+                cy="28.5"
+                rx="120"
+                ry="55.5"
+                fill="currentColor"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_5019_31183"
+                x="0"
+                y="-98"
+                width="382"
+                height="253"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="35.5"
+                  result="effect1_foregroundBlur_5019_31183"
+                />
+              </filter>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Top Content Area (Logo Only) -->
+        <div class="relative z-10 flex flex-1 items-center justify-center">
           <Image
-            src={metric.icon}
-            alt={metric.label}
-            class="w-[45px] md:w-[60px] lg:w-[80px] aspect-square object-contain select-none pointer-events-none"
+            src={exchange.image}
+            alt="Exchange Logo"
+            class="h-[20px] md:h-[32px] w-auto object-contain mt-2 lg:mt-4"
           />
         </div>
 
-        <!-- Content -->
-        <div>
-          <div class="body4 text-secondary mb-1">
-            {metric.label}
-          </div>
-
-          <div class="flex items-end gap-2">
-            <div class="h6 text-primary leading-none grotesk">
-              {resolveValue(index)}
-            </div>
-
-            {index === 3 && priceChange !== null && (
-              <div
-                class={`flex items-center body4 ${
-                  isNegative
-                    ? "text-[#BA2323]"
-                    : isPositive
-                    ? "text-green-500"
-                    : ""
-                }`}
-              >
-                {priceChange.toFixed(2)}%
-                <svg
-                  class={`w-4 h-4 ml-1 ${
-                    isPositive ? "rotate-180" : ""
-                  }`}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M6.22686 6.22876L13.7693 13.7712M13.7693 13.7712L13.7693 8.11438M13.7693 13.7712L8.11248 13.7712"
-                    stroke="currentColor"
-                    stroke-width="1.0625"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            )}
-          </div>
+        <!-- Bottom Arrow Bar -->
+        <div class="border-t border-default flex items-center justify-end py-2 px-3 md:px-4">
+          <span
+            class="w-4 h-4 md:w-6 md:h-6 flex items-center justify-center"
+            set:html={chevronRightDouble}
+          />
         </div>
-      </div>
+      </a>
     ))}
   </div>
 </section>

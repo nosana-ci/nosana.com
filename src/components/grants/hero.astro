@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Button from "../ui/button.astro";
+import Badge from "../ui/badge.astro";
+
+const entry = await getEntry("grants", "index");
+
+if (!entry) {
+  throw new Error("Nosana Token content not found");
+}
+
+const { heroSection } = entry.data;
+---
+
+<section class="h-[calc(100vh-5rem)] w-full overflow-hidden p-4 lg:p-12">
+  <div
+    class="relative z-10 h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0"
+  >
+    <!-- Content (Left) -->
+    <div class="relative z-10 flex max-w-xl flex-col items-start gap-4 text-left">
+      <Badge
+        title={heroSection.badge.title}
+        icon={heroSection.badge.icon}
+      />
+
+      <h1 class="h4 grotesk text-primary">
+        {heroSection.title}
+      </h1>
+
+      <p class="body2 text-secondary max-w-lg">
+        {heroSection.description}
+      </p>
+
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <Button
+          title={heroSection.cta1.title}
+          url={heroSection.cta1.url}
+          variant="secondary"
+          iconColor="#fafafa"
+        />
+        <Button
+          title={heroSection.cta2.title}
+          url={heroSection.cta2.url}
+          variant="secondary"
+          iconColor="#fafafa"
+        />
+      </div>
+    </div>
+
+    <!-- Background Image -->
+    <div class="pointer-events-none absolute inset-0 z-0 h-full w-full">
+      <Image
+        src={heroSection.bgImg}
+        alt="Background Pattern"
+        class="h-full w-full object-cover opacity-60 pointer-events-none select-none"
+      />
+    </div>
+
+    <!-- Lottie Animation (Right Side) -->
+    <div
+      id="hero-lottie"
+      class="absolute right-0 bottom-0 w-full h-full pointer-events-none"
+    ></div>
+  </div>
+</section>
+
+<script>
+  import lottie from "lottie-web";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("hero-lottie");
+    if (!container) return;
+
+    lottie.loadAnimation({
+      container,
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      path: "/lottie/hero.json",
+    });
+  });
+</script>
