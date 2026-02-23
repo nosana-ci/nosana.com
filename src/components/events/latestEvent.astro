@@ -1,12 +1,9 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
 
-const events = await getCollection("events");
-
-const latestEvent = events
-  .sort((a, b) => new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime())[0];
+const latestEvent = await getEntry("events", "buidl-day-at-token2049");
 
 if (!latestEvent) return null;
 

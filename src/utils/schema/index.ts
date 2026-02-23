@@ -11,3 +11,5 @@ export * from './testimonials-homepage';
 export * from './blogs';
 export * from './blogs-homepage';
 export * from './events';
+export * from './sessions';
+export * from './community-calls';
