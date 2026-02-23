@@ -10,21 +10,34 @@
   }
 
   handle_options() {
-    for var in "$@"; do
-      case $var in
+    while [[ $# -gt 0 ]]; do
+      case $1 in
         --pre-release)
           PRE_RELEASE="next"
+          shift
           ;;
         --verbose)
           NOSANA_NODE_VERBOSE=true
-          ;; 
-        esac
           shift
+          ;;
+        --network=*)
+          SOL_NET_ENV="${1#*=}"
+          shift
+          ;;
+        --network)
+          SOL_NET_ENV="$2"
+          shift 2
+          ;;
+        *)
+          shift
+          ;;
+      esac
     done
   }
 
   main() {
     PRE_RELEASE=""
+    SOL_NET_ENV="mainnet"
     handle_options "$@"
 
     if ! check_cmd lsb_release; then
@@ -36,20 +49,16 @@
       WSL2=true
     fi
     ubuntu_version=$(lsb_release -sr)
-    cat /proc/version | grep -q 'WSL2'
     log_std "Running ubuntu version $ubuntu_version"
     if [[ $WSL2 == true ]]; then
-      log_std "Running on WSL2"
-      if [[ $ubuntu_version != 22.04 ]]; then
-        log_err "🧯 Not running ubuntu version 22.04 on WSL2."
+        log_err "🧯 WSL2 is not supported."
         exit 1;
-      fi
+      
     fi
 
     log_std "🔥 Initializing Nosana-Node."
-
     # read -rp "Which network: devnet or mainnet? (default: devnet) " SOL_NET_ENV
-    SOL_NET_ENV="${SOL_NET_ENV:=mainnet}"
+    # SOL_NET_ENV="${SOL_NET_ENV:=mainnet}"
 
     # Make sure that the basics are installed
     downloader --check
@@ -64,13 +73,6 @@
       log_err "🔋 Please follow installation instructions here: https://docs.docker.com/engine/install "
       exit 1
     else
-      if [[ $WSL2 == true ]]; then
-        if docker --version | grep -q 'could not be found in this WSL 2 distro'; then
-          log_err "🧯 Docker Desktop is not running. Please install and start Docker Desktop first."
-          log_err "🔋 Please follow installation instructions here: https://docs.docker.com/desktop/install/windows-install/ "
-          exit 1
-        fi
-      fi
       log_std "✅ Docker is installed. "
     fi
 
@@ -98,114 +100,59 @@
     else
       log_std "✅ Nvidia Container Toolkit installed. "
     fi
-    
-    # If podman/node are already running, stop it.
-    if [ $(docker ps -a --format {{.Names}} -f name=nosana-node) ]; then
-      if [ ! -d "logs" ]; then
-        mkdir logs
-      fi
-      docker logs nosana-node >& logs/nosana-node.log
-    fi
 
-    docker rm --force podman nosana-node &>/dev/null
-    kill -9 `pidof podman` &>/dev/null
-    if [[ $WSL2 == true ]]; then
-      if ! check_cmd podman; then
-        log_err "🧯 Podman is not installed. Please install Podman first."
-        log_err "🔋 Please follow installation instructions here: https://docs.nosana.io/hosts/grid-windows.html#podman"
-        exit 1
-      else
-        if ! podman --version | grep -q 'version 4.'; then
-          log_err "🧯 Podman is not the right version, need version >4.1"
-          log_err "🔋 Please follow installation instructions here: https://docs.nosana.io/hosts/grid-windows.html#podman "
-          exit 1
-        fi
-        log_std "✅ Podman v4 is installed. "
-      fi
-
-      log_std "🔎 Checking if Nvidia Container Toolkit is configured.."
-      if podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L &>/dev/null; then
-        log_std "✅ Nvidia Container Toolkit configured. "
-      else
-        log_err "🧯 Nvidia Container Toolkit is not configured."
-        log_err "🔋 Please follow configuration instructions here: https://docs.nosana.io/hosts/grid-windows.html#configure-the-nvidia-container-toolkit "
-        log_err "🧯 If Nvidia Container Toolkit has been re-configured."
-        log_err "🔋 Please removed unused podman resources. If you DO NOT use podman for anything outside of Nosana, simply run 'podman system prune' or else please manually remove unused podman images and volumes."
-        exit 1
-      fi
-
-      log_std "🔥 Starting podman..."
-      
-      mkdir -p $HOME/.nosana # making sure .nosana folder exists (you always should be the owner of $HOME so this should not fail)
-      # Create nosana/podman directory with proper error handling
-      if !  mkdir -p $HOME/.nosana/podman; then
-        log_err "🧯 Failed to create directory $HOME/.nosana/podman"
-        log_err "🔋 This is likely a permission issue."
-        log_err "   Trying to run: sudo chown -R $USER:$USER $HOME/.nosana"
-        sudo chown -R $USER:$USER $HOME/.nosana
-        mkdir -p $HOME/.nosana/podman
-        # Check if .nosana directory exists and show its permissions
-        if [ -d "$HOME/.nosana/podman" ]; then
-          log_std "   Directory $HOME/.nosana/podman exists with permissions: $(ls -ld $HOME/.nosana/podman | awk '{print $1, $3, $4}')"
-        else
-          log_err "   Directory $HOME/.nosana/podman does not exist"
-          exit 1
-        fi
-      fi 
-      # Start Podman
-      { podman system service --time 0 unix://$HOME/.nosana/podman/podman.sock & } 2> podman.log
-
-      sleep 5 # wait for podman to start
-
-      # Start Nosana-Node
-      nosana_run_cmd
-
+    docker rm --force podman &>/dev/null
+    log_std "🔎 Checking if Nvidia Container Toolkit is configured.."
+    if docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu18.04 nvidia-smi &>/dev/null; then
+      log_std "✅ Nvidia Container Toolkit configured."
     else
-      log_std "🔎 Checking if Nvidia Container Toolkit is configured.."
-      if docker run --gpus all nvidia/cuda:11.0.3-base-ubuntu18.04 nvidia-smi &>/dev/null; then
-        log_std "✅ Nvidia Container Toolkit configured. "
-      else
-        log_err "🧯 Nvidia Container Toolkit is not configured."
-        log_err "🔋 Please follow configuration instructions here: https://docs.nosana.io/hosts/grid-ubuntu.html#linux-configure-the-nvidia-container-toolkit "
-        log_err "🧯 If Nvidia Container Toolkit has been re-configured."
-        log_err "🔋 Please removed unused podman resources. If you DO NOT use podman for anything outside of Nosana, simply run 'podman system prune' or else please manually remove unused podman images and volumes."
-        exit 1
-      fi
-      
-      log_std "🔥 Starting podman..."
-      # Start Podman in docker
-
-      if ! docker volume ls | grep podman-cache > /dev/null 2>&1; then
-        docker volume create podman-cache > /dev/null 2>&1
-      fi
-
-      if ! docker volume ls | grep podman-socket > /dev/null 2>&1; then
-        docker volume create podman-socket > /dev/null 2>&1
-      fi
-
-      docker run -d \
-        --pull=always \
-        --gpus=all \
-        --name podman \
-        --device /dev/fuse \
-        --mount source=podman-cache,target=/var/lib/containers \
-        --volume podman-socket:/podman \
-        --privileged \
-        -e ENABLE_GPU=true \
-        nosana/podman:v1.1.0 unix:/podman/podman.sock
-
-      sleep 5 # wait for podman to start
-
-      # Start Nosana-Node
-      nosana_run_cmd
-
+      log_err "🧯 Nvidia Container Toolkit is not configured."
+      log_err "🔋 Please follow configuration instructions here: https://docs.nosana.io/hosts/grid-ubuntu.html#linux-configure-the-nvidia-container-toolkit "
+      log_err "🧯 If Nvidia Container Toolkit has been re-configured."
+      log_err "🔋 Please removed unused podman resources. If you DO NOT use podman for anything outside of Nosana, simply run 'podman system prune' or else please manually remove unused podman images and volumes."
+      exit 1
     fi
+    
+    log_std "🔥 Starting podman..."
+    # Start Podman in docker
+
+    if ! docker volume ls | grep podman-cache > /dev/null 2>&1; then
+      docker volume create podman-cache > /dev/null 2>&1
+    fi
+
+    if ! docker volume ls | grep podman-socket > /dev/null 2>&1; then
+      docker volume create podman-socket > /dev/null 2>&1
+    fi
+
+    docker run -d \
+      --pull=always \
+      --gpus=all \
+      --name podman \
+      --device /dev/fuse \
+      --mount source=podman-cache,target=/var/lib/containers \
+      --mount type=bind,source=$HOME/.nosana/,target=/root/.nosana \
+      --privileged \
+      -e ENABLE_GPU=true \
+      -e NVIDIA_DRIVER_CAPABILITIES=all \
+      nosana/podman:v1.1.0 unix:/podman.sock
+
+    sleep 5 # wait for podman to start
+
+    # Start Nosana-Node
+    nosana_run_cmd
   }
 
   # Build nosana run command
   nosana_run_cmd() {
+    docker exec podman sh -c 'podman ps -a -q --filter "ancestor=docker.io/nosana/nosana-node:latest" | xargs -r podman rm -f'
+    docker exec podman sh -c 'podman images -f "dangling=true" -f "reference=docker.io/nosana/nosana-node:latest" -q | xargs -r podman rmi -f'
+
+    if ! docker exec podman podman network ls | grep NOSANA_GATEWAY > /dev/null 2>&1; then
+      docker exec podman podman network create --driver bridge --subnet=192.168.101.0/24 --gateway=192.168.101.1 NOSANA_GATEWAY > /dev/null 2>&1
+    fi
+    
     NOSANA_NODE_ARGS=(
-      node start
+      start
     )
     NOSANA_NODE_ARGS+=(--network "$SOL_NET_ENV")
 
@@ -217,28 +164,22 @@
     fi
 
     if [[ $PRE_RELEASE == "next" ]]; then
-      log_err "WARNING: Users may experience bugs and instabilty when running a pre-released version."
+      log_err "WARNING: Users may experience bugs and instability when running a pre-released version."
     fi
 
     DOCKER_ARGS=(
       --pull=always
       --name nosana-node
-      --network host
+      --network NOSANA_GATEWAY
       --interactive -t
-      --volume ~/.nosana/:/root/.nosana/
+      --volume /root/.nosana/:/root/.nosana/
+      --mount type=bind,source=/root/../podman.sock,target=/root/.nosana/podman/podman.sock
       -e CLI_VERSION=${PRE_RELEASE}
     )
 
-    if [[ $WSL2 != true ]]; then
-      DOCKER_ARGS+=(--volume podman-socket:/root/.nosana/podman:ro)
-    fi
-
-    # Before running a new nosana-cli container, remove dangling nosana-cli images
-    docker images -f "dangling=true" -f "reference=nosana/nosana-cli" -q | xargs -r docker rmi -f
-
-    docker run \
+    docker exec -it podman podman run \
       ${DOCKER_ARGS[@]} \
-      nosana/nosana-cli:latest \
+      docker.io/nosana/nosana-node:latest \
         ${NOSANA_NODE_ARGS[@]}
 
     log_std "\nNosana Node finished"
@@ -257,7 +198,7 @@
 
   need_cmd() {
     if ! check_cmd "$1"; then
-      err "need '$1' (command not found)"
+      die "need '$1' (command not found)"
     fi
   }
 
@@ -270,7 +211,7 @@
   # command.
   ensure() {
     if ! "$@"; then
-      err "command failed: $*"
+      die "command failed: $*"
     fi
   }
 
@@ -299,7 +240,7 @@
     elif [ "$program" = wget ]; then
       wget "$1" -O "$2"
     else
-      err "Unknown downloader" # should not reach here
+      die "Unknown downloader"
     fi
   }
   
