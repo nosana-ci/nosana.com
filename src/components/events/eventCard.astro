@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  thumbnail: ImageMetadata;
+  createdAt: Date;
+  time: string;
+  url: string;
+}
+
+const { title, description, thumbnail, createdAt, time, url } = Astro.props;
+
+const month = createdAt
+  .toLocaleDateString("en-US", { month: "short" })
+  .slice(0, 3);
+const day = createdAt.getDate();
+---
+
+<div class="flex flex-row items-start gap-6 lg:gap-10 lg:px-20">
+  <div class="flex w-20 shrink-0 flex-col overflow-hidden rounded-lg">
+    <div class="bg-primary/40 flex items-center justify-center py-2">
+      <span class="text-primary text-[13px] leading-none font-semibold">
+        {month}
+      </span>
+    </div>
+    <div class="bg-elevated flex items-center justify-center py-2">
+      <span class="text-primary grotesk body1 leading-none">
+        {day}
+      </span>
+    </div>
+  </div>
+
+  <div
+    class="border-secondary/20 flex flex-1 flex-col gap-6 border-l px-10 pb-2 lg:flex-row lg:gap-10"
+  >
+    <div
+      class="w-full shrink overflow-hidden max-md:order-2 lg:order-2 lg:w-1/2"
+    >
+      <Image
+        src={thumbnail}
+        alt={title}
+        class="pointer-events-none h-full w-full object-cover select-none"
+      />
+    </div>
+
+    <div class="flex flex-1 flex-col gap-3 max-md:order-1 lg:order-1">
+      <h3 class="text-primary h6 grotesk leading-snug">
+        {title}
+      </h3>
+      <p class="text-secondary body3">
+        {description}
+      </p>
+      {time && <p class="text-tertiary caption1">{time}</p>}
+      <div class="mt-2">
+        <Button
+          title="Event Details"
+          url={url}
+          variant="secondary"
+          target="_blank"
+        />
+      </div>
+    </div>
+  </div>
+</div>

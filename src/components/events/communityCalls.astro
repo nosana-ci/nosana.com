@@ -1,0 +1,108 @@
+---
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("communityCalls", "index");
+if (!entry) return;
+
+const { title, description, nextCallDate, lastUpdated, calls } = entry.data;
+
+const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
+  month: "numeric",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: true,
+});
+---
+
+<section class="w-full px-4 py-10 md:px-12 md:py-24">
+  <div class="mb-10 flex flex-col gap-4">
+    <h2 class="text-primary h1 grotesk">{title}</h2>
+    <p class="text-secondary body3 max-w-6xl">{description}</p>
+  </div>
+
+  <div class="w-full overflow-x-auto">
+    <table class="w-full border-collapse text-center">
+      <thead>
+        <tr class="border-elevated bg-surface border">
+          <th
+            class="text-secondary body4 border-elevated border px-6 py-4 font-normal"
+          >
+            Meeting
+          </th>
+          <th
+            class="text-secondary body4 border-elevated border px-6 py-4 font-normal"
+          >
+            Time
+          </th>
+          <th
+            class="text-secondary body4 border-elevated border px-6 py-4 font-normal"
+          >
+            Recording
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {
+          calls.map((call) => (
+            <tr class="border-elevated bg-surface/40 border transition">
+              <td class="text-primary body4 border-elevated border px-6 py-4">
+                {call.meeting}
+              </td>
+              <td class="text-primary body4 border-elevated border px-6 py-4">
+                {call.time}
+              </td>
+              <td class="border-elevated border px-6 py-4">
+                <a
+                  href={call.recordingUrl}
+                  target="_blank"
+                  class="text-brand-100 body4 hover:text-brand-200 inline-flex items-center gap-1.5 transition"
+                >
+                  Link
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="mt-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+  >
+    <p class="text-secondary body4">
+      The next community call will take place on<br />
+      <span class="text-primary">{nextCallDate}.</span>
+    </p>
+    <p class="text-secondary caption1 text-right">
+      Last update:<br />
+      {lastUpdatedFormatted}
+    </p>
+  </div>
+</section>

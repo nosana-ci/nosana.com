@@ -13,7 +13,9 @@ import {
   testimonialsHomepageSchema,
   blogsSchema,
   blogsHomepageSchema,
-  eventsSchema
+  eventsSchema,
+  sessionsSchema,
+  communityCallsSchema,
 } from './utils/schema';
 import { aboutPageSchema } from './utils/schema/about-page';
 import { nosanaTokenSchema } from './utils/schema/nosana-token';
@@ -99,6 +101,16 @@ const eventsCollection = defineCollection({
   schema: eventsSchema,
 });
 
+const sessionsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.md", base: "src/content/sessions" }),
+  schema: sessionsSchema,
+});
+
+const communityCallsCollection = defineCollection({
+  loader: glob({ pattern: "index.md", base: "src/content/community-calls" }),
+  schema: communityCallsSchema,
+});
+
 export const collections = {
   navbar: navbarCollection,
   homepage: homepageCollection,
@@ -116,4 +128,6 @@ export const collections = {
   blogs: blogsCollection,
   blogsHomepage: blogsHomepageCollection,
   events: eventsCollection,
+  sessions: sessionsCollection,
+  communityCalls: communityCallsCollection,
 };

@@ -1,0 +1,211 @@
+---
+interface Props {
+  items: string[];
+  activeIndex?: number;
+  id: string;
+  maxVisible?: number;
+}
+
+const { items, activeIndex = 0, id, maxVisible = 5 } = Astro.props;
+---
+
+<div
+  id={id}
+  class="pagination-root flex flex-wrap items-center gap-4"
+  data-active={activeIndex}
+  data-max={maxVisible}
+  data-items={JSON.stringify(items)}
+>
+  <button
+    class="pagination-back border-default text-primary inline-flex cursor-pointer items-stretch overflow-hidden rounded-sm border bg-white/15 text-sm font-medium transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+    aria-label="Previous"
+  >
+    <span class="flex items-center justify-center px-3 py-2.5">
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8.5 10.5L5 7L8.5 3.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M5.5 10.5L2 7L5.5 3.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </span>
+    <span
+      class="border-default hidden items-center border-l px-3 py-2.5 md:flex"
+      >Back</span
+    >
+  </button>
+
+  <div class="pagination-items flex flex-wrap items-center gap-1.5"></div>
+
+  <button
+    class="pagination-next border-default text-primary inline-flex cursor-pointer items-stretch overflow-hidden rounded-sm border bg-white/15 text-sm font-medium transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+    aria-label="Next"
+  >
+    <span
+      class="border-default hidden items-center border-r px-3 py-2.5 md:flex"
+      >Next</span
+    >
+    <span
+      class="border-default flex items-center justify-center border-l px-3 py-2.5 md:border-l-0"
+    >
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.5 3.5L9 7L5.5 10.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M8.5 3.5L12 7L8.5 10.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  function initPagination(root: HTMLElement) {
+    const items: string[] = JSON.parse(root.dataset.items || "[]");
+    const maxVisible = parseInt(root.dataset.max || "5");
+    let active = parseInt(root.dataset.active || "0");
+
+    const itemsContainer =
+      root.querySelector<HTMLElement>(".pagination-items")!;
+    const backBtn = root.querySelector<HTMLButtonElement>(".pagination-back")!;
+    const nextBtn = root.querySelector<HTMLButtonElement>(".pagination-next")!;
+
+    const isMobile = () => window.innerWidth < 768;
+
+    function getVisibleIndices(
+      active: number,
+      total: number,
+      max: number,
+    ): (number | "...")[] {
+      if (total <= max) return Array.from({ length: total }, (_, i) => i);
+
+      const result: (number | "...")[] = [];
+
+      // Always show first
+      result.push(0);
+
+      // Window around active
+      const half = Math.floor((max - 2) / 2); // -2 for first & last
+      let start = Math.max(1, active - half);
+      let end = Math.min(total - 2, active + half);
+
+      // Clamp window size
+      if (end - start < max - 3) {
+        if (start === 1) end = Math.min(total - 2, start + max - 3);
+        else start = Math.max(1, end - (max - 3));
+      }
+
+      if (start > 1) result.push("...");
+      for (let i = start; i <= end; i++) result.push(i);
+      if (end < total - 2) result.push("...");
+
+      // Always show last
+      result.push(total - 1);
+
+      return result;
+    }
+
+    function render() {
+      itemsContainer.innerHTML = "";
+
+      if (isMobile()) {
+        // Only show the active item
+        const btn = document.createElement("button");
+        btn.textContent = items[active];
+        btn.dataset.index = String(active);
+        btn.className =
+          "rounded-sm w-10 h-10 flex items-center justify-center text-sm font-medium transition cursor-pointer bg-brand-100 text-secondarydark";
+        btn.setAttribute("aria-current", "true");
+        itemsContainer.appendChild(btn);
+      } else {
+        const visible = getVisibleIndices(active, items.length, maxVisible);
+        visible.forEach((v) => {
+          if (v === "...") {
+            const el = document.createElement("span");
+            el.textContent = "...";
+            el.className = "px-2 text-tertiary text-sm select-none";
+            itemsContainer.appendChild(el);
+            return;
+          }
+
+          const btn = document.createElement("button");
+          btn.textContent = items[v];
+          btn.dataset.index = String(v);
+          const isActive = v === active;
+          btn.className = [
+            "rounded-sm w-10 h-10 flex items-center justify-center text-sm font-medium transition cursor-pointer",
+            isActive
+              ? "bg-brand-100 text-secondarydark"
+              : "bg-white/15 text-primary hover:bg-white/20",
+          ].join(" ");
+          btn.setAttribute("aria-current", isActive ? "true" : "false");
+          btn.addEventListener("click", () => setActive(v as number));
+          itemsContainer.appendChild(btn);
+        });
+      }
+
+      backBtn.disabled = active === 0;
+      nextBtn.disabled = active === items.length - 1;
+    }
+
+    function setActive(index: number) {
+      active = Math.max(0, Math.min(items.length - 1, index));
+      root.dataset.active = String(active);
+      render();
+
+      // Dispatch a custom event so consumers can react
+      root.dispatchEvent(
+        new CustomEvent("pagination:change", {
+          bubbles: true,
+          detail: { index: active, label: items[active], id: root.id },
+        }),
+      );
+    }
+
+    backBtn.addEventListener("click", () => setActive(active - 1));
+    nextBtn.addEventListener("click", () => setActive(active + 1));
+
+    // Allow external code to set the active index (without re-dispatching pagination:change)
+    root.addEventListener("pagination:set", ((e: CustomEvent) => {
+      active = Math.max(0, Math.min(items.length - 1, e.detail.index));
+      root.dataset.active = String(active);
+      render();
+    }) as EventListener);
+
+    // Re-render on resize to switch between mobile/desktop layout
+    window.addEventListener("resize", render);
+
+    render();
+  }
+
+  // Init all pagination roots on the page
+  document
+    .querySelectorAll<HTMLElement>(".pagination-root")
+    .forEach(initPagination);
+</script>

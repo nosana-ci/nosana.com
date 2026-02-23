@@ -1,0 +1,196 @@
+---
+import { getCollection } from "astro:content";
+import EventCard from "./eventCard.astro";
+import Pagination from "../ui/pagination.astro";
+
+const allEvents = await getCollection("events");
+
+const events = allEvents.sort(
+  (a, b) =>
+    new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime(),
+);
+
+const shortMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const currentMonth = 11; // December
+---
+
+<section class="w-full px-4 md:px-12">
+  <div id="events-list" class="flex flex-col gap-12">
+    {
+      events.map((event) => {
+        const date = new Date(event.data.createdAt);
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        const dateLabel = date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+        return (
+          <div
+            class="event-item flex flex-col gap-6"
+            data-month={month}
+            data-year={year}
+            data-title={event.data.title.toLowerCase()}
+            data-date-label={dateLabel}
+          >
+            <p class="text-tertiary body3 pb-4">{dateLabel}</p>
+            <EventCard
+              title={event.data.title}
+              description={event.data.description}
+              thumbnail={event.data.thumbnail}
+              createdAt={new Date(event.data.createdAt)}
+              time={event.data.time}
+              url={event.data.url}
+            />
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <p
+    id="events-empty"
+    class="text-tertiary body3 hidden py-20 text-center"
+  >
+    No events found.
+  </p>
+
+  <div class="mx-auto mt-12 flex justify-center">
+    <Pagination
+      id="events-pagination"
+      items={shortMonths}
+      activeIndex={currentMonth}
+      maxVisible={5}
+    />
+  </div>
+</section>
+
+<script>
+  const monthSelect = document.getElementById(
+    "events-month",
+  ) as HTMLSelectElement | null;
+  const yearSelect = document.getElementById(
+    "events-year",
+  ) as HTMLSelectElement | null;
+  const searchInput = document.getElementById(
+    "events-search",
+  ) as HTMLInputElement | null;
+  const paginationRoot = document.getElementById("events-pagination");
+  const eventItems = document.querySelectorAll<HTMLElement>(".event-item");
+  const emptyMsg = document.getElementById("events-empty");
+  const eventsList = document.getElementById("events-list");
+
+  const shortMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let activeMonth = 11; // December
+  let activeYear = 2025;
+  let searchQuery = "";
+
+  function filterEvents() {
+    let visibleCount = 0;
+    eventItems.forEach((item) => {
+      const m = parseInt(item.dataset.month || "-1");
+      const y = parseInt(item.dataset.year || "-1");
+      const title = item.dataset.title || "";
+
+      const monthMatch = m === activeMonth;
+      const yearMatch = y === activeYear;
+      const searchMatch =
+        !searchQuery || title.includes(searchQuery.toLowerCase());
+
+      const visible = monthMatch && yearMatch && searchMatch;
+      item.style.display = visible ? "" : "none";
+      if (visible) visibleCount++;
+    });
+
+    if (emptyMsg) emptyMsg.classList.toggle("hidden", visibleCount > 0);
+    if (eventsList) eventsList.classList.toggle("hidden", visibleCount === 0);
+  }
+
+  // Sync pagination to external changes
+  function setPaginationIndex(index: number) {
+    if (!paginationRoot) return;
+    paginationRoot.dataset.active = String(index);
+    // Re-trigger the pagination's render by dispatching a reset event
+    paginationRoot.dispatchEvent(
+      new CustomEvent("pagination:set", { detail: { index } }),
+    );
+  }
+
+  // Listen for pagination changes
+  document.addEventListener("pagination:change", (e: Event) => {
+    const { id, index } = (e as CustomEvent).detail;
+    if (id !== "events-pagination") return;
+    activeMonth = index;
+
+    // Sync the hero month dropdown
+    if (monthSelect) monthSelect.value = shortMonths[index];
+
+    filterEvents();
+  });
+
+  // Hero month dropdown
+  if (monthSelect) {
+    monthSelect.addEventListener("change", () => {
+      activeMonth = shortMonths.indexOf(monthSelect.value);
+      setPaginationIndex(activeMonth);
+      filterEvents();
+    });
+  }
+
+  // Hero year dropdown
+  if (yearSelect) {
+    yearSelect.addEventListener("change", () => {
+      activeYear = parseInt(yearSelect.value);
+      filterEvents();
+    });
+  }
+
+  // Search input — filter on Enter
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        searchQuery = searchInput.value.trim();
+        filterEvents();
+      }
+    });
+    // Also clear filter when input is emptied
+    searchInput.addEventListener("input", () => {
+      if (searchInput.value === "") {
+        searchQuery = "";
+        filterEvents();
+      }
+    });
+  }
+
+  // Initial filter
+  filterEvents();
+</script>
