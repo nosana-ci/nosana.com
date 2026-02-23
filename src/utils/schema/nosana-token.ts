@@ -33,10 +33,10 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
           }),
           title: z.string(),
           description: z.string(),
-          button: z
+          cta: z
             .object({
-              text: z.string(),
-              icon: image(),
+              title: z.string(),
+              url: z.string(),
             })
             .optional(),
         }),
@@ -45,6 +45,14 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
     community: z.object({
       badge: z.string(),
       title: z.string(),
+      metrics: z.array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          subvalue: z.string().optional(),
+          icon: image(),
+        }),
+      ),
     }),
     stakingCalculator: z.object({
       badge: z.string(),
@@ -52,10 +60,16 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
       description: z.string(),
       link: z.string(),
     }),
-    exchange: z.object({
+    guideSection: z.object({
       badge: z.string(),
       heading: z.string(),
       description: z.string(),
-      images: z.array(image()),
+      exchanges: z.array(
+        z.object({
+          image: image(),
+          url: z.string(),
+          color: z.string().default("#182E91"),
+        }),
+      ),
     }),
   });

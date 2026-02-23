@@ -28,10 +28,10 @@ const image_2 = heroSection.image_2;
   >
     <!-- Content Container (Left) -->
     <div
-      class="relative z-10 flex max-w-xl flex-col items-start gap-6 text-left"
+      class="relative z-10 flex max-w-xl flex-col items-start gap-4 text-left"
     >
       <!-- Badge -->
-      <Badge title={badge.text} icon={badge.icon} class="pl-2"/>
+      <Badge title={badge.text} icon={badge.icon}/>
 
       <!-- Title -->
       <h1 class="h4 grotesk text-primary">
@@ -64,13 +64,13 @@ const image_2 = heroSection.image_2;
       <Image
         src={image_2}
         alt="Background Pattern"
-        class="h-full w-full object-cover opacity-60"
+        class="h-full w-full object-cover opacity-60 pointer-events-none select-none"
       />
     </div>
     <Image
       src={image_1}
       alt="Nosana Token Hero"
-      class="absolute right-0 -bottom-20 w-full h-auto  max-md:scale-[1.6] max-md:right-20 max-md:bottom-10 object-contain drop-shadow-2xl xl:w-[90%]"
+      class="absolute right-0 -bottom-20 w-full h-auto  max-md:scale-[1.6] max-md:right-20 max-md:bottom-10 object-contain drop-shadow-2xl xl:w-[90%] pointer-events-none select-none"
     />
   </div>
 </section>

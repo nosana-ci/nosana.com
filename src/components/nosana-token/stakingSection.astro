@@ -1,6 +1,5 @@
 ---
 import { getEntry } from "astro:content";
-import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
 
 const entry = await getEntry("nosanaToken", "index");
@@ -15,15 +14,15 @@ const { stakingCalculator } = entry.data;
 <section class="flex w-full flex-col gap-8 px-4 md:px-12">
 
   <!-- Left Content -->
-  <div class="flex max-w-[800px] flex-col gap-4">
-    <Badge title={stakingCalculator.badge} class="mb-4 w-max" />
+  <div class="flex flex-col gap-4">
+    <Badge title={stakingCalculator.badge} class="w-fit" />
     <h2 class="h4 grotesk text-primary">
       {stakingCalculator.title}
     </h2>
-    <p class="body2 text-secondary">
+    <p class="body2 text-secondary max-w-2xl">
       {stakingCalculator.description}
     </p>
-    <p class="body2 text-green-500">Go to Staking Dashboard </p>
+    <a href="https://stake.nosana.com/" class="body2 text-brand-100 hover:underline underline-offset-2 transition-all duration-300 w-fit">Go to Staking Dashboard </a>
   </div>
 
   <!-- Right Calculator Card -->

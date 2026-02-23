@@ -4,11 +4,7 @@ heroSection:
     text: "$NOS"
     icon: "./assets/greenDot.svg"
   title: "NOS Token"
-  description:
-    "NOS is the native Solana-based token of the Nosana network. It is used to
-    secure the network, participate in governance, and coordinate incentives
-    between GPU providers and users. Stake, explore, and power decentralized
-    compute with a token designed for global AI infrastructure."
+  description: "NOS is the native Solana-based token of the Nosana network. It is used to secure the network, participate in governance, and coordinate incentives between GPU providers and users"
   button_1:
     text: "Explore Nosana Network"
     icon: "./assets/buttonIcon_1.svg"
@@ -34,11 +30,11 @@ nosToken:
       tab:
         icon: "./assets/governanceIcon.svg"
         text: "Governance"
-      title: "Governed by the CommunityBody"
+      title: "Governed by the Community Body"
       description: "Nosana is governed by its community. $NOS holders can propose and vote on network upgrades, parameter changes, and ecosystem decisions, shaping how the protocol evolves over time."
-      button:
-        text: " Participate in Governance"
-        icon: "./assets/buttonIcon_1.svg"
+      cta:
+        title: " Participate in Governance"
+        url: "/govern"
 
     - image: "./assets/valueAndincntive.svg"
       tab:
@@ -50,6 +46,32 @@ nosToken:
 community:
   badge: "Community"
   title: "Community Adoption and Network Metrics"
+  metrics:
+    - label: "Stakers"
+      value: "13,544"
+      icon: "./assets/metrics/stakers.svg"
+    - label: "USD Value Staked"
+      value: "$3,778,755"
+      icon: "./assets/metrics/usdvalue.svg"
+    - label: "NOS Marketcap"
+      value: "$22,211,685"
+      icon: "./assets/metrics/marketcap.svg"
+    - label: "NOS Price"
+      value: "$0.27"
+      subvalue: "-1.22%"
+      icon: "./assets/metrics/price.svg"
+    - label: "Volume (24h)"
+      value: "$234,756"
+      icon: "./assets/metrics/volume.svg"
+    - label: "Circulating Supply"
+      value: "83,400,000"
+      icon: "./assets/metrics/supply.svg"
+    - label: "Total Supply"
+      value: "100,000,000"
+      icon: "./assets/metrics/totalsupply.svg"
+    - label: "Fully Diluted Market Cap"
+      value: "$26,632,716"
+      icon: "./assets/metrics/fdmc.svg"
 
 stakingCalculator:
   badge: "Staking Calculator"
@@ -57,17 +79,33 @@ stakingCalculator:
   description: "By staking $NOS tokens, you not only contribute to the security and stability of the network but also earn rewards for your participation"
   link: "Go to Staking Dashboard "
 
-exchange:
+guideSection:
   badge: "Guide"
   heading: "Buying $NOS"
   description: "NOS is available on the following exchanges"
-  images:
-    - "./assets/cripto.svg"
-    - "./assets/bitvavo.svg"
-    - "./assets/kraken.svg"
-    - "./assets/bringX.svg"
-    - "./assets/gate.svg"
-    - "./assets/mexc.svg"
-    - "./assets/raydium.svg"
-    - "./assets/jupiter.svg"
+  exchanges:
+    - image: "./assets/cripto.svg"
+      url: ""
+      color: "#182E91"
+    - image: "./assets/bitvavo.svg"
+      url: ""
+      color: "#182E91"
+    - image: "./assets/kraken.svg"
+      url: ""
+      color: "#5741D9"
+    - image: "./assets/bringX.svg"
+      url: ""
+      color: "#182E91"
+    - image: "./assets/gate.svg"
+      url: ""
+      color: "#18E5A0"
+    - image: "./assets/mexc.svg"
+      url: ""
+      color: "#182E91"
+    - image: "./assets/raydium.svg"
+      url: ""
+      color: "#BD04FB"
+    - image: "./assets/jupiter.svg"
+      url: ""
+      color: "#D5F6A2"
 ---
