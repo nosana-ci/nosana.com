@@ -1,0 +1,292 @@
+---
+import nosanaLogo from "../../assets/logos/nosanaLogoGray.svg?raw";
+import { Client } from "@nosana/sdk";
+
+interface PoolInfo {
+  emission: string;
+  claimedTokens: string;
+  startTime: string;
+  poolBalance: number;
+}
+
+interface RewardsInfo {
+  global: {
+    totalXnos: string;
+    totalReflection: string;
+    rate: string;
+  };
+}
+
+let poolInfo: PoolInfo | null = null;
+let rewardsInfo: RewardsInfo | null = null;
+
+try {
+  const nosana = new Client("mainnet");
+  const [pool, rewards] = await Promise.all([
+    nosana.stake.getPoolInfo(),
+    nosana.stake.getRewardsInfo(),
+  ]);
+
+  poolInfo = {
+    emission: pool.emission.toString(),
+    claimedTokens: pool.claimedTokens.toString(),
+    startTime: pool.startTime.toString(),
+    poolBalance: pool.poolBalance,
+  };
+
+  rewardsInfo = rewards
+    ? {
+        global: {
+          totalXnos: rewards.global.totalXnos.toString(),
+          totalReflection: rewards.global.totalReflection.toString(),
+          rate: rewards.global.rate.toString(),
+        },
+      }
+    : null;
+} catch (e) {
+  console.error("Failed to fetch staking pool data:", e);
+}
+
+const chainData = JSON.stringify({ poolInfo, rewardsInfo });
+---
+
+<div
+  class="border-elevated bg-surface w-full overflow-hidden"
+  id="staking-calculator"
+>
+  <script
+    is:inline
+    id="chain-data"
+    type="application/json"
+    set:html={chainData}
+  />
+
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="p-6">
+      <p class="caption1 text-secondary mb-3">$NOS amount (NOS)</p>
+      <div class="relative flex items-center gap-3">
+        <input
+          id="nos-amount"
+          type="number"
+          min="0"
+          value="231"
+          class="grotesk h5 text-primary border-elevated focus:border-default w-0 min-w-0 flex-1 [appearance:textfield] rounded-lg border bg-transparent px-4 py-2 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        />
+        <div
+          class="border-elevated absolute right-0 flex shrink-0 overflow-hidden rounded-lg border md:right-2"
+        >
+          <button
+            id="nos-dec"
+            class="text-secondary hover:bg-elevated flex h-10 w-10 items-center justify-center text-lg leading-none transition-colors lg:text-3xl"
+            aria-label="Decrease NOS amount">−</button
+          >
+          <div class="bg-elevated w-px"></div>
+          <button
+            id="nos-inc"
+            class="text-secondary hover:bg-elevated flex h-10 w-10 items-center justify-center text-lg leading-none transition-colors lg:text-3xl"
+            aria-label="Increase NOS amount">+</button
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <p class="caption1 text-secondary mb-3">Unstake period of (Days)</p>
+      <div class="relative flex items-center gap-3">
+        <input
+          id="unstake-days"
+          type="number"
+          min="14"
+          max="365"
+          value="14"
+          class="grotesk h5 text-primary border-elevated focus:border-default w-0 min-w-0 flex-1 [appearance:textfield] rounded-lg border bg-transparent px-4 py-2 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        />
+        <div
+          class="border-elevated absolute right-0 flex shrink-0 overflow-hidden rounded-lg border md:right-2"
+        >
+          <button
+            id="days-dec"
+            class="text-secondary hover:bg-elevated flex h-10 w-10 items-center justify-center text-lg leading-none transition-colors lg:text-3xl"
+            aria-label="Decrease unstake days">−</button
+          >
+          <div class="bg-elevated w-px"></div>
+          <button
+            id="days-inc"
+            class="text-secondary hover:bg-elevated flex h-10 w-10 items-center justify-center text-lg leading-none transition-colors lg:text-3xl"
+            aria-label="Increase unstake days">+</button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="divide-secondary/20 grid grid-cols-1 divide-y md:grid-cols-2 md:divide-x md:divide-y-0"
+  >
+    <div class="p-10">
+      <p class="caption1 text-secondary mb-2">Expected daily NOS rewards</p>
+      <p id="daily-rewards" class="grotesk h4 text-primary">—</p>
+    </div>
+    <div class="p-10">
+      <p class="caption1 text-secondary mb-2">Staked NOS</p>
+      <p id="staked-nos" class="grotesk h4 text-primary">231</p>
+    </div>
+  </div>
+
+  <div class="bg-secondary/20 mx-6 my-8 hidden h-px md:block"></div>
+
+  <div
+    class="divide-secondary/20 grid grid-cols-1 divide-y md:grid-cols-3 md:divide-x md:divide-y-0"
+  >
+    <div class="p-10">
+      <p class="caption1 text-secondary mb-2">xNOS Score</p>
+      <p id="xnos-score" class="grotesk h5 text-primary">—</p>
+    </div>
+    <div class="p-10">
+      <p class="caption1 text-secondary mb-2">Multiplier</p>
+      <p id="multiplier" class="grotesk h5 text-primary">—</p>
+    </div>
+    <div class="p-10">
+      <p class="caption1 text-secondary mb-2">APY</p>
+      <p id="apy" class="grotesk h5 text-primary">—</p>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center gap-2 px-6 py-4">
+    <span class="caption1 text-tertiary">Estimated price with</span>
+    <span class="h-4 opacity-60" set:html={nosanaLogo} />
+  </div>
+</div>
+
+<script>
+  const SECONDS_PER_DAY = 86_400;
+  const MULTIPLIER_SECONDS = (SECONDS_PER_DAY * 365) / 3; // ~10,512,000
+  const NOS_PRECISION = 1e6;
+  const MIN_DAYS = 14;
+  const MAX_DAYS = 365;
+
+  interface PoolInfo {
+    emission: string;
+    claimedTokens: string;
+    startTime: string;
+    poolBalance: number;
+  }
+
+  interface RewardsInfo {
+    global: {
+      totalXnos: string;
+      totalReflection: string;
+      rate: string;
+    };
+  }
+
+  const chainDataEl = document.getElementById("chain-data");
+  const chainData: {
+    poolInfo: PoolInfo | null;
+    rewardsInfo: RewardsInfo | null;
+  } = chainDataEl ? JSON.parse(chainDataEl.textContent ?? "{}") : {};
+
+  const { poolInfo, rewardsInfo } = chainData;
+
+  function calcMultiplier(unstakeDays: number): number {
+    const unstakeSeconds = unstakeDays * SECONDS_PER_DAY;
+    return unstakeSeconds / MULTIPLIER_SECONDS + 1;
+  }
+
+  function calcXnos(newAmount: number, multiplier: number): number {
+    return Math.max(0, newAmount * multiplier);
+  }
+
+  function calcDailyRewards(
+    xnos: number,
+    pool: PoolInfo,
+    rewards: RewardsInfo,
+  ): number {
+    const totalXnos = parseFloat(rewards.global.totalXnos);
+    const xnosScore = xnos * NOS_PRECISION;
+    const dailyEmission =
+      (parseInt(pool.emission) / NOS_PRECISION) * SECONDS_PER_DAY;
+    return Math.max(0, (xnosScore / (totalXnos + xnosScore)) * dailyEmission);
+  }
+
+  function calcAPY(dailyRewards: number, newAmount: number): number | null {
+    if (!newAmount || !dailyRewards) return null;
+    return ((dailyRewards * 365) / newAmount) * 100;
+  }
+
+  function fmt(n: number, decimals = 2): string {
+    return n.toLocaleString("en-US", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  }
+
+  function update() {
+    const nosInput = document.getElementById("nos-amount") as HTMLInputElement;
+    const daysInput = document.getElementById(
+      "unstake-days",
+    ) as HTMLInputElement;
+
+    const nos = Math.max(0, parseFloat(nosInput.value) || 0);
+    const days = Math.min(
+      MAX_DAYS,
+      Math.max(MIN_DAYS, parseInt(daysInput.value) || MIN_DAYS),
+    );
+
+    const mult = calcMultiplier(days);
+    const xnos = calcXnos(nos, mult);
+
+    (document.getElementById("staked-nos") as HTMLElement).textContent = fmt(
+      nos,
+      0,
+    );
+    (document.getElementById("multiplier") as HTMLElement).textContent =
+      `x${fmt(mult, 2)}`;
+    (document.getElementById("xnos-score") as HTMLElement).textContent = fmt(
+      xnos,
+      2,
+    );
+
+    if (poolInfo && rewardsInfo) {
+      const daily = calcDailyRewards(xnos, poolInfo, rewardsInfo);
+      const apy = calcAPY(daily, nos);
+
+      (document.getElementById("daily-rewards") as HTMLElement).textContent =
+        fmt(daily, 4);
+      (document.getElementById("apy") as HTMLElement).textContent =
+        apy !== null ? `${fmt(apy, 2)}%` : "—";
+    }
+  }
+
+  function bindStepper(
+    decId: string,
+    incId: string,
+    inputId: string,
+    step = 1,
+    min = 0,
+    max = Infinity,
+  ) {
+    const dec = document.getElementById(decId)!;
+    const inc = document.getElementById(incId)!;
+    const input = document.getElementById(inputId) as HTMLInputElement;
+
+    dec.addEventListener("click", () => {
+      const val = parseFloat(input.value) || 0;
+      input.value = String(Math.max(min, val - step));
+      update();
+    });
+
+    inc.addEventListener("click", () => {
+      const val = parseFloat(input.value) || 0;
+      input.value = String(Math.min(max, val + step));
+      update();
+    });
+
+    input.addEventListener("input", update);
+  }
+
+  bindStepper("nos-dec", "nos-inc", "nos-amount", 1, 0);
+  bindStepper("days-dec", "days-inc", "unstake-days", 1, MIN_DAYS, MAX_DAYS);
+
+  update();
+</script>
