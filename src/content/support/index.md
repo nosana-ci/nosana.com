@@ -1,4 +1,5 @@
 ---
+seoDescription: "Get help from the Nosana team. Find answers in our FAQ, join our Discord community, or explore our GitHub for technical resources."
 heading: "How can we help?"
 description: "Get help from the Nosana team, explore the platform, or connect with the community"
 

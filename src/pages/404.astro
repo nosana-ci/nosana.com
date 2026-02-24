@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Page Not Found" description="The page you're looking for doesn't exist." noIndex={true}>
+  <div class="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
+    <h1 class="h2 grotesk text-primary mb-4">404</h1>
+    <p class="body2 text-secondary mb-8">The page you're looking for doesn't exist.</p>
+    <a href="/" class="text-brand-100 body3 hover:underline">Go back home</a>
+  </div>
+</Layout>

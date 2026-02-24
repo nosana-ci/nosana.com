@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
+import StakingCalculator from "./stakingCalculator.astro";
 
 const entry = await getEntry("nosanaToken", "index");
 
@@ -12,8 +13,6 @@ const { stakingCalculator } = entry.data;
 ---
 
 <section class="flex w-full flex-col gap-8 px-4 md:px-12">
-
-  <!-- Left Content -->
   <div class="flex flex-col gap-4">
     <Badge title={stakingCalculator.badge} class="w-fit" />
     <h2 class="h4 grotesk text-primary">
@@ -22,92 +21,11 @@ const { stakingCalculator } = entry.data;
     <p class="body2 text-secondary max-w-2xl">
       {stakingCalculator.description}
     </p>
-    <a href="https://stake.nosana.com/" class="body2 text-brand-100 hover:underline underline-offset-2 transition-all duration-300 w-fit">Go to Staking Dashboard </a>
+    <a
+      href="https://stake.nosana.com/"
+      class="body2 text-brand-100 w-fit underline-offset-2 transition-all duration-300 hover:underline"
+      >Go to Staking Dashboard
+    </a>
   </div>
-
-  <!-- Right Calculator Card -->
-  <div
-    class="bg-surface border-elevated relative flex w-full max-w-lg flex-col gap-8 overflow-hidden rounded-2xl border p-8 shadow-2xl"
-  >
-    <!-- Background gradient -->
-    <div
-      class="bg-brand-100/5 pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full blur-[120px]"
-    >
-    </div>
-
-    <div class="relative z-10 grid grid-cols-2 gap-6">
-      <!-- Input: Amount -->
-      <div class="col-span-2 flex flex-col gap-2">
-        <label class="body3 text-secondary text-xs tracking-wider uppercase"
-          >Amount of $NOS</label
-        >
-        <div
-          class="bg-bg-base border-elevated focus-within:border-brand-100 flex items-center justify-between rounded-lg border p-4 transition-colors"
-        >
-          <input
-            type="text"
-            value="1000"
-            class="text-primary h4 font-grotesk w-full bg-transparent outline-none"
-          />
-          <span class="text-secondary body3">NOS</span>
-        </div>
-      </div>
-
-      <!-- Input: Duration -->
-      <div class="col-span-2 flex flex-col gap-2">
-        <label class="body3 text-secondary text-xs tracking-wider uppercase"
-          >Lock Duration</label
-        >
-        <div
-          class="bg-bg-base border-elevated flex items-center gap-2 rounded-lg border p-1"
-        >
-          <button
-            class="bg-brand-100 text-secondarydark body3 flex-1 rounded py-2 font-bold transition"
-            >12 M</button
-          >
-          <button
-            class="hover:bg-elevated text-secondary body3 flex-1 rounded py-2 transition"
-            >6 M</button
-          >
-          <button
-            class="hover:bg-elevated text-secondary body3 flex-1 rounded py-2 transition"
-            >3 M</button
-          >
-          <button
-            class="hover:bg-elevated text-secondary body3 flex-1 rounded py-2 transition"
-            >1 M</button
-          >
-        </div>
-      </div>
-
-      <!-- Output: Multiplier -->
-      <div class="flex flex-col gap-1">
-        <span class="body3 text-secondary text-xs tracking-wider uppercase"
-          >Multiplier</span
-        >
-        <span class="h4 grotesk text-primary">x4.0</span>
-      </div>
-
-      <!-- Output: APY -->
-      <div class="flex flex-col gap-1">
-        <span class="body3 text-secondary text-xs tracking-wider uppercase"
-          >Est. Yield</span
-        >
-        <span class="h4 grotesk text-brand-100">22.4%</span>
-      </div>
-
-      <div class="bg-elevated col-span-2 my-2 h-px"></div>
-
-      <!-- Output: Total Score -->
-      <div class="col-span-2 flex flex-col gap-1">
-        <span class="body3 text-secondary text-xs tracking-wider uppercase"
-          >Total xNOS Score</span
-        >
-        <div class="flex items-end justify-between">
-          <span class="h2 grotesk text-primary">4,000</span>
-          <span class="body3 text-brand-100 mb-2">Maximum Points</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <StakingCalculator />
 </section>

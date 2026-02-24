@@ -1,4 +1,5 @@
 ---
+import { getEntry } from "astro:content";
 import Newsletter from "../components/layout/newsletter.astro";
 import CommunitySection from "../components/nosana-token/communitySection.astro";
 import GuideSection from "../components/nosana-token/guideSection.astro";
@@ -8,9 +9,11 @@ import StakingSection from "../components/nosana-token/stakingSection.astro";
 import Divider from "../components/ui/divider.astro";
 import Layout from "../layouts/Layout.astro";
 
+const entry = await getEntry("nosanaToken", "index");
+const { seoDescription, seoImage, noIndex } = entry?.data ?? {};
 ---
 
-<Layout title="Nosana | Token">
+<Layout title="Nosana | Token" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <HeroSection />
   <FeaturesSection />
   <Divider />

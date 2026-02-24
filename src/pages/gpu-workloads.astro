@@ -32,10 +32,13 @@ const {
   highlightsSection,
   earningSection,
   featuresSection,
+  seoDescription,
+  seoImage,
+  noIndex,
 } = entry.data;
 ---
 
-<Layout title="Nosana | GPU Workloads">
+<Layout title="Nosana | GPU Workloads" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <Hero heroSection={heroSection} />
   <div class="bg-bg-base my-16 w-full py-8 text-center md:py-16 lg:py-18">
     <h2 class="h4 text-tertiary grotesk mb-8 md:mb-16 lg:mb-18">Trusted by</h2>

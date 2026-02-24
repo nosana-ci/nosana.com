@@ -1,4 +1,5 @@
 ---
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/about/heroSection.astro";
 import Divider from "../components/ui/divider.astro";
@@ -8,9 +9,12 @@ import VisionSection from "../components/about/visionSection.astro";
 import TeamSection from "../components/about/teamSection.astro";
 import CareersSection from "../components/about/careersSection.astro";
 import Newsletter from "../components/layout/newsletter.astro";
+
+const entry = await getEntry("about", "index");
+const { seoDescription, seoImage, noIndex } = entry?.data ?? {};
 ---
 
-<Layout title="Nosana | About Page">
+<Layout title="Nosana | About" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <HeroSection />
   <Divider />
   <InovationSection />

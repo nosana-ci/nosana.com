@@ -11,9 +11,10 @@ const entry = await getEntry("support", "index");
 if (!entry) {
   throw new Error("content not found");
 }
+const { seoDescription, seoImage, noIndex } = entry.data;
 ---
 
-<Layout title="Nosana | Support Page">
+<Layout title="Nosana | Support" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
   <div class="flex flex-col gap-2 px-4 md:px-12 pt-8 md:pt-16 lg:pt-18">
     <h1 class="h4 grotesk text-primary">{entry.data.heading}</h1>
     <p class="body2 text-secondary max-w-xl">{entry.data.description}</p>

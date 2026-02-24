@@ -2,12 +2,23 @@
 import "../styles/global.css";
 import Navbar from "../components/layout/navbar.astro";
 import Footer from "../components/layout/footer.astro";
+import BaseHead from "../components/BaseHead.astro";
 
 interface Props {
 	title?: string;
+	description?: string;
+	ogImage?: string;
+	noIndex?: boolean;
+	ogType?: "website" | "article";
 }
 
-const { title = "Nosana" } = Astro.props;
+const {
+	title = "Nosana",
+	description = "Nosana is an open-source GPU cloud platform for AI and high-performance workloads. Rent affordable GPUs or provide your idle GPU power to the network.",
+	ogImage,
+	noIndex,
+	ogType,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -18,7 +29,13 @@ const { title = "Nosana" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<BaseHead
+			title={title}
+			description={description}
+			image={ogImage}
+			noIndex={noIndex}
+			type={ogType}
+		/>
 	</head>
 
 	<body class="bg-bg-base text-primary font-sans min-h-screen">

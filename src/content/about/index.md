@@ -1,4 +1,5 @@
 ---
+seoDescription: "Learn about Nosana — a distributed compute network turning idle GPU power into a global, on-demand resource for AI and compute-intensive workloads."
 heroSection:
   badge:
     title: "About Nosana"

@@ -1,4 +1,5 @@
 ---
+seoDescription: "Download official Nosana brand assets including logos, typography, and color guidelines for presentations, integrations, and media use."
 heroSection:
   badge: "Media Kit"
   heading: "Access Nosana's Brand Toolkit"

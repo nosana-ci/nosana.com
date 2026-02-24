@@ -1,4 +1,5 @@
 ---
+seoDescription: "Learn about the NOS token — Nosana's utility token powering the GPU cloud network. Explore staking, community metrics, and where to buy NOS."
 heroSection:
   badge:
     text: "$NOS"
