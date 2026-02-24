@@ -180,7 +180,7 @@ banner:
     title: "Get Free GPU Credits"
     url: "/"
     icon: "../../assets/icons/coin.svg"
-  image: "./assets/bannerImg.png"
+  image: "./assets/bannerImg.webp"
 
 production:
   badge:
@@ -195,7 +195,7 @@ upcomingEventsMock:
   time: "6:00 PM PT"
   title: "AI Dev: Open source Gen Ai and ML Summit Europe"
   description: "The Nosana team is heading to AI_dev in Amsterdam."
-  image: "./assets/eventBanner.png"
+  image: "./assets/eventBanner.webp"
   button:
     title: "Explore Other Events"
     url: "/events"
@@ -206,7 +206,7 @@ latestBlogsMock:
   time: "6:00 PM PT"
   title: "Nosana’s Spare GPU Capacity Is Now Powering Scientific Research"
   description: "Nosana’s spare GPU power now fuels Folding@Home, advancing global biomedical research and showcasing the real-world impact of decentralized compute."
-  image: "./assets/eventBanner.png"
+  image: "./assets/eventBanner.webp"
   button:
     title: "Explore Other Blogs"
     url: "/blogs"

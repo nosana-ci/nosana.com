@@ -22,9 +22,9 @@ caseStudySection:
   quote: "Hosting 100+ state-of-the-art image generation models on Nosana has been seamless. The reliability of their decentralized GPUs and the flexibility of their framework make them our go-to partner for scaling creative tools."
   authorName: "Mark Ledford,"
   authorRole: "Founder and CTO"
-  companyLogo: "./assets/sogni.png"
+  companyLogo: "./assets/sogni.webp"
   companyName: "Sogni AI"
-  image: "./assets/astronaut.png"
+  image: "./assets/astronaut.webp"
   ctaTitle: "Read Case Study"
   ctaUrl: "/case-studies"
   stats:
