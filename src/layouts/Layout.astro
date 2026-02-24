@@ -5,73 +5,78 @@ import Footer from "../components/layout/footer.astro";
 import BaseHead from "../components/BaseHead.astro";
 
 interface Props {
-	title?: string;
-	description?: string;
-	ogImage?: string;
-	noIndex?: boolean;
-	ogType?: "website" | "article";
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+  ogType?: "website" | "article";
 }
 
 const {
-	title = "Nosana",
-	description = "Nosana is an open-source GPU cloud platform for AI and high-performance workloads. Rent affordable GPUs or provide your idle GPU power to the network.",
-	ogImage,
-	noIndex,
-	ogType,
+  title = "Nosana",
+  description = "Nosana is an open-source GPU cloud platform for AI and high-performance workloads. Rent affordable GPUs or provide your idle GPU power to the network.",
+  ogImage,
+  noIndex,
+  ogType,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="dark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<BaseHead
-			title={title}
-			description={description}
-			image={ogImage}
-			noIndex={noIndex}
-			type={ogType}
-		/>
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={ogImage}
+      noIndex={noIndex}
+      type={ogType}
+    />
+  </head>
 
-	<body class="bg-bg-base text-primary font-sans min-h-screen">
-		<Navbar />
+  <body class="bg-bg-base text-primary min-h-screen font-sans">
+    <Navbar />
 
-		<main class="max-w-[1728px] mx-auto w-full">
-			<slot />
-		</main>
+    <main class="mx-auto w-full max-w-[1728px]">
+      <slot />
+    </main>
 
-		<Footer />
+    <Footer />
 
-		<script>
-			import Lenis from "lenis";
+    <script>
+      import Lenis from "lenis";
 
-			const lenis = new Lenis({
-				duration: 1.5,
-				smoothWheel: true,
-				wheelMultiplier: 1.0,
-				touchMultiplier: 2.0,
-			});
+      const lenis = new Lenis({
+        duration: 1.5,
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 2.0,
+      });
 
-			function raf(time: DOMHighResTimeStamp) {
-				lenis.raf(time);
-				requestAnimationFrame(raf);
-			}
+      function raf(time: DOMHighResTimeStamp) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
 
-			requestAnimationFrame(raf);
-		</script>
-	</body>
+      requestAnimationFrame(raf);
+    </script>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
 </style>
