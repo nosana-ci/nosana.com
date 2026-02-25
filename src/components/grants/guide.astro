@@ -1,0 +1,101 @@
+---
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+import { getEntry } from "astro:content";
+
+const grantsEntry = await getEntry("grants", "index");
+const APPLY_FORM_URL = grantsEntry.data.formUrl;
+---
+
+<section id="evaluation-section" class="px-4 md:px-12">
+
+    <div class="flex lg:gap-5 flex-col lg:flex-row gap-10 lg:items-center">
+      <!-- Left Column -->
+      <div class="flex flex-col gap-10 justify-between items-start">
+        <div>
+          <Badge title="Guide" />
+          <h2 class="h4 grotesk text-primary mb-3 mt-4">
+            How proposals are evaluated
+          </h2>
+          <p class="body2 text-secondary mb-10">
+            The Grants Committee reviews each application based on:
+          </p>
+          <ul class="space-y-3 list-none">
+            <li class="body2 text-primary flex items-start">
+              <span class="mr-3 text-brand-100">•</span>
+              <span>Strength of the technical approach</span>
+            </li>
+            <li class="body2 text-primary flex items-start">
+              <span class="mr-3 text-brand-100">•</span>
+              <span>Potential ecosystem or community impact</span>
+            </li>
+            <li class="body2 text-primary flex items-start">
+              <span class="mr-3 text-brand-100">•</span>
+              <span>Clarity and feasibility of the roadmap</span>
+            </li>
+            <li class="body2 text-primary flex items-start">
+              <span class="mr-3 text-brand-100">•</span>
+              <span>Team capability and delivery track record</span>
+            </li>
+            <li class="body2 text-primary flex items-start">
+              <span class="mr-3 text-brand-100">•</span>
+              <span>Depth and relevance of Nosana compute usage</span>
+            </li>
+          </ul>
+        </div>
+
+        <Button title="Start Your Application" url={APPLY_FORM_URL} target="_blank" variant="secondary" />
+      </div>
+
+      <!-- Right Column - Lottie Animation -->
+      <div class="relative max-w-[700px] mx-auto lg:ml-auto w-full">
+        <div id="guide-lottie" class="w-full h-full lg:min-h-[400px]"></div>
+      </div>
+    </div>
+</section>
+
+<script>
+  import lottie from "lottie-web";
+
+  const initLottie = () => {
+    const container = document.getElementById("guide-lottie");
+    const section = document.getElementById("evaluation-section");
+
+    if (!container || !section) return;
+
+    let animation: any = null;
+    let hasPlayed = false;
+
+    // Load animation but don't autoplay
+    animation = lottie.loadAnimation({
+      container: container,
+      renderer: "svg",
+      loop: false,
+      autoplay: false,
+      path: "/lottie/guide.json",
+    });
+
+    // Use Intersection Observer to detect when section comes into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasPlayed && animation) {
+            animation.play();
+            hasPlayed = true;
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    observer.observe(section);
+  };
+
+  // Run on page load
+  initLottie();
+  
+  // Run on view transitions change
+  document.addEventListener('astro:after-swap', initLottie);
+</script>

@@ -77,10 +77,10 @@ navItems:
           url: "/testimonials"
           description: "See what people say about Nosana."
   - type: "link"
-    title: "Nosana Grants"
+    title: "Grants Program"
     url: "/grants"
-    target: "_blank"
-    icon: "../../assets/icons/externalLink.svg"
+    # target: "_blank"
+    # icon: "../../assets/icons/externalLink.svg"
 navCTA:
   - title: "Deploy GPU Workloads"
     url: "/gpu-workloads"

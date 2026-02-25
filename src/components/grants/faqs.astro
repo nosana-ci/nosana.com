@@ -1,0 +1,173 @@
+---
+
+const faqs = [
+  {
+    question: "What types of projects are eligible for a grant?",
+    answer:
+      "Projects must use (or plan to use) Nosana's decentralized GPU network for training, inference, deployment, or agentic/LLM workflows. Eligible categories include AI infrastructure, developer tooling, network extensions, AI applications, data pipelines, and experimental systems aligned with decentralized compute.",
+  },
+  {
+    question: "What are Nosana Compute Credits?",
+    answer:
+      "Nosana Compute Credits are in platform credits that can be used to purchase Nosana compute directly, without the need to use NOS tokens.",
+  },
+  {
+    question: "How is funding distributed?",
+    answer:
+      "Funding is released in milestone-based phases. Once a milestone is completed and verified, the next tranche is unlocked.",
+  },
+  {
+    question: "Is this an accelerator or incubator program?",
+    answer:
+      "No. This is a non-dilutive grants program, not an accelerator. We do not take board seats, equity, or operational control.",
+  },
+  {
+    question: "Does the program provide technical engineering support?",
+    answer:
+      "No. The program offers light mentorship and community guidance, but not dedicated engineering, debugging, or hands-on development support.",
+  },
+];
+---
+
+<section class="px-4 md:px-12 max-w-5xl mx-auto">
+  <h2 class="h4 grotesk text-primary mb-8 lg:mb-10">
+    Frequently Asked Questions
+  </h2>
+
+  <div class="space-y-0" id="faqs-list">
+    {
+      faqs.map((faq, index) => (
+        <div class="faq-group" data-index={index}>
+          <div
+            class="faq-row flex items-start flex-row justify-between gap-8 py-5 md:px-6 cursor-pointer"
+            data-index={index}
+          >
+            <div class="flex-1">
+              <h3
+                class={`h6 grotesk mb-2 transition-colors faq-title ${index === 0 ? "text-brand-100" : "text-primary"}`}
+                data-index={index}
+              >
+                {faq.question}
+              </h3>
+              <div
+                class="faq-answer-wrap"
+                data-index={index}
+                style={index === 0 ? "grid-template-rows:1fr;" : "grid-template-rows:0fr;"}
+              >
+                <div class="faq-answer-inner overflow-hidden">
+                  <p class="body3 text-secondary pt-1 pb-2">{faq.answer}</p>
+                </div>
+              </div>
+            </div>
+            <div class="shrink-0 pt-1">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class={`faq-icon transition-colors ${index === 0 ? "text-brand-100" : "text-secondary"}`}
+                data-index={index}
+              >
+                <line
+                  x1="5"
+                  y1="12"
+                  x2="19"
+                  y2="12"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <line
+                  class="faq-vertical-line"
+                  data-index={index}
+                  x1="12"
+                  y1="5"
+                  x2="12"
+                  y2="19"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  style={index === 0 ? "opacity:0;" : "opacity:1;"}
+                />
+              </svg>
+            </div>
+          </div>
+          {index < faqs.length - 1 && <div class="h-px bg-default mx-6" />}
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* Grid-row trick: animates the row track, no JS height reads needed */
+  .faq-answer-wrap {
+    display: grid;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-answer-inner {
+    /* Must be min-height:0 so the 0fr row can fully collapse the content */
+    min-height: 0;
+  }
+
+  .faq-vertical-line {
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-icon {
+    transition: color 0.2s ease;
+  }
+
+  .faq-title {
+    transition: color 0.2s ease;
+  }
+
+  .faq-row:hover .faq-title:not(.text-brand-100) {
+    color: var(--color-brand-100, #10e80c);
+  }
+
+  .faq-row:hover .faq-icon:not(.text-brand-100) {
+    color: var(--color-brand-100, #10e80c);
+  }
+</style>
+
+<script>
+  let selectedIndex = 0;
+
+  const rows = document.querySelectorAll<HTMLElement>(".faq-row");
+  const titles = document.querySelectorAll<HTMLElement>(".faq-title");
+  const answerWraps = document.querySelectorAll<HTMLElement>(".faq-answer-wrap");
+  const icons = document.querySelectorAll<SVGElement>(".faq-icon");
+  const verticalLines = document.querySelectorAll<SVGLineElement>(".faq-vertical-line");
+
+  function activate(index: number) {
+    if (index === selectedIndex) return;
+
+    const old = selectedIndex;
+    selectedIndex = index;
+
+    // --- Collapse old ---
+    titles[old].classList.remove("text-brand-100");
+    titles[old].classList.add("text-primary");
+    icons[old].classList.remove("text-brand-100");
+    icons[old].classList.add("text-secondary");
+    verticalLines[old].style.opacity = "1";
+    answerWraps[old].style.gridTemplateRows = "0fr";
+
+    // --- Expand new ---
+    titles[index].classList.add("text-brand-100");
+    titles[index].classList.remove("text-primary");
+    icons[index].classList.add("text-brand-100");
+    icons[index].classList.remove("text-secondary");
+    verticalLines[index].style.opacity = "0";
+    answerWraps[index].style.gridTemplateRows = "1fr";
+  }
+
+  rows.forEach((row) => {
+    row.addEventListener("click", () => {
+      activate(parseInt(row.dataset.index ?? "0"));
+    });
+  });
+</script>
