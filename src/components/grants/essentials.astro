@@ -1,0 +1,288 @@
+---
+const essentials = [
+  {
+    title: "Pitch Deck",
+    visual: "deck",
+  },
+  {
+    title: "Demo",
+    visual: "demo",
+  },
+  {
+    title: "Roadmap",
+    visual: "roadmap",
+  },
+];
+---
+
+<section class="px-4 md:px-12">
+    <!-- Section Header -->
+    <div class="mb-8 md:mb-16 lg:mb-18">
+      <h2 class="h4 grotesk text-primary mb-4">Your Starting Essentials</h2>
+      <p class="body2 text-secondary">
+        Simple materials that help us understand your project.
+      </p>
+    </div>
+
+    <!-- Essentials Grid -->
+    <div
+      class="flex flex-col md:flex-row justify-between max-w-[1200px] mx-auto gap-10 md:gap-8 relative items-center"
+    >
+      {
+        essentials.map((item, index) => (
+          <>
+            <div class="flex flex-col items-center gap-8">
+              <div class="w-full h-40 flex items-center justify-center">
+                {item.visual === "deck" && (
+                  <svg
+                    width="219"
+                    height="158"
+                    viewBox="0 0 219 158"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="192"
+                      height="124"
+                      rx="1.5"
+                      fill="#141414"
+                      stroke="#555555"
+                    />
+                    <rect
+                      x="9.5"
+                      y="11.5"
+                      width="192"
+                      height="124"
+                      rx="1.5"
+                      fill="#141414"
+                      stroke="#555555"
+                    />
+                    <rect
+                      x="16.5"
+                      y="23.5"
+                      width="192"
+                      height="124"
+                      rx="1.5"
+                      fill="#141414"
+                      stroke="#555555"
+                    />
+                    <rect
+                      x="26.5"
+                      y="33.5"
+                      width="192"
+                      height="124"
+                      rx="1.5"
+                      fill="#141414"
+                      stroke="#E3E3E3"
+                    />
+                    <rect x="35" y="44" width="26" height="2" fill="#0CB608" />
+                    <rect x="35" y="53" width="47" height="2" fill="#0CB608" />
+                    <rect x="131" y="67" width="71" height="2" fill="#0CB608" />
+                    <rect x="131" y="73" width="71" height="2" fill="#0CB608" />
+                    <rect x="131" y="79" width="71" height="2" fill="#0CB608" />
+                    <rect x="131" y="85" width="71" height="2" fill="#0CB608" />
+                    <rect x="131" y="91" width="71" height="2" fill="#0CB608" />
+                    <rect x="131" y="97" width="71" height="2" fill="#0CB608" />
+                    <rect
+                      x="131"
+                      y="103"
+                      width="53"
+                      height="2"
+                      fill="#0CB608"
+                    />
+                    <rect
+                      x="131"
+                      y="123"
+                      width="20"
+                      height="2"
+                      fill="#0CB608"
+                    />
+                    <rect
+                      x="159"
+                      y="123"
+                      width="20"
+                      height="2"
+                      fill="#0CB608"
+                    />
+                    <rect x="35" y="62" width="88" height="74" fill="#1F1F1F" />
+                  </svg>
+                )}
+                {item.visual === "demo" && (
+                  <svg
+                    width="182"
+                    height="168"
+                    viewBox="0 0 182 168"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M62.5713 1.18262C63.3899 0.769674 64.3384 0.694968 65.2119 0.973633L179.061 37.293C180.512 37.756 181.496 39.1048 181.496 40.6279V121.325C181.496 122.738 180.647 124.012 179.343 124.556L174.562 126.548C173.742 126.889 172.822 126.907 171.99 126.596L64.7207 86.498C63.4335 86.0169 62.5469 84.8262 62.4541 83.4551L57.2324 6.27148C57.1375 4.86818 57.8918 3.54389 59.1475 2.91016L62.5713 1.18262Z"
+                      fill="#1F1F1F"
+                      stroke="#E3E3E3"
+                    />
+                    <path
+                      d="M55.4336 6.19287C55.4336 3.82477 57.7362 2.14002 59.9932 2.85693L175.26 39.4712C176.713 39.9328 177.7 41.2824 177.7 42.8071V124.325C177.7 126.693 175.398 128.378 173.141 127.661L57.874 91.0464C56.4208 90.5848 55.4336 89.2352 55.4336 87.7104V6.19287Z"
+                      fill="#141414"
+                      stroke="#E3E3E3"
+                    />
+                    <path
+                      d="M57.4785 98.3926C58.3093 97.9516 59.2832 97.8637 60.1797 98.1484L172.771 133.913C175.727 134.852 176.092 138.886 173.354 140.34L124.517 166.268C123.686 166.709 122.713 166.796 121.816 166.512L9.22363 130.747C6.26829 129.808 5.90295 125.774 8.6416 124.32L57.4785 98.3926Z"
+                      fill="#141414"
+                      stroke="#E3E3E3"
+                    />
+                    <path
+                      d="M57.4785 92.5918C58.3093 92.1508 59.2832 92.0629 60.1797 92.3477L172.771 128.112C175.727 129.051 176.092 133.085 173.354 134.539L124.517 160.467C123.686 160.908 122.713 160.996 121.816 160.711L9.22363 124.946C6.26829 124.008 5.90295 119.974 8.6416 118.52L57.4785 92.5918Z"
+                      fill="#141414"
+                      stroke="#E3E3E3"
+                    />
+                    <path
+                      d="M65.5664 127.308C65.7437 127.214 65.9514 127.196 66.1426 127.256L89.002 134.483C89.6365 134.684 89.7151 135.55 89.127 135.861L79.4434 140.978C79.2661 141.072 79.0584 141.09 78.8672 141.03L56.0078 133.803C55.3732 133.603 55.2947 132.736 55.8828 132.425L65.5664 127.308Z"
+                      fill="#141414"
+                      stroke="#555555"
+                      stroke-width="0.5"
+                    />
+                    <path
+                      d="M84.9756 104.576L42.0244 128.762L17.1396 120.895L60.0898 96.7085L84.9756 104.576Z"
+                      fill="#141414"
+                      stroke="#555555"
+                      stroke-width="0.5"
+                    />
+                    <path
+                      d="M165.62 130.679L122.669 154.866L97.7842 146.999L140.734 122.812L165.62 130.679Z"
+                      fill="#141414"
+                      stroke="#555555"
+                      stroke-width="0.5"
+                    />
+                    <path
+                      d="M140.779 122.608L115.261 137.494L60.7412 118.125L82.6924 103.962L140.779 122.608Z"
+                      fill="#141414"
+                      stroke="#555555"
+                      stroke-width="0.5"
+                    />
+                    <path
+                      d="M61.2344 14.8911C61.2344 13.2209 62.8407 12.0206 64.4424 12.4937L170.107 43.7163C171.17 44.0302 171.899 45.0061 171.899 46.1138V115.626C171.899 117.297 170.292 118.497 168.69 118.024L63.0264 86.8013C61.9639 86.4873 61.2344 85.5107 61.2344 84.4028V14.8911Z"
+                      fill="#141414"
+                      stroke="#555555"
+                    />
+                    <path
+                      d="M113.834 46.4062V81.936M89.9062 58.0078L138.616 71.0596M126.161 81.936L101.508 46.4062M97.1572 73.2348L126.161 58.0078"
+                      stroke="#0CB608"
+                    />
+                  </svg>
+                )}
+                {item.visual === "roadmap" && (
+                  <div class="relative w-56 h-36">
+                    <svg
+                      width="217"
+                      height="143"
+                      viewBox="0 0 217 143"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0.5 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M25.1797 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M49.0625 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M72.9453 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M96.8281 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M120.711 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M144.594 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M168.477 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M192.359 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <path
+                        d="M216.242 0V142.5"
+                        stroke="#555555"
+                        stroke-dasharray="4 2"
+                      />
+                      <rect
+                        x="1.29688"
+                        y="14.3296"
+                        width="44.581"
+                        height="9.55307"
+                        rx="4.77654"
+                        fill="#0CB608"
+                      />
+                      <rect
+                        x="45.8789"
+                        y="36.6201"
+                        width="44.581"
+                        height="9.55307"
+                        rx="4.77654"
+                        fill="#0CB608"
+                      />
+                      <rect
+                        x="96.8281"
+                        y="58.9106"
+                        width="71.648"
+                        height="9.55307"
+                        rx="4.77654"
+                        fill="#0CB608"
+                      />
+                      <rect
+                        x="133.449"
+                        y="82.7933"
+                        width="58.9106"
+                        height="9.55307"
+                        rx="4.77654"
+                        fill="#0CB608"
+                      />
+                      <rect
+                        x="82.5"
+                        y="106.676"
+                        width="133.743"
+                        height="9.55307"
+                        rx="4.77654"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              <h3 class="body3  text-center text-primary">{item.title}</h3>
+            </div>
+            {index < essentials.length - 1 && (
+              <div class="h-px bg-default w-full mb-12 hidden lg:block" />
+            )}
+          </>
+        ))
+      }
+    </div>
+</section>

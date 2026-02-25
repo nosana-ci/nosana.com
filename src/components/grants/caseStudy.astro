@@ -1,0 +1,54 @@
+---
+import Badge from "../ui/badge.astro";
+import Button from "../ui/button.astro";
+---
+
+<section class="px-4 md:px-12">
+    <div
+      class="flex flex-col-reverse lg:grid grid-cols-1 lg:grid-cols-2"
+    >
+      <div class="flex flex-col justify-center">
+        <div>
+          <div class="lg:block hidden"><Badge title="Case Study" /></div>
+          <h2 class="h4 grotesk text-primary my-4">
+            Powering the Future of AI Models
+          </h2>
+          <p class="body4 text-secondary">
+            Inferia, an AI research tooling startup, needed a scalable GPU
+            backend to run large-volume inference workloads without relying on
+            centralized cloud providers.
+          </p>
+
+          <!-- Metrics -->
+          <div class="grid grid-cols-2 gap-6 my-8 lg:my-10">
+            <div>
+              <div class="h6 grotesk text-primary mb-2">68%</div>
+              <p class="body6 text-tertiary">Reduction in inference costs</p>
+            </div>
+            <div>
+              <div class="h6 grotesk text-primary mb-2">4x</div>
+              <p class="body6 text-tertiary">faster provisioning time</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div>
+          <Button
+            title="Read Case Study"
+            url="/case-study/how-inferia-built-the-future-of-ai-deployment-with-nosana"
+            variant="secondary"
+            class="w-fit"
+          />
+        </div>
+      </div>
+      <div>
+        <div class="lg:hidden mb-8"><Badge title="Case Study" /></div>
+        <img
+          src="/caseInferia.png"
+          alt="Case Study"
+          class="w-full h-full object-contain select-none pointer-events-none"
+        />
+      </div>
+    </div>
+</section>
