@@ -91,12 +91,69 @@ const {
 
     <script>
       // Push page metadata to dataLayer for GTM
+      declare global {
+        interface Window {
+          dataLayer: Record<string, unknown>[];
+        }
+      }
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "page_metadata",
         page_title: document.title,
         page_path: window.location.pathname,
         page_url: window.location.href,
+      });
+
+      // Navigation / Click Tracking
+      document.addEventListener("click", (e) => {
+        const target = (e.target as Element).closest("a");
+        if (!target) return;
+        const href = target.getAttribute("href") || "";
+        const isOutbound =
+          href.startsWith("http") && !href.includes(window.location.hostname);
+        if (isOutbound) {
+          window.dataLayer.push({
+            event: "outbound_click",
+            click_url: href,
+            click_text: target.innerText.trim(),
+          });
+        } else {
+          window.dataLayer.push({
+            event: "navigation_click",
+            click_url: href,
+            click_text: target.innerText.trim(),
+          });
+        }
+      });
+
+      // Scroll Depth (25 / 50 / 75 / 90 %)
+      const scrollThresholds = [25, 50, 75, 90];
+      const reached = new Set<number>();
+      window.addEventListener(
+        "scroll",
+        () => {
+          const scrolled =
+            (window.scrollY /
+              (document.documentElement.scrollHeight - window.innerHeight)) *
+            100;
+          for (const threshold of scrollThresholds) {
+            if (!reached.has(threshold) && scrolled >= threshold) {
+              reached.add(threshold);
+              window.dataLayer.push({
+                event: "scroll_depth",
+                scroll_threshold: threshold,
+                page_path: window.location.pathname,
+              });
+            }
+          }
+        },
+        { passive: true },
+      );
+
+      // Page path variable — expose current path for GTM
+      window.dataLayer.push({
+        page_path: window.location.pathname,
+        page_hostname: window.location.hostname,
       });
     </script>
 
