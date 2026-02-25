@@ -24,7 +24,7 @@ discord:
 
 github:
   text: "We pride ourselves on being open-source. Visit our GitHub repository to contribute, build, and report technical issues."
-  image: "./assets/githubCard.png"
+  image: "./assets/githubCard.webp"
   url: "https://github.com/nosana-ai"
   icon: "../../assets/icons/github.svg"
 

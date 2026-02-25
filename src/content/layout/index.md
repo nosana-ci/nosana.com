@@ -41,7 +41,7 @@ socials:
 
 socialBannerMarquee:
   items:
-    - image: "./assets/socialBanner1.png"
+    - image: "./assets/socialBanner1.webp"
       value: "13,000+"
       label: "Active members on Discord"
 
@@ -57,7 +57,7 @@ socialBannerMarquee:
       value: "58,000+"
       label: "Followers on X"
 
-    - image: "./assets/socialBanner1.png"
+    - image: "./assets/socialBanner1.webp"
       value: "600+"
       label: "Subscribers on YouTube"
 

@@ -1,6 +1,6 @@
 ---
 category: "blog"
-thumbnail: "./assets/thumbnail.png"
+thumbnail: "./assets/thumbnail.webp"
 title: "Nosana 🤝 OpenGPU: Expanding Access to AI Compute"
 description: The infrastructure behind artificial intelligence is changing rapidly. As demand for GPU power continues to rise, so does the need for more open, efficient, and accessible computing solutions.
 createdAt: "2026-02-05"
