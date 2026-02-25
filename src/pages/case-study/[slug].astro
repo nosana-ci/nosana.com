@@ -64,12 +64,12 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
                   <li class="group">
                     <a 
                       href={`#${heading.slug}`} 
-                      class="flex items-start gap-4 text-primary transition-colors duration-200 py-1"
+                      class="toc-link flex items-start gap-4 text-primary transition-colors duration-200 py-1"
                     >
                       <span class="caption1 font-bold text-primary group-hover:text-brand-100 transition-colors">
                         {(index + 1).toString().padStart(2, '0')}
                       </span>
-                      <span class="caption1 leading-tight line-clamp-1">
+                      <span class="caption1 leading-tight line-clamp-1 transition-colors">
                         {heading.text}
                       </span>
                     </a>
@@ -232,4 +232,47 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
     margin-bottom: 1.5rem;
     color: var(--color-primary);
   }
+
+  .toc-link.active span {
+    color: var(--color-brand-100) !important;
+  }
 </style>
+
+<script>
+  function initToC() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('.blog-content h1, .blog-content h2, .blog-content h3');
+    
+    if (tocLinks.length === 0 || headings.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === `#${id}`) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    headings.forEach(heading => observer.observe(heading));
+  }
+
+  // Run on initial load
+  initToC();
+  
+  // Re-run on Astro View Transitions
+  document.addEventListener('astro:after-swap', initToC);
+</script>
