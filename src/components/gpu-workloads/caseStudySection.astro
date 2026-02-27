@@ -26,11 +26,10 @@ const {
 ---
 
 <section class="bg-bg-base w-full px-4 md:px-12">
-  <div class="mx-auto flex w-full flex-col gap-10 md:flex-row md:items-stretch">
-    <!-- Left side -->
+  <div class="mx-auto flex w-full flex-col gap-10 md:items-stretch lg:flex-row">
     <div class="flex flex-col justify-between md:w-2/3">
       <div>
-        <Badge title={badge} icon={badgeIcon} class="mb-4"/>
+        <Badge title={badge} icon={badgeIcon} class="mb-4" />
 
         <blockquote class="text-primary h4 grotesk mb-8 lg:mb-10">
           {quote}
@@ -69,8 +68,10 @@ const {
       </div>
     </div>
 
-    <div class="relative md:w-1/2">
-      <div class="case-study-image group relative h-full min-h-[400px] overflow-hidden">
+    <div class="relative lg:w-1/2">
+      <div
+        class="case-study-image group relative h-full min-h-[400px] overflow-hidden"
+      >
         <Image
           src={image}
           alt="Case study"
@@ -86,7 +87,12 @@ const {
           class="absolute inset-0 h-full w-full scale-110 object-cover opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100"
         />
         <div class="absolute right-6 bottom-6 z-10">
-          <Button title={ctaTitle} url={ctaUrl} variant="secondary" class="bg-white! text-black! border-white!" />
+          <Button
+            title={ctaTitle}
+            url={ctaUrl}
+            variant="secondary"
+            class="border-white! bg-white! text-black!"
+          />
         </div>
       </div>
     </div>

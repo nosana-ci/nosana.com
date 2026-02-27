@@ -10,15 +10,15 @@ if (!entry) {
 const { pathSection } = entry.data;
 ---
 
-<section id="path" class="w-full min-h-screen bg-bg-base px-4 md:px-12">
+<section id="path" class="bg-bg-base min-h-screen w-full px-4 md:px-12">
   <Badge title={pathSection.badge.title} class="mb-4" />
   <h2
-    class="text-primary h4 grotesk max-w-2xl md:max-w-3xl mb-8 md:mb-16 lg:mb-18"
+    class="text-primary h4 grotesk mb-8 max-w-2xl md:mb-16 md:max-w-3xl lg:mb-18"
   >
     {pathSection.heading}
   </h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <PathCard
       image={pathSection.path1.image}
       title={pathSection.path1.title}

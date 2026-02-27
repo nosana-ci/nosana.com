@@ -3,6 +3,9 @@ category: "case-study"
 title: "From Vision to Production: How Inferia Built the Future of AI Deployment with Nosana"
 description: "How Inferia built a platform that deploys AI models in under 60 seconds using Nosana's decentralized GPU network."
 thumbnail: "./assets/thumbnail.png"
+logo: "../../testimonials/inferia/assets/inferia-full.svg"
+focus: "Decentralized GPU Integration"
+impact: "Powering community-driven AI workloads with scalable compute"
 createdAt: '2025-12-05'
 tags:
   - news
