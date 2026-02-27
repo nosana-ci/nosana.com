@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import heroSvg from "../../content/grants/assets/hero.svg?raw";
 import { getEntry } from "astro:content";
 import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
@@ -15,14 +15,12 @@ const { heroSection } = entry.data;
 
 <section class="h-[calc(100vh-5rem)] w-full overflow-hidden p-4 lg:p-12">
   <div
-    class="relative z-10 h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0"
+    class="relative z-10 h-full w-full overflow-hidden rounded-xl bg-[#191919] lg:rounded-3xl lg:pr-0 lg:pb-0"
   >
-    <!-- Content (Left) -->
-    <div class="relative z-10 flex max-w-xl flex-col items-start gap-4 text-left">
-      <Badge
-        title={heroSection.badge.title}
-        icon={heroSection.badge.icon}
-      />
+    <div
+      class="relative z-10 flex max-w-xl flex-col items-start gap-4 p-4 text-left md:p-6 lg:p-12"
+    >
+      <Badge title={heroSection.badge.title} icon={heroSection.badge.icon} />
 
       <h1 class="h4 grotesk text-primary">
         {heroSection.title}
@@ -48,36 +46,78 @@ const { heroSection } = entry.data;
       </div>
     </div>
 
-    <!-- Background Image -->
-    <div class="pointer-events-none absolute inset-0 z-0 h-full w-full">
-      <Image
-        src={heroSection.bgImg}
-        alt="Background Pattern"
-        class="h-full w-full object-cover opacity-60 pointer-events-none select-none"
+    <div
+      class="grants-hero-svg pointer-events-none h-full w-full lg:absolute lg:inset-0 lg:right-0 lg:bottom-0"
+    >
+      <div
+        class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full"
+        set:html={heroSvg}
       />
     </div>
-
-    <!-- Lottie Animation (Right Side) -->
-    <div
-      id="hero-lottie"
-      class="absolute right-0 bottom-0 w-full h-full pointer-events-none"
-    ></div>
   </div>
 </section>
 
+<style is:global>
+  @keyframes coin-oscillate {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes wire-light-move {
+    0% { transform: translateY(100px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-315px); opacity: 0; }
+  }
+
+  .grants-hero-svg .coin {
+    animation: coin-oscillate 3s ease-in-out infinite;
+  }
+
+  .grants-hero-svg .coin-2 {
+    animation-delay: 0.5s;
+  }
+
+  .grants-hero-svg .coin-3 {
+    animation-delay: 1s;
+  }
+
+  .grants-hero-svg .wire-light {
+    animation: wire-light-move 3s linear infinite;
+  }
+
+  .grants-hero-svg .wire-light-2 {
+    animation-delay: 0.6s;
+  }
+
+  .grants-hero-svg .wire-light-3 {
+    animation-delay: 1.2s;
+  }
+
+  .grants-hero-svg .wire-light-4 {
+    animation-delay: 0.3s;
+  }
+
+  .grants-hero-svg .wire-light-5 {
+    animation-delay: 0.9s;
+  }
+</style>
+
 <script>
-  import lottie from "lottie-web";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("hero-lottie");
-    if (!container) return;
-
-    lottie.loadAnimation({
-      container,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: "/lottie/hero.json",
-    });
-  });
+  function updateHeroSvgViewBox() {
+    const svg = document.querySelector(".grants-hero-svg svg");
+    if (!svg) return;
+    const w = window.innerWidth;
+    if (w < 640) {
+      svg.setAttribute("viewBox", "570 300 700 666");
+    } else if (w < 770) {
+      svg.setAttribute("viewBox", "0 100 1100 950");
+    } else if (w < 1024) {
+      svg.setAttribute("viewBox", "0 50 1000 1250");
+    } else {
+      svg.setAttribute("viewBox", "0 0 1100 766");
+    }
+  }
+  updateHeroSvgViewBox();
+  window.addEventListener("resize", updateHeroSvgViewBox);
 </script>
