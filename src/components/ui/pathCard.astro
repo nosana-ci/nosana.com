@@ -16,30 +16,32 @@ const [titleMain, titleSub] = title.split("-");
 ---
 
 <div
-  class="group w-full h-full rounded-lg border border-elevated p-4 md:p-6 flex flex-col gap-4 md:gap-6"
+  class="group border-elevated flex h-full w-full flex-col justify-between gap-4 rounded-lg border p-4 md:gap-6 md:p-6"
 >
-  <div class="relative overflow-hidden">
-    <Image
-      src={glowImage}
-      alt="glow"
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-auto opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none z-20"
-    />
+  <div>
+    <div class="relative overflow-hidden pb-4">
+      <Image
+        src={glowImage}
+        alt="glow"
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 z-20 h-auto w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
 
-    <Image
-      src={image}
-      alt={title}
-      class="relative z-10 w-full h-auto select-none border border-elevated"
-    />
-  </div>
+      <Image
+        src={image}
+        alt={title}
+        class="border-elevated relative z-10 h-auto w-full border select-none"
+      />
+    </div>
 
-  <div class="flex flex-col gap-4">
-    <h3 class="text-primary h4 grotesk max-w-[450px]">
-      {titleMain}
-      <span class="text-brand-100"> {titleSub}</span>
-    </h3>
+    <div class="flex flex-col gap-4">
+      <h3 class="text-primary h4 grotesk max-w-[450px]">
+        {titleMain}
+        <span class="text-brand-100"> {titleSub}</span>
+      </h3>
 
-    <p class="text-secondary body2">{description}</p>
+      <p class="text-secondary body2">{description}</p>
+    </div>
   </div>
 
   <div class="flex items-center justify-between pt-2">

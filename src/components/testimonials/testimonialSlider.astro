@@ -11,7 +11,7 @@ const testimonials = await getCollection("testimonials", ({ data }) => {
 <section class="relative w-full overflow-hidden testimonial-slider">
   <div class="overflow-hidden">
     <div
-      class="slider-track flex gap-6 transition-transform duration-500 ease-out"
+      class="slider-track flex items-stretch gap-6 transition-transform duration-500 ease-out"
     >
       {
         testimonials.map((t) => {

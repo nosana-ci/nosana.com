@@ -35,7 +35,7 @@ const headingParts = heading.split(" - ");
   <!-- Features Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       {features.map((feature: any) => (
-        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 h-[280px] md:h-[360px] lg:h-[440px]`}>
+        <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 min-h-[280px] md:min-h-[360px] lg:min-h-[440px]`}>
           <!-- Icon -->
           <div class="mb-6">
             <Image 
