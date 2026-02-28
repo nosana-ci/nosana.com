@@ -75,7 +75,7 @@ As an evaluation metric, we used tokens produced per second, which directly meas
 ### Results
 
   <div style="width: 100%; margin: 0 auto;">
-<img alt="the performance of the RTX 4090 and the A100 with the LMdeploy and vLLM frameworks for different levels of concurrency." src="/img/LLM-image-Total.jpg" />
+<img alt="the performance of the RTX 4090 and the A100 with the LMdeploy and vLLM frameworks for different levels of concurrency." src="./assets/LLM-image-Total.jpg" />
 </div>
 
 In the above graphs, we can see the performance of the RTX 4090 and the A100 with the LMdeploy and vLLM frameworks for different levels of concurrency. The graphs show that:

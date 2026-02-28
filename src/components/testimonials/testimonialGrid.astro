@@ -44,6 +44,7 @@ const testimonialGridData = testimonials.map((t) => t.data) as Array<{
                   <Image 
                     src={collabBg} 
                     alt="" 
+                    quality={100}
                     class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
                   />
                 )}
@@ -51,6 +52,7 @@ const testimonialGridData = testimonials.map((t) => t.data) as Array<{
                   <Image
                     src={displayIcon}
                     alt={title || ""}
+                    quality={100}
                     class={`${variant === "collaboration" ? "h-[30px] w-auto" : "w-12 h-12"} select-none pointer-events-none`}
                   />
 
@@ -62,6 +64,7 @@ const testimonialGridData = testimonials.map((t) => t.data) as Array<{
                         alt="Nosana"
                         width={48}
                         height={48}
+                        quality={100}
                         class="h-[30px] w-auto select-none pointer-events-none"
                       />
                     </>

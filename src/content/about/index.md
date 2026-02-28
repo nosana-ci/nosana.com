@@ -46,7 +46,7 @@ teamSection:
         funded companies at executive leadership roles.
       button_1:
         text: "Connect"
-        icon: "./assets/buttonIcon_1.svg"
+        url: "https://www.linkedin.com/in/sjoerd-dijkstra/"
 
     - image: "./assets/personImage2.svg"
       name: "Jesse"
@@ -56,7 +56,7 @@ teamSection:
         at Amsterdam University. Passion for a decentralized world.
       button_2:
         text: "Connect"
-        icon: "./assets/buttonIcon_1.svg"
+        url: "https://www.linkedin.com/in/jesse-eisses-9760ab48/"
 
 careersSection:
   badge:
@@ -69,6 +69,7 @@ careersSection:
 
   button:
     text: "Careers"
+    url: "https://www.linkedin.com/company/nosana/"
     icon: "./assets/buttonIcon_1.svg"
 
   remoteSection:
