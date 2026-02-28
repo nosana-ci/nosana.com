@@ -7,21 +7,19 @@ const events = await getCollection("events");
 // Sort newest first
 const sortedEvents = events.sort(
   (a, b) =>
-    new Date(b.data.createdAt).getTime() -
-    new Date(a.data.createdAt).getTime()
+    new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime(),
 );
 
 // Pick latest featured if exists
 const featuredEvent = sortedEvents.find((event) =>
-  event.data.tags?.includes("featured")
+  event.data.tags?.includes("featured"),
 );
 
 const eventToShow = featuredEvent ?? sortedEvents[0];
 
 if (!eventToShow) return null;
 
-const { title, description, thumbnail, createdAt, url } =
-  eventToShow.data;
+const { title, description, thumbnail, createdAt, url } = eventToShow.data;
 
 const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
   day: "numeric",
@@ -30,24 +28,21 @@ const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
 });
 ---
 
-<div class="w-full h-fit bg-surface p-3 group/featured ">
-  <a
-    href={url}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="block"
-  >
+<div class="bg-surface group/featured h-fit w-full p-3">
+  <a href={url} target="_blank" rel="noopener noreferrer" class="block">
     <!-- Image -->
-    <div class="w-full max-h-[180px] overflow-hidden mb-4">
+    <div class="mb-4 max-h-[180px] w-full overflow-hidden">
       <Image
         src={thumbnail}
         alt={title}
-        class="w-full h-full object-cover select-none pointer-events-none"
+        class="pointer-events-none h-full w-full object-cover select-none"
       />
     </div>
 
     <!-- Title -->
-    <h3 class="grotesk h6 text-primary mb-2 group-hover/featured:text-brand-100 transition-colors duration-300">
+    <h3
+      class="grotesk h6 text-primary group-hover/featured:text-brand-100 mb-2 origin-left scale-[80%] transition-colors duration-300"
+    >
       {title}
     </h3>
 
@@ -57,7 +52,7 @@ const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     </p>
 
     <!-- Meta -->
-    <div class="flex items-center gap-4 caption1 text-secondary">
+    <div class="caption1 text-secondary flex items-center gap-4">
       <span>8 min read</span>
       <span>{formattedDate}</span>
     </div>
