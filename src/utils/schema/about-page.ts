@@ -48,13 +48,13 @@ export const aboutPageSchema =
             button_1: z
               .object({
                 text: z.string(),
-                icon: image(),
+                url: z.string(),
               })
               .optional(),
             button_2: z
               .object({
                 text: z.string(),
-                icon: image(),
+                url: z.string(),
               })
               .optional(),
           }),
@@ -69,6 +69,7 @@ export const aboutPageSchema =
         button: z
           .object({
             text: z.string(),
+            url: z.string(),
             icon: image(),
           })
           .optional(),

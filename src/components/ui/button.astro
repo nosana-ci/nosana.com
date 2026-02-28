@@ -8,9 +8,10 @@ interface Props {
   color?: string;
   icon?: any;
   iconColor?: string;
-  iconSize?: number; // px
+  iconSize?: number;
   target?: string;
   class?: string;
+  download?: string | boolean;
 }
 
 const {
@@ -20,8 +21,9 @@ const {
   color = "#0B840E",
   icon,
   iconColor = "#10E80C",
-  iconSize = 24,
+  iconSize,
   target,
+  download,
   class: className,
 } = Astro.props;
 
@@ -43,6 +45,7 @@ const customStyle =
 <a
   href={url}
   target={target}
+  download={download}
   class:list={[baseStyles, variantStyle, className]}
   style={customStyle}
 >
@@ -55,10 +58,9 @@ const customStyle =
     {
       icon && (
         <span
-          class="flex items-center justify-center shrink-0 transition-colors"
+          class="flex items-center justify-center shrink-0 transition-colors w-(--icon-size,16px) h-(--icon-size,16px) md:w-(--icon-size,18px) md:h-(--icon-size,18px) lg:w-(--icon-size,24px) lg:h-(--icon-size,24px)"
           style={{
-            width: `${iconSize}px`,
-            height: `${iconSize}px`,
+            ...((iconSize ? { "--icon-size": `${iconSize}px` } : {}) as any),
             color: iconColor,
           }}
         >

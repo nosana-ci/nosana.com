@@ -25,7 +25,7 @@ const { heroSection, logoSection } = Astro.props;
       class="flex flex-col-reverse gap-8 md:flex-row md:items-start md:justify-between lg:gap-10"
     >
       <div class="flex flex-col gap-4">
-        <Badge title={heroSection.badge} />
+        <Badge title={heroSection.badge} class="w-fit"/>
         <h1 class="text-primary h4 grotesk">{heroSection.heading}</h1>
         <p class="text-secondary body2 max-w-3xl">{heroSection.description}</p>
         <div>
@@ -58,7 +58,8 @@ const { heroSection, logoSection } = Astro.props;
       <div class="lg:my-auto lg:h-full">
         <Button
           title="Download Logo File"
-          url={logoSection.downloadUrl}
+          url="/logo.svg"
+          download="logo.svg"
           variant="secondary"
         />
       </div>

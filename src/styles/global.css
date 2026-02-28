@@ -228,7 +228,7 @@ html {
   line-height: 1.3;
 
   @media (min-width: 390px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   @media (min-width: 768px) {

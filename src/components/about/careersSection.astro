@@ -30,10 +30,9 @@ const { badge, title, description, button, remoteSection } = careersSection;
         button && (
           <Button
             title={button.text}
-            url={"#"}
-            class="mt-4 w-min"
+            url={button.url}
+            class="mt-4 w-fit"
             variant="secondary"
-            iconColor="#fafafa"
           />
         )
       }

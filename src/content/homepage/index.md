@@ -61,7 +61,7 @@ whyNosanaSection:
   heading: "GPU Compute When You Need It"
   description: "Nosana provides on-demand, distributed GPU compute with a simple way to run and scale AI including agentic and high-performance workloads, from training and fine-tuning to inference, rendering, and simulation"
   features:
-    - title: "On-Demand - Worldwide GPU Access"
+    - title: "On Demand - Worldwide GPU Access"
       description: "Run jobs on available GPUs across the globe, exactly when you need them."
       icon: "../../assets/icons/features/demand.svg"
     - title: "Specialized - Built for High-Performance Workloads"

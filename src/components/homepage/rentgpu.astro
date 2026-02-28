@@ -95,7 +95,7 @@ const { premium, community, others } = await getGPUMarkets();
         <div class="show-more-wrap flex w-full justify-center">
           <button
             type="button"
-            class="show-more-btn text-primary body2 bg-surface mb-6 w-full cursor-pointer border border-white/5 py-4 transition hover:bg-white/10"
+            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-x border-b border-default hover:bg-primary hover:text-bg-base"
           >
             Show More
           </button>
@@ -110,7 +110,7 @@ const { premium, community, others } = await getGPUMarkets();
         <div class="show-more-wrap flex w-full justify-center">
           <button
             type="button"
-            class="show-more-btn text-primary body2 bg-surface mb-6 w-full cursor-pointer border border-white/5 py-4 transition hover:bg-white/10"
+            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-x border-b border-default hover:bg-primary hover:text-bg-base"
           >
             Show More
           </button>
@@ -125,7 +125,7 @@ const { premium, community, others } = await getGPUMarkets();
         <div class="show-more-wrap flex w-full justify-center">
           <button
             type="button"
-            class="show-more-btn text-primary body2 bg-surface mb-6 w-full cursor-pointer border border-white/5 py-4 transition hover:bg-white/10"
+            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-x border-b border-default hover:bg-primary hover:text-bg-base"
           >
             Show More
           </button>
@@ -177,43 +177,47 @@ const { premium, community, others } = await getGPUMarkets();
   }
 
   const MAX_VISIBLE = 10;
+  const INCREMENT = 5;
 
   function initShowMore() {
     const panels = document.querySelectorAll(".panel");
     panels.forEach((panel) => {
-      const rows = panel.querySelectorAll(".gpu-row");
+      const rows = Array.from(panel.querySelectorAll(".gpu-row")) as HTMLElement[];
       const wrap = panel.querySelector(".show-more-wrap") as HTMLElement;
       const btn = panel.querySelector(".show-more-btn") as HTMLButtonElement;
       if (!wrap || !btn) return;
 
-      if (rows.length <= MAX_VISIBLE) {
+      let visibleCount = MAX_VISIBLE;
+
+      if (rows.length <= visibleCount) {
         wrap.classList.add("hidden");
         return;
+      } else {
+        wrap.classList.remove("hidden");
       }
 
-      // Hide rows beyond MAX_VISIBLE
-      rows.forEach((row, i) => {
-        if (i >= MAX_VISIBLE) {
-          (row as HTMLElement).classList.add("hidden");
-          (row as HTMLElement).classList.remove("md:grid");
-        }
-      });
-
-      let expanded = false;
-      btn.addEventListener("click", () => {
-        expanded = !expanded;
+      // Initial state: Hide rows beyond visibleCount
+      const updateRows = () => {
         rows.forEach((row, i) => {
-          if (i >= MAX_VISIBLE) {
-            if (expanded) {
-              (row as HTMLElement).classList.remove("hidden");
-              (row as HTMLElement).classList.add("md:grid");
-            } else {
-              (row as HTMLElement).classList.add("hidden");
-              (row as HTMLElement).classList.remove("md:grid");
-            }
+          if (i < visibleCount) {
+            row.classList.remove("hidden");
+            row.classList.add("md:grid");
+          } else {
+            row.classList.add("hidden");
+            row.classList.remove("md:grid");
           }
         });
-        btn.textContent = expanded ? "Show Less" : "Show More";
+
+        if (visibleCount >= rows.length) {
+          wrap.classList.add("hidden");
+        }
+      };
+
+      updateRows();
+
+      btn.addEventListener("click", () => {
+        visibleCount += INCREMENT;
+        updateRows();
       });
     });
   }

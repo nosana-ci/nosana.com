@@ -2,7 +2,7 @@
 category: "case-study"
 title: "Rivalz has partnered with Nosana to power its AI Oracles"
 description: "This new partnership with Rivalz will usher in a new era of AI oracles, helping developers build AI-powered dApps by seamlessly integrating Nosana's AI resources directly from smart contracts."
-logo: "../../testimonials/rivalz/assets/rivalz.svg"
+logo: "./assets/rivalz.svg"
 thumbnail: "./assets/thumbnail.jpg"
 author: "Alejandro Ramos & Mark Ledford"
 role: "Founders, Sogni.AI"

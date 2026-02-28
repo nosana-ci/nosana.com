@@ -35,7 +35,7 @@ nosToken:
       description: "Nosana is governed by its community. $NOS holders can propose and vote on network upgrades, parameter changes, and ecosystem decisions, shaping how the protocol evolves over time."
       cta:
         title: " Participate in Governance"
-        url: "/govern"
+        url: "https://vote.nosana.com"
 
     - image: "./assets/valueAndincntive.svg"
       tab:

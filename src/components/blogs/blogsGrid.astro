@@ -31,7 +31,7 @@ const formattedBlogs = sortedBlogs.map(blog => {
 });
 ---
 
-<section class="w-full pb-20" id="blogs-grid-section">
+<section class="w-full" id="blogs-grid-section">
   <div class="px-4 md:px-12 flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 lg:mb-12">
     <!-- Filters -->
     <div class="flex flex-wrap items-center border border-default rounded-sm p-2">
@@ -88,7 +88,7 @@ const formattedBlogs = sortedBlogs.map(blog => {
         
         <div class="flex flex-col relative overflow-hidden">
           <!-- Sliding Container -->
-          <div class="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-8">
+          <div class="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-10">
             <!-- Date Area -->
             <div class="flex items-center gap-2 text-secondary caption1 opacity-60 h-6 mb-4 group-hover:opacity-0 transition-opacity duration-300">
               <span>{blog.formattedDate}</span>
@@ -96,7 +96,7 @@ const formattedBlogs = sortedBlogs.map(blog => {
             </div>
 
             <!-- Title Area -->
-            <h3 class="text-primary body2 line-clamp-2 min-h-[3.2em] transition-colors duration-300">
+            <h3 class="text-primary body2 line-clamp-2 min-h-[2.6em] transition-colors duration-300">
               {blog.title}
             </h3>
             
@@ -118,7 +118,7 @@ const formattedBlogs = sortedBlogs.map(blog => {
   </div>
 
   <!-- Pagination -->
-  <div id="blog-pagination" class="flex items-center justify-center py-12 md:py-16 gap-4">
+  <div id="blog-pagination" class="flex items-center justify-center pt-12 pb-4 md:pt-16 gap-4">
     <NavigateButton
       id="blog-prev"
       variant="secondary"
