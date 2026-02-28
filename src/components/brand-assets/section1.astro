@@ -9,6 +9,7 @@ import logoMark from "../../content/brand-assets/assets/logo.svg";
 import wordmark from "../../content/brand-assets/assets/wordmark.svg";
 import safezone from "../../content/brand-assets/assets/safezone.svg";
 import safezoneSmall from "../../content/brand-assets/assets/safezone-small.svg";
+import Divider from "../ui/divider.astro";
 
 type Props = {
   heroSection: CollectionEntry<"brandAssets">["data"]["heroSection"];
@@ -21,7 +22,7 @@ const { heroSection, logoSection } = Astro.props;
 <div class="px-4 md:px-12">
   <section class="bg-bg-base w-full pt-8 md:pt-16 lg:pt-18">
     <div
-      class="flex flex-col-reverse gap-8 lg:gap-10 md:flex-row md:items-start md:justify-between"
+      class="flex flex-col-reverse gap-8 md:flex-row md:items-start md:justify-between lg:gap-10"
     >
       <div class="flex flex-col gap-4">
         <Badge title={heroSection.badge} />
@@ -122,6 +123,10 @@ const { heroSection, logoSection } = Astro.props;
         </div>
         <div class="hidden h-32 sm:block"></div>
       </div>
+    </div>
+
+    <div class="hidden sm:block">
+      <Divider />
     </div>
 
     <div
