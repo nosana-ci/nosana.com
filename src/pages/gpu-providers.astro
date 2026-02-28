@@ -31,7 +31,14 @@ const {
 } = entry.data;
 ---
 
-<Layout title="Nosana | GPU Providers" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="Earn by Providing GPU Compute"
+  description="Earn by sharing your GPU hardware. Nosana lets you provide GPU compute and get paid for running real workloads."
+  ogImage={seoImage || "/og/gpu-providers.png"}
+  noIndex={noIndex}
+  ogTitle="Earn with Your GPUs"
+  ogDescription="Connect your GPU hardware and earn by running compute workloads on Nosana."
+>
   <Hero heroSection={heroSection} />
   <Divider />
   <WhyProvideSection whyProvideSection={whyProvideSection} />

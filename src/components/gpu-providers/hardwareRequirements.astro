@@ -38,11 +38,13 @@ const headingParts = heading.split(" - ");
         title={buttons.primary.title}
         url={buttons.primary.url}
         variant="secondary"
+        data-cta="earn_gpu"
       />
       <Button
         title={buttons.secondary.title}
         url={buttons.secondary.url}
         variant="secondary"
+        data-cta="schedule_call"
       />
     </div>
   </div>
@@ -79,6 +81,7 @@ const headingParts = heading.split(" - ");
                 url={requirement.link.url}
                 variant="ghost"
                 class="mt-4 w-fit"
+                data-cta="learn"
               />
             )
           }

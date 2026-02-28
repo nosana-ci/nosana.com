@@ -16,7 +16,14 @@ if (!entry) {
 const { heroSection, logoSection, colorsSection, typographySection, seoDescription, seoImage, noIndex } = entry.data;
 ---
 
-<Layout title="Nosana | Brand Assets" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="Nosana Brand Assets"
+  description="Download official Nosana logos and brand assets for media, integrations, and community use."
+  ogImage={seoImage || "/og/brand-assets.png"}
+  noIndex={noIndex}
+  ogTitle="Nosana Brand Assets"
+  ogDescription="Official Nosana logos and brand resources for media and partners."
+>
   <Section1 heroSection={heroSection} logoSection={logoSection} />
   <Divider />
   <Section2 colorsSection={colorsSection} />

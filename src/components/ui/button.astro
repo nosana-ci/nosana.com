@@ -11,6 +11,7 @@ interface Props {
   iconSize?: number; // px
   target?: string;
   class?: string;
+  "data-cta"?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   iconSize = 24,
   target,
   class: className,
+  "data-cta": dataCta,
 } = Astro.props;
 
 const baseStyles =
@@ -45,6 +47,7 @@ const customStyle =
   target={target}
   class:list={[baseStyles, variantStyle, className]}
   style={customStyle}
+  {...(dataCta ? { "data-cta": dataCta } : {})}
 >
   <span
     class:list={[

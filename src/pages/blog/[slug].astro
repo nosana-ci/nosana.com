@@ -21,16 +21,46 @@ const { Content, headings } = await render(blog);
 // Filter and format headings for the ToC
 const tocHeadings = headings.filter(h => h.depth <= 3);
 
-const { title, description, thumbnail, createdAt } = blog.data;
+const { title, description, thumbnail, createdAt, tags } = blog.data;
 
 const formattedDate = createdAt.toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
   day: "numeric",
 });
+
+const canonicalURL = new URL(`/blog/${blog.id}`, Astro.site).href;
+const imageURL = new URL(thumbnail.src, Astro.site).href;
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: description,
+  image: imageURL,
+  datePublished: createdAt.toISOString(),
+  url: canonicalURL,
+  keywords: tags?.join(", "),
+  publisher: {
+    "@type": "Organization",
+    name: "Nosana",
+    url: Astro.site?.href,
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("/favicon-96x96.png", Astro.site).href,
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalURL,
+  },
+};
 ---
 
 <Layout title={title} description={description} ogImage={thumbnail.src} ogType="article">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  </Fragment>
   <article class="px-4 md:px-12">
     <p class="body3 text-primary mt-8 mb-2 lg:mt-12">
       {formattedDate}
@@ -266,7 +296,36 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
 
   // Run on initial load
   initToC();
-  
+
   // Re-run on Astro View Transitions
   document.addEventListener('astro:after-swap', initToC);
+
+  // Blog article view tracking
+  const dl = (window as any).dataLayer || [];
+  dl.push({
+    event: "blog_article_view",
+    article_title: document.title,
+    article_slug: window.location.pathname,
+  });
+
+  // Blog read signal — fires when user scrolls past 75% of article content
+  const blogContent = document.querySelector('.blog-content');
+  if (blogContent) {
+    let blogReadFired = false;
+    const readObserver = new IntersectionObserver((entries) => {
+      if (!blogReadFired && entries[0].isIntersecting) {
+        blogReadFired = true;
+        dl.push({
+          event: "blog_article_read",
+          article_title: document.title,
+          article_slug: window.location.pathname,
+        });
+        readObserver.disconnect();
+      }
+    }, { threshold: 0.75 });
+
+    // Observe the last child of blog content as a "read" signal
+    const lastChild = blogContent.lastElementChild;
+    if (lastChild) readObserver.observe(lastChild);
+  }
 </script>

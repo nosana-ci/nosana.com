@@ -5,6 +5,8 @@ interface Props {
   image?: string;
   noIndex?: boolean;
   type?: "website" | "article";
+  ogTitle?: string;
+  ogDescription?: string;
 }
 
 const {
@@ -13,9 +15,13 @@ const {
   image = "/og-image.png",
   noIndex = false,
   type = "website",
+  ogTitle,
+  ogDescription,
 } = Astro.props;
 
 const formattedTitle = title.includes("Nosana") ? title : `${title} | Nosana`;
+const resolvedOgTitle = ogTitle || formattedTitle;
+const resolvedOgDescription = ogDescription || description;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image, Astro.site);
 ---
@@ -28,14 +34,14 @@ const ogImageURL = new URL(image, Astro.site);
 
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL.href} />
-<meta property="og:title" content={formattedTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={resolvedOgTitle} />
+<meta property="og:description" content={resolvedOgDescription} />
 <meta property="og:image" content={ogImageURL.href} />
 <meta property="og:site_name" content="Nosana - GPU Cloud" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@nosana_ai" />
-<meta name="twitter:title" content={formattedTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:title" content={resolvedOgTitle} />
+<meta name="twitter:description" content={resolvedOgDescription} />
 <meta name="twitter:image" content={ogImageURL.href} />
 <meta name="twitter:url" content={canonicalURL.href} />

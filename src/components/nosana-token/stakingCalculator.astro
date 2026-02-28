@@ -288,5 +288,15 @@ const chainData = JSON.stringify({ poolInfo, rewardsInfo });
   bindStepper("nos-dec", "nos-inc", "nos-amount", 1, 0);
   bindStepper("days-dec", "days-inc", "unstake-days", 1, MIN_DAYS, MAX_DAYS);
 
+  // Calculator analytics — fire once on first interaction
+  let calcTracked = false;
+  document.getElementById("staking-calculator")?.addEventListener("input", () => {
+    if (!calcTracked) {
+      calcTracked = true;
+      const dl = (window as any).dataLayer || [];
+      dl.push({ event: "calculator_interact", calculator_type: "staking", page_path: window.location.pathname });
+    }
+  });
+
   update();
 </script>

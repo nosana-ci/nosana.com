@@ -24,9 +24,33 @@ if (!entry) {
 }
 
 const { upcomingEventsMock, latestBlogsMock, seoDescription, seoImage, noIndex } = entry.data;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Nosana",
+  url: Astro.site?.href,
+  logo: new URL("/favicon-96x96.png", Astro.site).href,
+  description: seoDescription,
+  sameAs: [
+    "https://twitter.com/nosana_ai",
+    "https://github.com/nosana-ci",
+    "https://discord.gg/nosana",
+  ],
+};
 ---
 
-<Layout title="Nosana" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="Affordable GPU Rental at Scale – On-Demand GPU Compute Cloud"
+  description="Rent GPUs on demand for AI and high-performance workloads. Nosana lets you run workloads instantly or earn by sharing your GPU with flexible pricing."
+  ogImage={seoImage || "/og/home.png"}
+  noIndex={noIndex}
+  ogTitle="Affordable GPU Rental at Scale – On-Demand GPU Compute"
+  ogDescription="Affordable GPU rental for AI and high-performance workloads. Run on demand or earn by providing GPU compute through the Nosana GPU cloud."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  </Fragment>
 	<Hero />
 	<div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full"><Brands /></div>
 	<PathSection />

@@ -76,9 +76,22 @@ const headingParts = heading.split(" - ");
       }
     });
 
+    // Video analytics
+    let videoStarted = false;
+    video.addEventListener("play", () => {
+      const dl = (window as any).dataLayer || [];
+      if (!videoStarted) {
+        videoStarted = true;
+        dl.push({ event: "video_start", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
+      }
+      dl.push({ event: "video_play", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
+    });
+
     video.addEventListener("ended", () => {
       playStatus.classList.remove("hidden");
       pauseStatus.classList.add("hidden");
+      const dl = (window as any).dataLayer || [];
+      dl.push({ event: "video_complete", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });
   }
 </script>

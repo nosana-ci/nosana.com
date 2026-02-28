@@ -14,7 +14,14 @@ if (!entry) {
 const { seoDescription, seoImage, noIndex } = entry.data;
 ---
 
-<Layout title="Nosana | Support" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="Nosana Support & Community Help"
+  description="Get help with Nosana. Access documentation, community support, Discord, and GitHub resources for GPU compute."
+  ogImage={seoImage || "/og/support.png"}
+  noIndex={noIndex}
+  ogTitle="Nosana Support"
+  ogDescription="Find support, documentation, and community help for running or providing GPU compute on Nosana."
+>
   <div class="flex flex-col gap-2 px-4 md:px-12 pt-8 md:pt-16 lg:pt-18">
     <h1 class="h4 grotesk text-primary">{entry.data.heading}</h1>
     <p class="body2 text-secondary max-w-xl">{entry.data.description}</p>

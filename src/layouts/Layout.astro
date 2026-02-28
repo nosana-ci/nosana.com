@@ -10,6 +10,8 @@ interface Props {
   ogImage?: string;
   noIndex?: boolean;
   ogType?: "website" | "article";
+  ogTitle?: string;
+  ogDescription?: string;
 }
 
 const {
@@ -18,6 +20,8 @@ const {
   ogImage,
   noIndex,
   ogType,
+  ogTitle,
+  ogDescription,
 } = Astro.props;
 ---
 
@@ -68,7 +72,10 @@ const {
       image={ogImage}
       noIndex={noIndex}
       type={ogType}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
     />
+    <slot name="head" />
   </head>
 
   <body class="bg-bg-base text-primary min-h-screen font-sans">
@@ -90,43 +97,89 @@ const {
     <Footer />
 
     <script>
-      // Push page metadata to dataLayer for GTM
+      // ── GA4 Event Tracking via dataLayer ──
       declare global {
         interface Window {
           dataLayer: Record<string, unknown>[];
         }
       }
       window.dataLayer = window.dataLayer || [];
+
+      // Page metadata
       window.dataLayer.push({
         event: "page_metadata",
         page_title: document.title,
         page_path: window.location.pathname,
         page_url: window.location.href,
+        page_hostname: window.location.hostname,
       });
 
-      // Navigation / Click Tracking
+      // ── Click Tracking ──
       document.addEventListener("click", (e) => {
-        const target = (e.target as Element).closest("a");
+        const target = (e.target as Element).closest("a, button");
         if (!target) return;
-        const href = target.getAttribute("href") || "";
+
+        const href =
+          target.getAttribute("href") || target.getAttribute("data-href") || "";
+        const text = (target as HTMLElement).innerText?.trim() || "";
+
+        // CTA clicks — buttons with data-cta attribute
+        const ctaType = target.getAttribute("data-cta");
+        if (ctaType) {
+          window.dataLayer.push({
+            event: "cta_click",
+            cta_type: ctaType,
+            cta_text: text,
+            cta_url: href,
+            page_path: window.location.pathname,
+          });
+          return;
+        }
+
+        // Navbar clicks
+        if (target.closest("[data-navbar]")) {
+          window.dataLayer.push({
+            event: "navbar_click",
+            click_url: href,
+            click_text: text,
+          });
+          return;
+        }
+
+        // Footer clicks
+        if (target.closest("footer, [data-footer]")) {
+          window.dataLayer.push({
+            event: "footer_click",
+            click_url: href,
+            click_text: text,
+          });
+          return;
+        }
+
+        // Outbound link clicks
         const isOutbound =
           href.startsWith("http") && !href.includes(window.location.hostname);
         if (isOutbound) {
           window.dataLayer.push({
-            event: "outbound_click",
+            event: "outbound_link_click",
             click_url: href,
-            click_text: target.innerText.trim(),
+            click_text: text,
+            page_path: window.location.pathname,
           });
-        } else {
+          return;
+        }
+
+        // General navigation clicks (internal links)
+        if (href && target.tagName === "A") {
           window.dataLayer.push({
             event: "navigation_click",
             click_url: href,
-            click_text: target.innerText.trim(),
+            click_text: text,
           });
         }
       });
 
-      // Scroll Depth (25 / 50 / 75 / 90 %)
+      // ── Scroll Depth (25 / 50 / 75 / 90 %) ──
       const scrollThresholds = [25, 50, 75, 90];
       const reached = new Set<number>();
       window.addEventListener(
@@ -150,10 +203,28 @@ const {
         { passive: true },
       );
 
-      // Page path variable — expose current path for GTM
-      window.dataLayer.push({
-        page_path: window.location.pathname,
-        page_hostname: window.location.hostname,
+      // ── Newsletter Subscription ──
+      document.querySelectorAll<HTMLFormElement>('form[action="/api/newsletter"]').forEach((form) => {
+        form.addEventListener("submit", () => {
+          window.dataLayer.push({
+            event: "newsletter_subscribe",
+            page_path: window.location.pathname,
+          });
+        });
+      });
+
+      // ── FAQ Interaction ──
+      document.querySelectorAll<HTMLDetailsElement>("[data-faq]").forEach((faq) => {
+        faq.addEventListener("toggle", () => {
+          if (faq.open) {
+            const question = faq.querySelector("summary")?.innerText?.trim() || "";
+            window.dataLayer.push({
+              event: "faq_open",
+              faq_question: question,
+              page_path: window.location.pathname,
+            });
+          }
+        });
       });
     </script>
 

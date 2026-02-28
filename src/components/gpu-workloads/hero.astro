@@ -70,7 +70,7 @@ const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax 
       <div class="flex flex-wrap gap-4">
         {
           cta1 && (
-            <Button title={cta1.title} url={cta1.url} variant="secondary" />
+            <Button title={cta1.title} url={cta1.url} variant="secondary" data-cta="deploy" />
           )
         }
 
@@ -81,6 +81,7 @@ const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax 
               url={cta2.url}
               icon={cta2.icon}
               variant="secondary"
+              data-cta="schedule_call"
             />
           )
         }
