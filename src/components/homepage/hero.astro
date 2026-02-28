@@ -31,7 +31,7 @@ const gpuSvg = gpuRaw.replace(
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 md:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
+  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
@@ -56,9 +56,11 @@ const gpuSvg = gpuRaw.replace(
     </div>
 
     <div class="pointer-events-none absolute inset-0 z-0">
-      <div class="absolute right-0 bottom-0 h-full w-full lg:right-20">
+      <div
+        class="absolute right-0 bottom-0 h-full w-full md:right-[25%] md:bottom-[20%] lg:bottom-0 lg:right-20 lg:w-full"
+      >
         <div
-          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full"
+          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full scale-100 md:scale-140 lg:scale-100"
           set:html={gpuSvg}
         />
       </div>

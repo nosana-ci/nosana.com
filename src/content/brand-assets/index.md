@@ -9,7 +9,7 @@ heroSection:
 logoSection:
   heading: "Brand Logo"
   description: "The Nosana logo represents the open source GPU cloud for AI and high performance workloads. Use it in product, partner, and community materials"
-  downloadUrl: "#"
+  downloadUrl: "/logo.svg"
 
 typographySection:
   heading: "Typography"

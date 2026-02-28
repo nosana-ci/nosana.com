@@ -41,7 +41,13 @@ const { badge, heading, description, cta1, cta2, steps } = getStarted;
   >
     {
       steps.map((_step: any, index: number) => (
-        <div class:list={["step-image", index === 0 ? "active" : ""]}>
+        <div
+          class:list={[
+            "step-image",
+            index === 0 ? "active" : "",
+            index === 1 ? "max-md:scale-110 max-md:overflow-hidden" : "",
+          ]}
+        >
           <div
             class="step-svg-wrapper"
             set:html={stepSvgs[index]}

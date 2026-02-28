@@ -13,7 +13,7 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<div class="w-full overflow-hidden mb-10">
+<div class="w-full overflow-hidden">
   <!-- Header -->
   <div
     class="grid grid-cols-3
@@ -21,8 +21,8 @@ const { items } = Astro.props;
            text-sm text-primary bg-white/10 body2"
   >
     <span>GPU</span>
-    <span class="text-center hidden sm:block">Price</span>
-    <span class="text-right hidden sm:block">Availability</span>
+    <span class="text-center hidden md:block">Price</span>
+    <span class="text-right hidden md:block">Availability</span>
   </div>
 
   <!-- Rows -->
@@ -35,17 +35,17 @@ const { items } = Astro.props;
         data-gpu-price={item.price.toLowerCase()}
       >
         <!-- GPU -->
-        <div class="text-primary font-medium mb-2 md:mb-0 truncate">
+        <div class="text-primary font-medium mb-2 md:mb-0 truncate min-w-0">
           {item.gpu}
         </div>
 
         <!-- Mobile: Price + Availability in one row -->
-        <div class="flex justify-between gap-4 md:hidden">
-          <div class="text-primary">
+        <div class="gpu-mobile-info flex justify-between gap-4 md:hidden">
+          <div class="text-primary truncate min-w-0">
             <span class="text-secondary">Price: </span>
             {item.price}
           </div>
-          <div class="text-primary text-right">
+          <div class="text-primary text-right shrink-0">
             <span class="text-secondary">Availability: </span>
             <span class="availability-value">{item.availability}</span>
           </div>
@@ -64,3 +64,11 @@ const { items } = Astro.props;
     ))}
   </div>
 </div>
+
+<style>
+  @media (max-width: 368px) {
+    .gpu-mobile-info {
+      font-size: 13px !important;
+    }
+  }
+</style>
