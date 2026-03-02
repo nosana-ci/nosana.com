@@ -38,7 +38,14 @@ const {
 } = entry.data;
 ---
 
-<Layout title="Nosana | GPU Workloads" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="Run AI & High-Performance GPU Workloads"
+  description="Run AI and high-performance workloads on demand using flexible GPU compute without long-term commitments."
+  ogImage={seoImage || "/og/gpu-workloads.png"}
+  noIndex={noIndex}
+  ogTitle="Run GPU Workloads On Demand"
+  ogDescription="Start and scale AI and high-performance GPU workloads quickly with on-demand compute."
+>
   <Hero heroSection={heroSection} />
   <div class="bg-bg-base my-16 w-full py-8 text-center md:py-16 lg:py-18">
     <h2 class="h4 text-tertiary grotesk mb-8 md:mb-16 lg:mb-18">Trusted by</h2>

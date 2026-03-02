@@ -13,7 +13,14 @@ const entry = await getEntry("nosanaToken", "index");
 const { seoDescription, seoImage, noIndex } = entry?.data ?? {};
 ---
 
-<Layout title="Nosana | Token" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="$NOS Token"
+  description="Overview of the $NOS token and its role within the Nosana platform."
+  ogImage={seoImage || "/og/nosana-token.png"}
+  noIndex={noIndex}
+  ogTitle="$NOS Token"
+  ogDescription="Information about the $NOS token and how it is used on Nosana."
+>
   <HeroSection />
   <FeaturesSection />
   <Divider />

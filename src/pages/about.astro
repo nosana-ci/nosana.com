@@ -14,7 +14,14 @@ const entry = await getEntry("about", "index");
 const { seoDescription, seoImage, noIndex } = entry?.data ?? {};
 ---
 
-<Layout title="Nosana | About" description={seoDescription} ogImage={seoImage} noIndex={noIndex}>
+<Layout
+  title="About Nosana"
+  description="Learn about Nosana and the platform behind on-demand GPU compute for AI and high-performance workloads."
+  ogImage={seoImage || "/og/about.png"}
+  noIndex={noIndex}
+  ogTitle="About Nosana"
+  ogDescription="Learn more about Nosana and its GPU compute platform."
+>
   <HeroSection />
   <Divider />
   <InovationSection />

@@ -91,6 +91,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
                 url={cta.url}
                 variant="secondary"
                 class={darkControls ? "text-black!" : undefined}
+                data-cta="deploy"
               />
             </div>
           )
@@ -102,7 +103,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
   {
     cta && (
       <div class="mt-2 flex w-full md:hidden">
-        <Button title={cta.title} url={cta.url} variant="secondary" />
+        <Button title={cta.title} url={cta.url} variant="secondary" data-cta="deploy" />
       </div>
     )
   }
@@ -160,8 +161,25 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       syncMuteIcons();
     });
 
-    video.addEventListener("play", syncPlayIcons);
+    // Video analytics
+    let videoStarted = false;
+    const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
+    video.addEventListener("play", () => {
+      syncPlayIcons();
+      const dl = (window as any).dataLayer || [];
+      if (!videoStarted) {
+        videoStarted = true;
+        dl.push({ event: "video_start", video_title: videoTitle, page_path: window.location.pathname });
+      }
+      dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
+    });
+
     video.addEventListener("pause", syncPlayIcons);
+
+    video.addEventListener("ended", () => {
+      const dl = (window as any).dataLayer || [];
+      dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
+    });
 
     syncPlayIcons();
     syncMuteIcons();

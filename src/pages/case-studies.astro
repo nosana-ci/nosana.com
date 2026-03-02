@@ -17,7 +17,13 @@ if (!entry) {
 const [titleMain, titleSub] = entry.data.heading.split("-");
 ---
 
-<Layout title="Nosana | Case Study Page">
+<Layout
+  title="GPU Compute Case Studies"
+  description="See how teams use Nosana to run AI and compute workloads with on-demand GPU resources."
+  ogImage="/og/case-study.png"
+  ogTitle="Nosana Case Studies"
+  ogDescription="Real examples of teams running AI and compute workloads using Nosana GPUs."
+>
   <div class="flex flex-col gap-2 px-4 md:px-12 pt-8 md:pt-16 lg:pt-18">
     <Badge title={entry.data.badge.title} class="w-fit" />
     <h1 class="h4 grotesk text-primary max-w-3xl">

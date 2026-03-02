@@ -11,6 +11,7 @@ interface Props {
   iconSize?: number;
   target?: string;
   class?: string;
+  "data-cta"?: string;
   download?: string | boolean;
 }
 
@@ -25,6 +26,7 @@ const {
   target,
   download,
   class: className,
+  "data-cta": dataCta,
 } = Astro.props;
 
 const baseStyles =
@@ -48,6 +50,7 @@ const customStyle =
   download={download}
   class:list={[baseStyles, variantStyle, className]}
   style={customStyle}
+  {...(dataCta ? { "data-cta": dataCta } : {})}
 >
   <span
     class:list={[
