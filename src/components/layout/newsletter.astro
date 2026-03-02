@@ -19,13 +19,13 @@ const { heading, description, image } = newsletter;
   >
     <div class="w-full lg:w-1/2">
       <h2
-        class="text-primary text-center lg:text-left h4 grotesk max-w-3xl mb-4"
+        class="text-primary text-center lg:text-left h4 grotesk max-w-3xl mb-4 mx-auto lg:mx-0"
       >
         {heading}
       </h2>
 
       <p
-        class="text-secondary text-center lg:text-left max-w-xl md:mb-10 mb-8 body2"
+        class="text-secondary text-center lg:text-left max-w-xl md:mb-10 mb-8 body2 mx-auto lg:mx-0"
       >
         {description}
       </p>
@@ -102,7 +102,7 @@ const { heading, description, image } = newsletter;
       </form>
     </div>
 
-    <div class="w-[80%] lg:w-1/2 lg:h-[420px] flex items-center justify-center">
+    <div class="w-[80%] max-w-125 lg:w-1/2 lg:h-105 flex items-center justify-center">
       <Image
         src={image}
         alt="Email section illustration"

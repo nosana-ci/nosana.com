@@ -23,7 +23,7 @@ if (!entry) {
 	throw new Error("content not found");
 }
 
-const { upcomingEventsMock, latestBlogsMock, seoDescription, seoImage, noIndex } = entry.data;
+const { seoDescription, seoImage, noIndex } = entry.data;
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -43,7 +43,7 @@ const organizationSchema = {
 <Layout
   title="Affordable GPU Rental at Scale - On-Demand GPU Compute Cloud"
   description="Rent GPUs on demand for AI and high-performance workloads. Nosana lets you run workloads instantly or earn by sharing your GPU with flexible pricing."
-  ogImage={seoImage || "/og/home.png"}
+  ogImage="/og/home.png"
   noIndex={noIndex}
   ogTitle="Affordable GPU Rental at Scale - On-Demand GPU Compute"
   ogDescription="Affordable GPU rental for AI and high-performance workloads. Run on demand or earn by providing GPU compute through the Nosana GPU cloud."
