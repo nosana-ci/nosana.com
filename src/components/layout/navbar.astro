@@ -44,7 +44,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
       </a>
     </div>
 
-    <div class="hidden lg:flex items-center gap-6 h-full">
+    <div class="hidden xl:flex items-center gap-6 h-full">
       {
         navItems.map((item: any) => {
           const itemUrl = normalizePath(item.url);
@@ -84,7 +84,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
 
               {item.type === "dropdown" && (
                 <div class="mega-menu absolute left-0 top-full w-full bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
-                  <div class="mx-auto px-4 md:px-12 py-10">
+                  <div class="mx-auto px-4 lg:px-12 py-10">
 
                     {/* community dropdown */}
                     {item.title === "Community" ? (
@@ -238,7 +238,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
 
       <button
         id="mobile-toggle"
-        class="lg:hidden p-2 text-primary hover:text-brand-100 transition-colors cursor-pointer"
+        class="xl:hidden p-2 text-primary hover:text-brand-100 transition-colors cursor-pointer"
         aria-label="Toggle Menu"
       >
         <span id="hamburger-icon" class="block">
@@ -254,7 +254,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
   <!-- Mobile Nav -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 top-20 bg-bg-base z-40 hidden lg:hidden overflow-y-auto overscroll-contain pt-4"
+    class="fixed inset-0 top-20 bg-bg-base z-40 hidden xl:hidden overflow-y-auto overscroll-contain pt-4"
   >
     <div class="flex flex-col px-6 pb-20">
       {
