@@ -24,7 +24,7 @@ caseStudySection:
   authorRole: "Founder and CTO"
   companyLogo: "./assets/sogni.webp"
   companyName: "Sogni AI"
-  image: "./assets/astronaut.webp"
+  image: "./assets/astronaut.png"
   ctaTitle: "Read Case Study"
   ctaUrl: "/case-studies"
   stats:

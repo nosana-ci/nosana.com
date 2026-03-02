@@ -42,16 +42,16 @@ const testimonialGridData = testimonials.map((t) => ({
   _slug: t.id,
 })) as Array<{
   type: "grid";
-  icon: string;
-  iconWhite?: string;
+  icon: unknown;
+  iconWhite?: unknown;
   title: string;
   description: string;
   _slug: string;
 }>;
 
 /* Correct resolver using slug */
-function getRawSvg(path?: string, slug?: string) {
-  if (!path || !slug) return undefined;
+function getRawSvg(path?: unknown, slug?: string) {
+  if (!path || !slug || typeof path !== "string") return undefined;
 
   const normalized = `../../content/testimonials/${slug}/${path.replace("./", "")}`;
 

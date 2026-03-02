@@ -18,11 +18,14 @@ const { heroSection } = Astro.props;
 
 const { badge, heading, description, cta1, cta2 } = heroSection;
 
-const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice" ');
+const heroSvg = heroImgRaw.replace(
+  "<svg ",
+  '<svg preserveAspectRatio="xMaxYMax slice" ',
+);
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:px-12"
+  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:px-12 lg:pt-20"
 >
   <video
     autoplay
@@ -36,7 +39,7 @@ const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax 
   </video>
 
   <div
-    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 lg:p-20"
+    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 md:p-20"
   >
     <div class="pointer-events-none absolute inset-0 z-0 mix-blend-hard-light">
       <Image
@@ -49,7 +52,7 @@ const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax 
     <div class="pointer-events-none absolute inset-0 z-0">
       <div class="absolute right-0 bottom-0 h-full w-full">
         <div
-          class="pointer-events-none h-full w-full pb-8 select-none md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full"
+          class="pointer-events-none h-full w-full origin-center pb-8 select-none max-xl:scale-125 md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full"
           set:html={heroSvg}
         />
       </div>
@@ -70,7 +73,12 @@ const heroSvg = heroImgRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax 
       <div class="flex flex-wrap gap-4">
         {
           cta1 && (
-            <Button title={cta1.title} url={cta1.url} variant="secondary" data-cta="deploy" />
+            <Button
+              title={cta1.title}
+              url={cta1.url}
+              variant="secondary"
+              data-cta="deploy"
+            />
           )
         }
 
