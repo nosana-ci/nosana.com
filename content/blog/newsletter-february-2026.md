@@ -9,11 +9,11 @@ tags:
 
 **February at Nosana: The GPU Marketplace Powering Real Execution**
 
-February was a major month for Nosana.
+February was a major month for Nosana. Here’s everything that happened.
 
-Here’s everything that happened.
+---
 
-#### **📚 Nosana Learning Hub Is Live**
+**📚 Nosana Learning Hub Is Live**
 
 We’ve consolidated all Nosana documentation into one unified home:
 
