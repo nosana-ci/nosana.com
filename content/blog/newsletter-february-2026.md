@@ -31,11 +31,11 @@ Whether you're launching your first deployment or integrating at the protocol le
 
 ---
 
-**🚀 Deployments Now Default to Infinite Strategy**
+**🚀 Deployments Now Default to Infinite Deployments**
 
 We’ve upgraded deployment reliability across the board.
 
-All deployments now default to **infinite strategy**.
+All deployments now default to **infinite deployment strategy**.
 
 What this means:
 
