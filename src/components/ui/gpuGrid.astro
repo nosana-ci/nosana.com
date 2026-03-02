@@ -1,10 +1,5 @@
 ---
-interface GPUItem {
-  address: string;
-  gpu: string;
-  price: string;
-  availability: string;
-}
+import type { GPUItem } from "../../utils/gpuMarkets.ts";
 
 interface Props {
   items: GPUItem[];
@@ -32,7 +27,9 @@ const { items } = Astro.props;
         class="gpu-row px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3"
         data-market-address={item.address}
         data-gpu-name={item.gpu.toLowerCase()}
-        data-gpu-price={item.price.toLowerCase()}
+        data-gpu-price={item.priceDisplay.toLowerCase()}
+        data-price-value={item.priceValue ?? ""}
+        data-series={item.series ?? ""}
       >
         <!-- GPU -->
         <div class="text-primary font-medium mb-2 md:mb-0 truncate min-w-0">
@@ -43,7 +40,7 @@ const { items } = Astro.props;
         <div class="gpu-mobile-info flex justify-between gap-4 md:hidden">
           <div class="text-primary truncate min-w-0">
             <span class="text-secondary">Price: </span>
-            {item.price}
+            {item.priceDisplay}
           </div>
           <div class="text-primary text-right shrink-0">
             <span class="text-secondary">Availability: </span>
@@ -53,7 +50,7 @@ const { items } = Astro.props;
 
         <!-- Desktop: Price -->
         <div class="hidden md:block md:text-center text-primary">
-          {item.price}
+          {item.priceDisplay}
         </div>
 
         <!-- Desktop: Availability -->

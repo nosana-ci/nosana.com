@@ -3,7 +3,9 @@ import { Client, type Market } from "@nosana/sdk";
 export interface GPUItem {
   address: string;
   gpu: string;
-  price: string;
+  priceDisplay: string;
+  priceValue: number | null;
+  series: string | null;
   availability: string;
 }
 
@@ -11,6 +13,28 @@ export interface CategorizedGPUs {
   premium: GPUItem[];
   community: GPUItem[];
   others: GPUItem[];
+}
+
+function extractSeries(name: string, slug?: string): string | null {
+  const source = `${name} ${slug ?? ""}`.toLowerCase();
+
+  if (source.includes("4090") || source.includes("4080") || source.includes("4070")) {
+    return "RTX 40 Series";
+  }
+
+  if (source.includes("3090") || source.includes("3080") || source.includes("3070")) {
+    return "RTX 30 Series";
+  }
+
+  if (source.includes("5090") || source.includes("5080")) {
+    return "RTX 50 Series";
+  }
+
+  if (source.includes("6000 ada")) return "6000 Ada";
+  if (source.includes("a6000")) return "RTX A6000";
+  if (source.includes("a5000")) return "RTX A5000";
+
+  return "Other";
 }
 
 export async function getGPUMarkets(): Promise<CategorizedGPUs> {
@@ -76,12 +100,19 @@ export async function getGPUMarkets(): Promise<CategorizedGPUs> {
 
       const feeFactor = 1 + (marketInfo?.network_fee_percentage ?? 10) / 100;
 
+      const numericPrice =
+        marketInfo?.usd_reward_per_hour != null
+          ? marketInfo.usd_reward_per_hour * feeFactor
+          : null;
+
       const item: GPUItem = {
         address: addr,
         gpu: name,
-        price: marketInfo?.usd_reward_per_hour
-          ? `$${(marketInfo.usd_reward_per_hour * feeFactor).toFixed(3)}/h`
+        priceDisplay: numericPrice != null
+          ? `$${numericPrice.toFixed(3)}/h`
           : "N/A",
+        priceValue: numericPrice,
+        series: extractSeries(name, marketInfo?.slug),
         availability,
       };
 
@@ -97,18 +128,14 @@ export async function getGPUMarkets(): Promise<CategorizedGPUs> {
       }
     }
 
-    // Sort by price ascending (N/A items at the top)
-    // We return 0 for equal prices to preserve the original on-chain order (stable sort)
     const sortByPrice = (a: GPUItem, b: GPUItem) => {
-      if (a.price === "N/A" && b.price === "N/A") return 0;
-      if (a.price === "N/A") return -1;
-      if (b.price === "N/A") return 1;
+      if (a.priceValue == null && b.priceValue == null) return 0;
+      if (a.priceValue == null) return -1;
+      if (b.priceValue == null) return 1;
 
-      const priceA = parseFloat(a.price.replace("$", ""));
-      const priceB = parseFloat(b.price.replace("$", ""));
-
-      return priceA - priceB;
+      return a.priceValue - b.priceValue;
     };
+
     categorized.premium.sort(sortByPrice);
     categorized.community.sort(sortByPrice);
     categorized.others.sort(sortByPrice);

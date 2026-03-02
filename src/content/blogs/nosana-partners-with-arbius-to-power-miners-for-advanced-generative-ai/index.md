@@ -3,7 +3,7 @@ category: "case-study"
 title: "Nosana Partners with Arbius to Power Miners for Advanced Generative AI"
 description: "Nosana's GPU network will fuel Arbius miners, empowering them to tackle complex generative AI tasks."
 thumbnail: "./assets/thumbnail.jpg"
-logo: "../rivalz-has-partnered-with-nosana-to-power-its-ai-oracles/assets/testLogo.svg"
+logo: "./assets/arbius.svg"
 focus: "Decentralized AI Mining"
 impact: "Fueling advanced generative AI miners with scalable GPU compute"
 createdAt: '2024-06-25'
