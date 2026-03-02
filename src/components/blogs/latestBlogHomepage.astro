@@ -39,7 +39,7 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
     class="flex flex-col md:flex-row gap-6 bg-surface border border-elevated rounded-lg p-4 group/blog transition-all duration-300"
   >
     
-    <div class="w-full md:w-[320px] h-[200px] rounded-md overflow-hidden shrink-0">
+    <div class="w-full md:w-[320px] aspect-video rounded-md overflow-hidden shrink-0">
       <Image
         src={thumbnail}
         alt={title}
@@ -48,25 +48,25 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
       />
     </div>
 
-    {/* Content */}
     <div class="flex flex-col gap-3 flex-1 justify-center">
       {/* Meta */}
       <div class="flex items-center gap-3 caption1 text-secondary">
         <span>{formattedDate}</span>
-        <!-- <span class="text-elevated">|</span> -->
-        <!-- <span>{time}</span> -->
       </div>
 
-      {/* Title — max 2 lines */}
       <h4
-        class="text-primary font-semibold body1 line-clamp-2 transition-colors group-hover/blog:text-brand-100"
+        class="text-primary font-semibold body1 
+          line-clamp-2 md:line-clamp-3 
+          min-h-[2.6em] md:min-h-[3.9em] 
+          transition-colors group-hover/blog:text-brand-100"
       >
         {title}
       </h4>
 
-      {/* Description — max 3 lines */}
       <p
-        class="text-secondary body3 line-clamp-3"
+        class="text-secondary body3 
+          line-clamp-2 md:line-clamp-3 
+          min-h-[2.6em] md:min-h-[3.9em]"
       >
         {description}
       </p>

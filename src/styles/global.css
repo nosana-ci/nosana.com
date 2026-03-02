@@ -122,7 +122,7 @@ html {
     font-size: 52px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 64px;
   }
 }
@@ -135,7 +135,7 @@ html {
     font-size: 48px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 52px;
   }
 }
@@ -148,7 +148,7 @@ html {
     font-size: 32px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 40px;
   }
 }
@@ -161,7 +161,7 @@ html {
     font-size: 28px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 32px;
   }
 }
@@ -174,7 +174,7 @@ html {
     font-size: 24px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 28px;
   }
 }
@@ -187,7 +187,7 @@ html {
     font-size: 32px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 52px;
   }
 }
@@ -218,7 +218,7 @@ html {
     font-size: 16px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 18px;
   }
 }
@@ -235,7 +235,7 @@ html {
     font-size: 14px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 16px;
   }
 }
@@ -257,7 +257,7 @@ html {
     font-size: 10px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 12px;
   }
 }

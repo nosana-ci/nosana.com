@@ -10,70 +10,110 @@ interface Props {
 
 const { variant = "default" } = Astro.props;
 
+/* Load ALL SVGs inside testimonials */
+const rawSvgs = import.meta.glob(
+  "../../content/testimonials/**/*.svg",
+  {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  }
+);
+
+/* Load Nosana logo as raw */
+const nosanaRawMap = import.meta.glob(
+  "../../public/nosanaWhite.svg",
+  {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  }
+);
+
+const nosanaRaw = Object.values(nosanaRawMap)[0] as string | undefined;
+
 const testimonials = await getCollection("testimonials", ({ data }) => {
   return data.type === "grid";
 });
 
-const testimonialGridData = testimonials.map((t) => t.data) as Array<{
+/* Include slug (t.id) so we can resolve nested asset folder */
+const testimonialGridData = testimonials.map((t) => ({
+  ...t.data,
+  _slug: t.id,
+})) as Array<{
   type: "grid";
-  icon: any;
-  iconWhite?: any;
+  icon: string;
+  iconWhite?: string;
   title: string;
   description: string;
+  _slug: string;
 }>;
+
+/* Correct resolver using slug */
+function getRawSvg(path?: string, slug?: string) {
+  if (!path || !slug) return undefined;
+
+  const normalized = `../../content/testimonials/${slug}/${path.replace("./", "")}`;
+
+  return rawSvgs[normalized];
+}
 ---
 
 <section class="w-full" id="grid-pagination-section">
-  <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default"
-  >
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default">
     {
       testimonialGridData.map((item, index) => {
-        const { icon, iconWhite, title, description } = item;
-        const displayIcon = variant === "collaboration" && iconWhite ? iconWhite : icon;
-        if (!displayIcon) return null;
+        const { icon, iconWhite, title, description, _slug } = item;
+
+        const displayIconRaw =
+          variant === "collaboration"
+            ? getRawSvg(iconWhite, _slug) ?? getRawSvg(icon, _slug)
+            : getRawSvg(icon, _slug);
 
         return (
-          <div
-            class="case-card hidden border border-default p-6"
-            data-index={index}
-          >
+          <div class="case-card hidden border border-default p-6" data-index={index}>
             <div class="flex flex-col gap-4 h-full">
               <div class={`flex items-center gap-3 relative ${variant === "collaboration" ? "justify-center h-[78px]" : ""}`}>
+
                 {variant === "collaboration" && (
-                  <Image 
-                    src={collabBg} 
-                    alt="" 
+                  <Image
+                    src={collabBg}
+                    alt=""
                     quality={100}
                     class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
                   />
                 )}
-                <div class="relative z-10 flex items-center gap-3">
-                  <Image
-                    src={displayIcon}
-                    alt={title || ""}
-                    quality={100}
-                    class={`${variant === "collaboration" ? "h-[30px] w-auto" : "w-12 h-12"} select-none pointer-events-none`}
-                  />
 
+                <div class="relative z-10 flex items-center gap-3">
+
+                  {/* Main Icon */}
+                  {displayIconRaw && (
+                    <div
+                      class={`${variant === "collaboration" ? "h-[30px]" : "w-12 h-12"}
+                              select-none pointer-events-none
+                              [&>svg]:w-full [&>svg]:h-full`}
+                      set:html={displayIconRaw}
+                    />
+                  )}
+
+                  {/* Collaboration Mode */}
                   {variant === "collaboration" && (
                     <>
                       <span class="text-primary body2">x</span>
-                      <Image
-                        src="/nosanaWhite.svg"
-                        alt="Nosana"
-                        width={48}
-                        height={48}
-                        quality={100}
-                        class="h-[30px] w-auto select-none pointer-events-none"
-                      />
+
+                      {nosanaRaw && (
+                        <div
+                          class="h-[30px] select-none pointer-events-none
+                                 [&>svg]:w-full [&>svg]:h-full"
+                          set:html={nosanaRaw}
+                        />
+                      )}
                     </>
                   )}
                 </div>
               </div>
 
               <h3 class="text-primary body2 font-semibold">{title}</h3>
-
               <p class="text-secondary body4">{description}</p>
             </div>
           </div>

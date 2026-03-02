@@ -83,5 +83,5 @@ navItems:
     # icon: "../../assets/icons/externalLink.svg"
 navCTA:
   - title: "Deploy GPU Workloads"
-    url: "/gpu-workloads"
+    url: "https://deploy.nosana.com/"
 ---

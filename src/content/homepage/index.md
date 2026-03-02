@@ -13,7 +13,7 @@ heroSection:
 
   cta1:
     title: "Free GPU Credits"
-    url: "/"
+    url: "https://deploy.nosana.com/?context=get-started"
     icon: "../../assets/icons/coin.svg"
 
   cta2:
@@ -59,24 +59,24 @@ whyNosanaSection:
   badge:
     title: "Why Nosana"
   heading: "GPU Compute When You Need It"
-  description: "Nosana provides on-demand, distributed GPU compute with a simple way to run and scale AI including agentic and high-performance workloads, from training and fine-tuning to inference, rendering, and simulation"
+  description: "Nosana provides on-demand, distributed GPU compute with a simple way to run and scale AI including agentic and high performance workloads, from training and fine tuning to inference, rendering, and simulation"
   features:
     - title: "On Demand - Worldwide GPU Access"
       description: "Run jobs on available GPUs across the globe, exactly when you need them."
       icon: "../../assets/icons/features/demand.svg"
-    - title: "Specialized - Built for High-Performance Workloads"
+    - title: "Specialized - Built for High Performance Workloads"
       description: "High-performance GPUs for real workloads across industries, from AI and ML to rendering, gaming, and beyond."
       icon: "../../assets/icons/features/specialized.svg"
     - title: "Flexible - Scalable Compute Resources"
       description: "Scale up for peak demand and scale down when you’re done. Pay only for what you run."
       icon: "../../assets/icons/features/flexible.svg"
-    - title: "Cost-Efficient - Lower Compute Costs by Design"
+    - title: "Cost Efficient - Lower Compute Costs by Design"
       description: "GPU compute at lower cost than traditional cloud providers, with savings of up to 6× depending on workload."
       icon: "../../assets/icons/features/cost.svg"
     - title: "Secure - Advanced Security and Privacy"
       description: "Clear workload isolation and practical safeguards designed for modern compute environments."
       icon: "../../assets/icons/features/secure.svg"
-    - title: "Sustainable - Eco-conscious Compute"
+    - title: "Sustainable - Eco conscious Compute"
       description: "Put existing GPU capacity to work instead of leaving powerful hardware idle."
       icon: "../../assets/icons/features/sustainable.svg"
     - title: "Distributed Computing - Edge Computing by Design"
@@ -178,7 +178,7 @@ banner:
   description: "Deploy directly from the Dashboard and watch your workload go live in real time"
   cta:
     title: "Get Free GPU Credits"
-    url: "/"
+    url: "https://deploy.nosana.com/?context=get-started"
     icon: "../../assets/icons/coin.svg"
   image: "./assets/bannerImg.webp"
 
@@ -222,8 +222,8 @@ ctaSection:
   description: "No Limits. Only Possibilities."
   cta1:
     title: "Free GPU Credits"
-    url: "/"
+    url: "https://deploy.nosana.com/?context=get-started"
   cta2:
     title: "Book Free Call"
-    url: "/"
+    url: "https://calendly.com/bourjois-nos/sales-bd"
 ---

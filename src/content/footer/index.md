@@ -10,13 +10,13 @@ navigation:
       url: "/gpu-providers"
   network:
     - name: "Explore Network"
-      url: "/network"
+      url: "https://explore.nosana.com/"
     - name: "$NOS Token"
       url: "/nosana-token"
     - name: "Stake"
       url: "https://stake.nosana.com/"
     - name: "Govern"
-      url: "/govern"
+      url: "https://vote.nosana.com/"
   grants:
     - name: "Apply for Grants"
       url: "/grants"
@@ -24,7 +24,7 @@ navigation:
     - name: "Nosana Docs"
       url: "https://learn.nosana.com/"
     - name: "GPU Provider Guide"
-      url: "/gpu-providers"
+      url: "https://learn.nosana.com/hosts/grid.html"
   community:
     - name: "Faces of Nosana"
       url: "/about#team"
