@@ -7,6 +7,7 @@ import { getGPUMarkets } from "../../utils/gpuMarkets";
 
 import searchIcon from "../../assets/icons/search.svg";
 import filterIcon from "../../assets/icons/filter.svg";
+import closeIcon from "../../assets/icons/close.svg";
 import gpuHero from "../../content/homepage/assets/gpuhalf.svg";
 
 const entry = await getEntry("homepage", "index");
@@ -30,7 +31,7 @@ const { premium, community, others } = await getGPUMarkets();
   </p>
 
   <!-- Search -->
-  <div class="flex w-full items-center gap-4 py-10">
+  <div class="flex w-full items-center gap-4 py-8 lg:py-10">
     <div class="flex h-14 w-full items-center rounded-xl bg-white/5 px-4">
       <Image
         src={searchIcon}
@@ -49,10 +50,14 @@ const { premium, community, others } = await getGPUMarkets();
 
     <button
       type="button"
-      class="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 transition hover:bg-white/10"
+      id="gpu-filter-btn"
+      data-filter-icon={filterIcon.src}
+      data-close-icon={closeIcon.src}
+      class="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 transition hover:bg-white/10 cursor-pointer"
       aria-label="Filter"
     >
       <Image
+        id="gpu-filter-icon"
         src={filterIcon}
         alt="Filter"
         width={20}
@@ -60,6 +65,104 @@ const { premium, community, others } = await getGPUMarkets();
         class="opacity-60"
       />
     </button>
+  </div>
+
+  <!-- EXPANDABLE FILTER PANEL -->
+  <div
+    id="gpu-filter-panel"
+    class="hidden w-full mb-8 lg:mb-10"
+  >
+    <div class="w-full max-w-6xl mx-auto bg-surface rounded-xl p-6">
+
+      <!-- container flex changes on larger screens -->
+      <div class="flex flex-col gap-8 md:flex-row md:gap-8">
+
+        <!-- PRICE RANGE SECTION -->
+        <div class="md:w-1/2">
+          <h4 class="text-secondary body3 mb-4">
+            Price Range ($/h)
+          </h4>
+
+
+
+          <!-- Price inputs -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div class="text-secondary text-xs mb-2">Min Price</div>
+              <div class="flex items-center gap-2">
+                <span class="text-primary font-semibold">$</span>
+                <input
+                  type="number"
+                  id="filter-price-min-input"
+                  min="0"
+                  step="0.001"
+                  value="0.000"
+                  class="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded text-primary text-base outline-none focus:border-brand-100 transition"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <div class="text-secondary text-xs mb-2">Max Price</div>
+              <div class="flex items-center gap-2">
+                <span class="text-primary font-semibold">$</span>
+                <input
+                  type="number"
+                  id="filter-price-max-input"
+                  min="0"
+                  step="0.001"
+                  value="1.000"
+                  class="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded text-primary text-base outline-none focus:border-brand-100 transition"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GPU SERIES SECTION -->
+        <div class="md:w-1/2">
+          <h4 class="text-secondary body3 mb-4">
+            GPU Series
+          </h4>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {["30", "40", "50", "60"].map((series) => (
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  class="gpu-series-checkbox accent-brand-100"
+                  value={series}
+                />
+                <span class="text-primary body4">
+                  {series} Series
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex justify-end gap-4 mt-8">
+        <button
+          id="filter-reset"
+          title="Reset filters"
+          class="w-fit px-4 py-2 lg:px-4 lg:py-3 bg-white/15 hover:bg-white/20 border border-default text-primary rounded-sm font-semibold transition-all cursor-pointer"
+        >
+          Reset
+        </button>
+
+        <button
+          id="filter-apply"
+          title="Apply filters"
+          class="w-fit px-4 py-2 lg:px-4 lg:py-3 bg-primary text-secondarydark hover:bg-primary/90 rounded-sm font-semibold transition-all cursor-pointer"
+        >
+          Apply
+        </button>
+      </div>
+
+    </div>
   </div>
 
   <!-- Tabs -->
@@ -133,6 +236,7 @@ const { premium, community, others } = await getGPUMarkets();
       </div>
     </div>
   </div>
+
 </section>
 
 <script>
@@ -172,12 +276,31 @@ const { premium, community, others } = await getGPUMarkets();
             noResults.classList.remove("hidden");
           }
         }
+        
+        // Update show more button visibility
+        updateShowMoreButton(panel as HTMLElement);
       });
     });
   }
 
   const MAX_VISIBLE = 10;
   const INCREMENT = 5;
+
+  // Function to update show more button visibility
+  function updateShowMoreButton(panel: HTMLElement) {
+    const wrap = panel.querySelector(".show-more-wrap") as HTMLElement;
+    const matchedRows = panel.querySelectorAll(".gpu-row.matched");
+    const visibleMatches = panel.querySelectorAll(".gpu-row.matched:not(.hidden)");
+
+    if (!wrap) return;
+
+    // hide when all matched rows are already visible
+    if (visibleMatches.length >= matchedRows.length) {
+      wrap.classList.add("hidden");
+    } else {
+      wrap.classList.remove("hidden");
+    }
+  }
 
   function initShowMore() {
     const panels = document.querySelectorAll(".panel");
@@ -187,18 +310,16 @@ const { premium, community, others } = await getGPUMarkets();
       const btn = panel.querySelector(".show-more-btn") as HTMLButtonElement;
       if (!wrap || !btn) return;
 
+      // mark all rows as matched initially
+      rows.forEach(r => r.classList.add("matched"));
+
       let visibleCount = MAX_VISIBLE;
 
-      if (rows.length <= visibleCount) {
-        wrap.classList.add("hidden");
-        return;
-      } else {
-        wrap.classList.remove("hidden");
-      }
-
-      // Initial state: Hide rows beyond visibleCount
+      // Initial state: Hide rows beyond visibleCount among matched
       const updateRows = () => {
-        rows.forEach((row, i) => {
+        const matchedRows = Array.from(panel.querySelectorAll(".gpu-row.matched")) as HTMLElement[];
+
+        matchedRows.forEach((row, i) => {
           if (i < visibleCount) {
             row.classList.remove("hidden");
             row.classList.add("md:grid");
@@ -208,9 +329,8 @@ const { premium, community, others } = await getGPUMarkets();
           }
         });
 
-        if (visibleCount >= rows.length) {
-          wrap.classList.add("hidden");
-        }
+        // Update show more button visibility
+        updateShowMoreButton(panel as HTMLElement);
       };
 
       updateRows();
@@ -229,6 +349,254 @@ const { premium, community, others } = await getGPUMarkets();
     initSearch();
     initShowMore();
   });
+
+  function initFilterPanel() {
+    const btn = document.querySelector<HTMLButtonElement>("#gpu-filter-btn");
+    const panel = document.querySelector<HTMLDivElement>("#gpu-filter-panel");
+    const icon = document.querySelector<HTMLImageElement>("#gpu-filter-icon");
+
+    if (!btn || !panel || !icon) return;
+
+    const filterIconUrl = btn.dataset.filterIcon;
+    const closeIconUrl = btn.dataset.closeIcon;
+
+    if (!filterIconUrl || !closeIconUrl) return;
+
+    let isOpen = false;
+
+    const open = () => {
+      panel.classList.remove("hidden");
+      // force reflow to ensure transition
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      panel.offsetWidth;
+      panel.classList.add("open");
+      icon.src = closeIconUrl;
+      icon.classList.add("panel-open");
+      isOpen = true;
+    };
+
+    const close = () => {
+      // immediately hide without animation
+      panel.classList.remove("open");
+      panel.classList.add("hidden");
+      icon.src = filterIconUrl;
+      icon.classList.remove("panel-open");
+      isOpen = false;
+    };
+
+    const toggle = () => {
+      isOpen ? close() : open();
+    };
+
+    btn.addEventListener("click", toggle);
+  }
+
+  function initFilterFunctionality() {
+    const minInput = document.querySelector<HTMLInputElement>("#filter-price-min-input");
+    const maxInput = document.querySelector<HTMLInputElement>("#filter-price-max-input");
+    const applyBtn = document.querySelector<HTMLButtonElement>("#filter-apply");
+    const resetBtn = document.querySelector<HTMLButtonElement>("#filter-reset");
+    const seriesCheckboxes = document.querySelectorAll<HTMLInputElement>(".gpu-series-checkbox");
+    if (!minInput || !maxInput || !applyBtn || !resetBtn) return;
+
+    // Determine actual price bounds from data-price-value attributes on GPU rows
+    const allRows = Array.from(document.querySelectorAll<HTMLElement>(".gpu-row"));
+    const priceValues = allRows
+      .map(r => r.dataset.priceValue)
+      .filter(Boolean)
+      .map(v => parseFloat(v as string))
+      .filter(n => !Number.isNaN(n));
+
+    const RANGE_MIN = 0; // Always 0
+    const RANGE_MAX = priceValues.length ? Math.max(...priceValues) : 1; // use list max
+
+    // Configure sliders/inputs to use real bounds
+    // initialize inputs bounds
+    minInput.min = String(RANGE_MIN);
+    minInput.max = String(RANGE_MAX);
+    maxInput.min = String(RANGE_MIN);
+    maxInput.max = String(RANGE_MAX);
+    minInput.value = RANGE_MIN.toFixed(3);
+    maxInput.value = RANGE_MAX.toFixed(3);
+
+    // helper no slider updates needed
+    const updateAllDisplays = () => {
+      const minValue = parseFloat(minInput.value);
+      const maxValue = parseFloat(maxInput.value);
+      const displayEl = document.querySelector("#price-range-display");
+      if (displayEl) {
+        displayEl.textContent = `$${minValue.toFixed(3)} - $${maxValue.toFixed(3)}`;
+      }
+    };
+
+    // Handle input changes
+    const handleMinInput = () => {
+      let minValue = parseFloat(minInput.value);
+      const maxValue = parseFloat(maxInput.value);
+
+      minValue = Math.max(RANGE_MIN, Math.min(RANGE_MAX, minValue));
+      if (minValue > maxValue) {
+        minValue = maxValue;
+        minInput.value = minValue.toFixed(3);
+      }
+      updateAllDisplays();
+    };
+
+    const handleMaxInput = () => {
+      const minValue = parseFloat(minInput.value);
+      let maxValue = parseFloat(maxInput.value);
+
+      maxValue = Math.max(RANGE_MIN, Math.min(RANGE_MAX, maxValue));
+      if (maxValue < minValue) {
+        maxValue = minValue;
+        maxInput.value = maxValue.toFixed(3);
+      }
+      updateAllDisplays();
+    };
+
+    // Add event listeners
+    minInput.addEventListener("input", handleMinInput);
+    maxInput.addEventListener("input", handleMaxInput);
+
+    // Initialize displays
+    updateAllDisplays();
+
+    // Apply filters
+    const applyFilters = () => {
+      const minPrice = parseFloat(minInput.value);
+      const maxPrice = parseFloat(maxInput.value);
+      const selectedSeries: string[] = [];
+
+      seriesCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          selectedSeries.push(checkbox.value);
+        }
+      });
+
+      const panels = document.querySelectorAll(".panel");
+
+      panels.forEach(panel => {
+        const rows = panel.querySelectorAll(".gpu-row");
+        const noResults = panel.querySelector(".no-results");
+        let hasVisibleRows = false;
+
+        let matchCount = 0;
+        rows.forEach(row => {
+          const name = (row as HTMLElement).dataset.gpuName || "";
+
+          // Prefer numeric data-price-value if available
+          const priceValAttr = (row as HTMLElement).dataset.priceValue;
+          let price = priceValAttr ? parseFloat(priceValAttr) : NaN;
+
+          // Fallback to parsing display string (legacy)
+          if (Number.isNaN(price)) {
+            const priceStr = (row as HTMLElement).dataset.gpuPrice || "";
+            
+            // Treat N/A as 0
+            if (priceStr.toUpperCase().includes("N/A")) {
+              price = 0;
+            } else {
+              const priceMatch = priceStr.match(/\$([\d.]+)/);
+              price = priceMatch ? parseFloat(priceMatch[1]) : Infinity;
+            }
+          }
+
+          // Determine series from GPU name by extracting leading numeric group
+          const seriesMatch = name.match(/(\d{2,4})/);
+          const detectedSeries = seriesMatch ? String(seriesMatch[0]).slice(0,2) : "";
+
+          // Check if GPU matches selected series (or no series selected)
+          const matchesSeries = selectedSeries.length === 0 ||
+            selectedSeries.includes(detectedSeries);
+
+          // Check if price is within range (with small tolerance for floating point)
+          const tolerance = 0.0001;
+          const matchesPrice = price >= minPrice - tolerance && price <= maxPrice + tolerance;
+
+          const isMatch = matchesSeries && matchesPrice;
+          row.classList.toggle("matched", isMatch);
+
+          if (isMatch) {
+            matchCount += 1;
+          }
+
+          if (isMatch) {
+            (row as HTMLElement).classList.remove("hidden");
+            (row as HTMLElement).classList.add("md:grid");
+            hasVisibleRows = true;
+          } else {
+            (row as HTMLElement).classList.add("hidden");
+            (row as HTMLElement).classList.remove("md:grid");
+          }
+        });
+
+        if (noResults) {
+          if (hasVisibleRows) {
+            noResults.classList.add("hidden");
+          } else {
+            noResults.classList.remove("hidden");
+          }
+        }
+
+        // after filtering we only want the first MAX_VISIBLE matched rows visible
+        const matchedRows = Array.from(panel.querySelectorAll(".gpu-row.matched")) as HTMLElement[];
+        matchedRows.forEach((row, i) => {
+          if (i >= MAX_VISIBLE) {
+            row.classList.add("hidden");
+            row.classList.remove("md:grid");
+          }
+        });
+
+        // Update show more button visibility
+        updateShowMoreButton(panel as HTMLElement);
+      });
+    };
+
+    // Reset filters
+    const resetFilters = () => {
+      // Restore to full detected range
+      minInput.value = RANGE_MIN.toFixed(3);
+      maxInput.value = RANGE_MAX.toFixed(3);
+      updateAllDisplays();
+
+      seriesCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+      // Show all GPUs
+      const panels = document.querySelectorAll(".panel");
+      panels.forEach(panel => {
+        const rows = panel.querySelectorAll(".gpu-row");
+        const noResults = panel.querySelector(".no-results");
+
+        rows.forEach((row, i) => {
+          (row as HTMLElement).classList.remove("hidden");
+          (row as HTMLElement).classList.add("md:grid");
+          row.classList.add("matched");
+          if (i >= MAX_VISIBLE) {
+            (row as HTMLElement).classList.add("hidden");
+            (row as HTMLElement).classList.remove("md:grid");
+          }
+        });
+
+        if (noResults) {
+          noResults.classList.add("hidden");
+        }
+      });
+      document.querySelectorAll('.panel').forEach(p => updateShowMoreButton(p as HTMLElement));
+    };
+
+    applyBtn.addEventListener("click", applyFilters);
+    resetBtn.addEventListener("click", resetFilters);
+  }
+
+  initFilterPanel();
+  initFilterFunctionality();
+  document.addEventListener("astro:after-swap", () => {
+    initFilterPanel();
+    initFilterFunctionality();
+  });
+
 </script>
 
 <style>
@@ -283,4 +651,23 @@ const { premium, community, others } = await getGPUMarkets();
   #tab-others:checked ~ .tabs-content .others {
     display: block;
   }
-</style>
+
+
+
+/* Close icon styling */
+#gpu-filter-icon.panel-open {
+  width: 16px !important;
+  height: 16px !important;
+  opacity: 0.8 !important;
+}
+/* filter panel slide/fade animation */
+#gpu-filter-panel {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+#gpu-filter-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}</style>
