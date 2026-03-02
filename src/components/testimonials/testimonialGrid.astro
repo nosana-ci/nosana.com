@@ -32,17 +32,16 @@ const testimonialGridData = testimonials.map((t) => ({
   _slug: t.id,
 })) as Array<{
   type: "grid";
-  icon: string;
-  iconWhite?: string;
+  icon: unknown;
+  iconWhite?: unknown;
   title: string;
   description: string;
   _slug: string;
 }>;
 
 function getRawSvg(path?: unknown, slug?: string) {
-  if (typeof path !== "string") return undefined;
-  if (!slug) return undefined;
-
+  if (!path || !slug || typeof path !== "string") return undefined;
+  
   const cleaned = path.startsWith("./")
     ? path.slice(2)
     : path;

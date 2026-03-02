@@ -171,14 +171,17 @@ function timeAgo(date: Date): string {
       <div class="flex flex-col gap-8">
         <h4 class="text-primary h5 grotesk">More Sessions</h4>
 
-        <div id="sessions-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div
+          id="sessions-grid"
+          class="grid grid-cols-1 gap-4 min-[1200px]:grid-cols-2"
+        >
           {moreSessions.map((session, i) => (
             <div
               class="session-card border-elevated flex flex-col gap-3 overflow-hidden border p-3 lg:flex-row lg:p-6"
               data-page={Math.floor(i / CARDS_PER_PAGE)}
               style={i >= CARDS_PER_PAGE ? "display:none" : ""}
             >
-              <div class="w-full shrink-0 overflow-hidden lg:w-[420px]">
+              <div class="w-full shrink-0 overflow-hidden lg:w-2/3 lg:max-w-[450px]">
                 <Image
                   src={session.data.thumbnail}
                   alt={session.data.title}

@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
-import activeAstronaut from "../../content/gpu-workloads/assets/active-astronaut.webp";
+import activeAstronaut from "../../content/gpu-workloads/assets/active-astronaut.png";
 
 type Props = {
   caseStudy: CollectionEntry<"gpuWorkloads">["data"]["caseStudySection"];
@@ -54,7 +54,7 @@ const {
         </div>
       </div>
 
-      <div class="flex gap-16 pt-10">
+      <div class="flex gap-16 pt-10 max-[260px]:flex-col">
         {
           stats.map((stat) => (
             <div>
