@@ -35,7 +35,7 @@ Whether you're launching your first deployment or integrating at the protocol le
 
 We’ve upgraded deployment reliability across the board.
 
-All deployments now default to **infinite restart strategy**.
+All deployments now default to **infinite strategy**.
 
 What this means:
 
