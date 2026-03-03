@@ -38,7 +38,7 @@ navigation:
     - name: "About Nosana"
       url: "/about"
     - name: "Blog"
-      url: "/blogs"
+      url: "/blog"
     - name: "Support"
       url: "/support"
     - name: "Brand Assets"

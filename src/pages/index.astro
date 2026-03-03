@@ -1,6 +1,7 @@
 ---
-import { getEntry } from "astro:content";
+export const prerender = true;
 
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/homepage/hero.astro";
 import Brands from "../components/layout/brands.astro";

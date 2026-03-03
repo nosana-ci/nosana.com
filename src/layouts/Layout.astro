@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Navbar from "../components/layout/navbar.astro";
 import Footer from "../components/layout/footer.astro";
 import BaseHead from "../components/BaseHead.astro";
+import Toast from "../components/ui/toast.astro";
 
 interface Props {
   title?: string;
@@ -94,6 +95,7 @@ const {
       <slot />
     </main>
 
+    <Toast />
     <Footer />
 
     <script>

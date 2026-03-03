@@ -209,7 +209,7 @@ latestBlogsMock:
   image: "./assets/eventBanner.webp"
   button:
     title: "Explore Other Blogs"
-    url: "/blogs"
+    url: "/blog"
 
 testimonials:
   heading: "Voices from the Community"

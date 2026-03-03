@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 
 const entry = await getEntry("layout", "index");
@@ -10,21 +9,58 @@ if (!entry) {
 
 const brands = entry.data.brands ?? [];
 const loopBrands = [...brands, ...brands];
+
+/* Import ALL brand SVGs as raw strings */
+const rawBrandSvgs = import.meta.glob(
+  "../../assets/**/*.svg",
+  {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  }
+);
+
+/* Resolve raw SVG using the string path from schema */
+function getRawBrandSvg(path?: unknown) {
+  if (!path || typeof path !== "string") return undefined;
+
+  // Normalize path (remove leading slash if exists)
+  const cleaned = path.startsWith("/")
+    ? path.slice(1)
+    : path;
+
+  // Convert to relative path from this file
+  // Adjust this depending on your folder depth
+  const fullPath = `../../${cleaned}`;
+
+  return rawBrandSvgs[fullPath];
+}
 ---
 
 {
   brands.length > 0 && (
     <div class="w-full relative marquee-container">
       <div class="flex gap-10 md:gap-24 w-max animate-marquee">
-        {loopBrands.map((brand) => (
-          <div class="shrink-0 items-center justify-center opacity-60 filter grayscale transition-all duration-300 hover:opacity-100 hover:filter-none">
-            <Image
-              src={brand.logo}
-              alt={brand.name}
-              class="h-4 md:h-6 w-auto object-contain"
-            />
-          </div>
-        ))}
+        {loopBrands.map((brand) => {
+          const raw = getRawBrandSvg(brand.logo);
+
+          return (
+            <div
+              class="shrink-0 flex items-center justify-center
+                     opacity-60 grayscale transition-all duration-300
+                     hover:opacity-100 hover:grayscale-0"
+            >
+              {raw && (
+                <div
+                  class="h-4 md:h-6 w-auto
+                         [&>svg]:h-full
+                         [&>svg]:w-auto"
+                  set:html={raw}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   )
