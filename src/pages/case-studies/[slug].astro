@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
@@ -35,7 +37,7 @@ const formattedDate = createdAt.toLocaleDateString("en-US", {
   day: "numeric",
 });
 
-const canonicalURL = new URL(`/case-study/${blog.id}`, Astro.site).href;
+const canonicalURL = new URL(`/case-studies/${blog.id}`, Astro.site).href;
 const imageURL = new URL(thumbnail.src, Astro.site).href;
 
 const articleSchema = {

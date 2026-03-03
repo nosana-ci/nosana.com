@@ -32,8 +32,7 @@ const { heading, description } = newsletter;
 
   <!-- Form -->
   <form
-    method="post"
-    action="/api/newsletter"
+    id="newsletter-form-secondary"
     class="flex flex-col gap-3 w-full"
   >
     <input
@@ -53,7 +52,6 @@ const { heading, description } = newsletter;
              transition-colors"
     />
 
-    <!-- Restored Animated Button -->
     <button
       type="submit"
       class="group inline-flex items-stretch w-full
@@ -65,13 +63,10 @@ const { heading, description } = newsletter;
              transition-all cursor-pointer"
     >
       <span class="flex items-center justify-center gap-2 py-2.5 px-4 body4 w-full">
-        Subscribe to Newsletter
+        Subscribe <span class="hidden sm:inline">to Newsletter</span>
       </span>
 
-      <span
-        class="flex items-center justify-center
-               border-l border-default px-3"
-      >
+      <span class="flex items-center justify-center border-l border-default px-3">
         <span class="w-4 h-4 relative">
           <span
             class="flex transition-transform duration-300
@@ -79,10 +74,8 @@ const { heading, description } = newsletter;
                    group-hover:translate-x-0"
           >
             <span
-              class="w-4 h-4
-                     flex items-center justify-center
-                     shrink-0 opacity-0
-                     group-hover:opacity-100
+              class="w-4 h-4 flex items-center justify-center
+                     shrink-0 opacity-0 group-hover:opacity-100
                      transition-opacity duration-300
                      [&_path]:fill-current -rotate-90
                      pointer-events-none select-none"
@@ -91,10 +84,8 @@ const { heading, description } = newsletter;
             </span>
 
             <span
-              class="w-4 h-4
-                     flex items-center justify-center
-                     shrink-0 opacity-100
-                     group-hover:opacity-0
+              class="w-4 h-4 flex items-center justify-center
+                     shrink-0 opacity-100 group-hover:opacity-0
                      transition-opacity duration-300
                      [&_path]:fill-current -rotate-90
                      pointer-events-none select-none"
@@ -107,3 +98,54 @@ const { heading, description } = newsletter;
     </button>
   </form>
 </div>
+
+<script>
+  const form = document.getElementById("newsletter-form-secondary");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const button = form.querySelector("button[type='submit']");
+    const buttonText = button.querySelector("span");
+
+    const originalText = buttonText.innerHTML;
+
+    button.disabled = true;
+    buttonText.innerHTML = "Subscribing...";
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error();
+
+      window.dispatchEvent(
+        new CustomEvent("toast", {
+          detail: {
+            type: "success",
+            message: "Thank you for subscribing."
+          }
+        })
+      );
+
+      form.reset();
+    } catch {
+      window.dispatchEvent(
+        new CustomEvent("toast", {
+          detail: {
+            type: "error",
+            message: "Failed to subscribe. Please try again."
+          }
+        })
+      );
+    } finally {
+      setTimeout(() => {
+        button.disabled = false;
+        buttonText.innerHTML = originalText;
+      }, 400);
+    }
+  });
+</script>
