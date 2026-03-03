@@ -260,6 +260,58 @@ const blogPostingSchema = {
   .toc-link.active span {
     color: var(--color-brand-100) !important;
   }
+
+  .blog-content pre {
+    position: relative;
+    background-color: #1F1F1F;
+    border: 1px solid #2A2A2A;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    font-family: monospace;
+  }
+
+  .blog-content pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: 14px;
+  }
+
+  .blog-content :not(pre) > code {
+    background-color: #2A2A2A;
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.9em;
+    color: #4DFF4A;
+  }
+
+  .blog-content .copy-code-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #2A2A2A;
+    border: 1px solid #3A3A3A;
+    border-radius: 0.25rem;
+    color: #7A7A7A;
+    padding: 0.25rem 0.625rem;
+    font-size: 12px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .blog-content .copy-code-btn:hover {
+    background: #3A3A3A;
+    color: #FAFAFA;
+  }
+
+  .blog-content .copy-code-btn.copied {
+    color: #10E80C;
+    border-color: #10E80C;
+  }
 </style>
 
 <script>
@@ -328,4 +380,33 @@ const blogPostingSchema = {
     const lastChild = blogContent.lastElementChild;
     if (lastChild) readObserver.observe(lastChild);
   }
+
+  // Copy buttons for code blocks
+  function addCopyButtons() {
+    document.querySelectorAll('.blog-content pre').forEach(pre => {
+      if (pre.querySelector('.copy-code-btn')) return;
+      const btn = document.createElement('button');
+      btn.className = 'copy-code-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        const text = (code?.textContent ?? pre.textContent) ?? '';
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+        } catch {
+          btn.textContent = 'Failed';
+        }
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+      pre.appendChild(btn);
+    });
+  }
+
+  addCopyButtons();
+  document.addEventListener('astro:after-swap', addCopyButtons);
 </script>

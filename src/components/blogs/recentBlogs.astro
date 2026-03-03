@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import NavigateButton from "../ui/navigateButton.astro";
+import Pagination from "../ui/pagination.astro";
 
 interface Props {
   currentSlug?: string;
@@ -18,6 +18,8 @@ const filteredBlogs = blogs
   .filter(blog => blog.id !== currentSlug)
   .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime());
 
+const ITEMS_PER_PAGE = 3;
+
 const formattedBlogs = filteredBlogs.map(blog => {
   const data = blog.data;
   const tags = 'tags' in data ? data.tags || [] : [];
@@ -33,6 +35,9 @@ const formattedBlogs = filteredBlogs.map(blog => {
     timestamp: blog.data.createdAt.getTime()
   };
 });
+
+const totalPages = Math.ceil(formattedBlogs.length / ITEMS_PER_PAGE);
+const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
 ---
 
 <section class="w-full" id="blogs-grid-section">
@@ -92,24 +97,8 @@ const formattedBlogs = filteredBlogs.map(blog => {
   </div>
 
   <!-- Pagination -->
-  <div id="blog-pagination" class="flex items-center justify-center py-12 md:py-16 gap-4">
-    <NavigateButton
-      id="blog-prev"
-      variant="secondary"
-      direction="left"
-      text="Back"
-      class="cursor-pointer"
-    />
-
-    <div id="blog-pages" class="flex gap-2"></div>
-
-    <NavigateButton
-      id="blog-next"
-      variant="secondary"
-      direction="right"
-      text="Next"
-      class="cursor-pointer"
-    />
+  <div id="recent-pagination-wrapper" class="flex items-center justify-center py-12 md:py-16">
+    <Pagination id="recent-pagination" items={pageItems} />
   </div>
 </section>
 
@@ -117,112 +106,49 @@ const formattedBlogs = filteredBlogs.map(blog => {
 </style>
 
 <script>
-  function initBlogsGrid() {
+  function initRecentBlogs() {
     const section = document.getElementById("blogs-grid-section");
     if (!section) return;
 
     const cards = Array.from(section.querySelectorAll(".blog-card")) as HTMLElement[];
-    const pagesContainer = section.querySelector("#blog-pages");
-    const prevBtn = section.querySelector("#blog-prev") as HTMLButtonElement;
-    const nextBtn = section.querySelector("#blog-next") as HTMLButtonElement;
     const noResults = section.querySelector("#no-results");
-    const paginationContainer = section.querySelector("#blog-pagination");
+    const paginationWrapper = section.querySelector("#recent-pagination-wrapper");
+    const paginationEl = section.querySelector<HTMLElement>("#recent-pagination");
 
     let currentPage = 0;
     const ITEMS_PER_PAGE = 3;
 
     function updateDisplay() {
       const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
-      
-      // Toggle card visibility
-      cards.forEach(card => card.classList.add("hidden"));
-      
-      const start = currentPage * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      
-      cards.slice(start, end).forEach(card => card.classList.remove("hidden"));
 
-      // Update Pagination
+      cards.forEach(card => card.classList.add("hidden"));
+      const start = currentPage * ITEMS_PER_PAGE;
+      cards.slice(start, start + ITEMS_PER_PAGE).forEach(card =>
+        card.classList.remove("hidden")
+      );
+
       if (cards.length === 0) {
         noResults?.classList.remove("hidden");
-        paginationContainer?.classList.add("hidden");
+        paginationWrapper?.classList.add("hidden");
       } else {
         noResults?.classList.add("hidden");
-        paginationContainer?.classList.remove("hidden");
-        renderPagination(totalPages);
-      }
-
-      // Update button states
-      if (prevBtn) {
-        prevBtn.disabled = currentPage === 0;
-        prevBtn.classList.toggle("opacity-40", currentPage === 0);
-        prevBtn.classList.toggle("pointer-events-none", currentPage === 0);
-      }
-      if (nextBtn) {
-        nextBtn.disabled = currentPage === totalPages - 1 || totalPages === 0;
-        nextBtn.classList.toggle("opacity-40", currentPage === totalPages - 1 || totalPages === 0);
-        nextBtn.classList.toggle("pointer-events-none", currentPage === totalPages - 1 || totalPages === 0);
+        if (totalPages <= 1) {
+          paginationWrapper?.classList.add("hidden");
+        } else {
+          paginationWrapper?.classList.remove("hidden");
+        }
       }
     }
 
-    function renderPagination(totalPages: number) {
-      if (!pagesContainer) return;
-      pagesContainer.innerHTML = "";
-
-      if (totalPages <= 1) {
-        paginationContainer?.classList.add("hidden");
-        return;
-      }
-      paginationContainer?.classList.remove("hidden");
-
-      for (let i = 0; i < totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = String(i + 1);
-        btn.className = "w-10 h-10 body4 rounded-[5px] transition cursor-pointer " +
-          (i === currentPage
-            ? "bg-brand-100 text-bg-base"
-            : "bg-white/15 text-secondary hover:bg-brand-100/50 hover:text-primary");
-
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          updateDisplay();
-          if (section) {
-            window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-          }
-        });
-
-        pagesContainer.appendChild(btn);
-      }
-    }
-
-    prevBtn?.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
-        updateDisplay();
-        if (section) {
-          window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-        }
-      }
+    paginationEl?.addEventListener("pagination:change", (e) => {
+      currentPage = (e as CustomEvent).detail.index;
+      updateDisplay();
+      window.scrollTo({ top: section.offsetTop - 100, behavior: "smooth" });
     });
 
-    nextBtn?.addEventListener("click", () => {
-      const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updateDisplay();
-        if (section) {
-          window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-        }
-      }
-    });
-
-    // Initial render
     updateDisplay();
   }
 
-  // Run on first load
-  initBlogsGrid();
-
-  // Run on subsequent navigations (if using View Transitions)
-  document.addEventListener('astro:after-swap', initBlogsGrid);
+  initRecentBlogs();
+  document.addEventListener("astro:after-swap", initRecentBlogs);
 </script>
