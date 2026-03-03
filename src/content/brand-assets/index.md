@@ -4,7 +4,7 @@ heroSection:
   badge: "Media Kit"
   heading: "Access Nosana's Brand Toolkit"
   description: "Download official Nosana brand assets for use in presentations, integrations, media, and community content"
-  downloadUrl: "#"
+  downloadUrl: "/brand-assets.zip"
 
 logoSection:
   heading: "Brand Logo"

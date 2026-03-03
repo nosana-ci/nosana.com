@@ -11,7 +11,7 @@ discord:
     icon: "../../assets/icons/message.svg"
     button:
       title: "Connect on Discord"
-      url: "https://discord.gg/nosana"
+      url: "https://discord.gg/nosana-ai"
       icon: "../../assets/icons/discord.svg"
   card2: 
     title: "Connect"
@@ -19,13 +19,13 @@ discord:
     icon: "../../assets/icons/people.svg"
     button:
       title: "Join the Community"
-      url: "https://discord.gg/nosana"
+      url: "https://discord.gg/nosana-ai"
       icon: "../../assets/icons/discord.svg"
 
 github:
   text: "We pride ourselves on being open-source. Visit our GitHub repository to contribute, build, and report technical issues."
   image: "./assets/githubCard.webp"
-  url: "https://github.com/nosana-ai"
+  url: "https://github.com/nosana-ci"
   icon: "../../assets/icons/github.svg"
 
 faqs: 

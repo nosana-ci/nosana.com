@@ -28,8 +28,8 @@ const { badge, title, members } = teamSection;
     <div class="grid w-full gap-y-16 md:grid-cols-2 md:gap-x-12 lg:gap-x-24">
       {
         members.map((member) => (
-          <div class="group flex flex-col items-start gap-5">
-            <div class="aspect-7/9 w-full shrink-0 overflow-hidden grayscale transition-all duration-500 md:w-[85%] lg:w-[60%] group-hover:grayscale-0">
+          <div class="flex flex-col items-start gap-5">
+            <div class="aspect-7/9 w-full shrink-0 overflow-hidden grayscale transition-all duration-500 md:w-[85%] lg:w-[60%]">
               <Image
                 src={member.image}
                 alt={member.name}
