@@ -104,7 +104,7 @@ const resolvedMetrics = community.metrics.map(resolveMetric);
     </h2>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
     {resolvedMetrics.map((metric) => {
       const change = apiStats?.dailyPriceChange ?? null;
       const isNegative = change !== null && change < 0;

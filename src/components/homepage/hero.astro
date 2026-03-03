@@ -45,7 +45,7 @@ const gpuSvg = gpuRaw.replace(
   </video>
 
   <div
-    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 lg:p-20"
+    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 md:p-12 lg:p-20"
   >
     <div class="pointer-events-none absolute inset-0 z-0 mix-blend-hard-light">
       <Image
@@ -57,10 +57,10 @@ const gpuSvg = gpuRaw.replace(
 
     <div class="pointer-events-none absolute inset-0 z-0">
       <div
-        class="absolute right-0 bottom-0 h-full w-full md:right-[25%] md:bottom-[20%] lg:bottom-0 lg:right-20 lg:w-full"
+        class="absolute right-0 bottom-0 h-full w-full md:right-[15%] md:bottom-[10%] lg:bottom-0 lg:right-20 lg:w-full"
       >
         <div
-          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full scale-100 md:scale-140 lg:scale-100"
+          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full scale-100 md:scale-120 lg:scale-100"
           set:html={gpuSvg}
         />
       </div>
