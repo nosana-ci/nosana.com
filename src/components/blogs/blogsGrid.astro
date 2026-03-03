@@ -1,8 +1,10 @@
 ---
 import { getCollection, getEntry } from "astro:content";
 import { Image } from "astro:assets";
-import NavigateButton from "../ui/navigateButton.astro";
+import Pagination from "../ui/pagination.astro";
 import searchIcon from "../../assets/icons/search.svg";
+
+const ITEMS_PER_PAGE = 6;
 
 const blogs = await getCollection("blogs", ({ data }) => {
   return data.category === "blog";
@@ -29,6 +31,9 @@ const formattedBlogs = sortedBlogs.map(blog => {
     timestamp: blog.data.createdAt.getTime()
   };
 });
+
+const totalPages = Math.ceil(formattedBlogs.length / ITEMS_PER_PAGE);
+const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
 ---
 
 <section class="w-full" id="blogs-grid-section">
@@ -118,24 +123,8 @@ const formattedBlogs = sortedBlogs.map(blog => {
   </div>
 
   <!-- Pagination -->
-  <div id="blog-pagination" class="flex items-center justify-center pt-12 pb-4 md:pt-16 gap-4">
-    <NavigateButton
-      id="blog-prev"
-      variant="secondary"
-      direction="left"
-      text="Back"
-      class="cursor-pointer"
-    />
-
-    <div id="blog-pages" class="flex gap-2"></div>
-
-    <NavigateButton
-      id="blog-next"
-      variant="secondary"
-      direction="right"
-      text="Next"
-      class="cursor-pointer"
-    />
+  <div id="blog-pagination-wrapper" class="flex items-center justify-center pt-12 pb-4 md:pt-16">
+    <Pagination id="blog-pagination" items={pageItems} />
   </div>
 </section>
 
@@ -154,111 +143,88 @@ const formattedBlogs = sortedBlogs.map(blog => {
     const cards = Array.from(section.querySelectorAll(".blog-card")) as HTMLElement[];
     const searchInput = section.querySelector("#blog-search") as HTMLInputElement;
     const filterTabs = section.querySelectorAll(".filter-tab");
-    const pagesContainer = section.querySelector("#blog-pages");
-    const prevBtn = section.querySelector("#blog-prev") as HTMLButtonElement;
-    const nextBtn = section.querySelector("#blog-next") as HTMLButtonElement;
     const noResults = section.querySelector("#no-results");
-    const paginationContainer = section.querySelector("#blog-pagination");
+    const paginationWrapper = section.querySelector("#blog-pagination-wrapper");
+    const paginationEl = section.querySelector<HTMLElement>("#blog-pagination");
 
     let currentFilter = "all";
-    let searchQuery = "";
     let currentPage = 0;
     const ITEMS_PER_PAGE = 6;
 
     let visibleCards: HTMLElement[] = cards;
 
     function filterCards() {
-      searchQuery = searchInput.value.toLowerCase().trim();
-      
+      const searchQuery = (searchInput?.value || "").toLowerCase().trim();
+
       visibleCards = cards.filter(card => {
         const category = card.getAttribute("data-category");
         const tags = JSON.parse(card.getAttribute("data-tags") || "[]");
         const title = card.getAttribute("data-title") || "";
         const date = card.getAttribute("data-date") || "";
 
-        const matchesFilter = currentFilter === "all" || 
-                             category === currentFilter || 
-                             tags.includes(currentFilter);
-        
-        const matchesSearch = !searchQuery || 
-                             title.includes(searchQuery) || 
-                             date.includes(searchQuery) || 
-                             tags.some((t: string) => t.toLowerCase().includes(searchQuery));
+        const matchesFilter =
+          currentFilter === "all" ||
+          category === currentFilter ||
+          tags.includes(currentFilter);
+
+        const matchesSearch =
+          !searchQuery ||
+          title.includes(searchQuery) ||
+          date.includes(searchQuery) ||
+          tags.some((t: string) => t.toLowerCase().includes(searchQuery));
 
         return matchesFilter && matchesSearch;
       });
 
       currentPage = 0;
+      paginationEl?.dispatchEvent(
+        new CustomEvent("pagination:set", { detail: { index: 0 } })
+      );
       updateDisplay();
     }
 
     function updateDisplay() {
-      const totalPages = Math.ceil(visibleCards.length / ITEMS_PER_PAGE);
-      
-      // Toggle card visibility
-      cards.forEach(card => card.classList.add("hidden"));
-      
-      const start = currentPage * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      
-      visibleCards.slice(start, end).forEach(card => card.classList.remove("hidden"));
+      const filteredTotalPages = Math.ceil(visibleCards.length / ITEMS_PER_PAGE);
 
-      // Update Pagination
+      // Show/hide cards for current page
+      cards.forEach(card => card.classList.add("hidden"));
+      const start = currentPage * ITEMS_PER_PAGE;
+      visibleCards.slice(start, start + ITEMS_PER_PAGE).forEach(card =>
+        card.classList.remove("hidden")
+      );
+
       if (visibleCards.length === 0) {
         noResults?.classList.remove("hidden");
-        paginationContainer?.classList.add("hidden");
+        paginationWrapper?.classList.add("hidden");
       } else {
         noResults?.classList.add("hidden");
-        paginationContainer?.classList.remove("hidden");
-        renderPagination(totalPages);
-      }
-
-      // Update button states
-      if (prevBtn) {
-        prevBtn.disabled = currentPage === 0;
-        prevBtn.classList.toggle("opacity-40", currentPage === 0);
-        prevBtn.classList.toggle("pointer-events-none", currentPage === 0);
-      }
-      if (nextBtn) {
-        nextBtn.disabled = currentPage === totalPages - 1 || totalPages === 0;
-        nextBtn.classList.toggle("opacity-40", currentPage === totalPages - 1 || totalPages === 0);
-        nextBtn.classList.toggle("pointer-events-none", currentPage === totalPages - 1 || totalPages === 0);
+        if (filteredTotalPages <= 1) {
+          paginationWrapper?.classList.add("hidden");
+        } else {
+          paginationWrapper?.classList.remove("hidden");
+        }
       }
     }
 
-    function renderPagination(totalPages: number) {
-      if (!pagesContainer) return;
-      pagesContainer.innerHTML = "";
+    // React to pagination component page changes
+    paginationEl?.addEventListener("pagination:change", (e) => {
+      const { index } = (e as CustomEvent).detail;
+      const filteredTotalPages = Math.ceil(visibleCards.length / ITEMS_PER_PAGE);
+      const clamped = Math.min(index, Math.max(0, filteredTotalPages - 1));
 
-      if (totalPages <= 1) {
-        paginationContainer?.classList.add("hidden");
-        return;
+      // If the requested page is beyond the filtered range, snap back
+      if (clamped !== index) {
+        paginationEl.dispatchEvent(
+          new CustomEvent("pagination:set", { detail: { index: clamped } })
+        );
       }
-      paginationContainer?.classList.remove("hidden");
 
-      for (let i = 0; i < totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = String(i + 1);
-        btn.className = "w-10 h-10 body4 rounded-[5px] transition cursor-pointer " +
-          (i === currentPage
-            ? "bg-brand-100 text-bg-base"
-            : "bg-white/15 text-secondary hover:bg-brand-100/50 hover:text-primary");
+      currentPage = clamped;
+      updateDisplay();
+      window.scrollTo({ top: section.offsetTop - 100, behavior: "smooth" });
+    });
 
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          updateDisplay();
-          if (section) {
-            window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-          }
-        });
-
-        pagesContainer.appendChild(btn);
-      }
-    }
-
-    // Event Listeners
-    searchInput?.addEventListener("input", filterCards);
-
+    // Filter tabs
     filterTabs.forEach(tab => {
       tab.addEventListener("click", () => {
         filterTabs.forEach(t => {
@@ -267,40 +233,17 @@ const formattedBlogs = sortedBlogs.map(blog => {
         });
         tab.classList.add("active-tab", "bg-white/10", "text-primary");
         tab.classList.remove("text-secondary");
-        
         currentFilter = tab.getAttribute("data-filter") || "all";
         filterCards();
       });
     });
 
-    prevBtn?.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
-        updateDisplay();
-        if (section) {
-          window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-        }
-      }
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      const totalPages = Math.ceil(visibleCards.length / ITEMS_PER_PAGE);
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updateDisplay();
-        if (section) {
-          window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-        }
-      }
-    });
+    searchInput?.addEventListener("input", filterCards);
 
     // Initial render
     updateDisplay();
   }
 
-  // Run on first load
   initBlogsGrid();
-
-  // Run on subsequent navigations (if using View Transitions)
-  document.addEventListener('astro:after-swap', initBlogsGrid);
+  document.addEventListener("astro:after-swap", initBlogsGrid);
 </script>
