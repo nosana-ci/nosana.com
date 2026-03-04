@@ -25,7 +25,9 @@ const shortMonths = [
   "Dec",
 ];
 
-const currentMonth = 11; // December
+const now = new Date();
+const currentMonth = now.getMonth();
+const currentYear = now.getFullYear();
 ---
 
 <section class="w-full px-4 lg:px-12">
@@ -67,7 +69,7 @@ const currentMonth = 11; // December
     id="events-empty"
     class="text-tertiary body3 hidden py-20 text-center"
   >
-    No events found.
+    No events found for selected month and year.
   </p>
 
   <div class="mx-auto mt-12 flex justify-center">
@@ -87,8 +89,17 @@ const currentMonth = 11; // December
   const yearSelect = document.getElementById(
     "events-year",
   ) as HTMLSelectElement | null;
+  const monthSelectMobile = document.getElementById(
+    "events-month-mobile",
+  ) as HTMLSelectElement | null;
+  const yearSelectMobile = document.getElementById(
+    "events-year-mobile",
+  ) as HTMLSelectElement | null;
   const searchInput = document.getElementById(
     "events-search",
+  ) as HTMLInputElement | null;
+  const searchInputDesktop = document.getElementById(
+    "events-search-desktop",
   ) as HTMLInputElement | null;
   const paginationRoot = document.getElementById("events-pagination");
   const eventItems = document.querySelectorAll<HTMLElement>(".event-item");
@@ -110,8 +121,8 @@ const currentMonth = 11; // December
     "December",
   ];
 
-  let activeMonth = 11; // December
-  let activeYear = 2025;
+  let activeMonth = new Date().getMonth();
+  let activeYear = new Date().getFullYear();
   let searchQuery = "";
 
   function filterEvents() {
@@ -121,12 +132,13 @@ const currentMonth = 11; // December
       const y = parseInt(item.dataset.year || "-1");
       const title = item.dataset.title || "";
 
-      const monthMatch = m === activeMonth;
-      const yearMatch = y === activeYear;
-      const searchMatch =
-        !searchQuery || title.includes(searchQuery.toLowerCase());
+      const searchMatch = !searchQuery || title.includes(searchQuery.toLowerCase());
 
-      const visible = monthMatch && yearMatch && searchMatch;
+      // When searching, ignore month/year filters
+      const visible = searchQuery
+        ? searchMatch
+        : m === activeMonth && y === activeYear;
+
       item.style.display = visible ? "" : "none";
       if (visible) visibleCount++;
     });
@@ -139,10 +151,15 @@ const currentMonth = 11; // December
   function setPaginationIndex(index: number) {
     if (!paginationRoot) return;
     paginationRoot.dataset.active = String(index);
-    // Re-trigger the pagination's render by dispatching a reset event
     paginationRoot.dispatchEvent(
       new CustomEvent("pagination:set", { detail: { index } }),
     );
+  }
+
+  // Sync all month selects to a given value
+  function syncMonthSelects(value: string) {
+    if (monthSelect) monthSelect.value = value;
+    if (monthSelectMobile) monthSelectMobile.value = value;
   }
 
   // Listen for pagination changes
@@ -150,44 +167,61 @@ const currentMonth = 11; // December
     const { id, index } = (e as CustomEvent).detail;
     if (id !== "events-pagination") return;
     activeMonth = index;
-
-    // Sync the hero month dropdown
-    if (monthSelect) monthSelect.value = shortMonths[index];
-
+    syncMonthSelects(shortMonths[index]);
     filterEvents();
   });
 
-  // Hero month dropdown
+  // Desktop month dropdown
   if (monthSelect) {
     monthSelect.addEventListener("change", () => {
       activeMonth = shortMonths.indexOf(monthSelect.value);
+      if (monthSelectMobile) monthSelectMobile.value = monthSelect.value;
       setPaginationIndex(activeMonth);
       filterEvents();
     });
   }
 
-  // Hero year dropdown
-  if (yearSelect) {
-    yearSelect.addEventListener("change", () => {
-      activeYear = parseInt(yearSelect.value);
+  // Mobile month dropdown
+  if (monthSelectMobile) {
+    monthSelectMobile.addEventListener("change", () => {
+      activeMonth = shortMonths.indexOf(monthSelectMobile.value);
+      if (monthSelect) monthSelect.value = monthSelectMobile.value;
+      setPaginationIndex(activeMonth);
       filterEvents();
     });
   }
 
-  // Search input — filter on Enter
-  if (searchInput) {
-    searchInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        searchQuery = searchInput.value.trim();
-        filterEvents();
-      }
+  // Desktop year dropdown
+  if (yearSelect) {
+    yearSelect.addEventListener("change", () => {
+      activeYear = parseInt(yearSelect.value);
+      if (yearSelectMobile) yearSelectMobile.value = yearSelect.value;
+      filterEvents();
     });
-    // Also clear filter when input is emptied
+  }
+
+  // Mobile year dropdown
+  if (yearSelectMobile) {
+    yearSelectMobile.addEventListener("change", () => {
+      activeYear = parseInt(yearSelectMobile.value);
+      if (yearSelect) yearSelect.value = yearSelectMobile.value;
+      filterEvents();
+    });
+  }
+
+  // Mobile search input (toggled by icon)
+  if (searchInput) {
     searchInput.addEventListener("input", () => {
-      if (searchInput.value === "") {
-        searchQuery = "";
-        filterEvents();
-      }
+      searchQuery = searchInput.value.trim();
+      filterEvents();
+    });
+  }
+
+  // Desktop search input
+  if (searchInputDesktop) {
+    searchInputDesktop.addEventListener("input", () => {
+      searchQuery = searchInputDesktop.value.trim();
+      filterEvents();
     });
   }
 
