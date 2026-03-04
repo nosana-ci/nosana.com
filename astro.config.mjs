@@ -5,8 +5,11 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import react from '@astrojs/react';
 
+import { redirects } from './src/redirects';
+
 // https://astro.build/config
 export default defineConfig({
+  redirects,
   site: 'https://nosana-new.vercel.app',
   output: "server",
   adapter: vercel(),
