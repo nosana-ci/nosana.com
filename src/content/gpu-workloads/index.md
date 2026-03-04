@@ -76,7 +76,7 @@ highlightsSection:
     description: "Pick from 20+ ready-made AI compute templates for inference, training, and generation or deploy your own custom container."
     cta:
       title: "View Templates"
-      url: "/templates"
+      url: "https://deploy.nosana.com/deployments"
   - icon: "./assets/point-2.svg"
     title: "On-Demand"
     description: "Rent available GPUs effortlessly and scale your workloads seamlessly to meet your needs."
