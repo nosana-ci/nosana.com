@@ -31,7 +31,7 @@ export const layoutSchema = ({ image }: SchemaContext) => z.object({
   brands: z.array(
     z.object({
       name: z.string(),
-      logo: z.string(),
+      logo: image(),
     })
   ).optional()
 

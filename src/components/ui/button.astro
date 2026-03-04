@@ -30,7 +30,7 @@ const {
 } = Astro.props;
 
 const baseStyles =
-  "rounded-sm inline-flex items-stretch transition-all group overflow-hidden whitespace-nowrap font-semibold";
+  "rounded-sm inline-flex items-stretch transition-all group/button overflow-hidden whitespace-nowrap font-semibold";
 
 const variants = {
   primary: "bg-primary text-secondarydark hover:bg-primary/90",
@@ -94,12 +94,12 @@ const customStyle =
   >
     <div class="w-3 h-3 md:w-4 md:h-4 relative">
       <div
-        class="flex transition-transform duration-300 -translate-x-3 md:-translate-x-4 group-hover:translate-x-0"
+        class="flex transition-transform duration-300 -translate-x-3 md:-translate-x-4 group-hover/button:translate-x-0"
       >
         <span
           class="w-3 h-3 md:w-4 md:h-4 pointer-events-none select-none
                  flex items-center justify-center shrink-0
-                 opacity-0 group-hover:opacity-100 transition-opacity
+                 opacity-0 group-hover/button:opacity-100 transition-opacity
                  duration-300 [&_path]:fill-current -rotate-90"
         >
           <Fragment set:html={chevronDownDouble} />
@@ -107,7 +107,7 @@ const customStyle =
         <span
           class="w-3 h-3 md:w-4 md:h-4 pointer-events-none select-none
                  flex items-center justify-center shrink-0
-                 opacity-100 group-hover:opacity-0 transition-opacity
+                 opacity-100 group-hover/button:opacity-0 transition-opacity
                  duration-300 [&_path]:fill-current -rotate-90"
         >
           <Fragment set:html={chevronDownDouble} />
