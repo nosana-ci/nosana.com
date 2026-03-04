@@ -26,8 +26,10 @@ const {
 ---
 
 <section class="bg-bg-base w-full px-4 lg:px-12">
-  <div class="mx-auto flex w-full flex-col gap-10 md:items-stretch lg:flex-row">
-    <div class="flex flex-col justify-between md:w-2/3">
+  <div
+    class="mx-auto flex w-full flex-col gap-10 md:flex-row md:items-stretch lg:gap-16 xl:gap-24"
+  >
+    <div class="flex flex-1 flex-col justify-between">
       <div>
         <Badge title={badge} icon={badgeIcon} class="mb-4" />
 
@@ -54,7 +56,7 @@ const {
         </div>
       </div>
 
-      <div class="flex gap-16 pt-10 max-[260px]:flex-col">
+      <div class="flex flex-wrap gap-x-8 gap-y-4 md:pt-10 sm:gap-x-16">
         {
           stats.map((stat) => (
             <div>
@@ -68,22 +70,24 @@ const {
       </div>
     </div>
 
-    <div class="relative lg:w-1/2">
+    <div
+      class="relative w-full shrink-0 aspect-square md:w-1/3 md:aspect-3/4 lg:aspect-square"
+    >
       <div
-        class="case-study-image group relative h-full min-h-[400px] overflow-hidden"
+        class="case-study-image group relative h-full w-full overflow-hidden"
       >
         <Image
           src={image}
           alt="Case study"
           width={600}
-          height={500}
+          height={600}
           class="absolute inset-0 h-full w-full object-cover"
         />
         <Image
           src={activeAstronaut}
           alt="Case study active"
           width={600}
-          height={500}
+          height={600}
           class="absolute inset-0 h-full w-full scale-110 object-cover opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100"
         />
         <div class="absolute right-6 bottom-6 z-10">

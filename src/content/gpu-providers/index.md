@@ -104,7 +104,7 @@ hardwareRequirementsSection:
       description: "Check our approved models to see if yours qualifies!"
       link:
         title: "View the List"
-        url: "/gpu-models"
+        url: "/#gpu-on-rent"
 
 videoSection:
   badge:

@@ -13,22 +13,24 @@ const { heading, description } = earningSection;
 const headingParts = heading.split(" - ");
 ---
 
-<section class="w-full bg-bg-base px-4 lg:px-12">
+<section class="w-full bg-bg-base px-4 md:px-12">
   <!-- Heading -->
-  <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
+  <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
     {headingParts[0]}
     {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
   </h2>
 
   <!-- Description -->
-  <p class="text-secondary md:max-w-xl mb-8 md:mb-12 body2">
+  <p class="text-secondary body2 mb-12 max-w-xl lg:mb-20">
     {description}
   </p>
 
-  <!-- Main Content Grid -->
-  <div class="w-full flex flex-col md:flex-row gap-y-6 justify-between items-center max-w-7xl mx-auto">
+  <!-- Interactive Zone -->
+  <div
+    class="mx-auto flex max-w-7xl flex-col items-stretch gap-10 lg:flex-row lg:gap-0"
+  >
     <!-- Left Column - Form -->
-    <div class="space-y-8 lg:w-[45%] w-full lg:pr-10">
+    <div class="flex-1 space-y-8 lg:pr-12 xl:pr-16">
       <!-- GPU Selection -->
       <div>
         <h3 class="text-primary body2 mb-3">What GPU type you have?</h3>
@@ -63,9 +65,12 @@ const headingParts = heading.split(" - ");
 
           <ul
             id="gpuOptions"
-            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto"
+            data-lenis-prevent
+            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto overscroll-contain"
           >
-            <li class="gpu-option body2 md:caption1 text-secondary px-4 py-3">
+            <li
+              class="gpu-option body2 md:caption1 text-secondary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
+            >
               Loading GPUs...
             </li>
           </ul>
@@ -73,7 +78,7 @@ const headingParts = heading.split(" - ");
       </div>
 
       <!-- Hours Slider -->
-      <div class="sm:mr-16">
+      <div>
         <h3 class="text-primary body2 mb-3">
           How many available hours do <br /> you have per month?
         </h3>
@@ -83,7 +88,7 @@ const headingParts = heading.split(" - ");
         </p>
 
         <!-- Slider Container -->
-        <div class="space-y-4 pt-1 pb-12 relative">
+        <div class="relative pt-1 pb-12">
           <div class="bg-surface relative h-2 w-full rounded-lg">
             <div
               id="progressFill"
@@ -98,7 +103,7 @@ const headingParts = heading.split(" - ");
             min="0"
             max="744"
             value="168"
-            class="earnings-slider absolute top-1 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
+            class="earnings-slider absolute top-0 left-0 z-10 h-3 w-full cursor-pointer appearance-none bg-transparent"
           />
           <div
             id="hoursTooltip"
@@ -109,7 +114,7 @@ const headingParts = heading.split(" - ");
               class="bg-brand-100 relative rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap text-black"
             >
               <div
-                class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-[5px] border-b-[5px] border-l-[5px] border-r-transparent border-l-transparent"
+                class="border-b-brand-100 absolute -top-1 left-1/2 h-0 w-0 -translate-x-1/2 border-r-8 border-b-8 border-l-8 border-r-transparent border-l-transparent"
               >
               </div>
               <span id="hoursTooltipValue">7 Days</span>
@@ -119,43 +124,60 @@ const headingParts = heading.split(" - ");
       </div>
     </div>
 
+    <!-- Vertical Separator -->
+    <div class="border-default/30 hidden self-stretch border-l lg:block"></div>
+
     <!-- Right Column - Earnings Card -->
-    <div class="md:pl-10 w-full flex lg:flex-1 lg:border-l border-default/50">
+    <div class="flex flex-1 items-start lg:pl-12 xl:pl-16">
       <div
-        class="bg-surface border border-default rounded-lg sm:p-8 p-5 w-full lg:space-y-12 space-y-4"
+        class="bg-surface border-default flex h-full w-full flex-col justify-between rounded-2xl border p-8"
       >
         <!-- Header -->
-        <div
-          class="text-default/80 flex gap-4 items-center justify-center text-center sm:text-sm text-[12px] font-medium mt-2"
-        >
-          <p>Estimated earnings with</p>
-          <Fragment set:html={nosanaLogoGray} />
-        </div>
+        <div class="space-y-12">
+          <div
+            class="text-default/80 flex items-center justify-center gap-4 text-center text-xs font-medium sm:text-sm"
+          >
+            <p>Estimated price with</p>
+            <div class="h-4">
+              <Fragment set:html={nosanaLogoGray} />
+            </div>
+          </div>
 
-        <!-- Price Display -->
-        <div
-          class="flex items-baseline md:items-center lg:items-baseline justify-center sm:gap-5 gap-3 flex-row md:flex-col lg:flex-row w-full"
-        >
-          <span id="totalEarnings" class="text-primary sm:text-6xl text-4xl grotesk"
-            >...</span
+          <!-- Price Display -->
+          <div
+            class="flex flex-row flex-wrap items-baseline justify-center gap-x-6 gap-y-2 pb-12"
           >
-          <span id="monthlyEarnings" class="text-[#C9C9C9] sm:text-2xl text-xl font-medium grotesk"
-            >.../month</span
-          >
+            <span
+              id="totalEarnings"
+              class="text-primary grotesk text-5xl font-medium sm:text-7xl"
+              >...</span
+            >
+            <span
+              id="monthlyEarnings"
+              class="grotesk text-xl font-medium text-secondary whitespace-nowrap sm:text-2xl"
+              >.../month</span
+            >
+          </div>
         </div>
 
         <!-- Details -->
         <div
-          class="flex flex-col lg:flex-row gap-y-4 justify-between items-center border-t border-default pt-6 md:gap-10"
+          class="border-default flex flex-row items-start justify-between gap-6 border-t pt-8"
         >
-          <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
-            <span class="text-[#C9C9C9] body4">GPU type:</span>
-            <span id="gpuTypeDisplay" class="body2 font-medium">...</span>
+          <div class="flex flex-col gap-1">
+            <span class="body4 text-tertiary">GPU type:</span>
+            <span id="gpuTypeDisplay" class="body2 text-primary"
+              >...</span
+            >
           </div>
 
-          <div class="flex flex-col gap-y-0.5 justify-between items-start w-full">
-            <span class="text-[#C9C9C9] body4">Duration:</span>
-            <span id="durationDisplay" class="body2 font-medium">...</span>
+          <div class="flex flex-col gap-1 text-right">
+            <span class="body4 text-tertiary">Duration:</span>
+            <span
+              id="durationDisplay"
+              class="body2 whitespace-nowrap text-primary"
+              >...</span
+            >
           </div>
         </div>
       </div>
@@ -267,7 +289,7 @@ const headingParts = heading.split(" - ");
     const usdEarnings = pricePerHour * hours;
     const nosEarnings = usdEarnings / nosPrice;
 
-    if (totalEarningsEl) totalEarningsEl.textContent = `${nosEarnings.toFixed(2)} NOS`;
+    if (totalEarningsEl) totalEarningsEl.textContent = nosEarnings.toFixed(2);
     if (monthlyEarningsEl)
       monthlyEarningsEl.textContent = `$${usdEarnings.toFixed(2)}/month`;
   }

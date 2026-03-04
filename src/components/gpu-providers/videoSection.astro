@@ -41,10 +41,9 @@ const headingParts = heading.split(" - ");
         src={tutorialVideo}
         preload="metadata"
       ></video>
-      <!-- Video control button -->
-      <button
-        id="video-control"
-        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white cursor-pointer"
+      <!-- Video control indicator (passive) -->
+      <div
+        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white pointer-events-none"
       >
         <div id="play-status" class="flex items-center justify-center">
           <Fragment set:html={playIcon} />
@@ -52,44 +51,51 @@ const headingParts = heading.split(" - ");
         <div id="pause-status" class="hidden items-center justify-center">
           <Fragment set:html={pauseIcon} />
         </div>
-      </button>
+      </div>
    </div>
 </section>
 
 <script>
   const video = document.getElementById("tutorial-video") as HTMLVideoElement | null;
-  const videoControl = document.getElementById("video-control");
   const playStatus = document.getElementById("play-status");
   const pauseStatus = document.getElementById("pause-status");
 
-  if (video && videoControl && playStatus && pauseStatus) {
-    videoControl.addEventListener("click", () => {
+  if (video && playStatus && pauseStatus) {
+    function syncIcons() {
+      if (!video) return;
+      if (video.paused) {
+        playStatus?.classList.remove("hidden");
+        pauseStatus?.classList.add("hidden");
+      } else {
+        playStatus?.classList.add("hidden");
+        pauseStatus?.classList.remove("hidden");
+        pauseStatus?.classList.add("flex");
+      }
+    }
+
+    video.addEventListener("click", () => {
       if (video.paused) {
         video.play();
-        playStatus.classList.add("hidden");
-        pauseStatus.classList.remove("hidden");
-        pauseStatus.classList.add("flex");
       } else {
         video.pause();
-        playStatus.classList.remove("hidden");
-        pauseStatus.classList.add("hidden");
       }
     });
 
-    // Video analytics
-    let videoStarted = false;
     video.addEventListener("play", () => {
+      syncIcons();
+      // Video analytics
       const dl = (window as any).dataLayer || [];
-      if (!videoStarted) {
-        videoStarted = true;
+      if (!(video as any).started) {
+        (video as any).started = true;
         dl.push({ event: "video_start", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
       }
       dl.push({ event: "video_play", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });
 
+    video.addEventListener("pause", syncIcons);
+
     video.addEventListener("ended", () => {
-      playStatus.classList.remove("hidden");
-      pauseStatus.classList.add("hidden");
+      syncIcons();
       const dl = (window as any).dataLayer || [];
       dl.push({ event: "video_complete", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });

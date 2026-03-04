@@ -26,7 +26,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
     )
   }
 
-  <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
     <video
       class="h-full w-full object-cover"
       poster={poster}
@@ -61,11 +61,10 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
         </span>
       </button>
 
-      <div class="pointer-events-auto flex items-center gap-3">
-        <button
-          class="flex cursor-pointer items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-9 md:[&_svg]:w-9"
-          aria-label="Play / Pause"
-          data-play-btn
+      <div class="flex items-center gap-3">
+        <div
+          class="flex items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-9 md:[&_svg]:w-9"
+          data-play-indicator
         >
           <span data-play-icon class:list={[darkControls && "invert"]}
             ><Fragment set:html={playIcon} /></span
@@ -75,7 +74,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
             class:list={["hidden", darkControls && "invert"]}
             ><Fragment set:html={pauseIcon} /></span
           >
-        </button>
+        </div>
 
         {
           cta && (
@@ -86,13 +85,15 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
                   darkControls ? "bg-black/20" : "bg-white/20",
                 ]}
               />
-              <Button
-                title={cta.title}
-                url={cta.url}
-                variant="secondary"
-                class={darkControls ? "text-black!" : undefined}
-                data-cta="deploy"
-              />
+              <div class="pointer-events-auto">
+                <Button
+                  title={cta.title}
+                  url={cta.url}
+                  variant="secondary"
+                  class={darkControls ? "text-black!" : undefined}
+                  data-cta="deploy"
+                />
+              </div>
             </div>
           )
         }
@@ -103,7 +104,12 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
   {
     cta && (
       <div class="mt-2 flex w-full md:hidden">
-        <Button title={cta.title} url={cta.url} variant="secondary" data-cta="deploy" />
+        <Button
+          title={cta.title}
+          url={cta.url}
+          variant="secondary"
+          data-cta="deploy"
+        />
       </div>
     )
   }
@@ -114,9 +120,6 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
     const video = section.querySelector(
       "[data-video]",
     ) as HTMLVideoElement | null;
-    const playBtn = section.querySelector(
-      "[data-play-btn]",
-    ) as HTMLButtonElement | null;
     const muteBtn = section.querySelector(
       "[data-mute-btn]",
     ) as HTMLButtonElement | null;
@@ -148,7 +151,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       unmutedIconEl.classList.toggle("hidden", video.muted);
     }
 
-    playBtn?.addEventListener("click", () => {
+    video.addEventListener("click", () => {
       if (video.paused) {
         video.play();
       } else {
@@ -156,29 +159,43 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       }
     });
 
-    muteBtn?.addEventListener("click", () => {
+    muteBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
       video.muted = !video.muted;
       syncMuteIcons();
     });
 
     // Video analytics
     let videoStarted = false;
-    const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
+    const videoTitle =
+      section.querySelector("h2")?.textContent?.trim() || "Video";
     video.addEventListener("play", () => {
       syncPlayIcons();
       const dl = (window as any).dataLayer || [];
       if (!videoStarted) {
         videoStarted = true;
-        dl.push({ event: "video_start", video_title: videoTitle, page_path: window.location.pathname });
+        dl.push({
+          event: "video_start",
+          video_title: videoTitle,
+          page_path: window.location.pathname,
+        });
       }
-      dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
+      dl.push({
+        event: "video_play",
+        video_title: videoTitle,
+        page_path: window.location.pathname,
+      });
     });
 
     video.addEventListener("pause", syncPlayIcons);
 
     video.addEventListener("ended", () => {
       const dl = (window as any).dataLayer || [];
-      dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
+      dl.push({
+        event: "video_complete",
+        video_title: videoTitle,
+        page_path: window.location.pathname,
+      });
     });
 
     syncPlayIcons();
