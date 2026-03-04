@@ -266,13 +266,43 @@ const articleSchema = {
   }
 
   .blog-content blockquote {
-    border-left: 2px solid var(--color-brand-100);
-    padding: 0.25rem 0 0.25rem 1rem;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    color: var(--color-primary);
+    border: 1px solid #2A2A2A;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    margin: 3rem 0;
+    background-color: var(--color-surface);
+    color: var(--color-secondary) !important;
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: center;
   }
 
+  .blog-content blockquote p {
+    margin-bottom: 0 !important;
+    color: var(--color-secondary) !important;
+  }
+
+  .blog-content blockquote .quote-author {
+    display: block;
+    margin-top: 1rem;
+    color: var(--color-primary) !important;
+    font-size: 0.9em;
+    font-style: normal;
+  }
+
+  @media (min-width: 768px) {
+    .blog-content blockquote {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-content blockquote {
+      padding: 2.5rem 1rem;
+      font-size: 18px;
+    }
+  }
+  
   .toc-link.active span {
     color: var(--color-brand-100) !important;
   }
@@ -310,11 +340,29 @@ const articleSchema = {
     headings.forEach(heading => observer.observe(heading));
   }
 
+  function formatQuotes() {
+    const quotes = document.querySelectorAll('.blog-content blockquote p');
+    quotes.forEach(p => {
+      const text = p.innerHTML;
+      if (text.includes(' — ')) {
+        const [quote, author] = text.split(' — ');
+        p.innerHTML = `${quote}<span class="quote-author">— ${author}</span>`;
+      } else if (text.includes('—')) {
+        const [quote, author] = text.split('—');
+        p.innerHTML = `${quote}<span class="quote-author">— ${author}</span>`;
+      }
+    });
+  }
+
   // Run on initial load
   initToC();
+  formatQuotes();
 
   // Re-run on Astro View Transitions
-  document.addEventListener('astro:after-swap', initToC);
+  document.addEventListener('astro:after-swap', () => {
+    initToC();
+    formatQuotes();
+  });
 
   // Case study view tracking
   const dl = (window as any).dataLayer || [];
