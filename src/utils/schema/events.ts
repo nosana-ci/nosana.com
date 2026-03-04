@@ -7,6 +7,6 @@ export const eventsSchema = ({ image }: SchemaContext) =>
     thumbnail: image(),
     createdAt: z.coerce.date(),
     url: z.string(),
-    time: z.string(),
+    time: z.string().optional(),
     tags: z.array(z.string()).optional(),
   });
