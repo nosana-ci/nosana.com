@@ -26,7 +26,7 @@ caseStudySection:
   companyName: "Sogni AI"
   image: "./assets/astronaut.png"
   ctaTitle: "Read Case Study"
-  ctaUrl: "/case-studies"
+  ctaUrl: "/case-studies/sogni-ai-revolutionizing-gen-ai-creative-tools-with-nosanas-gpu-power"
   stats:
     - label: "Generated Images"
       value: "16,605,326"
