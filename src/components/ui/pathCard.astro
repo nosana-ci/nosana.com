@@ -28,10 +28,9 @@ const [titleMain, titleSub] = title.split("-");
         class="pointer-events-none absolute inset-0 z-20 h-auto w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
 
-      <Image
-        src={image}
+      <img
+        src={image.src ?? image}
         alt={title}
-        quality={100}
         class="border-elevated relative z-10 h-auto w-full border select-none"
       />
     </div>
