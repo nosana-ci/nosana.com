@@ -12,67 +12,57 @@ if (!entry) {
 
 const { heroSection } = entry.data;
 
-const badge = heroSection.badge;
-const title = heroSection.title;
-const description = heroSection.description;
-const button_1 = heroSection.button_1;
-const button_2 = heroSection.button_2;
-const image_1 = heroSection.image_1;
-const image_2 = heroSection.image_2;
+const { badge, title, description, cta1, cta2, image_1, image_2 } =
+  heroSection;
 ---
 
 <section class="h-[calc(100vh-5rem)] w-full overflow-hidden p-4 lg:p-12">
-  <!-- Main Hero Image (Right) -->
-  <div
-    class="relative z-10 h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0"
-  >
-    <!-- Content Container (Left) -->
-    <div
-      class="relative z-10 flex max-w-xl flex-col items-start gap-4 text-left"
-    >
-      <!-- Badge -->
-      <Badge title={badge.text} icon={badge.icon}/>
+  <div class="relative h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0">
 
-      <!-- Title -->
-      <h1 class="h4 grotesk text-primary">
-        {title}
-      </h1>
-
-      <!-- Description -->
-      <p class="body2 text-secondary max-w-lg">
-        {description}
-      </p>
-
-      <!-- Buttons -->
-      <div class="mt-4 flex flex-wrap items-center gap-4">
-        <Button
-          title={button_1.text}
-          url={"#"}
-          variant="secondary"
-          iconColor="#fafafa"
-          data-cta="staking"
-        />
-        <Button
-          title={button_2.text}
-          url={"#"}
-          variant="secondary"
-          iconColor="#fafafa"
-          data-cta="staking"
-        />
-      </div>
-    </div>
-    <!-- Background Grove Image -->
-    <div class="pointer-events-none absolute inset-0 z-0 h-full w-full">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
       <Image
         src={image_2}
         alt="Background Pattern"
         class="h-full w-full object-cover opacity-60 pointer-events-none select-none"
       />
     </div>
+
+    <!-- Foreground Hero Image -->
     <Image
       src={image_1}
       alt="Nosana Token Hero"
-      class="absolute right-0 -bottom-20 w-full h-auto  max-md:scale-[1.6] max-md:right-20 max-md:bottom-10 object-contain drop-shadow-2xl xl:w-[90%] pointer-events-none select-none"
+      class="absolute right-0 -bottom-20 z-0 w-full h-auto max-md:scale-[1.6] max-md:right-20 max-md:bottom-10 object-contain drop-shadow-2xl xl:w-[90%] pointer-events-none select-none"
     />
+
+    <!-- Content -->
+    <div class="relative z-20 flex max-w-xl flex-col items-start gap-4 text-left">
+
+      <Badge title={badge.text} icon={badge.icon} />
+
+      <h1 class="h4 grotesk text-primary">
+        {title}
+      </h1>
+
+      <p class="body2 text-secondary max-w-lg">
+        {description}
+      </p>
+
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <Button
+          title={cta1.text}
+          url={cta1.url}
+          variant="secondary"
+          data-cta="explore"
+        />
+        <Button
+          title={cta2.text}
+          url={cta2.url}
+          variant="secondary"
+          data-cta="staking"
+        />
+      </div>
+
+    </div>
   </div>
 </section>

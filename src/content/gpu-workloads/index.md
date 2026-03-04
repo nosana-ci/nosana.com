@@ -10,11 +10,11 @@ heroSection:
 
   cta1:
     title: "Run GPU Workloads"
-    url: "/gpu-workloads"
+    url: "https://deploy.nosana.com/"
 
   cta2:
     title: "Schedule an Intro Call"
-    url: "/gpu-workloads"
+    url: "https://calendly.com/bourjois-nos/30min"
 
 caseStudySection:
   badge: "Case Study"
@@ -40,10 +40,10 @@ ctaSection:
   description: "Deploy GPU workloads in minutes or book a quick demo to see how Nosana fits your stack"
   cta1:
     title: "Launch Your First GPU Workload"
-    url: "/deploy"
+    url: "https://deploy.nosana.com/"
   cta2:
-    title: "How It Works"
-    url: "/gpu-workloads#how-it-works"
+    title: "Request A Demo"
+    url: "https://calendly.com/bourjois-nos/30min"
 
 howItWorks:
   badge:
@@ -53,10 +53,10 @@ howItWorks:
   description: "Running AI workloads on Nosana is simple by design. Go from a template or your own setup to live GPU compute in just a few steps. Here’s how it works"
   cta1:
     title: "Start Deploying GPU Workloads"
-    url: "/gpu-workloads"
+    url: "https://deploy.nosana.com/"
   cta2:
     title: "Schedule a Call"
-    url: "/contact"
+    url: "https://calendly.com/bourjois-nos/30min"
   steps:
     - title: "Set up your account"
       description: "Get started on the Nosana Deploy page by connecting your wallet or signing in with email."

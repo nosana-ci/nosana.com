@@ -16,7 +16,7 @@ const [titleMain, titleSub] = title.split("-");
 ---
 
 <div
-  class="group border-elevated flex h-full w-full flex-col justify-between gap-4 rounded-lg border p-4 md:gap-6 md:p-6"
+  class="group/pathcard border-elevated flex h-full w-full flex-col justify-between gap-4 rounded-lg border p-4 md:gap-6 md:p-6"
 >
   <div>
     <div class="relative overflow-hidden pb-4">
@@ -25,7 +25,7 @@ const [titleMain, titleSub] = title.split("-");
         alt="glow"
         aria-hidden="true"
         quality={100}
-        class="pointer-events-none absolute inset-0 z-20 h-auto w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        class="pointer-events-none absolute inset-0 z-20 h-auto w-full opacity-0 transition-opacity duration-300 group-hover/pathcard:opacity-100"
       />
 
       <Image

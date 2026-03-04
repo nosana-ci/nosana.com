@@ -25,7 +25,7 @@ const heroSvg = heroImgRaw.replace(
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:px-12 lg:pt-20"
+  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
@@ -39,7 +39,7 @@ const heroSvg = heroImgRaw.replace(
   </video>
 
   <div
-    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 md:p-20"
+    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 md:p-12 lg:p-20"
   >
     <div class="pointer-events-none absolute inset-0 z-0 mix-blend-hard-light">
       <Image
@@ -50,14 +50,14 @@ const heroSvg = heroImgRaw.replace(
     </div>
 
     <div class="pointer-events-none absolute inset-0 z-0">
-      <div class="absolute right-0 bottom-0 h-full w-full">
+      <div class="absolute -right-[20%] sm:right-0 bottom-[10%] md:bottom-0 h-full w-full">
         <div
           class="pointer-events-none h-full w-full origin-center pb-8 select-none max-xl:scale-125 md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full"
           set:html={heroSvg}
         />
       </div>
       <div
-        class="background-grid pointer-events-none absolute inset-0 z-1 opacity-5"
+        class="pointer-events-none absolute inset-0 z-1 [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:72px_72px] opacity-5"
       >
       </div>
     </div>
@@ -96,15 +96,4 @@ const heroSvg = heroImgRaw.replace(
       </div>
     </div>
   </div>
-
-  <style>
-    .background-grid {
-      background-color: transparent;
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNDQnIGhlaWdodD0nMTQ0JyB2aWV3Qm94PScwIDAgMTQ0IDE0NCc+PHBhdGggZD0nTTcyLjUgMHYxNDRNMCA3Mi41aDE0NE0wLjUgMHYxNDRNMCAwLjVoMTQ0JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC4xNSknIHN0cm9rZS13aWR0aD0nTScvPjxwYXRoIGQ9J003Mi41IDcwdjVNNzAgNzIuNWg1JyBzdHJva2U9J3JnYmEoMjU1LDI1NSwyNTUsMC41NSknIHN0cm9rZS13aWR0aD0nTScvPjwvc3ZnPg==");
-      background-size: 144px 144px;
-      background-position: 0 72px;
-      background-position: center center;
-      opacity: 0.3;
-    }
-  </style>
 </section>
