@@ -7,7 +7,7 @@ interface Props {
   description: string;
   thumbnail: ImageMetadata;
   createdAt: Date;
-  time: string;
+  time?: string;
   url: string;
 }
 
@@ -20,14 +20,14 @@ const day = createdAt.getDate();
 ---
 
 <div class="flex flex-row items-start gap-6 lg:gap-10 lg:px-20">
-  <div class="flex w-20 shrink-0 flex-col overflow-hidden rounded-lg">
-    <div class="bg-primary/40 flex items-center justify-center py-2">
-      <span class="text-primary text-[13px] leading-none font-semibold">
+<div class="flex w-[44px] md:w-20 h-[44px] md:h-20 shrink-0 flex-col overflow-hidden rounded-lg">
+    <div class="bg-primary/40 flex flex-1 items-center justify-center py-1 md:py-2">
+      <span class="text-primary text-[9px] md:text-[13px] leading-none font-semibold">
         {month}
       </span>
     </div>
-    <div class="bg-elevated flex items-center justify-center py-2">
-      <span class="text-primary grotesk body1 leading-none">
+    <div class="bg-elevated flex flex-1 items-center justify-center py-1 md:py-2">
+      <span class="text-primary grotesk text-xs md:text-sm lg:text-xl leading-none">
         {day}
       </span>
     </div>
