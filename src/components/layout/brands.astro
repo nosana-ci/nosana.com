@@ -14,14 +14,14 @@ const loopBrands = [...brands, ...brands];
 
 {
   brands.length > 0 && (
-    <div class="w-full relative marquee-container">
+    <div class="w-full h-full relative marquee-container">
       <div class="flex gap-10 md:gap-24 w-max animate-marquee">
         {loopBrands.map((brand) => (
-          <div class="shrink-0 items-center justify-center opacity-60 filter grayscale transition-all duration-300 hover:opacity-100 hover:filter-none">
+          <div class="shrink-0 items-center justify-center opacity-60 transition-all duration-300 hover:opacity-100">
             <Image
               src={brand.logo}
               alt={brand.name}
-              class="h-4 md:h-6 w-auto object-contain select-none pointer-events-none"
+              class="h-4 md:h-6 lg:h-8 w-auto object-contain select-none pointer-events-none"
             />
           </div>
         ))}
