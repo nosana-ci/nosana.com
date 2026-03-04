@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 CLAUDE.md
 .claude/
+.vercel/
