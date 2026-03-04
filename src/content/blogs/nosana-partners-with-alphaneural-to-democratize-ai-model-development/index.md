@@ -1,5 +1,5 @@
 ---
-category: "blog"
+category: "case-study"
 title: "Nosana Partners with AlphaNeural to Democratize AI Model Development"
 description: "AlphaNeural's platform will leverage Nosana's high-performance GPU infrastructure."
 thumbnail: "./assets/NosanaXAlphaBlog.jpg"
