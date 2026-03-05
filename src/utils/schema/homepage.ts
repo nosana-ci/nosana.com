@@ -34,6 +34,7 @@ export const homepageSchema = ({ image }: SchemaContext) =>
       heading: z.string(),
       path1: z.object({
         image: image(),
+        safariImage: image().optional(),
         title: z.string(),
         description: z.string(),
         caption: z.string(),
@@ -41,6 +42,7 @@ export const homepageSchema = ({ image }: SchemaContext) =>
       }),
       path2: z.object({
         image: image(),
+        safariImage: image().optional(),
         title: z.string(),
         description: z.string(),
         caption: z.string(),
