@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import closeIcon from "../../assets/icons/resetFilter.svg";
+
 const months = [
   "January",
   "February",
@@ -32,20 +35,20 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
   </div>
 
   <!-- Mobile layout: dropdowns left, search icon right -->
-  <div class="flex items-center justify-between sm:hidden">
-    <!-- Month + Year group -->
-    <div class="flex items-center gap-2">
+  <div class="flex items-stretch justify-between gap-2 sm:hidden">
+    <!-- Filters Group -->
+    <div class="flex items-stretch gap-2">
       <!-- Month -->
-      <div class="relative w-[130px] shrink-0">
+      <div class="relative w-[110px] shrink-0">
         <select
           id="events-month-mobile"
-          class="bg-surface text-secondary body3 focus:outline-default w-full cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline"
+          class="bg-surface text-secondary body3 focus:outline-default w-full cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline h-full"
         >
+          <option value="All" selected>Month</option>
           {
             months.map((month) => (
               <option
                 value={month}
-                selected={month === currentMonthName}
                 class="bg-surface text-secondary [font-size:inherit]"
               >
                 {month}
@@ -64,13 +67,13 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
       <div class="relative">
         <select
           id="events-year-mobile"
-          class="bg-surface text-secondary body3 focus:outline-default cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline"
+          class="bg-surface text-secondary body3 focus:outline-default cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline h-full"
         >
+          <option value="All" selected>Year</option>
           {
             years.map((year) => (
               <option
                 value={year}
-                selected={year === defaultYear}
                 class="bg-surface text-secondary [font-size:inherit]"
               >
                 {year}
@@ -84,6 +87,16 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
           </svg>
         </span>
       </div>
+
+      <!-- Reset Button (Mobile) -->
+      <button
+        id="events-reset-mobile"
+        class="bg-surface text-tertiary flex shrink-0 items-center justify-center rounded px-3 py-3 cursor-pointer hover:text-white transition group/resetfilter"
+        aria-label="Reset filters"
+        style="display: none"
+      >
+        <Image src={closeIcon} alt="Reset" width={16} height={16} class="w-5 h-5 opacity-70 group-hover/resetfilter:opacity-100 transition-all duration-300" />
+      </button>
     </div>
 
     <!-- Search icon button -->
@@ -110,13 +123,13 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
   </div>
 
   <!-- Desktop / tablet layout (sm+): original full row -->
-  <div class="hidden sm:flex sm:flex-row sm:items-center sm:gap-3 md:max-w-4/5">
+  <div class="hidden sm:flex sm:flex-row sm:items-stretch sm:gap-3 md:max-w-4/5">
     <div class="relative flex-1">
       <input
         id="events-search-desktop"
         type="text"
         placeholder="Search for Events"
-        class="bg-surface text-secondary placeholder:text-tertiary body3 focus:outline-default w-full rounded px-4 py-3 pr-10 focus:outline"
+        class="bg-surface text-secondary placeholder:text-tertiary body3 focus:outline-default w-full rounded px-4 py-3 pr-10 focus:outline h-full"
       />
       <span class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,13 +142,13 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
     <div class="relative">
       <select
         id="events-month"
-        class="bg-surface text-secondary body3 focus:outline-default min-w-[140px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline"
+        class="bg-surface text-secondary body3 focus:outline-default min-w-[140px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline h-full"
       >
+        <option value="All" selected>Month</option>
         {
           months.map((month) => (
             <option
               value={month}
-              selected={month === currentMonthName}
               class="bg-surface text-secondary [font-size:inherit]"
             >
               {month}
@@ -153,13 +166,13 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
     <div class="relative">
       <select
         id="events-year"
-        class="bg-surface text-secondary body3 focus:outline-default min-w-[90px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline"
+        class="bg-surface text-secondary body3 focus:outline-default min-w-[90px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline h-full"
       >
+        <option value="All" selected>Year</option>
         {
           years.map((year) => (
             <option
               value={year}
-              selected={year === defaultYear}
               class="bg-surface text-secondary [font-size:inherit]"
             >
               {year}
@@ -173,6 +186,16 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
         </svg>
       </span>
     </div>
+
+    <!-- Desktop Reset Button -->
+    <button
+      id="events-reset"
+      class="bg-surface text-tertiary flex shrink-0 items-center justify-center rounded px-4 py-3 cursor-pointer hover:text-white transition group/resetfilter"
+      aria-label="Reset filters"
+      style="display: none"
+    >
+      <Image src={closeIcon} alt="Reset" width={16} height={16} class="w-6 h-6 opacity-70 group-hover/resetfilter:opacity-100 transition-all duration-300" />
+    </button>
   </div>
 </section>
 
