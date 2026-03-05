@@ -33,7 +33,7 @@ const currentYear = now.getFullYear();
 <section class="w-full px-4 lg:px-12">
   <div id="events-list" class="flex flex-col gap-12">
     {
-      events.map((event) => {
+      events.map((event, index) => {
         const date = new Date(event.data.createdAt);
         const month = date.getMonth();
         const year = date.getFullYear();
@@ -69,14 +69,14 @@ const currentYear = now.getFullYear();
     id="events-empty"
     class="text-tertiary body3 hidden py-20 text-center"
   >
-    No events found for selected month and year.
+    No events found for selected filters.
   </p>
 
-  <div class="mx-auto mt-12 flex justify-center">
+  <div id="events-pagination-container" class="mx-auto mt-12 flex justify-center">
     <Pagination
       id="events-pagination"
-      items={shortMonths}
-      activeIndex={currentMonth}
+      items={["1"]}
+      activeIndex={0}
       maxVisible={5}
     />
   </div>
@@ -101,12 +101,17 @@ const currentYear = now.getFullYear();
   const searchInputDesktop = document.getElementById(
     "events-search-desktop",
   ) as HTMLInputElement | null;
+  
   const paginationRoot = document.getElementById("events-pagination");
+  const paginationContainer = document.getElementById("events-pagination-container");
   const eventItems = document.querySelectorAll<HTMLElement>(".event-item");
   const emptyMsg = document.getElementById("events-empty");
   const eventsList = document.getElementById("events-list");
+  
+  const resetBtn = document.getElementById("events-reset");
+  const resetBtnMobile = document.getElementById("events-reset-mobile");
 
-  const shortMonths = [
+  const monthsList = [
     "January",
     "February",
     "March",
@@ -121,62 +126,109 @@ const currentYear = now.getFullYear();
     "December",
   ];
 
-  let activeMonth = new Date().getMonth();
-  let activeYear = new Date().getFullYear();
+  let activeMonth = -1; // -1 for "All"
+  let activeYear = -1;  // -1 for "All"
+  let activePage = 0;
   let searchQuery = "";
+  const itemsPerPage = 4;
 
   function filterEvents() {
-    let visibleCount = 0;
+    // 1. Determine matches based on filters
+    const matches: HTMLElement[] = [];
     eventItems.forEach((item) => {
       const m = parseInt(item.dataset.month || "-1");
       const y = parseInt(item.dataset.year || "-1");
       const title = item.dataset.title || "";
 
+      const monthMatch = activeMonth === -1 || m === activeMonth;
+      const yearMatch = activeYear === -1 || y === activeYear;
       const searchMatch = !searchQuery || title.includes(searchQuery.toLowerCase());
 
-      // When searching, ignore month/year filters
-      const visible = searchQuery
-        ? searchMatch
-        : m === activeMonth && y === activeYear;
-
-      item.style.display = visible ? "" : "none";
-      if (visible) visibleCount++;
+      if (monthMatch && yearMatch && searchMatch) {
+        matches.push(item);
+      }
+      
+      // Initially hide all
+      item.style.display = "none";
     });
 
-    if (emptyMsg) emptyMsg.classList.toggle("hidden", visibleCount > 0);
-    if (eventsList) eventsList.classList.toggle("hidden", visibleCount === 0);
+    // 2. Calculate pagination
+    const totalPages = Math.ceil(matches.length / itemsPerPage);
+    if (activePage >= totalPages) activePage = Math.max(0, totalPages - 1);
+
+    // 3. Show items for current page
+    const start = activePage * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageMatches = matches.slice(start, end);
+    
+    pageMatches.forEach(item => {
+      item.style.display = "";
+    });
+
+    // 4. Update empty state
+    if (emptyMsg) emptyMsg.classList.toggle("hidden", matches.length > 0);
+    if (eventsList) eventsList.classList.toggle("hidden", matches.length === 0);
+
+    // 5. Show/Hide Reset Button
+    const isFiltered = activeMonth !== -1 || activeYear !== -1 || searchQuery !== "";
+    if (resetBtn) resetBtn.style.display = isFiltered ? "flex" : "none";
+    if (resetBtnMobile) resetBtnMobile.style.display = isFiltered ? "flex" : "none";
+
+    // 6. Update pagination UI
+    if (paginationContainer) {
+      paginationContainer.classList.toggle("hidden", totalPages <= 1);
+    }
+
+    if (paginationRoot && totalPages > 1) {
+      const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
+      paginationRoot.dispatchEvent(
+        new CustomEvent("pagination:update", { 
+          detail: { 
+            items: pageItems,
+            active: activePage 
+          } 
+        })
+      );
+    }
   }
 
-  // Sync pagination to external changes
-  function setPaginationIndex(index: number) {
-    if (!paginationRoot) return;
-    paginationRoot.dataset.active = String(index);
-    paginationRoot.dispatchEvent(
-      new CustomEvent("pagination:set", { detail: { index } }),
-    );
+  function resetFilters() {
+    activeMonth = -1;
+    activeYear = -1;
+    activePage = 0;
+    searchQuery = "";
+
+    if (monthSelect) monthSelect.value = "All";
+    if (monthSelectMobile) monthSelectMobile.value = "All";
+    if (yearSelect) yearSelect.value = "All";
+    if (yearSelectMobile) yearSelectMobile.value = "All";
+    if (searchInput) searchInput.value = "";
+    if (searchInputDesktop) searchInputDesktop.value = "";
+
+    filterEvents();
   }
 
-  // Sync all month selects to a given value
-  function syncMonthSelects(value: string) {
-    if (monthSelect) monthSelect.value = value;
-    if (monthSelectMobile) monthSelectMobile.value = value;
-  }
+  resetBtn?.addEventListener("click", resetFilters);
+  resetBtnMobile?.addEventListener("click", resetFilters);
 
   // Listen for pagination changes
   document.addEventListener("pagination:change", (e: Event) => {
     const { id, index } = (e as CustomEvent).detail;
     if (id !== "events-pagination") return;
-    activeMonth = index;
-    syncMonthSelects(shortMonths[index]);
-    filterEvents();
+    if (activePage !== index) {
+      activePage = index;
+      filterEvents();
+      // Scroll to top of list
+      eventsList?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 
   // Desktop month dropdown
   if (monthSelect) {
     monthSelect.addEventListener("change", () => {
-      activeMonth = shortMonths.indexOf(monthSelect.value);
+      activeMonth = monthSelect.value === "All" ? -1 : monthsList.indexOf(monthSelect.value);
       if (monthSelectMobile) monthSelectMobile.value = monthSelect.value;
-      setPaginationIndex(activeMonth);
+      activePage = 0;
       filterEvents();
     });
   }
@@ -184,9 +236,9 @@ const currentYear = now.getFullYear();
   // Mobile month dropdown
   if (monthSelectMobile) {
     monthSelectMobile.addEventListener("change", () => {
-      activeMonth = shortMonths.indexOf(monthSelectMobile.value);
+      activeMonth = monthSelectMobile.value === "All" ? -1 : monthsList.indexOf(monthSelectMobile.value);
       if (monthSelect) monthSelect.value = monthSelectMobile.value;
-      setPaginationIndex(activeMonth);
+      activePage = 0;
       filterEvents();
     });
   }
@@ -194,8 +246,9 @@ const currentYear = now.getFullYear();
   // Desktop year dropdown
   if (yearSelect) {
     yearSelect.addEventListener("change", () => {
-      activeYear = parseInt(yearSelect.value);
+      activeYear = yearSelect.value === "All" ? -1 : parseInt(yearSelect.value);
       if (yearSelectMobile) yearSelectMobile.value = yearSelect.value;
+      activePage = 0;
       filterEvents();
     });
   }
@@ -203,16 +256,18 @@ const currentYear = now.getFullYear();
   // Mobile year dropdown
   if (yearSelectMobile) {
     yearSelectMobile.addEventListener("change", () => {
-      activeYear = parseInt(yearSelectMobile.value);
+      activeYear = yearSelectMobile.value === "All" ? -1 : parseInt(yearSelectMobile.value);
       if (yearSelect) yearSelect.value = yearSelectMobile.value;
+      activePage = 0;
       filterEvents();
     });
   }
 
-  // Mobile search input (toggled by icon)
+  // Mobile search input
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       searchQuery = searchInput.value.trim();
+      activePage = 0;
       filterEvents();
     });
   }
@@ -221,6 +276,7 @@ const currentYear = now.getFullYear();
   if (searchInputDesktop) {
     searchInputDesktop.addEventListener("input", () => {
       searchQuery = searchInputDesktop.value.trim();
+      activePage = 0;
       filterEvents();
     });
   }

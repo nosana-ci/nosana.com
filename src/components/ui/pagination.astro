@@ -198,6 +198,19 @@ const { items, activeIndex = 0, id, maxVisible = 5 } = Astro.props;
       render();
     }) as EventListener);
 
+    // Allow external code to update items dynamically
+    root.addEventListener("pagination:update", ((e: CustomEvent) => {
+      const newItems = e.detail.items;
+      if (Array.isArray(newItems)) {
+        items.length = 0;
+        items.push(...newItems);
+        active = e.detail.active !== undefined ? e.detail.active : 0;
+        root.dataset.active = String(active);
+        root.dataset.items = JSON.stringify(items);
+        render();
+      }
+    }) as EventListener);
+
     // Re-render on resize to switch between mobile/desktop layout
     window.addEventListener("resize", render);
 
