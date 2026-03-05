@@ -12,11 +12,10 @@ if (!entry) {
 
 const { nosToken } = entry.data;
 const { features } = nosToken;
-
 ---
 
 <section
-  class="mt-8 md:mt-16 lg:mt-18 flex w-full flex-col gap-8 lg:gap-12 overflow-hidden px-4 lg:px-12"
+  class="mt-8 flex w-full flex-col gap-8 overflow-hidden px-4 md:mt-16 lg:mt-18 lg:gap-12 lg:px-12"
 >
   <!-- Header -->
   <div class="flex max-w-[800px] flex-col gap-4">
@@ -30,7 +29,7 @@ const { features } = nosToken;
   </div>
 
   <!-- Features List -->
-  <div class="flex flex-col gap-8 md:gap-16 lg:gap-12 md:py-8 lg:py-12">
+  <div class="flex flex-col gap-8 md:gap-16 md:py-8 lg:gap-12 lg:py-12">
     {
       features.map((feature, idx) => {
         const isEven = idx % 2 === 0;
@@ -54,39 +53,33 @@ const { features } = nosToken;
               <Image
                 src={feature.image}
                 alt={feature.title}
-                class="w-[350px] h-[300px] lg:w-[600px] lg:h-[500px] object-contain"
+                class="h-auto w-full object-contain lg:h-[500px] lg:w-[600px]"
               />
             </div>
 
             {/* Content Side */}
             <div class={contentAlignClass}>
-              <div class="flex flex-col gap-4 mt-8 max-w-xl">
+              <div class="mt-8 flex max-w-xl flex-col gap-4">
                 <Badge
                   title={feature.tab.text}
                   icon={feature.tab.icon}
                   class="w-fit"
                 />
 
-                <h3 class="h4 grotesk text-primary">
-                  {feature.title}
-                </h3>
+                <h3 class="h4 grotesk text-primary">{feature.title}</h3>
 
-                <p class="body3 text-secondary">
-                  {feature.description}
-                </p>
+                <p class="body3 text-secondary">{feature.description}</p>
 
-                {
-                  feature.cta && (
-                    <div class="pt-4">
-                      <Button
-                        title={feature.cta.title}
-                        url={feature.cta.url}
-                        variant="secondary"
-                        data-cta="staking"
-                      />
-                    </div>
-                  )
-                }
+                {feature.cta && (
+                  <div class="pt-4">
+                    <Button
+                      title={feature.cta.title}
+                      url={feature.cta.url}
+                      variant="secondary"
+                      data-cta="staking"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -94,5 +87,5 @@ const { features } = nosToken;
       })
     }
   </div>
-
 </section>
+

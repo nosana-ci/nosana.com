@@ -7,7 +7,8 @@ import speakerIcon from "../../assets/icons/speaker.svg?raw";
 
 interface Props {
   heading?: string;
-  videoSrc: string;
+  videoSrc?: string;
+  youtubeId?: string;
   poster?: string;
   cta?: {
     title: string;
@@ -16,7 +17,7 @@ interface Props {
   darkControls?: boolean;
 }
 
-const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
+const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astro.props;
 ---
 
 <section class="bg-bg-base w-full px-4 lg:px-12" data-video-section>
@@ -27,15 +28,25 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
   }
 
   <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
-    <video
-      class="h-full w-full object-cover"
-      poster={poster}
-      preload="metadata"
-      muted
-      data-video
-    >
-      <source src={videoSrc} type="video/mp4" />
-    </video>
+    {youtubeId ? (
+      <iframe
+        class="h-full w-full"
+        src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0`}
+        allow="autoplay; encrypted-media"
+        allowfullscreen={false}
+        data-youtube
+      />
+    ) : (
+      <video
+        class="h-full w-full object-cover"
+        poster={poster}
+        preload="metadata"
+        muted
+        data-video
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+    )}
 
     <div
       class="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-between bg-linear-to-t from-black/50 to-transparent p-2 sm:p-4 md:p-10"
@@ -110,62 +121,128 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
 </section>
 
 <script>
+  // Load YouTube IFrame API if any YouTube sections exist
+  const youtubeSections = document.querySelectorAll("[data-youtube]");
+  if (youtubeSections.length > 0 && !(window as any).YT) {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
+
   document.querySelectorAll("[data-video-section]").forEach((section) => {
-    const video = section.querySelector(
-      "[data-video]",
-    ) as HTMLVideoElement | null;
-    const playBtn = section.querySelector(
-      "[data-play-btn]",
-    ) as HTMLButtonElement | null;
-    const muteBtn = section.querySelector(
-      "[data-mute-btn]",
-    ) as HTMLButtonElement | null;
-    const playIconEl = section.querySelector(
-      "[data-play-icon]",
-    ) as HTMLElement | null;
-    const pauseIconEl = section.querySelector(
-      "[data-pause-icon]",
-    ) as HTMLElement | null;
-    const mutedIconEl = section.querySelector(
-      "[data-muted-icon]",
-    ) as HTMLElement | null;
-    const unmutedIconEl = section.querySelector(
-      "[data-unmuted-icon]",
-    ) as HTMLElement | null;
+    const video = section.querySelector("[data-video]") as HTMLVideoElement | null;
+    const youtubeIframe = section.querySelector("[data-youtube]") as HTMLIFrameElement | null;
+    const playBtn = section.querySelector("[data-play-btn]") as HTMLButtonElement | null;
+    const muteBtn = section.querySelector("[data-mute-btn]") as HTMLButtonElement | null;
+    const playIconEl = section.querySelector("[data-play-icon]") as HTMLElement | null;
+    const pauseIconEl = section.querySelector("[data-pause-icon]") as HTMLElement | null;
+    const mutedIconEl = section.querySelector("[data-muted-icon]") as HTMLElement | null;
+    const unmutedIconEl = section.querySelector("[data-unmuted-icon]") as HTMLElement | null;
 
-    if (!video) return;
+    const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
 
-    function syncPlayIcons() {
-      if (!video || !playIconEl || !pauseIconEl) return;
-      const playing = !video.paused;
-      playIconEl.classList.toggle("hidden", playing);
-      pauseIconEl.classList.toggle("hidden", !playing);
+    function syncPlayIcons(playing: boolean) {
+      playIconEl?.classList.toggle("hidden", playing);
+      pauseIconEl?.classList.toggle("hidden", !playing);
     }
 
-    function syncMuteIcons() {
-      if (!video || !mutedIconEl || !unmutedIconEl) return;
-      mutedIconEl.classList.toggle("hidden", !video.muted);
-      unmutedIconEl.classList.toggle("hidden", video.muted);
+    function syncMuteIcons(muted: boolean) {
+      mutedIconEl?.classList.toggle("hidden", !muted);
+      unmutedIconEl?.classList.toggle("hidden", muted);
+    }
+
+    // --- YouTube path ---
+    if (youtubeIframe) {
+      let ytPlayer: any = null;
+      let isMuted = true;
+      let videoStarted = false;
+
+      function initYT() {
+        ytPlayer = new (window as any).YT.Player(youtubeIframe, {
+          events: {
+            onStateChange: (e: any) => {
+              const YT = (window as any).YT.PlayerState;
+              const playing = e.data === YT.PLAYING;
+              syncPlayIcons(playing);
+              const dl = (window as any).dataLayer || [];
+              if (playing) {
+                if (!videoStarted) {
+                  videoStarted = true;
+                  dl.push({ event: "video_start", video_title: videoTitle, page_path: window.location.pathname });
+                }
+                dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
+              }
+              if (e.data === YT.ENDED) {
+                dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
+              }
+            },
+          },
+        });
+        ytPlayer.mute();
+        syncMuteIcons(true);
+        syncPlayIcons(false);
+      }
+
+      if ((window as any).YT?.Player) {
+        initYT();
+      } else {
+        const prev = (window as any).onYouTubeIframeAPIReady;
+        (window as any).onYouTubeIframeAPIReady = () => {
+          prev?.();
+          initYT();
+        };
+      }
+
+      playBtn?.addEventListener("click", () => {
+        if (!ytPlayer) return;
+        const state = ytPlayer.getPlayerState();
+        const YT = (window as any).YT.PlayerState;
+        if (state === YT.PLAYING) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      });
+
+      muteBtn?.addEventListener("click", () => {
+        if (!ytPlayer) return;
+        if (isMuted) {
+          ytPlayer.unMute();
+          isMuted = false;
+        } else {
+          ytPlayer.mute();
+          isMuted = true;
+        }
+        syncMuteIcons(isMuted);
+      });
+
+      return;
+    }
+
+    // --- Native video path ---
+    if (!video) return;
+
+    function syncVideoPlayIcons() {
+      syncPlayIcons(!video!.paused);
+    }
+
+    function syncVideoMuteIcons() {
+      syncMuteIcons(video!.muted);
     }
 
     playBtn?.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
-      }
+      if (video!.paused) video!.play();
+      else video!.pause();
     });
 
     muteBtn?.addEventListener("click", () => {
-      video.muted = !video.muted;
-      syncMuteIcons();
+      video!.muted = !video!.muted;
+      syncVideoMuteIcons();
     });
 
-    // Video analytics
     let videoStarted = false;
-    const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
     video.addEventListener("play", () => {
-      syncPlayIcons();
+      syncVideoPlayIcons();
       const dl = (window as any).dataLayer || [];
       if (!videoStarted) {
         videoStarted = true;
@@ -173,15 +250,13 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       }
       dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
     });
-
-    video.addEventListener("pause", syncPlayIcons);
-
+    video.addEventListener("pause", syncVideoPlayIcons);
     video.addEventListener("ended", () => {
       const dl = (window as any).dataLayer || [];
       dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
     });
 
-    syncPlayIcons();
-    syncMuteIcons();
+    syncVideoPlayIcons();
+    syncVideoMuteIcons();
   });
 </script>
