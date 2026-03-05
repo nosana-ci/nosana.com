@@ -106,6 +106,13 @@ html {
   }
 }
 
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  color: #fafafa;
+}
+
 .testimonial-card-shadow {
   box-shadow: 9px -12px 14.3px 0 rgba(0, 0, 0, 0.25);
 }

@@ -5,13 +5,14 @@ import glowImage from "../../content/homepage/assets/glowImg.svg";
 
 interface Props {
   image: any;
+  safariImage?: any;
   title: string;
   description: string;
   caption: string;
   url: string;
 }
 
-const { image, title, description, caption, url } = Astro.props;
+const { image, safariImage, title, description, caption, url } = Astro.props;
 const [titleMain, titleSub] = title.split("-");
 ---
 
@@ -30,8 +31,9 @@ const [titleMain, titleSub] = title.split("-");
 
       <img
         src={image.src ?? image}
+        data-safari-src={safariImage?.src ?? safariImage}
         alt={title}
-        class="border-elevated relative z-10 h-auto w-full border select-none"
+        class="path-card-image border-elevated relative z-10 h-auto w-full border select-none"
       />
     </div>
 
