@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import Badge from "../ui/badge.astro";
 import playIcon from "../../assets/icons/play.svg?raw";
 import pauseIcon from "../../assets/icons/pause.svg?raw";
-import tutorialVideo from "../../content/gpu-providers/assets/tutorial.mp4";
 
 type Props = {
   videoSection: CollectionEntry<"gpuProviders">["data"]["videoSection"];
@@ -21,21 +20,21 @@ const headingParts = heading.split(" - ");
    <div class="lg:w-[45%] w-full lg:pr-10">
 
      <Badge title={badge.title} class="mb-4" />
-   
-   
+
+
      <!-- Heading -->
      <h2 class="text-primary h4 grotesk max-w-3xl mb-4">
        {headingParts[0]}
        {headingParts[1] && <span class="text-brand-100">{headingParts[1]}</span>}
      </h2>
-   
+
      <!-- Description -->
      <p class="text-secondary md:max-w-xl mb-8 md:mb-16 lg:mb-18 body2">
        {description}
      </p>
    </div>
    <div class="aspect-video w-full h-auto flex flex-1 bg-black rounded-lg relative overflow-hidden">
-      <video
+      <iframe
         id="tutorial-video"
         class="w-full h-full object-cover"
         src={tutorialVideo}
@@ -91,6 +90,7 @@ const headingParts = heading.split(" - ");
       }
       dl.push({ event: "video_play", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });
+  }
 
     video.addEventListener("pause", syncIcons);
 
@@ -100,4 +100,17 @@ const headingParts = heading.split(" - ");
       dl.push({ event: "video_complete", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });
   }
+
+  loadYTApi();
+
+  videoControl?.addEventListener("click", () => {
+    if (!ytPlayer) return;
+    const state = ytPlayer.getPlayerState();
+    const YT = (window as any).YT.PlayerState;
+    if (state === YT.PLAYING) {
+      ytPlayer.pauseVideo();
+    } else {
+      ytPlayer.playVideo();
+    }
+  });
 </script>
