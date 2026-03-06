@@ -37,7 +37,7 @@ const latestCaseStudies = caseStudies
     {caseStudySection.description}
   </p>
 
-  <div class="md:px-8">
+  <div class="max-w-7xl mx-auto">
     <div
       class="hidden md:grid grid-cols-[1fr_1.5fr_2fr_50px] gap-8 px-6 py-4 text-tertiary body2"
     >
@@ -58,19 +58,21 @@ const latestCaseStudies = caseStudies
             >
               {/* Main Row / Header */}
               <div 
-                class="mobile-trigger grid grid-cols-[auto_1fr_24px] md:grid-cols-[1fr_1.5fr_2fr_50px] gap-4 md:gap-8 items-center px-4 md:px-6 py-6 md:py-8 hover:bg-white/2 transition-colors cursor-pointer group"
+                class="mobile-trigger grid grid-cols-[80px_1fr_24px] md:grid-cols-[1fr_1.5fr_2fr_50px] gap-4 md:gap-8 items-center px-4 md:px-6 py-6 md:py-8 hover:bg-white/2 transition-colors cursor-pointer group"
               >
                 {/* Partner Column */}
-                <div class="flex items-center gap-3 md:gap-4 overflow-hidden">
-                  {study.data.logo && (
-                    <div class="h-7 md:h-8 w-auto flex items-center justify-center shrink-0">
+                <div class="flex items-center gap-3 md:gap-4 overflow-hidden shrink-0">
+                  {study.data.logo ? (
+                    <div class="w-16 md:w-auto h-auto md:h-8 flex items-center justify-center shrink-0">
                       <Image
                         src={study.data.logo}
                         alt={study.data.title}
-                        height={24}
-                        class="h-full w-auto object-contain"
+                        width={80}
+                        class="w-full md:w-auto h-auto md:h-full object-contain"
                       />
                     </div>
+                  ) : (
+                    <div class="w-16 md:w-8 h-auto md:h-8 shrink-0" />
                   )}
                 </div>
 
@@ -114,9 +116,9 @@ const latestCaseStudies = caseStudies
                   <div class="flex justify-end">
                     <a 
                       href={`/case-studies/${study.id}`} 
-                      class="w-12 h-12 border border-tertiary rounded-xl flex items-center justify-center hover:border-primary transition-colors"
+                      class="w-9 h-9 border border-tertiary rounded-lg flex items-center justify-center hover:border-primary transition-colors"
                     >
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-tertiary" />
                       </svg>
                     </a>

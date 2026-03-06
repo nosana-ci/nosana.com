@@ -3,6 +3,7 @@ category: "case-study"
 title: "Nosana Partners with Theoriq to Foster Frictionless AI Innovation"
 description: "Power your latest AI invention with just a flick of a switch."
 thumbnail: "./assets/theoriq_blog.jpg"
+logo: "./assets/theoriq.svg"
 createdAt: "2024-07-09"
 tags:
   - "news"

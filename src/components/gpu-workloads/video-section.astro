@@ -30,7 +30,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
   <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
     {youtubeId ? (
       <iframe
-        class="h-full w-full"
+        class="h-full w-full pointer-events-none"
         src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0`}
         allow="autoplay; encrypted-media"
         allowfullscreen={false}
@@ -38,7 +38,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       />
     ) : (
       <video
-        class="h-full w-full object-cover"
+        class="h-full w-full object-cover pointer-events-none"
         poster={poster}
         preload="metadata"
         muted
@@ -48,8 +48,10 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       </video>
     )}
 
+    <div class="absolute inset-0 z-10 cursor-pointer" data-video-overlay></div>
+
     <div
-      class="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-between bg-linear-to-t from-black/50 to-transparent p-2 sm:p-4 md:p-10"
+      class="pointer-events-none absolute right-0 bottom-0 left-0 z-20 flex items-end justify-between bg-linear-to-t from-black/50 to-transparent p-2 sm:p-4 md:p-10"
     >
       <button
         class="pointer-events-auto flex h-8 w-8 cursor-pointer items-center justify-center text-white transition-opacity"
@@ -132,6 +134,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
   document.querySelectorAll("[data-video-section]").forEach((section) => {
     const video = section.querySelector("[data-video]") as HTMLVideoElement | null;
     const youtubeIframe = section.querySelector("[data-youtube]") as HTMLIFrameElement | null;
+    const overlay = section.querySelector("[data-video-overlay]") as HTMLElement | null;
     const playBtn = section.querySelector("[data-play-btn]") as HTMLButtonElement | null;
     const muteBtn = section.querySelector("[data-mute-btn]") as HTMLButtonElement | null;
     const playIconEl = section.querySelector("[data-play-icon]") as HTMLElement | null;
@@ -193,7 +196,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
         };
       }
 
-      playBtn?.addEventListener("click", () => {
+      function toggleYTPlay() {
         if (!ytPlayer) return;
         const state = ytPlayer.getPlayerState();
         const YT = (window as any).YT.PlayerState;
@@ -202,7 +205,10 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
         } else {
           ytPlayer.playVideo();
         }
-      });
+      }
+
+      playBtn?.addEventListener("click", toggleYTPlay);
+      overlay?.addEventListener("click", toggleYTPlay);
 
       muteBtn?.addEventListener("click", () => {
         if (!ytPlayer) return;
@@ -230,10 +236,13 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       syncMuteIcons(video!.muted);
     }
 
-    playBtn?.addEventListener("click", () => {
+    function toggleVideoPlay() {
       if (video!.paused) video!.play();
       else video!.pause();
-    });
+    }
+
+    playBtn?.addEventListener("click", toggleVideoPlay);
+    overlay?.addEventListener("click", toggleVideoPlay);
 
     muteBtn?.addEventListener("click", () => {
       video!.muted = !video!.muted;

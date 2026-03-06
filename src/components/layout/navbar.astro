@@ -51,6 +51,15 @@ const normalizedCurrentPath = normalizePath(currentPath);
           const isBaseActive = normalizedCurrentPath === itemUrl;
           const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
           const isActive = isBaseActive || isSubActive;
+          const isDropdown = item.type === "dropdown";
+
+          const commonClasses = [
+            "flex items-center font-semibold body4 gap-2 h-full transition-colors cursor-pointer whitespace-nowrap",
+            isActive
+              ? "text-brand-100!"
+              : "text-primary group-hover:text-brand-100!",
+          ];
+
           return (
             <div
               class="nav-item group h-full flex items-center"
@@ -58,34 +67,46 @@ const normalizedCurrentPath = normalizePath(currentPath);
               data-url={item.url}
               data-target={item.target}
             >
-              <button
-                class:list={[
-                  "flex items-center font-semibold body4 gap-2 h-full transition-colors cursor-pointer whitespace-nowrap",
-                  isActive
-                    ? "text-brand-100"
-                    : "text-primary group-hover:text-brand-100",
-                ]}
-              >
-                {item.title}
-                {item.icon && (
-                  <div
-                    class:list={[
-                      "w-4 h-4 flex items-center justify-center transition-all duration-300",
-                      item.type === "dropdown" ? "group-hover:rotate-180" : "",
-                    ]}
-                  >
+              {isDropdown ? (
+                <button class:list={commonClasses}>
+                  {item.title}
+                  {item.icon && (
                     <div
-                      class="w-4 h-4 bg-current transition-colors"
-                      style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
-                    />
-                  </div>
-                )}
-              </button>
+                      class:list={[
+                        "w-4 h-4 flex items-center justify-center transition-all duration-300",
+                        "group-hover:rotate-180",
+                      ]}
+                    >
+                      <div
+                        class="w-4 h-4 bg-current transition-colors"
+                        style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                      />
+                    </div>
+                  )}
+                </button>
+              ) : (
+                <a 
+                  href={item.url} 
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  class:list={commonClasses}
+                >
+                  {item.title}
+                  {item.icon && (
+                    <div class="w-4 h-4 flex items-center justify-center">
+                      <div
+                        class="w-4 h-4 bg-current transition-colors"
+                        style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                      />
+                    </div>
+                  )}
+                </a>
+              )}
 
               {item.type === "dropdown" && (
                 <div class="mega-menu absolute left-0 top-full w-full bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
                   <div class="mx-auto px-4 lg:px-12 py-10">
-
+... (rest of the mega menu content)
                     {/* community dropdown */}
                     {item.title === "Community" ? (
                       <div class="grid grid-cols-14 gap-12">
@@ -121,7 +142,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
                                   <div 
                                     class:list={[
                                       "flex items-center gap-1 font-semibold body4 transition-colors",
-                                      isSubActive ? "text-brand-100" : "text-primary group-hover/subitem:text-brand-100"
+                                      isSubActive ? "text-brand-100!" : "text-primary group-hover/subitem:text-brand-100!"
                                     ]}
                                   >
                                     {subItem.title}
@@ -191,7 +212,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
                                   <div 
                                     class:list={[
                                       "flex items-center gap-1 font-semibold body4 transition-colors",
-                                      isSubActive ? "text-brand-100" : "text-primary group-hover/subitem:text-brand-100"
+                                      isSubActive ? "text-brand-100!" : "text-primary group-hover/subitem:text-brand-100!"
                                     ]}
                                   >
                                     {subItem.title}
@@ -263,6 +284,8 @@ const normalizedCurrentPath = normalizePath(currentPath);
           const isBaseActive = normalizedCurrentPath === itemUrl;
           const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
           const isActive = isBaseActive || isSubActive;
+          const isDropdown = item.type === "dropdown";
+
           return (
             <div
               class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
@@ -270,32 +293,60 @@ const normalizedCurrentPath = normalizePath(currentPath);
               data-url={item.url}
               data-target={item.target}
             >
-              <div class="flex items-center justify-start gap-2 w-full group cursor-pointer mobile-trigger">
-                <span
-                  class:list={[
-                    "text-lg font-semibold transition-colors",
-                    isActive
-                      ? "text-brand-100"
-                      : "text-primary group-hover:text-brand-100",
-                  ]}
-                >
-                  {item.title}
-                </span>
-              {item.icon && (
-                <div
-                  class:list={[
-                    "w-5 h-5 flex items-center justify-center transition-transform duration-300 mobile-icon",
-                  ]}
-                >
-                  <div
-                    class="w-full h-full bg-current"
-                    style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
-                  />
+              {isDropdown ? (
+                <div class="flex items-center justify-start gap-2 w-full group cursor-pointer mobile-trigger">
+                  <span
+                    class:list={[
+                      "text-lg font-semibold transition-colors",
+                      isActive
+                        ? "text-brand-100!"
+                        : "text-primary group-hover:text-brand-100!",
+                    ]}
+                  >
+                    {item.title}
+                  </span>
+                  {item.icon && (
+                    <div
+                      class:list={[
+                        "w-5 h-5 flex items-center justify-center transition-transform duration-300 mobile-icon",
+                      ]}
+                    >
+                      <div
+                        class="w-full h-full bg-current"
+                        style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                      />
+                    </div>
+                  )}
                 </div>
+              ) : (
+                <a 
+                  href={item.url} 
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  class="flex items-center justify-start gap-2 w-full group cursor-pointer"
+                >
+                  <span
+                    class:list={[
+                      "text-lg font-semibold transition-colors",
+                      isActive
+                        ? "text-brand-100!"
+                        : "text-primary group-hover:text-brand-100!",
+                    ]}
+                  >
+                    {item.title}
+                  </span>
+                  {item.icon && (
+                    <div class="w-5 h-5 flex items-center justify-center">
+                      <div
+                        class="w-full h-full bg-current"
+                        style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
+                      />
+                    </div>
+                  )}
+                </a>
               )}
-            </div>
 
-            {item.type === "dropdown" && item.subItems && (
+            {isDropdown && item.subItems && (
               <div class="mobile-dropdown-content hidden mt-4">
                 <div class="flex flex-col gap-6 pt-2 pb-4">
                   {item.subItems.items.map((subItem: any) => {
@@ -320,7 +371,7 @@ const normalizedCurrentPath = normalizePath(currentPath);
                           <span 
                             class:list={[
                               "font-semibold body4 transition-colors",
-                              isSubItemActive ? "text-brand-100" : "text-primary group-hover/sub:text-brand-100"
+                              isSubItemActive ? "text-brand-100!" : "text-primary group-hover/sub:text-brand-100!"
                             ]}
                           >
                             {subItem.title}
@@ -405,8 +456,8 @@ const normalizedCurrentPath = normalizePath(currentPath);
         const dropdown = item.querySelector(".mobile-dropdown-content");
         const icon = item.querySelector(".mobile-icon");
 
-        trigger?.addEventListener("click", () => {
-          if (type === "dropdown") {
+        if (type === "dropdown") {
+          trigger?.addEventListener("click", () => {
             const isHidden = dropdown?.classList.contains("hidden");
             
             // Close all other dropdowns
@@ -421,35 +472,8 @@ const normalizedCurrentPath = normalizePath(currentPath);
 
             dropdown?.classList.toggle("hidden");
             icon?.classList.toggle("rotate-180");
-          } else {
-            const url = item.getAttribute("data-url") || "/";
-            const target = item.getAttribute("data-target");
-            const isExternal = url?.startsWith("http");
-            const hasHash = url?.includes("#");
-            const [baseUrl, hash] = url?.split("#") || [];
-
-            if (target === "_blank") {
-              window.open(url, "_blank");
-            } else if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
-              // Same page anchor: scroll and close menu
-              const element = document.getElementById(hash);
-              if (element) {
-                // Close menu first
-                mobileToggle?.dispatchEvent(new Event('click'));
-                setTimeout(() => {
-                  element.scrollIntoView({ behavior: "smooth" });
-                  history.pushState(null, "", url);
-                }, 300);
-              }
-            } else {
-              // Regular link: close menu then navigate
-              mobileToggle?.dispatchEvent(new Event('click'));
-              setTimeout(() => {
-                window.location.href = url;
-              }, 150); // Small delay to allow menu animation
-            }
-          }
-        });
+          });
+        }
       });
 
       // Mobile Menu Link Clicks (Submenus, Featured Articles, etc.)
@@ -487,29 +511,6 @@ const normalizedCurrentPath = normalizePath(currentPath);
         const megaMenu = item.querySelector(".mega-menu") as HTMLElement | null;
         const url = item.getAttribute("data-url");
         let timeout: any = null;
-
-        if (type === "link") {
-          button?.addEventListener("click", () => {
-            const target = item.getAttribute("data-target");
-            const isExternal = url?.startsWith("http");
-            const hasHash = url?.includes("#");
-            const [baseUrl, hash] = url?.split("#") || [];
-
-            if (target === "_blank") {
-              window.open(url || "/", "_blank");
-            } else if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
-              // Same page anchor link
-              const element = document.getElementById(hash);
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-                // Update URL without reload
-                history.pushState(null, "", url);
-              }
-            } else {
-              window.location.href = url || "/";
-            }
-          });
-        }
 
         if (type === "dropdown") {
           const showMenu = () => {

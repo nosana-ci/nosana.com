@@ -36,14 +36,17 @@ const headingParts = heading.split(" - ");
    <div class="aspect-video w-full h-auto flex flex-1 bg-black rounded-lg relative overflow-hidden">
       <iframe
         id="tutorial-video"
-        class="w-full h-full"
+        class="w-full h-full pointer-events-none"
         src="https://www.youtube.com/embed/RVik-mh0wWY?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0"
         allow="autoplay; encrypted-media"
       ></iframe>
+
+      <div class="absolute inset-0 z-10 cursor-pointer" id="video-overlay"></div>
+
       <!-- Video control button -->
       <button
         id="video-control"
-        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white cursor-pointer"
+        class="absolute bottom-4 right-4 z-20 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white cursor-pointer"
       >
         <div id="play-status" class="flex items-center justify-center">
           <Fragment set:html={playIcon} />
@@ -61,6 +64,7 @@ const headingParts = heading.split(" - ");
 
   const iframe = document.getElementById("tutorial-video") as HTMLIFrameElement | null;
   const videoControl = document.getElementById("video-control");
+  const videoOverlay = document.getElementById("video-overlay");
   const playStatus = document.getElementById("play-status");
   const pauseStatus = document.getElementById("pause-status");
 
@@ -109,7 +113,7 @@ const headingParts = heading.split(" - ");
 
   loadYTApi();
 
-  videoControl?.addEventListener("click", () => {
+  function togglePlay() {
     if (!ytPlayer) return;
     const state = ytPlayer.getPlayerState();
     const YT = (window as any).YT.PlayerState;
@@ -118,5 +122,8 @@ const headingParts = heading.split(" - ");
     } else {
       ytPlayer.playVideo();
     }
-  });
+  }
+
+  videoControl?.addEventListener("click", togglePlay);
+  videoOverlay?.addEventListener("click", togglePlay);
 </script>
