@@ -3,6 +3,7 @@ category: "case-study"
 title: "Nosana Partners with AlphaNeural to Democratize AI Model Development"
 description: "AlphaNeural's platform will leverage Nosana's high-performance GPU infrastructure."
 thumbnail: "./assets/NosanaXAlphaBlog.jpg"
+logo: "./assets/alpha.svg"
 createdAt: "2024-06-18"
 tags:
   - "news"

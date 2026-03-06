@@ -3,6 +3,7 @@ category: "case-study"
 title: "Sogni AI: Revolutionizing Gen AI Creative Tools with Nosana’s GPU Power"
 description: "Sogni has made waves with its AI-powered art creation tool, Sogni Studio. Its mission is to empower artists using next-generation tools driven by open-source AI models."
 thumbnail: "./assets/thumbnail.jpeg"
+logo: "./assets/sogni.svg"
 createdAt: "2024-07-09"
 tags:
   - "news"

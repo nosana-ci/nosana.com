@@ -3,6 +3,7 @@ category: "case-study"
 title: "Nosana Partners with Sallar to Expand the Frontiers of Distributed Compute"
 description: "The way compute is organized is changing. Millions of everyday devices are already participating in global networks, and today we are excited to announce a strategic partnership between Nosana and Sallar that brings together mobile based computing with high performance GPU infrastructure to create a more flexible and scalable ecosystem for AI builders."
 thumbnail: "./assets/thumbnail.webp"
+logo: "./assets/sallar.svg"
 createdAt: "2026-02-12"
 tags:
   - "news"

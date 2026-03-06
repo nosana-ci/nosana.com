@@ -3,6 +3,7 @@ category: "case-study"
 title: "Alio uses Nosana GPU Cloud to Secure Agentic LLMs at Scale"
 description: "How an independent AI security lab runs large-scale LLM risk detection and red-teaming simulations with low-cost, on-demand GPU compute."
 thumbnail: "./assets/alio_nosana.png"
+logo: "./assets/alio.svg"
 createdAt: "2026-02-19"
 tags:
   - "news"
