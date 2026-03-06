@@ -27,16 +27,26 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
     )
   }
 
-    <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
-    <video
-      class="h-full w-full object-cover"
-      poster={poster}
-      preload="metadata"
-      muted
-      data-video
-    >
-      <source src={videoSrc} type="video/mp4" />
-    </video>
+  <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    {youtubeId ? (
+      <iframe
+        class="h-full w-full"
+        src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0`}
+        allow="autoplay; encrypted-media"
+        allowfullscreen={false}
+        data-youtube
+      />
+    ) : (
+      <video
+        class="h-full w-full object-cover"
+        poster={poster}
+        preload="metadata"
+        muted
+        data-video
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+    )}
 
     <div
       class="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-between bg-linear-to-t from-black/50 to-transparent p-2 sm:p-4 md:p-10"
@@ -62,10 +72,11 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
         </span>
       </button>
 
-      <div class="flex items-center gap-3">
-        <div
-          class="flex items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-9 md:[&_svg]:w-9"
-          data-play-indicator
+      <div class="pointer-events-auto flex items-center gap-3">
+        <button
+          class="flex cursor-pointer items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5 md:[&_svg]:h-9 md:[&_svg]:w-9"
+          aria-label="Play / Pause"
+          data-play-btn
         >
           <span data-play-icon class:list={[darkControls && "invert"]}
             ><Fragment set:html={playIcon} /></span
@@ -75,7 +86,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
             class:list={["hidden", darkControls && "invert"]}
             ><Fragment set:html={pauseIcon} /></span
           >
-        </div>
+        </button>
 
         {
           cta && (
@@ -86,15 +97,13 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
                   darkControls ? "bg-black/20" : "bg-white/20",
                 ]}
               />
-              <div class="pointer-events-auto">
-                <Button
-                  title={cta.title}
-                  url={cta.url}
-                  variant="secondary"
-                  class={darkControls ? "text-black!" : undefined}
-                  data-cta="deploy"
-                />
-              </div>
+              <Button
+                title={cta.title}
+                url={cta.url}
+                variant="secondary"
+                class={darkControls ? "text-black!" : undefined}
+                data-cta="deploy"
+              />
             </div>
           )
         }
@@ -105,12 +114,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
   {
     cta && (
       <div class="mt-2 flex w-full md:hidden">
-        <Button
-          title={cta.title}
-          url={cta.url}
-          variant="secondary"
-          data-cta="deploy"
-        />
+        <Button title={cta.title} url={cta.url} variant="secondary" data-cta="deploy" />
       </div>
     )
   }
@@ -126,24 +130,14 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
   }
 
   document.querySelectorAll("[data-video-section]").forEach((section) => {
-    const video = section.querySelector(
-      "[data-video]",
-    ) as HTMLVideoElement | null;
-    const muteBtn = section.querySelector(
-      "[data-mute-btn]",
-    ) as HTMLButtonElement | null;
-    const playIconEl = section.querySelector(
-      "[data-play-icon]",
-    ) as HTMLElement | null;
-    const pauseIconEl = section.querySelector(
-      "[data-pause-icon]",
-    ) as HTMLElement | null;
-    const mutedIconEl = section.querySelector(
-      "[data-muted-icon]",
-    ) as HTMLElement | null;
-    const unmutedIconEl = section.querySelector(
-      "[data-unmuted-icon]",
-    ) as HTMLElement | null;
+    const video = section.querySelector("[data-video]") as HTMLVideoElement | null;
+    const youtubeIframe = section.querySelector("[data-youtube]") as HTMLIFrameElement | null;
+    const playBtn = section.querySelector("[data-play-btn]") as HTMLButtonElement | null;
+    const muteBtn = section.querySelector("[data-mute-btn]") as HTMLButtonElement | null;
+    const playIconEl = section.querySelector("[data-play-icon]") as HTMLElement | null;
+    const pauseIconEl = section.querySelector("[data-pause-icon]") as HTMLElement | null;
+    const mutedIconEl = section.querySelector("[data-muted-icon]") as HTMLElement | null;
+    const unmutedIconEl = section.querySelector("[data-unmuted-icon]") as HTMLElement | null;
 
     const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
 
@@ -157,9 +151,40 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       unmutedIconEl?.classList.toggle("hidden", muted);
     }
 
-    video.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
+    // --- YouTube path ---
+    if (youtubeIframe) {
+      let ytPlayer: any = null;
+      let isMuted = true;
+      let videoStarted = false;
+
+      function initYT() {
+        ytPlayer = new (window as any).YT.Player(youtubeIframe, {
+          events: {
+            onStateChange: (e: any) => {
+              const YT = (window as any).YT.PlayerState;
+              const playing = e.data === YT.PLAYING;
+              syncPlayIcons(playing);
+              const dl = (window as any).dataLayer || [];
+              if (playing) {
+                if (!videoStarted) {
+                  videoStarted = true;
+                  dl.push({ event: "video_start", video_title: videoTitle, page_path: window.location.pathname });
+                }
+                dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
+              }
+              if (e.data === YT.ENDED) {
+                dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
+              }
+            },
+          },
+        });
+        ytPlayer.mute();
+        syncMuteIcons(true);
+        syncPlayIcons(false);
+      }
+
+      if ((window as any).YT?.Player) {
+        initYT();
       } else {
         const prev = (window as any).onYouTubeIframeAPIReady;
         (window as any).onYouTubeIframeAPIReady = () => {
@@ -210,40 +235,25 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       else video!.pause();
     });
 
-    muteBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      video.muted = !video.muted;
-      syncMuteIcons();
+    muteBtn?.addEventListener("click", () => {
+      video!.muted = !video!.muted;
+      syncVideoMuteIcons();
     });
 
     let videoStarted = false;
-    const videoTitle =
-      section.querySelector("h2")?.textContent?.trim() || "Video";
     video.addEventListener("play", () => {
       syncVideoPlayIcons();
       const dl = (window as any).dataLayer || [];
       if (!videoStarted) {
         videoStarted = true;
-        dl.push({
-          event: "video_start",
-          video_title: videoTitle,
-          page_path: window.location.pathname,
-        });
+        dl.push({ event: "video_start", video_title: videoTitle, page_path: window.location.pathname });
       }
-      dl.push({
-        event: "video_play",
-        video_title: videoTitle,
-        page_path: window.location.pathname,
-      });
+      dl.push({ event: "video_play", video_title: videoTitle, page_path: window.location.pathname });
     });
     video.addEventListener("pause", syncVideoPlayIcons);
     video.addEventListener("ended", () => {
       const dl = (window as any).dataLayer || [];
-      dl.push({
-        event: "video_complete",
-        video_title: videoTitle,
-        page_path: window.location.pathname,
-      });
+      dl.push({ event: "video_complete", video_title: videoTitle, page_path: window.location.pathname });
     });
 
     syncVideoPlayIcons();
