@@ -23,6 +23,7 @@ const normalizePath = (path: string) => {
 };
 
 const normalizedCurrentPath = normalizePath(currentPath);
+const isGrantsPage = normalizedCurrentPath === "/grants";
 ---
 
 <nav-container class="block w-full z-100" data-navbar>
@@ -31,16 +32,21 @@ const normalizedCurrentPath = normalizePath(currentPath);
   >
     <div class="flex items-center">
       <a href={navLogo.url} class="flex items-center py-4">
-        <!-- <Image
-          src={navLogo.lightImage}
-          alt={navLogo.alt}
-          class="h-[30px] w-auto dark:hidden"
-        /> -->
-        <Image
-          src={navLogo.darkImage}
-          alt={navLogo.alt}
-          class="md:h-[30px] h-[20px] w-auto"
-        />
+        {
+          isGrantsPage ? (
+            <img
+              src="/nosanaFoundation.svg"
+              alt="Nosana Foundation"
+              class="md:h-[30px] h-[20px] w-auto select-none"
+            />
+          ) : (
+            <Image
+              src={navLogo.darkImage}
+              alt={navLogo.alt}
+              class="md:h-[30px] h-[20px] w-auto select-none"
+            />
+          )
+        }
       </a>
     </div>
 
