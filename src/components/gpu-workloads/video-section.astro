@@ -7,7 +7,8 @@ import speakerIcon from "../../assets/icons/speaker.svg?raw";
 
 interface Props {
   heading?: string;
-  videoSrc: string;
+  videoSrc?: string;
+  youtubeId?: string;
   poster?: string;
   cta?: {
     title: string;
@@ -16,7 +17,7 @@ interface Props {
   darkControls?: boolean;
 }
 
-const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
+const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astro.props;
 ---
 
 <section class="bg-bg-base w-full px-4 lg:px-12" data-video-section>
@@ -116,6 +117,14 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
 </section>
 
 <script>
+  // Load YouTube IFrame API if any YouTube sections exist
+  const youtubeSections = document.querySelectorAll("[data-youtube]");
+  if (youtubeSections.length > 0 && !(window as any).YT) {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
+
   document.querySelectorAll("[data-video-section]").forEach((section) => {
     const video = section.querySelector(
       "[data-video]",
@@ -136,27 +145,69 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       "[data-unmuted-icon]",
     ) as HTMLElement | null;
 
-    if (!video) return;
+    const videoTitle = section.querySelector("h2")?.textContent?.trim() || "Video";
 
-    function syncPlayIcons() {
-      if (!video || !playIconEl || !pauseIconEl) return;
-      const playing = !video.paused;
-      playIconEl.classList.toggle("hidden", playing);
-      pauseIconEl.classList.toggle("hidden", !playing);
+    function syncPlayIcons(playing: boolean) {
+      playIconEl?.classList.toggle("hidden", playing);
+      pauseIconEl?.classList.toggle("hidden", !playing);
     }
 
-    function syncMuteIcons() {
-      if (!video || !mutedIconEl || !unmutedIconEl) return;
-      mutedIconEl.classList.toggle("hidden", !video.muted);
-      unmutedIconEl.classList.toggle("hidden", video.muted);
+    function syncMuteIcons(muted: boolean) {
+      mutedIconEl?.classList.toggle("hidden", !muted);
+      unmutedIconEl?.classList.toggle("hidden", muted);
     }
 
     video.addEventListener("click", () => {
       if (video.paused) {
         video.play();
       } else {
-        video.pause();
+        const prev = (window as any).onYouTubeIframeAPIReady;
+        (window as any).onYouTubeIframeAPIReady = () => {
+          prev?.();
+          initYT();
+        };
       }
+
+      playBtn?.addEventListener("click", () => {
+        if (!ytPlayer) return;
+        const state = ytPlayer.getPlayerState();
+        const YT = (window as any).YT.PlayerState;
+        if (state === YT.PLAYING) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      });
+
+      muteBtn?.addEventListener("click", () => {
+        if (!ytPlayer) return;
+        if (isMuted) {
+          ytPlayer.unMute();
+          isMuted = false;
+        } else {
+          ytPlayer.mute();
+          isMuted = true;
+        }
+        syncMuteIcons(isMuted);
+      });
+
+      return;
+    }
+
+    // --- Native video path ---
+    if (!video) return;
+
+    function syncVideoPlayIcons() {
+      syncPlayIcons(!video!.paused);
+    }
+
+    function syncVideoMuteIcons() {
+      syncMuteIcons(video!.muted);
+    }
+
+    playBtn?.addEventListener("click", () => {
+      if (video!.paused) video!.play();
+      else video!.pause();
     });
 
     muteBtn?.addEventListener("click", (e) => {
@@ -165,12 +216,11 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       syncMuteIcons();
     });
 
-    // Video analytics
     let videoStarted = false;
     const videoTitle =
       section.querySelector("h2")?.textContent?.trim() || "Video";
     video.addEventListener("play", () => {
-      syncPlayIcons();
+      syncVideoPlayIcons();
       const dl = (window as any).dataLayer || [];
       if (!videoStarted) {
         videoStarted = true;
@@ -186,9 +236,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
         page_path: window.location.pathname,
       });
     });
-
-    video.addEventListener("pause", syncPlayIcons);
-
+    video.addEventListener("pause", syncVideoPlayIcons);
     video.addEventListener("ended", () => {
       const dl = (window as any).dataLayer || [];
       dl.push({
@@ -198,7 +246,7 @@ const { heading, videoSrc, poster, cta, darkControls = false } = Astro.props;
       });
     });
 
-    syncPlayIcons();
-    syncMuteIcons();
+    syncVideoPlayIcons();
+    syncVideoMuteIcons();
   });
 </script>
