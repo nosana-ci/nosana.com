@@ -128,8 +128,6 @@ As the Inferia team explained:
 
 > “Decentralization does not need to add complexity. When designed well, it simplifies everything.”
 
----
-
 ## **What the Inferia Team Says**
 
 > “Inferia exists to make deploying AI models as simple as deploying a website \- fast, predictable, and developer-first. Nosana has been an integral part of that mission. Their decentralized GPU network gave us the freedom, flexibility, and reliability we needed to build the fastest model-deployment platform in the industry. We chose Nosana because they move like builders, not bureaucrats, fast, collaborative, and deeply aligned with real developer pain. This is only the beginning of what we’ll build together.”  

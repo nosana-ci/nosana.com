@@ -8,4 +8,5 @@ url: "https://luma.com/nosana-buidlday-SG"
 tags:
   - "recommended"
   - "featured"
+  - "featuredNav"
 ---

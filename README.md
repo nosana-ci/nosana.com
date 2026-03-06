@@ -1,46 +1,73 @@
-# Astro Starter Kit: Basics.................
+# Nosana Website
 
-```sh
-npm create astro@latest -- --template basics
-```
+This project is the main website for Nosana, built with Astro. Nosana is a decentralized GPU cloud platform designed for AI and high-performance workloads, allowing users to rent affordable GPUs or provide idle GPU power to the network.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech Stack
 
-## 🚀 Project Structure
+- **Framework**: Astro 5
+- **Styling**: Tailwind CSS
+- **Content**: MD/MDX with Astro Content Collections
+- **Deployment**: Traditional static hosting or SSR-compatible environments
 
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
+
+Inside this project, you will find the following core directories:
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/          # Static assets like icons and common SVGs
+├── src/
+│   ├── assets/      # Optimized images used within components
+│   ├── components/  # Reusable UI components
+│   ├── content/     # Markdown and YAML data for blogs, case studies, and grants
+│   ├── layouts/     # Page templates and document structure
+│   ├── pages/       # Routes and main entry points
+│   ├── styles/      # Global CSS and theme configurations
+│   ├── utils/       # Utility functions and Zod schemas
+│   └── content.config.ts  # Content collection definitions
+├── package.json     # Project dependencies and scripts
+└── astro.config.mjs # Astro configuration and integrations
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Getting Started
 
-## 🧞 Commands
+### Installation
 
-All commands are run from the root of the project, from a terminal:
+Install the project dependencies:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```sh
+npm install
+```
 
-## 👀 Want to learn more?
+### Development
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Start the local development server:
+
+```sh
+npm run dev
+```
+
+The site will be available at `http://localhost:4321`.
+
+### Build
+
+Create a production-ready build in the `./dist/` directory:
+
+```sh
+npm run build
+```
+
+### Sync
+
+Sync content collections and generate types:
+
+```sh
+npx astro sync
+```
+
+## Key Features
+
+- **Dynamic Content**: Uses Astro's latest Content Layer API for manageable markdown-based content.
+- **Grants Program**: Dedicated section for applying and tracking the Nosana Grants journey.
+- **Case Studies**: Showcasing real-world adoptions of the Nosana network.
+- **SEO Ready**: Automated metadata generation and schema markup for all articles.
