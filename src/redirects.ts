@@ -75,4 +75,6 @@ export const redirects = {
   "/blog/test_grid_phase_2_update": "/blog/test-grid-phase-2-update",
   "/blog/road_to_mainnet_nosanas_next_chapter": "/blog/road-to-mainnet-nosanas-next-chapter",
   "/blog/test_grid_phase_3_final_steps_to_mainnet": "/blog/test-grid-phase-3-final-steps-to-mainnet",
+  "/blog/nosana_christex": "/blog/empowering-african-languages-with-ai-how-christex-and-geneline-x-use-nosana",
+  "/blog/nosana_grants_program_aimo_network": "/blog/nosana-grants-program-welcomes-aimo-network",
 };
