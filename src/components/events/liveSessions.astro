@@ -88,17 +88,17 @@ const iconsSmall = {
           {featured.data.watchOnWeb && (
             <a href={featured.data.watchOnWeb} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on Web"
-               set:html={icons.web} />
+               data-cta="watch" set:html={icons.web} />
           )}
           {featured.data.watchOnYoutube && (
             <a href={featured.data.watchOnYoutube} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on YouTube"
-               set:html={icons.youtube} />
+               data-cta="watch" set:html={icons.youtube} />
           )}
           {featured.data.watchOnX && (
             <a href={featured.data.watchOnX} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on X"
-               set:html={icons.x} />
+               data-cta="watch" set:html={icons.x} />
           )}
         </div>
       </div>
@@ -157,17 +157,17 @@ const iconsSmall = {
                     {session.data.watchOnWeb && (
                       <a href={session.data.watchOnWeb} target="_blank"
                          class="text-secondary hover:text-primary transition" aria-label="Web"
-                         set:html={iconsSmall.web} />
+                         data-cta="watch" set:html={iconsSmall.web} />
                     )}
                     {session.data.watchOnYoutube && (
                       <a href={session.data.watchOnYoutube} target="_blank"
                          class="text-secondary hover:text-primary transition" aria-label="YouTube"
-                         set:html={iconsSmall.youtube} />
+                         data-cta="watch" set:html={iconsSmall.youtube} />
                     )}
                     {session.data.watchOnX && (
                       <a href={session.data.watchOnX} target="_blank"
                          class="text-secondary hover:text-primary transition" aria-label="X"
-                         set:html={iconsSmall.x} />
+                         data-cta="watch" set:html={iconsSmall.x} />
                     )}
                   </div>
                 </div>
