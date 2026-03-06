@@ -93,7 +93,7 @@ html {
 }
 
 *::selection {
-  background-color: #10e80c19;
+  background-color: #39FF1419;
 }
 
 :root {
@@ -104,6 +104,13 @@ html {
   :root {
     --testimonial-stack-offset: 40;
   }
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  color: #fafafa;
 }
 
 .testimonial-card-shadow {

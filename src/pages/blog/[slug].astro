@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
@@ -72,6 +74,7 @@ const blogPostingSchema = {
       <Image
         src={thumbnail}
         alt={title}
+        quality={100}
         class="border-default h-auto w-full rounded-xl border"
       />
     </div>
@@ -115,11 +118,9 @@ const blogPostingSchema = {
         </div>
       </div>
     </div>
-
+  </article>
   <Divider />
   <RecentBlogs currentSlug={blog.id} />
-
-  </article>
 </Layout>
 
 <style is:global>

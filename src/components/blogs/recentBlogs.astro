@@ -67,7 +67,7 @@ const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
         
         <div class="flex flex-col relative overflow-hidden">
           <!-- Sliding Container -->
-          <div class="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-8">
+          <div class="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-10">
             <!-- Date Area -->
             <div class="flex items-center gap-2 text-secondary caption1 opacity-60 h-6 mb-4 group-hover:opacity-0 transition-opacity duration-300">
               <span>{blog.formattedDate}</span>
@@ -75,7 +75,7 @@ const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
             </div>
 
             <!-- Title Area -->
-            <h3 class="text-primary body2 line-clamp-2 min-h-[3.2em] transition-colors duration-300">
+            <h3 class="text-primary body2 line-clamp-2 min-h-[2.6em] transition-colors duration-300">
               {blog.title}
             </h3>
             

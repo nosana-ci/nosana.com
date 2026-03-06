@@ -1,0 +1,168 @@
+---
+import { Image } from "astro:assets";
+import cross from "../../assets/icons/close.svg";
+import success from "../../assets/icons/success.svg";
+import error from "../../assets/icons/error.svg";
+---
+
+<!-- Global Toast Modal -->
+<div
+  id="global-toast-container"
+  class="fixed inset-0 z-999 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300"
+  style="display: none"
+>
+  <!-- Backdrop -->
+  <div
+    id="global-toast-backdrop"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+  ></div>
+
+  <!-- Toast Card -->
+  <div
+    id="global-toast"
+    role="status"
+    aria-live="polite"
+    class="relative w-full max-w-sm bg-surface border border-default rounded-lg p-8 md:p-12
+           flex flex-col items-center text-center
+           scale-95 translate-y-4 transition-all duration-300"
+  >
+    <!-- Close Button -->
+    <button
+      id="global-toast-close"
+      class="absolute top-5 right-5 p-2 rounded-full hover:bg-white/5 transition-colors cursor-pointer group"
+      aria-label="Close"
+    >
+      <Image 
+        src={cross} 
+        alt="close" 
+        width={14} 
+        height={14} 
+        class="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" 
+      />
+    </button>
+
+    <!-- Icon Section -->
+    <div id="global-toast-icon-wrapper" class="relative mb-6">
+      <!-- Outer Glow/Circle -->
+      <div 
+        id="global-toast-icon-bg" 
+        class="w-20 h-20 rounded-full flex items-center justify-center transition-colors duration-300 bg-white/5"
+      >
+        <!-- Icon -->
+        <div class="relative w-10 h-10 flex items-center justify-center">
+            <Image
+                id="global-toast-success-icon"
+                src={success}
+                alt="success"
+                width={40}
+                height={40}
+                class="hidden w-full h-full"
+            />
+            <Image
+                id="global-toast-error-icon"
+                src={error}
+                alt="error"
+                width={40}
+                height={40}
+                class="hidden w-full h-full"
+            />
+        </div>
+      </div>
+    </div>
+
+    <!-- Text content -->
+    <div class="space-y-3">
+      <h3 id="global-toast-title" class="grotesk text-2xl font-bold text-primary leading-tight">
+        You're subscribed!
+      </h3>
+      <p id="global-toast-text" class="text-secondary text-sm md:text-base leading-relaxed max-w-[280px] mx-auto">
+        Thank you for signing up. You'll start receiving the latest updates from Nosana shortly.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById("global-toast-container");
+  const backdrop = document.getElementById("global-toast-backdrop");
+  const toast = document.getElementById("global-toast");
+  const toastTitle = document.getElementById("global-toast-title");
+  const toastText = document.getElementById("global-toast-text");
+  const successIcon = document.getElementById("global-toast-success-icon");
+  const errorIcon = document.getElementById("global-toast-error-icon");
+  const iconBg = document.getElementById("global-toast-icon-bg");
+  const closeBtn = document.getElementById("global-toast-close");
+
+  let hideTimeout;
+
+  function show(type, message) {
+    if (!container || !toast || !toastTitle || !toastText || !successIcon || !errorIcon || !iconBg || !backdrop) return;
+
+    clearTimeout(hideTimeout);
+
+    // Reset icons
+    successIcon.classList.add("hidden");
+    errorIcon.classList.add("hidden");
+
+    if (type === "success") {
+      successIcon.classList.remove("hidden");
+      iconBg.classList.add("bg-[#10E80C]/15");
+      iconBg.classList.remove("bg-red-500/15");
+      toastTitle.textContent = "You're subscribed!";
+      toastText.textContent = message || "Thank you for signing up. You'll start receiving the latest updates from Nosana shortly.";
+    } else {
+      errorIcon.classList.remove("hidden");
+      iconBg.classList.add("bg-red-500/15");
+      iconBg.classList.remove("bg-[#10E80C]/15");
+      toastTitle.textContent = "Try again later";
+      toastText.textContent = message || "Failed to subscribe this time";
+    }
+
+    // 1. Remove hidden first
+    container.style.display = "flex";
+    
+    // 2. Trigger reflow
+    void container.offsetWidth;
+
+    // 3. Start enter animations
+    container.classList.remove("opacity-0");
+    backdrop.classList.remove("opacity-0");
+    toast.classList.remove("scale-95", "translate-y-4");
+
+    hideTimeout = setTimeout(hide, 5000);
+  }
+
+  function hide() {
+    if (!toast || !backdrop || !container) return;
+    
+    // 1. Start exit animations
+    toast.classList.add("scale-95", "translate-y-4");
+    backdrop.classList.add("opacity-0");
+    container.classList.add("opacity-0");
+    
+    // 2. Wait for transition to finish then hide completely
+    setTimeout(() => {
+      container.style.display = "none";
+    }, 300); // matches transition duration
+  }
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hide();
+  });
+  
+  backdrop?.addEventListener("click", hide);
+
+  // Listen globally
+  window.addEventListener("toast", (e) => {
+    const { type, message } = (e as any).detail;
+    show(type, message);
+  });
+</script>
+
+<style>
+  #global-toast-success-icon,
+  #global-toast-error-icon {
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.15));
+  }
+</style>

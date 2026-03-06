@@ -1,5 +1,5 @@
 ---
-category: "blog"
+category: "case-study"
 title: "Nosana Partners with Sogni.AI to Empower Creativity Through AI-Powered Art Generation"
 description: "Nosana's partnership with Sogni.AI is unlocking a new era of AI-powered creativity for iOS and macOS users, making art generation and editing faster than ever."
 thumbnail: "./assets/NosanaSogniBlog.jpg"

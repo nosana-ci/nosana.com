@@ -11,12 +11,12 @@ heroSection:
 
   cta1:
     title: "Start Earning"
-    url: "/gpu-workloads"
+    url: "https://host.nosana.com/"
     icon: "../../assets/icons/coin.svg"
 
   cta2:
     title: "Contact Us"
-    url: "/gpu-workloads"
+    url: "mailto:team@nosana.com"
 
 getStarted:
   badge:
@@ -25,10 +25,10 @@ getStarted:
   description: "Follow These 4 Simple Steps to Set Up, Verify, and Start Earning with Your GPU"
   cta1:
     title: "Start Earning"
-    url: "/gpu-workloads"
+    url: "https://host.nosana.com/"
   cta2:
     title: "Contact Us"
-    url: "/gpu-workloads"
+    url: "mailto:team@nosana.com"
   steps:
     - title: "Install the Nosana Node"
       description: "Set up your local node and connect your GPU to the Nosana network"
@@ -82,10 +82,10 @@ hardwareRequirementsSection:
   buttons:
     primary:
       title: "Start Earning"
-      url: "/start-earning"
+      url: "https://host.nosana.com/"
     secondary:
       title: "Contact Us"
-      url: "/contact"
+      url: "mailto:team@nosana.com"
   requirements:
     - icon: "./assets/wifiIcon.svg"
       title: "Internet Connection"
@@ -104,7 +104,7 @@ hardwareRequirementsSection:
       description: "Check our approved models to see if yours qualifies!"
       link:
         title: "View the List"
-        url: "/gpu-models"
+        url: "/#gpu-on-rent"
 
 videoSection:
   badge:

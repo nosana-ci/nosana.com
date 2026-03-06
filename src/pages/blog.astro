@@ -1,0 +1,30 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Divider from "../components/ui/divider.astro";
+import Newsletter from "../components/layout/newsletter.astro";
+import LatestBlog from "../components/blogs/latestBlog.astro";
+import RecommendedBlogs from "../components/blogs/recommended.astro";
+import RecommendedEvents from "../components/events/recommended.astro";
+import BlogsGrid from "../components/blogs/blogsGrid.astro";
+---
+
+<Layout
+  title="Nosana Blog - GPU Compute Updates"
+  description="Product updates, announcements, and insights about GPU compute and AI workloads on Nosana."
+  ogImage="/og/blog.png"
+  ogTitle="Nosana Blog"
+  ogDescription="Updates and insights about GPU compute and AI workloads on Nosana."
+>
+  <div class="w-full h-8 md:h-16 lg:h-18" />
+  <LatestBlog />
+  <Divider />
+  <RecommendedBlogs />
+  <Divider />
+  <BlogsGrid />
+  <Divider />
+  <RecommendedEvents />
+  <Divider />
+  <Newsletter />
+</Layout>

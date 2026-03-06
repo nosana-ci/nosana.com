@@ -36,14 +36,13 @@ const headingParts = heading.split(" - ");
    <div class="aspect-video w-full h-auto flex flex-1 bg-black rounded-lg relative overflow-hidden">
       <iframe
         id="tutorial-video"
-        class="w-full h-full"
-        src="https://www.youtube.com/embed/RVik-mh0wWY?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0"
-        allow="autoplay; encrypted-media"
-      ></iframe>
-      <!-- Video control button -->
-      <button
-        id="video-control"
-        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white cursor-pointer"
+        class="w-full h-full object-cover"
+        src={tutorialVideo}
+        preload="metadata"
+      ></video>
+      <!-- Video control indicator (passive) -->
+      <div
+        class="absolute bottom-4 right-4 z-10 w-6 md:w-10 h-6 md:h-10 flex items-center justify-center text-white pointer-events-none"
       >
         <div id="play-status" class="flex items-center justify-center">
           <Fragment set:html={playIcon} />
@@ -51,60 +50,55 @@ const headingParts = heading.split(" - ");
         <div id="pause-status" class="hidden items-center justify-center">
           <Fragment set:html={pauseIcon} />
         </div>
-      </button>
+      </div>
    </div>
 </section>
 
 <script>
-  let ytPlayer: any = null;
-  let videoStarted = false;
-
-  const iframe = document.getElementById("tutorial-video") as HTMLIFrameElement | null;
-  const videoControl = document.getElementById("video-control");
+  const video = document.getElementById("tutorial-video") as HTMLVideoElement | null;
   const playStatus = document.getElementById("play-status");
   const pauseStatus = document.getElementById("pause-status");
 
-  function initYT() {
-    ytPlayer = new (window as any).YT.Player(iframe, {
-      events: {
-        onStateChange: (e: any) => {
-          const YT = (window as any).YT.PlayerState;
-          const playing = e.data === YT.PLAYING;
-          playStatus?.classList.toggle("hidden", playing);
-          pauseStatus?.classList.toggle("hidden", !playing);
-          if (playing) pauseStatus?.classList.add("flex");
-          const dl = (window as any).dataLayer || [];
-          if (playing) {
-            if (!videoStarted) {
-              videoStarted = true;
-              dl.push({ event: "video_start", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
-            }
-            dl.push({ event: "video_play", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
-          }
-          if (e.data === YT.ENDED) {
-            playStatus?.classList.remove("hidden");
-            pauseStatus?.classList.add("hidden");
-            dl.push({ event: "video_complete", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
-          }
-        },
-      },
+  if (video && playStatus && pauseStatus) {
+    function syncIcons() {
+      if (!video) return;
+      if (video.paused) {
+        playStatus?.classList.remove("hidden");
+        pauseStatus?.classList.add("hidden");
+      } else {
+        playStatus?.classList.add("hidden");
+        pauseStatus?.classList.remove("hidden");
+        pauseStatus?.classList.add("flex");
+      }
+    }
+
+    video.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener("play", () => {
+      syncIcons();
+      // Video analytics
+      const dl = (window as any).dataLayer || [];
+      if (!(video as any).started) {
+        (video as any).started = true;
+        dl.push({ event: "video_start", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
+      }
+      dl.push({ event: "video_play", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
     });
   }
 
-  function loadYTApi() {
-    if ((window as any).YT?.Player) {
-      initYT();
-    } else if (!(window as any)._ytApiLoading) {
-      (window as any)._ytApiLoading = true;
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(tag);
-      const prev = (window as any).onYouTubeIframeAPIReady;
-      (window as any).onYouTubeIframeAPIReady = () => { prev?.(); initYT(); };
-    } else {
-      const prev = (window as any).onYouTubeIframeAPIReady;
-      (window as any).onYouTubeIframeAPIReady = () => { prev?.(); initYT(); };
-    }
+    video.addEventListener("pause", syncIcons);
+
+    video.addEventListener("ended", () => {
+      syncIcons();
+      const dl = (window as any).dataLayer || [];
+      dl.push({ event: "video_complete", video_title: "GPU Providers Tutorial", page_path: window.location.pathname });
+    });
   }
 
   loadYTApi();

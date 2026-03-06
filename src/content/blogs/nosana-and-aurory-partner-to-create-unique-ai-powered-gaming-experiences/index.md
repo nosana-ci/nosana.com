@@ -1,5 +1,5 @@
 ---
-category: "blog"
+category: "case-study"
 title: "Nosana and Aurory Partner to Create Unique AI-powered Gaming Experiences"
 description: "Nosana is excited to announce a new partnership with Aurory to use the power of AI to create even better gaming experiences."
 thumbnail: "./assets/NosanaXAuroryBlog.jpg"

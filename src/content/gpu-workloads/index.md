@@ -10,11 +10,11 @@ heroSection:
 
   cta1:
     title: "Run GPU Workloads"
-    url: "/gpu-workloads"
+    url: "https://deploy.nosana.com/"
 
   cta2:
     title: "Schedule an Intro Call"
-    url: "/gpu-workloads"
+    url: "https://calendly.com/bourjois-nos/30min"
 
 caseStudySection:
   badge: "Case Study"
@@ -26,7 +26,7 @@ caseStudySection:
   companyName: "Sogni AI"
   image: "./assets/astronaut.png"
   ctaTitle: "Read Case Study"
-  ctaUrl: "/case-studies"
+  ctaUrl: "/case-studies/sogni-ai-revolutionizing-gen-ai-creative-tools-with-nosanas-gpu-power"
   stats:
     - label: "Generated Images"
       value: "16,605,326"
@@ -40,10 +40,10 @@ ctaSection:
   description: "Deploy GPU workloads in minutes or book a quick demo to see how Nosana fits your stack"
   cta1:
     title: "Launch Your First GPU Workload"
-    url: "/deploy"
+    url: "https://deploy.nosana.com/"
   cta2:
-    title: "How It Works"
-    url: "/gpu-workloads#how-it-works"
+    title: "Request A Demo"
+    url: "https://calendly.com/bourjois-nos/30min"
 
 howItWorks:
   badge:
@@ -53,10 +53,10 @@ howItWorks:
   description: "Running AI workloads on Nosana is simple by design. Go from a template or your own setup to live GPU compute in just a few steps. Here’s how it works"
   cta1:
     title: "Start Deploying GPU Workloads"
-    url: "/gpu-workloads"
+    url: "https://deploy.nosana.com/"
   cta2:
     title: "Schedule a Call"
-    url: "/contact"
+    url: "https://calendly.com/bourjois-nos/30min"
   steps:
     - title: "Set up your account"
       description: "Get started on the Nosana Deploy page by connecting your wallet or signing in with email."
@@ -76,7 +76,7 @@ highlightsSection:
     description: "Pick from 20+ ready-made AI compute templates for inference, training, and generation or deploy your own custom container."
     cta:
       title: "View Templates"
-      url: "/templates"
+      url: "https://deploy.nosana.com/deployments"
   - icon: "./assets/point-2.svg"
     title: "On-Demand"
     description: "Rent available GPUs effortlessly and scale your workloads seamlessly to meet your needs."

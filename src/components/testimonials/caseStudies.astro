@@ -113,7 +113,7 @@ const latestCaseStudies = caseStudies
                   </p>
                   <div class="flex justify-end">
                     <a 
-                      href={`/case-study/${study.id}`} 
+                      href={`/case-studies/${study.id}`} 
                       class="w-12 h-12 border border-tertiary rounded-xl flex items-center justify-center hover:border-primary transition-colors"
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,7 +153,7 @@ const latestCaseStudies = caseStudies
 
       trigger?.addEventListener('click', () => {
         if (window.innerWidth >= 768) {
-          window.location.href = `/case-study/${id}`;
+          window.location.href = `/case-studies/${id}`;
           return;
         }
 

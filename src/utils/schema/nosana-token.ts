@@ -12,13 +12,13 @@ export const nosanaTokenSchema = ({ image }: SchemaContext) =>
       }),
       title: z.string(),
       description: z.string(),
-      button_1: z.object({
+      cta1: z.object({
         text: z.string(),
-        icon: image(),
+        url: z.string(),
       }),
-      button_2: z.object({
+      cta2: z.object({
         text: z.string(),
-        icon: image(),
+        url: z.string(),
       }),
       image_1: image(),
       image_2: image(),

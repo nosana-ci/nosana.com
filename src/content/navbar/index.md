@@ -34,7 +34,7 @@ navItems:
           description: "Learn about Nosana’s mission, team, and vision for open GPU compute."
         - title: "Blog"
           icon: "./assets/chip.svg"
-          url: "/blogs"
+          url: "/blog"
           description: "Product updates, technical deep dives, and ecosystem news."
         - title: "Support"
           icon: "./assets/crop.svg"

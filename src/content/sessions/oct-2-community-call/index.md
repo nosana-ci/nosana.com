@@ -3,9 +3,9 @@ title: "Nosana | Oct 2 Community Call"
 description: "Monthly community call covering network updates, GPU provider growth, and upcoming milestones for the Nosana ecosystem."
 thumbnail: "./assets/thumbnail.png"
 publishedAt: "2025-10-02"
-watchUrl: "https://nosana.io/sessions/oct-2-community-call"
-watchOnWeb: "https://nosana.io/sessions/oct-2-community-call"
-watchOnYoutube: "https://youtube.com/@nosana"
-watchOnX: "https://x.com/nosana_ci"
+watchUrl: "https://www.youtube.com/live/mzhzRaKHf5o?si=5NHR6IxFivzcYdV0"
+watchOnWeb: "https://www.youtube.com/live/mzhzRaKHf5o?si=5NHR6IxFivzcYdV0"
+watchOnYoutube: "https://www.youtube.com/live/mzhzRaKHf5o?si=5NHR6IxFivzcYdV0"
+watchOnX: "https://www.youtube.com/live/mzhzRaKHf5o?si=5NHR6IxFivzcYdV0"
 featured: false
 ---
