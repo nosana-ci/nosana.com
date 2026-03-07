@@ -8,7 +8,8 @@ import { getGPUMarkets } from "../../utils/gpuMarkets";
 import searchIcon from "../../assets/icons/search.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import closeIcon from "../../assets/icons/close.svg";
-import gpuHero from "../../content/homepage/assets/gpuhalf.svg";
+import gpuHero from "../../content/homepage/assets/gpuHalf.png";
+import gpuCircle from "../../content/homepage/assets/gpuCircle.png";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
@@ -180,11 +181,17 @@ const { premium, community, others } = await getGPUMarkets();
     </div>
 
     <!-- GPU image -->
-    <div class="">
+    <div class="relative w-full overflow-hidden">
       <Image
         src={gpuHero}
         alt="GPU"
         class="pointer-events-none h-auto w-full select-none"
+      />
+
+      <Image
+        src={gpuCircle}
+        alt="GPU circle"
+        class="pointer-events-none absolute left-[9.5%] bottom-0 w-[34%] aspect-square translate-y-[72%] slow-spin select-none"
       />
     </div>
 
@@ -238,6 +245,21 @@ const { premium, community, others } = await getGPUMarkets();
   </div>
 
 </section>
+
+<style>
+  .slow-spin {
+    animation: slow-spin 20s linear infinite;
+  }
+
+  @keyframes slow-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 
 <script>
   function initSearch() {
