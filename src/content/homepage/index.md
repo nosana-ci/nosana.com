@@ -25,8 +25,7 @@ pathSection:
     title: "Choose your Path"
   heading: "Run Compute Instantly or Earn by Sharing Your GPU"
   path1:
-    image: "./assets/path1Img.svg"
-    safariImage: "./assets/pathImg1.png"
+    image: "./assets/path1Img.png"
     title: "Run GPU Workloads - On Demand"
     description: "Scale as needed with on-demand GPU workloads that grow with your performance needs"
     caption: "Run GPU Workloads"
