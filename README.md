@@ -16,6 +16,7 @@ Inside this project, you will find the following core directories:
 ```text
 /
 ├── public/          # Static assets like icons and common SVGs
+├── guide/           # Guides for adding content
 ├── src/
 │   ├── assets/      # Optimized images used within components
 │   ├── components/  # Reusable UI components
@@ -65,9 +66,14 @@ Sync content collections and generate types:
 npx astro sync
 ```
 
-## Key Features
+## Adding Content
 
-- **Dynamic Content**: Uses Astro's latest Content Layer API for manageable markdown-based content.
-- **Grants Program**: Dedicated section for applying and tracking the Nosana Grants journey.
-- **Case Studies**: Showcasing real-world adoptions of the Nosana network.
-- **SEO Ready**: Automated metadata generation and schema markup for all articles.
+Guides for all content types are located in the `/guide` directory at the root of the project.
+
+| Guide | Description |
+|---|---|
+| [`guide/blogs.md`](./guide/blogs.md) | How to add a blog post |
+| [`guide/case-study.md`](./guide/case-study.md) | How to add a case study |
+| [`guide/events.md`](./guide/events.md) | How to add an event |
+| [`guide/sessions.md`](./guide/sessions.md) | How to add a session recording |
+| [`guide/community-calls.md`](./guide/community-calls.md) | How to add a community call entry |
