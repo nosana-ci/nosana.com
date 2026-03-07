@@ -163,6 +163,11 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       function initYT() {
         ytPlayer = new (window as any).YT.Player(youtubeIframe, {
           events: {
+            onReady: () => {
+              ytPlayer.mute();
+              syncMuteIcons(true);
+              syncPlayIcons(false);
+            },
             onStateChange: (e: any) => {
               const YT = (window as any).YT.PlayerState;
               const playing = e.data === YT.PLAYING;
@@ -181,9 +186,6 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
             },
           },
         });
-        ytPlayer.mute();
-        syncMuteIcons(true);
-        syncPlayIcons(false);
       }
 
       if ((window as any).YT?.Player) {
@@ -191,7 +193,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
       } else {
         const prev = (window as any).onYouTubeIframeAPIReady;
         (window as any).onYouTubeIframeAPIReady = () => {
-          prev?.();
+          try { prev?.(); } catch (e) { console.error(e); }
           initYT();
         };
       }
