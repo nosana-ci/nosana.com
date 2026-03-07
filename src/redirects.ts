@@ -42,7 +42,8 @@ export const redirects = {
   "/blog/agent_challenge": "/blog/builders-challenge-agents-101",
   "/blog/nos_challenge": "/blog/builders-challenge-create-a-nosana-template",
   "/blog/nosana_swapping_priority_fees": "/blog/introducing-swapping-and-priority-fees",
-
+  "/blog/nosana_christex": "/blog/empowering-african-languages-with-ai-how-christex-and-geneline-x-use-nosana",
+  "/blog/nosana_grants_program_aimo_network": "/blog/nosana-grants-program-welcomes-aimo-network",
   "/blog/2024_at_nosana_a_year_in_review": "/blog/2024-at-nosana-a-year-in-review",
   "/blog/deep_learning_demystified": "/blog/deep-learning-demystified",
   "/blog/exploring_the_distinctions_between_gpuss_and_cpus": "/blog/exploring-the-distinctions-between-gpus-and-cpus",
@@ -75,6 +76,4 @@ export const redirects = {
   "/blog/test_grid_phase_2_update": "/blog/test-grid-phase-2-update",
   "/blog/road_to_mainnet_nosanas_next_chapter": "/blog/road-to-mainnet-nosanas-next-chapter",
   "/blog/test_grid_phase_3_final_steps_to_mainnet": "/blog/test-grid-phase-3-final-steps-to-mainnet",
-  "/blog/nosana_christex": "/blog/empowering-african-languages-with-ai-how-christex-and-geneline-x-use-nosana",
-  "/blog/nosana_grants_program_aimo_network": "/blog/nosana-grants-program-welcomes-aimo-network",
 };
