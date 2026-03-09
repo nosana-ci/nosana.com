@@ -6,9 +6,9 @@ There are three testimonial types, each used in a different section of the websi
 
 | Type | Usage |
 |---|---|
-| `stack` | Displays in 2 stack sections. Supports images. |
-| `grid` | Displays in 1 grid section. Supports images. |
-| `slider` | Displays in 1 slider section. |
+| `stack` | Displays data in 2 sections. |
+| `grid` | Displays data in 2 grid variants. |
+| `slider` | Displays data in 1 section. |
 
 ---
 

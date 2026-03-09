@@ -10,5 +10,5 @@ export const sessionsSchema = ({ image }: SchemaContext) =>
     watchOnWeb: z.string().optional(),
     watchOnYoutube: z.string().optional(),
     watchOnX: z.string().optional(),
-    featured: z.boolean().optional().default(false),
+    embedLink: z.string(),
   });

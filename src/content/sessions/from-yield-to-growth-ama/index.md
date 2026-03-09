@@ -7,5 +7,5 @@ watchUrl: "https://www.youtube.com/live/7upj40KrMAw?si=Q5ztZg_hSqoGOWHo"
 watchOnWeb: "https://www.youtube.com/live/7upj40KrMAw?si=Q5ztZg_hSqoGOWHo"
 watchOnYoutube: "https://www.youtube.com/live/7upj40KrMAw?si=Q5ztZg_hSqoGOWHo"
 watchOnX: "https://www.youtube.com/live/7upj40KrMAw?si=Q5ztZg_hSqoGOWHo"
-featured: false
+embedLink: "https://www.youtube.com/embed/7upj40KrMAw"
 ---
