@@ -76,9 +76,7 @@ src/content/testimonials/
 
 Used in the slider section. No images required.
 
-<p align="center">
-  <img src="./assets/slider.png" alt="Slider variant 1" width="320" />
-</p>
+![Slider type testimonial preview](./assets/slider.png)
 
 ```yaml
 ---
@@ -119,10 +117,9 @@ The testimonial text.
 
 Used in the grid section.
 
-<p align="center">
-  <img src="./assets/gridVariant1.png" alt="Grid variant 1" width="320" />
-  <img src="./assets/gridVariant2.png" alt="Grid variant 2" width="320" />
-</p>
+![Grid type testimonials variant 1 preview](./assets/gridVariant1.png)
+
+![Grid type testimonials variant 2 preview](./assets/gridVariant2.png)
 
 ```yaml
 ---
@@ -181,10 +178,9 @@ The testimonial text.
 
 Used in two stack sections on the website. Supports a logo image, rating, and social handle.
 
-<p align="center">
-  <img src="./assets/stack.png" alt="Stack variant 1" width="320" />
-  <img src="./assets/stack2.png" alt="Stack variant 2" width="320" />
-</p>
+![Stack type testimonial preview](./assets/stack.png)
+
+![Stack type testimonial preview in a grid](./assets/stack2.png)
 
 ```yaml
 ---
