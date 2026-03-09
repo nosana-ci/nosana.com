@@ -1,6 +1,6 @@
 export const redirects = {
-  "/hosts": "/gpu-workloads",
-  "/clients": "/gpu-providers",
+  "/hosts": "/gpu-providers",
+  "/clients": "/gpu-workloads",
   "/deploy": "https://deploy.nosana.com/",
   "/stake": "https://stake.nosana.com/",
   "/team": "/about",
