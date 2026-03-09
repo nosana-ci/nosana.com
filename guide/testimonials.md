@@ -4,11 +4,11 @@ This document explains how contributors can add a new testimonial to the website
 
 There are three testimonial types, each used in a different section of the website:
 
-| Type | Usage |
-|---|---|
-| `stack` | Displays data in 2 sections. |
-| `grid` | Displays data in 2 grid variants. |
-| `slider` | Displays data in 1 section. |
+| Type     | Usage                             |
+| -------- | --------------------------------- |
+| `stack`  | Displays data in 2 sections.      |
+| `grid`   | Displays data in 2 grid variants. |
+| `slider` | Displays data in 1 section.       |
 
 ---
 
@@ -23,11 +23,11 @@ Slug rules:
 
 Example:
 
-| Author / Company | Folder Name |
-|---|---|
-| Bankless | `bankless` |
-| AI Builders | `ai-builders` |
-| Alfie | `alfie` |
+| Author / Company | Folder Name   |
+| ---------------- | ------------- |
+| Bankless         | `bankless`    |
+| AI Builders      | `ai-builders` |
+| Alfie            | `alfie`       |
 
 ---
 
@@ -76,7 +76,9 @@ src/content/testimonials/
 
 Used in the slider section. No images required.
 
-![Slider type testimonial preview](./assets/slider.png)
+<p align="center">
+  <img src="./assets/slider.png" alt="Slider variant 1" width="320" />
+</p>
 
 ```yaml
 ---
@@ -84,6 +86,7 @@ type: "slider"
 title: "Alfie"
 description: "Nosana lets me keep making effective use of my solar-powered computing capacity in a market where traditional mining and hardware rental are no longer very profitable."
 ---
+
 ```
 
 ### Fields
@@ -114,11 +117,12 @@ The testimonial text.
 
 ## Type: `grid`
 
-Used in the grid section. Supports two icon variants for light and dark display.
+Used in the grid section.
 
-![Grid type testimonials variant 1 preview](./assets/gridVariant1.png)
-
-![Grid type testimonials variant 2 preview](./assets/gridVariant2.png)
+<p align="center">
+  <img src="./assets/gridVariant1.png" alt="Grid variant 1" width="320" />
+  <img src="./assets/gridVariant2.png" alt="Grid variant 2" width="320" />
+</p>
 
 ```yaml
 ---
@@ -128,6 +132,7 @@ iconWhite: "./assets/buildersWhite.svg"
 title: "AI Builders"
 description: "AI Builders is a hands-on AI workshop platform for developers building and experimenting with AI projects."
 ---
+
 ```
 
 ### Fields
@@ -176,9 +181,10 @@ The testimonial text.
 
 Used in two stack sections on the website. Supports a logo image, rating, and social handle.
 
-![Stack type testimonial preview](./assets/stack.png)
-
-![Stack type testimonial preview in a grid](./assets/stack2.png)
+<p align="center">
+  <img src="./assets/stack.png" alt="Stack variant 1" width="320" />
+  <img src="./assets/stack2.png" alt="Stack variant 2" width="320" />
+</p>
 
 ```yaml
 ---
@@ -190,6 +196,7 @@ logo: "./assets/bankless.png"
 message: "Nosana could be a game-changer for startups and researchers looking for affordable AI computing resources."
 rating: 5.0
 ---
+
 ```
 
 ### Fields

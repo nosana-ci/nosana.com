@@ -3,21 +3,39 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const events = await getCollection("events");
+const blogs = await getCollection("blogs");
 
-// Sort newest first
-const sortedEvents = events.sort(
-  (a, b) =>
-    new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime(),
+const now = new Date();
+
+// Find upcoming event (closest to current date and in future)
+const upcomingEvents = events.filter(event => new Date(event.data.createdAt) >= now);
+const sortedUpcomingEvents = upcomingEvents.sort(
+  (a, b) => new Date(a.data.createdAt).getTime() - new Date(b.data.createdAt).getTime()
 );
 
-// Pick latest featuredNav if exists, otherwise latest event
-const eventToShow = 
-  sortedEvents.find((event) => event.data.tags?.includes("featuredNav")) ?? 
-  sortedEvents[0];
+// Find latest blog/case study
+const sortedBlogs = blogs.sort(
+  (a, b) => new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
+);
+const latestBlog = sortedBlogs[0];
 
-if (!eventToShow) return null;
+let contentToShow, linkUrl;
 
-const { title, description, thumbnail, createdAt, url } = eventToShow.data;
+if (sortedUpcomingEvents.length > 0) {
+  // Show upcoming event
+  contentToShow = sortedUpcomingEvents[0];
+  linkUrl = contentToShow.data.url; // Events have direct URL
+} else if (latestBlog) {
+  // Show latest blog/case study
+  contentToShow = latestBlog;
+  // Generate slug-based URL for blogs/case studies
+  const slug = contentToShow.id;
+  linkUrl = latestBlog.data.category === 'blog' ? `/blog/${slug}` : `/case-studies/${slug}`;
+}
+
+if (!contentToShow) return null;
+
+const { title, description, thumbnail, createdAt } = contentToShow.data;
 
 const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
   day: "numeric",
@@ -27,7 +45,7 @@ const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
 ---
 
 <div class="bg-surface group/featured h-fit w-full p-3">
-  <a href={url} target="_blank" rel="noopener noreferrer" class="block" data-cta="events">
+  <a href={linkUrl} target="_blank" rel="noopener noreferrer" class="block" data-cta="events">
     <!-- Image -->
     <div class="mb-4 aspect-video w-full overflow-hidden">
       <Image
@@ -39,7 +57,7 @@ const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
 
     <!-- Title -->
     <h3
-      class="grotesk h6 text-primary group-hover/featured:text-brand-100 mb-2 origin-left scale-[80%] transition-colors duration-300"
+      class="grotesk h6 text-primary group-hover/featured:text-brand-100 mb-2 origin-left scale-[80%] transition-colors duration-300 line-clamp-2"
     >
       {title}
     </h3>
