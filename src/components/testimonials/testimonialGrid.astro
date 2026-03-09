@@ -33,7 +33,6 @@ const testimonialGridData = testimonials.map((t) => ({
 })) as Array<{
   type: "grid";
   icon: unknown;
-  iconWhite?: unknown;
   title: string;
   description: string;
   _slug: string;
@@ -56,11 +55,11 @@ function getRawSvg(path?: unknown, slug?: string) {
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default">
     {
       testimonialGridData.map((item, index) => {
-        const { icon, iconWhite, title, description, _slug } = item;
+        const { icon, title, description, _slug } = item;
 
         const displayIconRaw =
           variant === "collaboration"
-            ? getRawSvg(iconWhite, _slug) ?? getRawSvg(icon, _slug)
+            ? getRawSvg(icon, _slug)
             : getRawSvg(icon, _slug);
 
         return (
@@ -80,14 +79,16 @@ function getRawSvg(path?: unknown, slug?: string) {
                 <div class="relative z-10 flex items-center gap-3">
 
                   {/* Main Icon */}
-                  {displayIconRaw && (
-                    <div
-                      class={`${variant === "collaboration" ? "h-8" : "w-12 h-12"}
-                              select-none pointer-events-none
-                              [&>svg]:w-full [&>svg]:h-full`}
-                      set:html={displayIconRaw}
-                    />
-                  )}
+                    {displayIconRaw && (
+                      <div
+                        class={`select-none pointer-events-none flex items-center justify-center
+                          ${variant === "collaboration"
+                            ? "h-8"
+                            : "w-12 h-12 bg-surface p-2"}
+                          [&>svg]:w-full [&>svg]:h-full`}
+                        set:html={displayIconRaw}
+                      />
+                    )}
 
                   {/* Collaboration Mode */}
                   {variant === "collaboration" && (

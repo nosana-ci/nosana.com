@@ -125,7 +125,6 @@ Used in the grid section.
 ---
 type: "grid"
 icon: "./assets/builders.svg"
-iconWhite: "./assets/buildersWhite.svg"
 title: "AI Builders"
 description: "AI Builders is a hands-on AI workshop platform for developers building and experimenting with AI projects."
 ---
@@ -147,14 +146,6 @@ description: "AI Builders is a hands-on AI workshop platform for developers buil
 **Type:** image  
 **Required:** Yes  
 A relative path to the icon used on the homepage and testimonials page variants. Must be placed inside `./assets/`.
-
----
-
-#### `iconWhite`
-
-**Type:** image  
-**Required:** Yes  
-A relative path to the icon used on the case study page variant. Must be placed inside `./assets/`.
 
 ---
 
