@@ -8,8 +8,8 @@ import { getGPUMarkets } from "../../utils/gpuMarkets";
 import searchIcon from "../../assets/icons/search.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import closeIcon from "../../assets/icons/close.svg";
-import gpuHero from "../../content/homepage/assets/gpuHalf.png";
-import gpuCircle from "../../content/homepage/assets/gpuCircle.png";
+import gpuHero from "../../content/homepage/assets/gpuhalf.svg";
+// import gpuCircle from "../../content/homepage/assets/gpuCircle.png";
 
 const entry = await getEntry("homepage", "index");
 if (!entry) {
@@ -189,14 +189,6 @@ const { premium, community, others } = await getGPUMarkets();
         quality={75}
         class="pointer-events-none h-auto w-full select-none"
       />
-
-      <Image
-        src={gpuCircle}
-        alt="GPU circle"
-        format="webp"
-        quality={75}
-        class="pointer-events-none absolute left-[9.5%] bottom-0 w-[34%] aspect-square translate-y-[72%] slow-spin select-none"
-      />
     </div>
 
     <!-- Panels -->
@@ -250,7 +242,7 @@ const { premium, community, others } = await getGPUMarkets();
 
 </section>
 
-<style>
+<!-- <style>
   .slow-spin {
     animation: slow-spin 20s linear infinite;
   }
@@ -263,7 +255,7 @@ const { premium, community, others } = await getGPUMarkets();
       transform: rotate(360deg);
     }
   }
-</style>
+</style> -->
 
 <script>
   function initSearch() {
