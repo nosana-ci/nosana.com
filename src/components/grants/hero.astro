@@ -62,19 +62,22 @@ const { heroSection } = entry.data;
 
 <style is:global>
   @keyframes coin-oscillate {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
   }
 
   @keyframes wire-light-move {
-    0% { transform: translateY(100px); opacity: 0; }
+    0% { transform: translate3d(0, 100px, 0); opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 1; }
-    100% { transform: translateY(-315px); opacity: 0; }
+    100% { transform: translate3d(0, -315px, 0); opacity: 0; }
   }
 
   .grants-hero-svg .coin {
     animation: coin-oscillate 3s ease-in-out infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .grants-hero-svg .coin-2 {
@@ -87,6 +90,9 @@ const { heroSection } = entry.data;
 
   .grants-hero-svg .wire-light {
     animation: wire-light-move 3s linear infinite;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .grants-hero-svg .wire-light-2 {
