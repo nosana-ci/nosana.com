@@ -1,11 +1,13 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 import heroBg from "../../content/homepage/assets/heroBg.webp";
 import heroVideo from "../../content/homepage/assets/heroBg.mp4";
 import gpuRaw from "../../content/gpu-providers/assets/gpu.svg?raw";
 import texture from "../../content/homepage/assets/texture.webp";
+
+const optimizedPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
 
 import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
@@ -22,14 +24,14 @@ const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
+  class="relative h-[calc(100vh-5rem)] max-h-[900px] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
     loop
     muted
     playsinline
-    poster={heroBg.src}
+    poster={optimizedPoster.src}
     class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
   >
     <source src={heroVideo} type="video/mp4" />
@@ -42,6 +44,7 @@ const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice
       <Image
         src={texture}
         alt="texture"
+        quality={40}
         class="w-full h-full object-cover pointer-events-none select-none"
       />
     </div>

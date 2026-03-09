@@ -17,7 +17,7 @@ const currentPath = Astro.url.pathname;
 const normalizePath = (path: string) => {
   if (!path) return "";
   // Strip hash for comparison
-  const base = path.split('#')[0];
+  const base = path.split("#")[0];
   // Remove trailing slash except for root
   return base === "/" ? "/" : base.replace(/\/$/, "");
 };
@@ -26,9 +26,9 @@ const normalizedCurrentPath = normalizePath(currentPath);
 const isGrantsPage = normalizedCurrentPath === "/grants";
 ---
 
-<nav-container class="block w-full z-100" data-navbar>
+<nav-container class="z-100 block w-full max-w-[1728px] mx-auto" data-navbar>
   <nav
-    class="h-fit py-4 w-full bg-bg-base flex items-center justify-between px-4 lg:px-12 relative z-50"
+    class="bg-bg-base relative z-50 flex h-fit w-full items-center justify-between px-4 py-4 lg:px-12"
   >
     <div class="flex items-center">
       <a href={navLogo.url} class="flex items-center py-4">
@@ -37,25 +37,27 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
             <img
               src="/nosanaFoundation.svg"
               alt="Nosana Foundation"
-              class="md:h-[30px] h-[20px] w-auto select-none"
+              class="h-[20px] w-auto select-none md:h-[30px]"
             />
           ) : (
             <Image
               src={navLogo.darkImage}
               alt={navLogo.alt}
-              class="md:h-[30px] h-[20px] w-auto select-none"
+              class="h-[20px] w-auto select-none md:h-[30px]"
             />
           )
         }
       </a>
     </div>
 
-    <div class="hidden xl:flex items-center gap-6 h-full">
+    <div class="hidden h-full items-center gap-6 xl:flex">
       {
         navItems.map((item: any) => {
           const itemUrl = normalizePath(item.url);
           const isBaseActive = normalizedCurrentPath === itemUrl;
-          const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
+          const isSubActive = item.subItems?.items?.some(
+            (sub: any) => normalizePath(sub.url) === normalizedCurrentPath,
+          );
           const isActive = isBaseActive || isSubActive;
           const isDropdown = item.type === "dropdown";
 
@@ -68,7 +70,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
 
           return (
             <div
-              class="nav-item group h-full flex items-center"
+              class="nav-item group flex h-full items-center"
               data-type={item.type}
               data-url={item.url}
               data-target={item.target}
@@ -79,29 +81,31 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                   {item.icon && (
                     <div
                       class:list={[
-                        "w-4 h-4 flex items-center justify-center transition-all duration-300",
+                        "flex h-4 w-4 items-center justify-center transition-all duration-300",
                         "group-hover:rotate-180",
                       ]}
                     >
                       <div
-                        class="w-4 h-4 bg-current transition-colors"
+                        class="h-4 w-4 bg-current transition-colors"
                         style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
                       />
                     </div>
                   )}
                 </button>
               ) : (
-                <a 
-                  href={item.url} 
+                <a
+                  href={item.url}
                   target={item.target}
-                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  rel={
+                    item.target === "_blank" ? "noopener noreferrer" : undefined
+                  }
                   class:list={commonClasses}
                 >
                   {item.title}
                   {item.icon && (
-                    <div class="w-4 h-4 flex items-center justify-center">
+                    <div class="flex h-4 w-4 items-center justify-center">
                       <div
-                        class="w-4 h-4 bg-current transition-colors"
+                        class="h-4 w-4 bg-current transition-colors"
                         style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
                       />
                     </div>
@@ -110,14 +114,13 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
               )}
 
               {item.type === "dropdown" && (
-                <div class="mega-menu absolute left-0 top-full w-full bg-bg-base hidden animate-in fade-in slide-in-from-top-2 duration-300 z-40">
-                  <div class="mx-auto px-4 lg:px-12 py-10">
-                    
+                <div class="mega-menu bg-bg-base animate-in fade-in slide-in-from-top-2 absolute top-full left-0 z-40 hidden w-full duration-300">
+                  <div class="mx-auto px-4 py-10 lg:px-12">
                     {/* community dropdown */}
                     {item.title === "Community" ? (
                       <div class="grid grid-cols-14 gap-12">
                         <div class="col-span-4">
-                          <h3 class="body1 grotesk font-medium text-primary mb-2">
+                          <h3 class="body1 grotesk text-primary mb-2 font-medium">
                             {item.subItems.sectionTitle}
                           </h3>
                           <p class="text-secondary body4">
@@ -126,12 +129,18 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                         </div>
                         <div class="col-span-6 grid grid-cols-2 gap-x-10 gap-y-8">
                           {item.subItems.items.map((subItem: any) => {
-                            const isSubActive = normalizePath(subItem.url) === normalizedCurrentPath;
+                            const isSubActive =
+                              normalizePath(subItem.url) ===
+                              normalizedCurrentPath;
                             return (
                               <a
                                 href={subItem.url}
                                 target={subItem.target}
-                                rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                                rel={
+                                  subItem.target === "_blank"
+                                    ? "noopener noreferrer"
+                                    : undefined
+                                }
                                 class="group/subitem flex flex-col items-start transition-all duration-200"
                               >
                                 {subItem.icon && (
@@ -145,10 +154,12 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                                 )}
 
                                 <div>
-                                  <div 
+                                  <div
                                     class:list={[
-                                      "flex items-center gap-1 font-semibold body4 transition-colors",
-                                      isSubActive ? "text-brand-100!" : "text-primary group-hover/subitem:text-brand-100!"
+                                      "body4 flex items-center gap-1 font-semibold transition-colors",
+                                      isSubActive
+                                        ? "text-brand-100!"
+                                        : "text-primary group-hover/subitem:text-brand-100!",
                                     ]}
                                   >
                                     {subItem.title}
@@ -159,7 +170,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                                         alt="External link"
                                         width={14}
                                         height={14}
-                                        class="select-none text-brand-100"
+                                        class="text-brand-100 select-none"
                                       />
                                     )}
                                   </div>
@@ -182,14 +193,12 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                             </div>
                           </div>
                         </div>
-
                       </div>
-
                     ) : (
                       // ecosystem dropdown
                       <div class="grid grid-cols-14 gap-12">
                         <div class="col-span-4">
-                          <h3 class="body1 grotesk font-medium text-primary mb-2">
+                          <h3 class="body1 grotesk text-primary mb-2 font-medium">
                             {item.subItems.sectionTitle}
                           </h3>
                           <p class="text-secondary body4">
@@ -198,27 +207,35 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                         </div>
                         <div class="col-span-9 grid grid-cols-3 gap-x-12 gap-y-8">
                           {item.subItems.items.map((subItem: any) => {
-                            const isSubActive = normalizePath(subItem.url) === normalizedCurrentPath;
+                            const isSubActive =
+                              normalizePath(subItem.url) ===
+                              normalizedCurrentPath;
                             return (
                               <a
                                 href={subItem.url}
                                 target={subItem.target}
-                                rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
+                                rel={
+                                  subItem.target === "_blank"
+                                    ? "noopener noreferrer"
+                                    : undefined
+                                }
                                 class="group/subitem flex flex-col items-start transition-all duration-200"
                               >
                                 {subItem.icon && (
                                   <Image
                                     src={subItem.icon}
                                     alt={subItem.title}
-                                    class="w-8 h-8 mb-2 shrink-0 select-none"
+                                    class="mb-2 h-8 w-8 shrink-0 select-none"
                                   />
                                 )}
 
                                 <div>
-                                  <div 
+                                  <div
                                     class:list={[
-                                      "flex items-center gap-1 font-semibold body4 transition-colors",
-                                      isSubActive ? "text-brand-100!" : "text-primary group-hover/subitem:text-brand-100!"
+                                      "body4 flex items-center gap-1 font-semibold transition-colors",
+                                      isSubActive
+                                        ? "text-brand-100!"
+                                        : "text-primary group-hover/subitem:text-brand-100!",
                                     ]}
                                   >
                                     {subItem.title}
@@ -242,14 +259,11 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                             );
                           })}
                         </div>
-
                       </div>
                     )}
-
                   </div>
                 </div>
               )}
-
             </div>
           );
         })
@@ -259,13 +273,18 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
     <div class="flex items-center gap-2 lg:gap-4">
       {
         navCTA.map((cta: any) => (
-          <Button variant="secondary" title={cta.title} url={cta.url} data-cta="nav_deploy" />
+          <Button
+            variant="secondary"
+            title={cta.title}
+            url={cta.url}
+            data-cta="nav_deploy"
+          />
         ))
       }
 
       <button
         id="mobile-toggle"
-        class="xl:hidden p-2 text-primary hover:text-brand-100 transition-colors cursor-pointer"
+        class="text-primary hover:text-brand-100 cursor-pointer p-2 transition-colors xl:hidden"
         aria-label="Toggle Menu"
       >
         <span id="hamburger-icon" class="block">
@@ -281,26 +300,28 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
   <!-- Mobile Nav -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 top-20 bg-bg-base z-40 hidden xl:hidden overflow-y-auto overscroll-contain pt-4"
+    class="bg-bg-base fixed inset-0 top-20 z-40 hidden overflow-y-auto overscroll-contain pt-4 xl:hidden"
   >
     <div class="flex flex-col px-6 pb-20">
       {
         navItems.map((item: any) => {
           const itemUrl = normalizePath(item.url);
           const isBaseActive = normalizedCurrentPath === itemUrl;
-          const isSubActive = item.subItems?.items?.some((sub: any) => normalizePath(sub.url) === normalizedCurrentPath);
+          const isSubActive = item.subItems?.items?.some(
+            (sub: any) => normalizePath(sub.url) === normalizedCurrentPath,
+          );
           const isActive = isBaseActive || isSubActive;
           const isDropdown = item.type === "dropdown";
 
           return (
             <div
-              class="mobile-nav-item border-b border-elevated/30 py-4 last:border-0 body4"
+              class="mobile-nav-item border-elevated/30 body4 border-b py-4 last:border-0"
               data-type={item.type}
               data-url={item.url}
               data-target={item.target}
             >
               {isDropdown ? (
-                <div class="flex items-center justify-start gap-2 w-full group cursor-pointer mobile-trigger">
+                <div class="group mobile-trigger flex w-full cursor-pointer items-center justify-start gap-2">
                   <span
                     class:list={[
                       "text-lg font-semibold transition-colors",
@@ -314,22 +335,24 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                   {item.icon && (
                     <div
                       class:list={[
-                        "w-5 h-5 flex items-center justify-center transition-transform duration-300 mobile-icon",
+                        "mobile-icon flex h-5 w-5 items-center justify-center transition-transform duration-300",
                       ]}
                     >
                       <div
-                        class="w-full h-full bg-current"
+                        class="h-full w-full bg-current"
                         style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
                       />
                     </div>
                   )}
                 </div>
               ) : (
-                <a 
-                  href={item.url} 
+                <a
+                  href={item.url}
                   target={item.target}
-                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                  class="flex items-center justify-start gap-2 w-full group cursor-pointer"
+                  rel={
+                    item.target === "_blank" ? "noopener noreferrer" : undefined
+                  }
+                  class="group flex w-full cursor-pointer items-center justify-start gap-2"
                 >
                   <span
                     class:list={[
@@ -342,9 +365,9 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                     {item.title}
                   </span>
                   {item.icon && (
-                    <div class="w-5 h-5 flex items-center justify-center">
+                    <div class="flex h-5 w-5 items-center justify-center">
                       <div
-                        class="w-full h-full bg-current"
+                        class="h-full w-full bg-current"
                         style={`mask: url(${item.icon.src}) no-repeat center; -webkit-mask: url(${item.icon.src}) no-repeat center;`}
                       />
                     </div>
@@ -352,58 +375,64 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                 </a>
               )}
 
-            {isDropdown && item.subItems && (
-              <div class="mobile-dropdown-content hidden mt-4">
-                <div class="flex flex-col gap-6 pt-2 pb-4">
-                  {item.subItems.items.map((subItem: any) => {
-                    const isSubItemActive = normalizePath(subItem.url) === normalizedCurrentPath;
-                    return (
-                      <a
-                        href={subItem.url}
-                        target={subItem.target}
-                        rel={subItem.target === "_blank" ? "noopener noreferrer" : undefined}
-                        class="flex items-start gap-2 group/sub"
-                      >
-                        {subItem.icon && (
-                          <Image
-                            src={subItem.icon}
-                            alt={subItem.title}
-                            width={34}
-                            height={34}
-                            class="shrink-0 select-none rounded-lg"
-                          />
-                        )}
-                        <div class="flex flex-col">
-                          <span 
-                            class:list={[
-                              "font-semibold body4 transition-colors",
-                              isSubItemActive ? "text-brand-100!" : "text-primary group-hover/sub:text-brand-100!"
-                            ]}
-                          >
-                            {subItem.title}
-                            {subItem.target === "_blank" && (
-                              <Image
-                                src={externalLink}
-                                alt="External link"
-                                width={12}
-                                height={12}
-                                class="inline-block ml-1 align-baseline opacity-70"
-                              />
-                            )}
-                          </span>
-                          {subItem.description && (
-                            <p class="text-secondary body4 leading-snug mt-1">
-                              {subItem.description}
-                            </p>
+              {isDropdown && item.subItems && (
+                <div class="mobile-dropdown-content mt-4 hidden">
+                  <div class="flex flex-col gap-6 pt-2 pb-4">
+                    {item.subItems.items.map((subItem: any) => {
+                      const isSubItemActive =
+                        normalizePath(subItem.url) === normalizedCurrentPath;
+                      return (
+                        <a
+                          href={subItem.url}
+                          target={subItem.target}
+                          rel={
+                            subItem.target === "_blank"
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                          class="group/sub flex items-start gap-2"
+                        >
+                          {subItem.icon && (
+                            <Image
+                              src={subItem.icon}
+                              alt={subItem.title}
+                              width={34}
+                              height={34}
+                              class="shrink-0 rounded-lg select-none"
+                            />
                           )}
-                        </div>
-                      </a>
-                    );
-                  })}
-
+                          <div class="flex flex-col">
+                            <span
+                              class:list={[
+                                "body4 font-semibold transition-colors",
+                                isSubItemActive
+                                  ? "text-brand-100!"
+                                  : "text-primary group-hover/sub:text-brand-100!",
+                              ]}
+                            >
+                              {subItem.title}
+                              {subItem.target === "_blank" && (
+                                <Image
+                                  src={externalLink}
+                                  alt="External link"
+                                  width={12}
+                                  height={12}
+                                  class="ml-1 inline-block align-baseline opacity-70"
+                                />
+                              )}
+                            </span>
+                            {subItem.description && (
+                              <p class="text-secondary body4 mt-1 leading-snug">
+                                {subItem.description}
+                              </p>
+                            )}
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             </div>
           );
         })
@@ -432,7 +461,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
 
       const normalizePath = (p: string | null) => {
         if (!p) return "";
-        const base = p.split('#')[0];
+        const base = p.split("#")[0];
         return base === "/" ? "/" : base.replace(/\/$/, "");
       };
 
@@ -465,11 +494,13 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
         if (type === "dropdown") {
           trigger?.addEventListener("click", () => {
             const isHidden = dropdown?.classList.contains("hidden");
-            
+
             // Close all other dropdowns
             mobileNavItems.forEach((otherItem) => {
               if (otherItem !== item) {
-                const otherDropdown = otherItem.querySelector(".mobile-dropdown-content");
+                const otherDropdown = otherItem.querySelector(
+                  ".mobile-dropdown-content",
+                );
                 const otherIcon = otherItem.querySelector(".mobile-icon");
                 otherDropdown?.classList.add("hidden");
                 otherIcon?.classList.remove("rotate-180");
@@ -489,15 +520,20 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
           const url = link.getAttribute("href");
           if (!url) return;
 
-          const isExternal = url.startsWith("http") || link.getAttribute("target") === "_blank";
+          const isExternal =
+            url.startsWith("http") || link.getAttribute("target") === "_blank";
           const hasHash = url.includes("#");
           const [baseUrl, hash] = url.split("#");
 
-          if (!isExternal && hasHash && normalizePath(window.location.pathname) === normalizePath(baseUrl)) {
+          if (
+            !isExternal &&
+            hasHash &&
+            normalizePath(window.location.pathname) === normalizePath(baseUrl)
+          ) {
             e.preventDefault();
             const element = document.getElementById(hash);
             if (element) {
-              mobileToggle?.dispatchEvent(new Event('click'));
+              mobileToggle?.dispatchEvent(new Event("click"));
               setTimeout(() => {
                 element.scrollIntoView({ behavior: "smooth" });
                 history.pushState(null, "", url);
@@ -505,7 +541,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
             }
           } else {
             // Close menu on any other link click
-            mobileToggle?.dispatchEvent(new Event('click'));
+            mobileToggle?.dispatchEvent(new Event("click"));
           }
         });
       });
@@ -530,7 +566,9 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
                 const prevUrl = activeDropdown
                   .closest(".nav-item")
                   ?.getAttribute("data-url");
-                const isPageActive = normalizePath(window.location.pathname) === normalizePath(prevUrl || "");
+                const isPageActive =
+                  normalizePath(window.location.pathname) ===
+                  normalizePath(prevUrl || "");
                 prevButton.style.color = isPageActive
                   ? "var(--color-brand-100)"
                   : "";
@@ -544,7 +582,9 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
           const hideMenu = () => {
             timeout = setTimeout(() => {
               megaMenu?.classList.add("hidden");
-              const isPageActive = normalizePath(window.location.pathname) === normalizePath(url || "");
+              const isPageActive =
+                normalizePath(window.location.pathname) ===
+                normalizePath(url || "");
               if (button)
                 button.style.color = isPageActive
                   ? "var(--color-brand-100)"
