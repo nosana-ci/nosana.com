@@ -1,5 +1,5 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import externalLink from "../../assets/icons/externalLink.svg";
 import hamburgerIcon from "../../assets/icons/hamburger.svg?raw";
@@ -13,6 +13,28 @@ if (!navbarEntry) {
 }
 const { navLogo, navItems, navCTA } = navbarEntry.data;
 const currentPath = Astro.url.pathname;
+
+// Get featured content title
+const events = await getCollection("events");
+const blogs = await getCollection("blogs");
+const now = new Date();
+
+const upcomingEvents = events.filter(event => new Date(event.data.createdAt) >= now);
+const sortedUpcomingEvents = upcomingEvents.sort(
+  (a, b) => new Date(a.data.createdAt).getTime() - new Date(b.data.createdAt).getTime()
+);
+
+const sortedBlogs = blogs.sort(
+  (a, b) => new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
+);
+const latestBlog = sortedBlogs[0];
+
+let featuredTitle = "";
+if (sortedUpcomingEvents.length > 0) {
+  featuredTitle = "Upcoming Event";
+} else if (latestBlog) {
+  featuredTitle = latestBlog.data.category === 'blog' ? "Latest Blog" : "Latest Case Study";
+}
 
 const normalizePath = (path: string) => {
   if (!path) return "";
@@ -174,9 +196,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
 
                         <div class="col-span-4">
                           <div class="h-full">
-                            <h3 class="body4 text-secondary mb-4">
-                              Featured event
-                            </h3>
+                            <h3 class="body4 text-secondary mb-4">{featuredTitle}</h3>
                             <div class="h-full w-full pb-4">
                               <FeaturedEvent />
                             </div>
@@ -409,7 +429,7 @@ const isGrantsPage = normalizedCurrentPath === "/grants";
         })
       }
       <div class="mt-12">
-        <h3 class="body4 text-secondary mb-4">Featured Article</h3>
+        <h3 class="body4 text-secondary mb-4">{featuredTitle}</h3>
         <FeaturedEvent />
       </div>
     </div>

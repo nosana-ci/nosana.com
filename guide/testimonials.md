@@ -4,11 +4,11 @@ This document explains how contributors can add a new testimonial to the website
 
 There are three testimonial types, each used in a different section of the website:
 
-| Type | Usage |
-|---|---|
-| `stack` | Displays in 2 stack sections. Supports images. |
-| `grid` | Displays in 1 grid section. Supports images. |
-| `slider` | Displays in 1 slider section. |
+| Type     | Usage                             |
+| -------- | --------------------------------- |
+| `stack`  | Displays data in 2 sections.      |
+| `grid`   | Displays data in 2 grid variants. |
+| `slider` | Displays data in 1 section.       |
 
 ---
 
@@ -23,11 +23,11 @@ Slug rules:
 
 Example:
 
-| Author / Company | Folder Name |
-|---|---|
-| Bankless | `bankless` |
-| AI Builders | `ai-builders` |
-| Alfie | `alfie` |
+| Author / Company | Folder Name   |
+| ---------------- | ------------- |
+| Bankless         | `bankless`    |
+| AI Builders      | `ai-builders` |
+| Alfie            | `alfie`       |
 
 ---
 
@@ -84,6 +84,7 @@ type: "slider"
 title: "Alfie"
 description: "Nosana lets me keep making effective use of my solar-powered computing capacity in a market where traditional mining and hardware rental are no longer very profitable."
 ---
+
 ```
 
 ### Fields
@@ -114,7 +115,7 @@ The testimonial text.
 
 ## Type: `grid`
 
-Used in the grid section. Supports two icon variants for light and dark display.
+Used in the grid section.
 
 ![Grid type testimonials variant 1 preview](./assets/gridVariant1.png)
 
@@ -128,6 +129,7 @@ iconWhite: "./assets/buildersWhite.svg"
 title: "AI Builders"
 description: "AI Builders is a hands-on AI workshop platform for developers building and experimenting with AI projects."
 ---
+
 ```
 
 ### Fields
@@ -190,6 +192,7 @@ logo: "./assets/bankless.png"
 message: "Nosana could be a game-changer for startups and researchers looking for affordable AI computing resources."
 rating: 5.0
 ---
+
 ```
 
 ### Fields

@@ -12,8 +12,8 @@ const sessions = allSessions.sort(
     new Date(a.data.publishedAt).getTime(),
 );
 
-const featured = sessions.find((s) => s.data.featured) ?? sessions[0];
-const moreSessions = sessions.filter((s) => s.id !== featured.id);
+const latestSession = sessions[0];
+const moreSessions = sessions.slice(1);
 
 const CARDS_PER_PAGE = 2;
 const totalPages = Math.max(1, Math.ceil(moreSessions.length / CARDS_PER_PAGE));
@@ -66,7 +66,7 @@ const iconsSmall = {
     >
       <iframe
         class="h-full w-full"
-        src="https://www.youtube.com/embed/7gSu70U7EKg"
+        src={latestSession.data.embedLink}
         allow="autoplay; encrypted-media; fullscreen"
         allowfullscreen></iframe>
     </div>
@@ -75,28 +75,28 @@ const iconsSmall = {
       <span class="text-brand-100 body3">Latest</span>
 
       <h3 class="text-primary h4 grotesk leading-snug">
-        {featured.data.title}
+        {latestSession.data.title}
       </h3>
 
       <p class="text-secondary body2">
-        {featured.data.description}
+        {latestSession.data.description}
       </p>
 
       <div class="flex items-center gap-3">
         <span class="text-secondary body4">Watch on</span>
         <div class="flex items-center gap-2">
-          {featured.data.watchOnWeb && (
-            <a href={featured.data.watchOnWeb} target="_blank"
+          {latestSession.data.watchOnWeb && (
+            <a href={latestSession.data.watchOnWeb} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on Web"
                data-cta="watch" set:html={icons.web} />
           )}
-          {featured.data.watchOnYoutube && (
-            <a href={featured.data.watchOnYoutube} target="_blank"
+          {latestSession.data.watchOnYoutube && (
+            <a href={latestSession.data.watchOnYoutube} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on YouTube"
                data-cta="watch" set:html={icons.youtube} />
           )}
-          {featured.data.watchOnX && (
-            <a href={featured.data.watchOnX} target="_blank"
+          {latestSession.data.watchOnX && (
+            <a href={latestSession.data.watchOnX} target="_blank"
                class="text-secondary hover:text-primary transition" aria-label="Watch on X"
                data-cta="watch" set:html={icons.x} />
           )}
@@ -106,7 +106,7 @@ const iconsSmall = {
       <div>
         <Button
           title="Watch Now"
-          url={featured.data.watchUrl}
+          url={latestSession.data.watchUrl}
           variant="secondary"
           target="_blank"
           data-cta="watch"

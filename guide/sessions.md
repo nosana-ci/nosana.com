@@ -15,8 +15,8 @@ Slug rules:
 
 Example:
 
-| Title | Folder Name |
-|---|---|
+| Title                                   | Folder Name                              |
+| --------------------------------------- | ---------------------------------------- |
 | Nosana Deep Dive: GPU Compute on Solana | `nosana-deep-dive-gpu-compute-on-solana` |
 
 ---
@@ -35,8 +35,9 @@ watchUrl: "https://example.com/watch/nosana-deep-dive"
 watchOnWeb: "https://example.com/watch/nosana-deep-dive"
 watchOnYoutube: "https://youtube.com/watch?v=example"
 watchOnX: "https://x.com/i/broadcasts/example"
-featured: true
+embedLink: "https://www.youtube.com/embed/example"
 ---
+
 ```
 
 ---
@@ -79,8 +80,9 @@ watchUrl: "https://example.com/watch/nosana-deep-dive"
 watchOnWeb: "https://example.com/watch/nosana-deep-dive"
 watchOnYoutube: "https://youtube.com/watch?v=example"
 watchOnX: "https://x.com/i/broadcasts/example"
-featured: true
+embedLink: "https://www.youtube.com/embed/example"
 ---
+
 ```
 
 ---
@@ -151,12 +153,11 @@ An optional URL to watch the session on X (formerly Twitter).
 
 ---
 
-### `featured`
+### `embedLink`
 
-**Type:** boolean  
+**Type:** string  
 **Required:** No  
-**Default:** `false`  
-Set to `true` to feature the session on the website's event page.
+The embed URL for the session video. Used for the embedded player in the live sessions section.
 
 ---
 
