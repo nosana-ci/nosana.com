@@ -1,12 +1,15 @@
 ---
 import { getEntry } from "astro:content";
+import { getCommunityCalls } from "../../utils/community-calls";
 
 const entry = await getEntry("communityCalls", "index");
 if (!entry) return;
 
 const { title, description, nextCallDate } = entry.data;
 
-const lastUpdatedFormatted = new Date().toLocaleString("en-US", {
+const { calls, fetchedAt } = await getCommunityCalls();
+
+const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
   month: "numeric",
   day: "numeric",
   year: "numeric",
@@ -15,18 +18,6 @@ const lastUpdatedFormatted = new Date().toLocaleString("en-US", {
   second: "2-digit",
   hour12: true,
 });
-
-let calls: { meeting: string; time: string; recordingUrl: string; }[] = [];
-try {
-  const apiUrl = new URL("/api/community-calls", Astro.url);
-  const response = await fetch(apiUrl);
-  if (response.ok) {
-    const data = await response.json();
-    calls = data.calls || [];
-  }
-} catch (error) {
-  console.error("[communityCalls.astro] Failed to fetch community calls:", error);
-}
 ---
 
 <section id="community-calls" class="w-full px-4 py-10 md:px-12 md:py-24">
