@@ -2,6 +2,8 @@
 export const prerender = true;
 
 import { getEntry } from "astro:content";
+import { getImage } from "astro:assets";
+import heroBg from "../content/homepage/assets/heroBg.webp";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/homepage/hero.astro";
 import Brands from "../components/layout/brands.astro";
@@ -25,6 +27,8 @@ if (!entry) {
 }
 
 const { seoDescription, seoImage, noIndex } = entry.data;
+
+const heroPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -50,6 +54,7 @@ const organizationSchema = {
   ogDescription="Affordable GPU rental for AI and high-performance workloads. Run on demand or earn by providing GPU compute through the Nosana GPU cloud."
 >
   <Fragment slot="head">
+    <link rel="preload" as="image" href={heroPoster.src} fetchpriority="high" />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </Fragment>
 	<Hero />

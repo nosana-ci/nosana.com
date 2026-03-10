@@ -20,14 +20,22 @@ const day = createdAt.getDate();
 ---
 
 <div class="flex flex-row items-start gap-6 lg:gap-10 lg:px-20">
-<div class="flex w-[44px] md:w-20 h-[44px] md:h-20 shrink-0 flex-col overflow-hidden rounded-lg">
-    <div class="bg-secondary flex h-2/5 items-center justify-center py-1 md:py-2">
-      <span class="text-black uppercase text-[9px] md:text-[13px] leading-none font-semibold">
+  <div
+    class="flex h-[44px] w-[44px] shrink-0 flex-col overflow-hidden rounded-lg md:h-20 md:w-20"
+  >
+    <div
+      class="bg-secondary flex h-2/5 items-center justify-center py-1 md:py-2"
+    >
+      <span
+        class="text-[9px] leading-none font-semibold text-black uppercase md:text-[13px]"
+      >
         {month}
       </span>
     </div>
     <div class="bg-surface flex h-3/5 items-center justify-center py-1 md:py-2">
-      <span class="text-primary grotesk text-xs md:text-sm lg:text-xl leading-none">
+      <span
+        class="text-primary grotesk text-xs leading-none md:text-sm lg:text-xl"
+      >
         {day}
       </span>
     </div>
