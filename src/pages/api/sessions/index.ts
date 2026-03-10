@@ -50,6 +50,13 @@ function normalize(item: any, isUpcoming: boolean = false): Session {
   };
 }
 
+async function fetchVideoDetails(videoId: string) {
+  const url = `https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=${videoId}&key=${API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.items?.[0]?.liveStreamingDetails ?? null;
+}
+
 export const GET: APIRoute = async () => {
   let featured: any = null;
 
@@ -58,6 +65,10 @@ export const GET: APIRoute = async () => {
 
   if (upcoming.length > 0) {
     featured = normalize(upcoming[0], true);
+    const details = await fetchVideoDetails(featured.id);
+    if (details?.scheduledStartTime) {
+      featured.publishedAt = details.scheduledStartTime;
+    }
   }
 
   // 2️⃣ If no upcoming → check live

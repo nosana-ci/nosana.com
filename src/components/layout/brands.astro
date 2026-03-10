@@ -29,3 +29,39 @@ const loopBrands = [...brands, ...brands];
     </div>
   )
 }
+
+<style>
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 80s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-container {
+    overflow: hidden;
+  }
+
+  .marquee-container:hover .animate-marquee,
+  .marquee-container:hover .animate-marquee-fast,
+  .marquee-container:hover .animate-marquee-slow {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .animate-marquee,
+    .animate-marquee-fast,
+    .animate-marquee-slow {
+      animation: none;
+    }
+  }
+</style>
