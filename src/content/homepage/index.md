@@ -7,9 +7,7 @@ heroSection:
 
   heading: "Affordable GPU Rental at Scale"
   description: >
-    An open-source GPU cloud built for AI and high-performance workloads
-    allows users to run GPU workloads on demand with flexible,
-    usage-based pricing, helping them save up to 6× on compute costs
+    An open-source GPU cloud built for AI and high-performance workloads. Run on demand with flexible pricing and up to 6× lower costs.
 
   cta1:
     title: "Free GPU Credits"
