@@ -1,3 +1,5 @@
+uses youtube api currently
+
 # How to Add a Session
 
 This document explains how contributors can add a new session to the website. Sessions only require a frontmatter block and a thumbnail image. No Markdown body content is needed.
