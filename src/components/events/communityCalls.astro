@@ -4,9 +4,9 @@ import { getEntry } from "astro:content";
 const entry = await getEntry("communityCalls", "index");
 if (!entry) return;
 
-const { title, description, nextCallDate, lastUpdated, calls } = entry.data;
+const { title, description, nextCallDate } = entry.data;
 
-const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
+const lastUpdatedFormatted = new Date().toLocaleString("en-US", {
   month: "numeric",
   day: "numeric",
   year: "numeric",
@@ -15,6 +15,18 @@ const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
   second: "2-digit",
   hour12: true,
 });
+
+let calls: { meeting: string; time: string; recordingUrl: string; }[] = [];
+try {
+  const apiUrl = new URL("/api/community-calls", Astro.url);
+  const response = await fetch(apiUrl);
+  if (response.ok) {
+    const data = await response.json();
+    calls = data.calls || [];
+  }
+} catch (error) {
+  console.error("[communityCalls.astro] Failed to fetch community calls:", error);
+}
 ---
 
 <section id="community-calls" class="w-full px-4 py-10 md:px-12 md:py-24">
@@ -47,10 +59,13 @@ const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
 
       <tbody>
         {
-          calls.map((call) => (
-            <tr class="border-elevated bg-surface/40 border transition">
+          calls.map((call, index) => (
+            <tr 
+              class="border-elevated bg-surface/40 border transition community-call-row"
+              style={{ display: index >= 6 ? 'none' : '' }}
+            >
               <td class="text-primary body4 border-elevated border px-6 py-4">
-                {call.meeting}
+                #{index + 1}
               </td>
               <td class="text-primary body4 border-elevated border px-6 py-4">
                 {call.time}
@@ -93,6 +108,15 @@ const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
     </table>
   </div>
 
+  {calls.length > 6 && (
+    <button 
+      id="community-show-more-btn"
+      class="w-full border-elevated border-x border-b bg-surface/40 hover:bg-surface/80 transition py-4 px-6 text-primary body4 flex justify-center items-center cursor-pointer"
+    >
+      Show More
+    </button>
+  )}
+
   <div
     class="mt-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
   >
@@ -106,3 +130,31 @@ const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString("en-US", {
     </p>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const showMoreBtn = document.getElementById("community-show-more-btn");
+    const rows = document.querySelectorAll(".community-call-row");
+    let visibleCount = 6;
+
+    if (showMoreBtn) {
+      showMoreBtn.addEventListener("click", () => {
+        let shownInThisClick = 0;
+        
+        for (let i = visibleCount; i < rows.length; i++) {
+          if (shownInThisClick < 4) {
+            (rows[i] as HTMLElement).style.display = "";
+            shownInThisClick++;
+            visibleCount++;
+          } else {
+            break;
+          }
+        }
+
+        if (visibleCount >= rows.length) {
+          showMoreBtn.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

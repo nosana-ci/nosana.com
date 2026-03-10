@@ -1,56 +1,8 @@
 ---
-import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
 import Pagination from "../ui/pagination.astro";
 import Button from "../ui/button.astro";
 
-const allSessions = await getCollection("sessions");
-
-const sessions = allSessions.sort(
-  (a, b) =>
-    new Date(b.data.publishedAt).getTime() -
-    new Date(a.data.publishedAt).getTime(),
-);
-
-const latestSession = sessions[0];
-const moreSessions = sessions.slice(1);
-
 const CARDS_PER_PAGE = 2;
-const totalPages = Math.max(1, Math.ceil(moreSessions.length / CARDS_PER_PAGE));
-const pageLabels = Array.from({ length: totalPages }, (_, i) => String(i + 1));
-
-function timeAgo(date: Date): string {
-  const now = new Date();
-  const months =
-    (now.getFullYear() - date.getFullYear()) * 12 +
-    (now.getMonth() - date.getMonth());
-  if (months < 1) return "This month";
-  if (months === 1) return "1 Month ago";
-  return `${months} Months ago`;
-}
-
-// ── Icon definitions ──────────────────────────────────────────────────────────
-const icons = {
-  web: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.5"/>
-    <ellipse cx="12" cy="12" rx="3.5" ry="9.5" stroke="currentColor" stroke-width="1.5"/>
-    <path d="M2.5 9h19M2.5 15h19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>`,
-  youtube: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="1.5"/>
-    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-  </svg>`,
-  x: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  </svg>`,
-} as const;
-
-// Small variant (15px) for session cards
-const iconsSmall = {
-  web: icons.web.replace(/width="18" height="18"/g, 'width="15" height="15"'),
-  youtube: icons.youtube.replace(/width="18" height="18"/g, 'width="15" height="15"'),
-  x: icons.x.replace(/width="16" height="16"/g, 'width="13" height="13"'),
-} as const;
 ---
 
 <section class="w-full px-4 lg:px-12">
@@ -61,152 +13,245 @@ const iconsSmall = {
 
   <!-- Featured session -->
   <div class="mb-14 flex flex-col gap-8 lg:flex-row lg:gap-12">
-    <div
-      class="aspect-video w-full shrink-0 overflow-hidden rounded-lg lg:w-[45%]"
-    >
+    <div class="aspect-video w-full shrink-0 overflow-hidden rounded-lg lg:w-[45%]">
       <iframe
+        id="featured-iframe"
         class="h-full w-full"
-        src={latestSession.data.embedLink}
         allow="autoplay; encrypted-media; fullscreen"
-        allowfullscreen></iframe>
+        allowfullscreen>
+      </iframe>
     </div>
 
     <div class="flex flex-col gap-5">
-      <span class="text-brand-100 body3">Latest</span>
 
-      <h3 class="text-primary h4 grotesk leading-snug">
-        {latestSession.data.title}
+      <!-- Dynamic label -->
+      <span id="featured-label" class="text-brand-100 body3">
+        Upcoming
+      </span>
+
+      <h3
+        id="featured-title"
+        class="text-primary h4 grotesk leading-snug line-clamp-3">
       </h3>
 
-      <p class="text-secondary body2">
-        {latestSession.data.description}
+      <p
+        id="featured-description"
+        class="text-secondary body2 line-clamp-4">
       </p>
 
-      <div class="flex items-center gap-3">
-        <span class="text-secondary body4">Watch on</span>
-        <div class="flex items-center gap-2">
-          {latestSession.data.watchOnWeb && (
-            <a href={latestSession.data.watchOnWeb} target="_blank"
-               class="text-secondary hover:text-primary transition" aria-label="Watch on Web"
-               data-cta="watch" set:html={icons.web} />
-          )}
-          {latestSession.data.watchOnYoutube && (
-            <a href={latestSession.data.watchOnYoutube} target="_blank"
-               class="text-secondary hover:text-primary transition" aria-label="Watch on YouTube"
-               data-cta="watch" set:html={icons.youtube} />
-          )}
-          {latestSession.data.watchOnX && (
-            <a href={latestSession.data.watchOnX} target="_blank"
-               class="text-secondary hover:text-primary transition" aria-label="Watch on X"
-               data-cta="watch" set:html={icons.x} />
-          )}
-        </div>
-      </div>
-
-      <div>
+      <div id="featured-button">
         <Button
           title="Watch Now"
-          url={latestSession.data.watchUrl}
+          url="#"
           variant="secondary"
           target="_blank"
-          data-cta="watch"
         />
       </div>
+
     </div>
   </div>
 
   <!-- More Sessions -->
-  {moreSessions.length > 0 && (
-    <div class="flex flex-col gap-8">
-      <h4 class="text-primary h5 grotesk">More Sessions</h4>
+  <div class="flex flex-col gap-8">
+    <h4 class="text-primary h5 grotesk">More Sessions</h4>
 
-      <div
-        id="sessions-grid"
-        class="grid grid-cols-1 gap-4 min-[1200px]:grid-cols-2"
-      >
-        {moreSessions.map((session, i) => (
-          <div
-            class="session-card border-elevated flex flex-col sm:flex-row gap-6 overflow-hidden border p-4 md:p-6"
-            data-page={Math.floor(i / CARDS_PER_PAGE)}
-            style={i >= CARDS_PER_PAGE ? "display:none" : ""}
-          >
-            <!-- Thumbnail -->
-            <div class="aspect-video sm:aspect-auto sm:w-[45%] shrink-0 overflow-hidden rounded">
-              <Image
-                src={session.data.thumbnail}
-                alt={session.data.title}
-                class="h-full w-full object-cover"
-              />
-            </div>
-
-            <!-- Content -->
-            <div class="flex flex-1 flex-col justify-between gap-3 py-1 sm:py-2">
-              <div class="flex flex-col gap-1.5">
-                <span class="text-tertiary caption1">
-                  {timeAgo(new Date(session.data.publishedAt))}
-                </span>
-                <h5 class="text-primary body3 font-semibold leading-snug line-clamp-3">
-                  {session.data.title}
-                </h5>
-              </div>
-
-              <div class="flex flex-col gap-3">
-                <div class="flex items-center gap-2">
-                  <span class="text-secondary caption1">Watch on</span>
-                  <div class="flex items-center gap-1.5">
-                    {session.data.watchOnWeb && (
-                      <a href={session.data.watchOnWeb} target="_blank"
-                         class="text-secondary hover:text-primary transition" aria-label="Web"
-                         data-cta="watch" set:html={iconsSmall.web} />
-                    )}
-                    {session.data.watchOnYoutube && (
-                      <a href={session.data.watchOnYoutube} target="_blank"
-                         class="text-secondary hover:text-primary transition" aria-label="YouTube"
-                         data-cta="watch" set:html={iconsSmall.youtube} />
-                    )}
-                    {session.data.watchOnX && (
-                      <a href={session.data.watchOnX} target="_blank"
-                         class="text-secondary hover:text-primary transition" aria-label="X"
-                         data-cta="watch" set:html={iconsSmall.x} />
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <Button
-                    title="Watch Now"
-                    url={session.data.watchUrl}
-                    variant="secondary"
-                    target="_blank"
-                    data-cta="watch"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div class="mx-auto mt-8">
-        <Pagination
-          id="sessions-pagination"
-          items={pageLabels}
-          activeIndex={0}
-          maxVisible={5}
-        />
-      </div>
+    <div
+      id="sessions-grid"
+      class="grid grid-cols-1 gap-4 min-[1200px]:grid-cols-2">
     </div>
-  )}
+
+    <!-- Template -->
+    <template id="session-template">
+      <div class="session-card border-elevated flex flex-col sm:flex-row gap-6 overflow-hidden border p-4 md:p-6">
+
+        <!-- Thumbnail -->
+        <div class="aspect-video sm:w-[45%] shrink-0 overflow-hidden rounded">
+          <img class="h-full w-full object-cover session-thumbnail" />
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-1 flex-col justify-between gap-3 py-1 sm:py-2">
+
+          <div class="flex flex-col gap-1.5">
+            <span class="text-tertiary caption1 session-date"></span>
+
+            <h5 class="text-primary body3 font-semibold leading-snug line-clamp-3 session-title"></h5>
+          </div>
+
+          <div class="session-button">
+            <Button
+              title="Watch Now"
+              url="#"
+              variant="secondary"
+              target="_blank"
+            />
+          </div>
+
+        </div>
+      </div>
+    </template>
+
+    <div class="mx-auto mt-8">
+      <Pagination
+        id="sessions-pagination"
+        items={["1"]}
+        activeIndex={0}
+        maxVisible={5}
+      />
+    </div>
+  </div>
 </section>
 
 <script>
-  document.addEventListener("pagination:change", (e: Event) => {
-    const { id, index } = (e as CustomEvent).detail;
-    if (id !== "sessions-pagination") return;
+const CARDS_PER_PAGE = 2
 
-    document.querySelectorAll<HTMLElement>(".session-card").forEach((card) => {
-      card.style.display =
-        parseInt(card.dataset.page || "0") === index ? "" : "none";
-    });
-  });
+function timeAgo(date) {
+
+  const now = new Date()
+
+  const months =
+    (now.getFullYear() - date.getFullYear()) * 12 +
+    (now.getMonth() - date.getMonth())
+
+  if (months < 1) return "This month"
+  if (months === 1) return "1 Month ago"
+
+  return months + " Months ago"
+}
+
+async function loadSessions() {
+
+  const res = await fetch("/api/sessions")
+  const data = await res.json()
+
+  let featured = data.featured
+  let sessions = data.sessions || []
+
+  if (!featured && sessions.length) {
+    featured = sessions[0]
+    sessions = sessions.slice(1)
+  }
+
+  // Sort newest first
+  sessions.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt))
+
+  renderFeatured(featured)
+  renderSessions(sessions)
+}
+
+function renderFeatured(session) {
+
+  if (!session) return
+
+  const iframe = document.getElementById("featured-iframe")
+  const title = document.getElementById("featured-title")
+  const desc = document.getElementById("featured-description")
+  const label = document.getElementById("featured-label")
+  const buttonWrapper = document.getElementById("featured-button")
+
+  if (!iframe || !title || !desc || !label || !buttonWrapper) return
+
+  iframe.src = session.embedLink
+  title.textContent = session.title
+  desc.textContent = session.description
+
+  const btn = buttonWrapper.querySelector("a")
+  if (btn) btn.href = session.watchUrl
+
+  if (session.isUpcoming) {
+
+    const date = new Date(session.publishedAt)
+
+    const formatted =
+      date.toLocaleDateString(undefined,{
+        month:"short",
+        day:"numeric",
+        year:"numeric"
+      })
+
+    label.textContent = `Upcoming • ${formatted}`
+
+  } else {
+
+    label.textContent = "Latest"
+
+  }
+}
+
+function renderSessions(sessions) {
+
+  const grid = document.getElementById("sessions-grid")
+  const template = document.getElementById("session-template")
+
+  if (!grid || !template) return
+
+  grid.innerHTML = ""
+
+  sessions.forEach((session, i) => {
+
+    const node = template.content.cloneNode(true)
+
+    const card = node.querySelector(".session-card")
+    const thumb = node.querySelector(".session-thumbnail")
+    const title = node.querySelector(".session-title")
+    const date = node.querySelector(".session-date")
+    const buttonContainer = node.querySelector(".session-button")
+
+    if (!card || !thumb || !title || !date || !buttonContainer) return
+
+    card.dataset.page = Math.floor(i / CARDS_PER_PAGE)
+
+    if (i >= CARDS_PER_PAGE) card.style.display = "none"
+
+    thumb.src = session.thumbnail
+    thumb.alt = session.title
+
+    title.textContent = session.title
+    date.textContent = timeAgo(new Date(session.publishedAt))
+
+    const btn = buttonContainer.querySelector("a")
+    if (btn) btn.href = session.watchUrl
+
+    grid.appendChild(node)
+  })
+
+  updatePagination(sessions.length)
+}
+
+function updatePagination(totalSessions) {
+
+  const totalPages = Math.max(1, Math.ceil(totalSessions / CARDS_PER_PAGE))
+  const pagination = document.getElementById("sessions-pagination")
+
+  if (!pagination) return
+
+  const pages = Array.from({ length: totalPages }, (_, i) => String(i + 1))
+
+  pagination.dispatchEvent(
+    new CustomEvent("pagination:update", {
+      detail: {
+        id: "sessions-pagination",
+        items: pages
+      }
+    })
+  )
+}
+
+document.addEventListener("pagination:change", (e) => {
+
+  const detail = e.detail
+
+  if (detail.id !== "sessions-pagination") return
+
+  document.querySelectorAll(".session-card").forEach((card) => {
+
+    const page = Number(card.dataset.page || 0)
+
+    card.style.display = page === detail.index ? "" : "none"
+  })
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadSessions().catch(console.error)
+})
 </script>
