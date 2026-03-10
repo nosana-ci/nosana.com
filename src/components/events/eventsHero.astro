@@ -42,7 +42,7 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
       <div class="relative w-[110px] shrink-0">
         <select
           id="events-month-mobile"
-          class="bg-surface text-secondary body3 focus:outline-default w-full cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline h-full"
+          class="bg-surface text-secondary body3 focus:outline-default h-full w-full cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline"
         >
           <option value="All" selected>Month</option>
           {
@@ -56,9 +56,22 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
             ))
           }
         </select>
-        <span class="text-tertiary pointer-events-none absolute top-1/2 right-2 -translate-y-1/2">
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <span
+          class="text-tertiary pointer-events-none absolute top-1/2 right-2 -translate-y-1/2"
+        >
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L5 5L9 1"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </span>
       </div>
@@ -67,7 +80,7 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
       <div class="relative">
         <select
           id="events-year-mobile"
-          class="bg-surface text-secondary body3 focus:outline-default cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline h-full"
+          class="bg-surface text-secondary body3 focus:outline-default h-full cursor-pointer appearance-none rounded px-3 py-3 pr-7 focus:outline"
         >
           <option value="All" selected>Year</option>
           {
@@ -81,9 +94,22 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
             ))
           }
         </select>
-        <span class="text-tertiary pointer-events-none absolute top-1/2 right-2 -translate-y-1/2">
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <span
+          class="text-tertiary pointer-events-none absolute top-1/2 right-2 -translate-y-1/2"
+        >
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L5 5L9 1"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </span>
       </div>
@@ -91,11 +117,17 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
       <!-- Reset Button (Mobile) -->
       <button
         id="events-reset-mobile"
-        class="bg-surface text-tertiary flex shrink-0 items-center justify-center rounded px-3 py-3 cursor-pointer hover:text-white transition group/resetfilter"
+        class="bg-surface text-tertiary group/resetfilter flex shrink-0 cursor-pointer items-center justify-center rounded px-3 py-3 transition hover:text-white"
         aria-label="Reset filters"
         style="display: none"
       >
-        <Image src={closeIcon} alt="Reset" width={16} height={16} class="w-5 h-5 opacity-70 group-hover/resetfilter:opacity-100 transition-all duration-300" />
+        <Image
+          src={closeIcon}
+          alt="Reset"
+          width={16}
+          height={16}
+          class="h-5 w-5 opacity-70 transition-all duration-300 group-hover/resetfilter:opacity-100"
+        />
       </button>
     </div>
 
@@ -105,9 +137,20 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
       class="bg-surface text-tertiary flex shrink-0 items-center justify-center rounded px-4 py-3"
       aria-label="Search"
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"></circle>
-        <path d="M11 11L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"
+        ></circle>
+        <path
+          d="M11 11L14 14"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"></path>
       </svg>
     </button>
   </div>
@@ -123,18 +166,33 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
   </div>
 
   <!-- Desktop / tablet layout (sm+): original full row -->
-  <div class="hidden sm:flex sm:flex-row sm:items-stretch sm:gap-3 md:max-w-4/5">
+  <div
+    class="hidden sm:flex sm:flex-row sm:items-stretch sm:gap-3 md:max-w-4/5"
+  >
     <div class="relative flex-1">
       <input
         id="events-search-desktop"
         type="text"
         placeholder="Search for Events"
-        class="bg-surface text-secondary placeholder:text-tertiary body3 focus:outline-default w-full rounded px-4 py-3 pr-10 focus:outline h-full"
+        class="bg-surface text-secondary placeholder:text-tertiary body3 focus:outline-default h-full w-full rounded px-4 py-3 pr-10 focus:outline"
       />
-      <span class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"></circle>
-          <path d="M11 11L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+      <span
+        class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"
+          ></circle>
+          <path
+            d="M11 11L14 14"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"></path>
         </svg>
       </span>
     </div>
@@ -142,7 +200,7 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
     <div class="relative">
       <select
         id="events-month"
-        class="bg-surface text-secondary body3 focus:outline-default min-w-[140px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline h-full"
+        class="bg-surface text-secondary body3 focus:outline-default h-full min-w-[140px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline"
       >
         <option value="All" selected>Month</option>
         {
@@ -156,9 +214,22 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
           ))
         }
       </select>
-      <span class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      <span
+        class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
+      >
+        <svg
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1L5 5L9 1"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </span>
     </div>
@@ -166,7 +237,7 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
     <div class="relative">
       <select
         id="events-year"
-        class="bg-surface text-secondary body3 focus:outline-default min-w-[90px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline h-full"
+        class="bg-surface text-secondary body3 focus:outline-default h-full min-w-[90px] cursor-pointer appearance-none rounded px-4 py-3 pr-8 focus:outline"
       >
         <option value="All" selected>Year</option>
         {
@@ -180,9 +251,22 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
           ))
         }
       </select>
-      <span class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      <span
+        class="text-tertiary pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
+      >
+        <svg
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1L5 5L9 1"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </span>
     </div>
@@ -190,11 +274,17 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
     <!-- Desktop Reset Button -->
     <button
       id="events-reset"
-      class="bg-surface text-tertiary flex shrink-0 items-center justify-center rounded px-4 py-3 cursor-pointer hover:text-white transition group/resetfilter"
+      class="bg-surface text-tertiary group/resetfilter flex shrink-0 cursor-pointer items-center justify-center rounded px-4 py-3 transition hover:text-white"
       aria-label="Reset filters"
       style="display: none"
     >
-      <Image src={closeIcon} alt="Reset" width={16} height={16} class="w-6 h-6 opacity-70 group-hover/resetfilter:opacity-100 transition-all duration-300" />
+      <Image
+        src={closeIcon}
+        alt="Reset"
+        width={16}
+        height={16}
+        class="h-6 w-6 opacity-70 transition-all duration-300 group-hover/resetfilter:opacity-100"
+      />
     </button>
   </div>
 </section>
@@ -203,7 +293,9 @@ const defaultYear = years.includes(currentYear) ? currentYear : 2025;
   // Mobile search toggle
   const searchToggle = document.getElementById("events-search-toggle");
   const searchMobileWrap = document.getElementById("events-search-mobile-wrap");
-  const searchMobileInput = document.getElementById("events-search") as HTMLInputElement | null;
+  const searchMobileInput = document.getElementById(
+    "events-search",
+  ) as HTMLInputElement | null;
 
   if (searchToggle && searchMobileWrap) {
     searchToggle.addEventListener("click", () => {
