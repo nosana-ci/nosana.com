@@ -1,8 +1,6 @@
 ---
 import Pagination from "../ui/pagination.astro";
 import Button from "../ui/button.astro";
-
-const CARDS_PER_PAGE = 2;
 ---
 
 <section class="w-full px-4 lg:px-12">
@@ -13,7 +11,7 @@ const CARDS_PER_PAGE = 2;
 
   <!-- Featured session -->
   <div class="mb-14 flex flex-col gap-8 lg:flex-row lg:gap-12">
-    <div class="aspect-video w-full shrink-0 overflow-hidden rounded-lg lg:w-[45%]">
+    <div class="aspect-video w-full shrink-0 overflow-hidden rounded-lg lg:w-[45%]" data-lenis-prevent>
       <iframe
         id="featured-iframe"
         class="h-full w-full"
@@ -25,9 +23,12 @@ const CARDS_PER_PAGE = 2;
     <div class="flex flex-col gap-5">
 
       <!-- Dynamic label -->
-      <span id="featured-label" class="text-brand-100 body3">
-        Upcoming
-      </span>
+      <div class="flex items-center gap-1.5 body3">
+        <span id="featured-label" class="text-brand-100">
+          Upcoming
+        </span>
+        <span id="featured-date" class="text-primary"></span>
+      </div>
 
       <h3
         id="featured-title"
@@ -147,6 +148,7 @@ function renderFeatured(session) {
   const title = document.getElementById("featured-title")
   const desc = document.getElementById("featured-description")
   const label = document.getElementById("featured-label")
+  const dateEl = document.getElementById("featured-date")
   const buttonWrapper = document.getElementById("featured-button")
 
   if (!iframe || !title || !desc || !label || !buttonWrapper) return
@@ -169,11 +171,18 @@ function renderFeatured(session) {
         year:"numeric"
       })
 
-    label.textContent = `Upcoming • ${formatted}`
+    label.textContent = "Upcoming"
+    if (dateEl) {
+      dateEl.textContent = `- ${formatted}`
+      dateEl.style.display = ""
+    }
 
   } else {
 
     label.textContent = "Latest"
+    if (dateEl) {
+      dateEl.style.display = "none"
+    }
 
   }
 }
