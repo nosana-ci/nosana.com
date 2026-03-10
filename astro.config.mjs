@@ -57,7 +57,13 @@ export default defineConfig({
       return item;
     },
   }), react()],
+  build: {
+    inlineStylesheets: "auto",
+  },
   vite: {
+    build: {
+      assetsInlineLimit: 16000,
+    },
     plugins: [tailwindcss()]
   }
 });
