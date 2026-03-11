@@ -4,12 +4,12 @@ import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
 import NavigateButton from "../ui/navigateButton.astro";
 
-import step1Raw from "../../content/gpu-providers/assets/steps/step1.svg?raw";
-import step2Raw from "../../content/gpu-providers/assets/steps/step2.svg?raw";
-import step3Raw from "../../content/gpu-providers/assets/steps/step3.svg?raw";
-import step4Raw from "../../content/gpu-providers/assets/steps/step4.svg?raw";
+import step1Png from "../../content/gpu-providers/assets/steps/step1.png";
+import step2Png from "../../content/gpu-providers/assets/steps/step2.png";
+import step3Png from "../../content/gpu-providers/assets/steps/step3.png";
+import step4Png from "../../content/gpu-providers/assets/steps/step4.png";
 
-const stepSvgs = [step1Raw, step2Raw, step3Raw, step4Raw];
+const stepPngs = [step1Png, step2Png, step3Png, step4Png];
 
 type Props = {
   getStarted: CollectionEntry<"gpuProviders">["data"]["getStarted"];
@@ -31,13 +31,31 @@ const { badge, heading, description, cta1, cta2, steps } = getStarted;
     </p>
 
     <div class="mb-10 flex gap-3">
-      {cta1 && <Button title={cta1.title} url={cta1.url} variant="secondary" data-cta="earn_gpu" />}
-      {cta2 && <Button title={cta2.title} url={cta2.url} variant="secondary" data-cta="schedule_call" />}
+      {
+        cta1 && (
+          <Button
+            title={cta1.title}
+            url={cta1.url}
+            variant="secondary"
+            data-cta="earn_gpu"
+          />
+        )
+      }
+      {
+        cta2 && (
+          <Button
+            title={cta2.title}
+            url={cta2.url}
+            variant="secondary"
+            data-cta="schedule_call"
+          />
+        )
+      }
     </div>
   </div>
 
   <div
-    class="bg-surface/30 border-default/30 relative h-full w-full overflow-hidden"
+    class="bg-bg-base border-surface h-full w-full overflow-hidden rounded-lg border"
   >
     {
       steps.map((_step: any, index: number) => (
@@ -48,10 +66,7 @@ const { badge, heading, description, cta1, cta2, steps } = getStarted;
             index === 1 ? "max-md:scale-110 max-md:overflow-hidden" : "",
           ]}
         >
-          <div
-            class="step-svg-wrapper"
-            set:html={stepSvgs[index]}
-          />
+          <img src={stepPngs[index].src} alt={`Step ${index + 1}`} class="step-img w-full h-auto" />
         </div>
       ))
     }
@@ -144,19 +159,12 @@ const { badge, heading, description, cta1, cta2, steps } = getStarted;
     display: block;
   }
 
-  .step-svg-wrapper :global(svg) {
+  .step-img {
     width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
     height: auto;
     display: block;
-  }
-
-  .step-svg-wrapper :global(.step-glow) {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .step-image:hover .step-svg-wrapper :global(.step-glow) {
-    opacity: 1;
   }
   .step-content {
     transition:
