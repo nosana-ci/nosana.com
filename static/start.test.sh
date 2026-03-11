@@ -132,6 +132,8 @@
       --mount source=podman-cache,target=/var/lib/containers \
       --mount type=bind,source=$HOME/.nosana/,target=/root/.nosana \
       --privileged \
+      --dns=1.1.1.1 \
+      --dns=8.8.8.8 \
       -e ENABLE_GPU=true \
       -e NVIDIA_DRIVER_CAPABILITIES=all \
       nosana/podman:v1.1.0 unix:/podman.sock
@@ -148,7 +150,7 @@
     docker exec podman sh -c 'podman images -f "dangling=true" -f "reference=docker.io/nosana/nosana-node:latest" -q | xargs -r podman rmi -f'
 
     if ! docker exec podman podman network ls | grep NOSANA_GATEWAY > /dev/null 2>&1; then
-      docker exec podman podman network create --driver bridge --subnet=192.168.101.0/24 --gateway=192.168.101.1 NOSANA_GATEWAY > /dev/null 2>&1
+      docker exec podman podman network create --driver bridge --subnet=192.168.101.0/24 --gateway=192.168.101.1 NOSANA_GATEWAY --dns=1.1.1.1 --dns=8.8.8.8 > /dev/null 2>&1
     fi
     
     NOSANA_NODE_ARGS=(
