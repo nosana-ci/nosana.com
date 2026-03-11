@@ -7,11 +7,12 @@ pages:
   stage: deploy
 
   script:
-    - export YOUTUBE_API_KEY=$YOUTUBE_API_KEY
-    - export YOUTUBE_CHANNEL_ID=$YOUTUBE_CHANNEL_ID
-    - npm ci
-    - npm run build
-    - mv dist public
+  - export YOUTUBE_API_KEY=$YOUTUBE_API_KEY
+  - export YOUTUBE_CHANNEL_ID=$YOUTUBE_CHANNEL_ID
+  - npm ci
+  - npm run build
+  - rm -rf public
+  - mv dist public
 
   artifacts:
     paths:
