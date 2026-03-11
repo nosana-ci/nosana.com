@@ -4,11 +4,11 @@ import Badge from "../ui/badge.astro";
 import Button from "../ui/button.astro";
 import NavigateButton from "../ui/navigateButton.astro";
 
-import step1Raw from "../../content/gpu-workloads/assets/step1.svg?raw";
-import step2Raw from "../../content/gpu-workloads/assets/step2.svg?raw";
-import step3Raw from "../../content/gpu-workloads/assets/step3.svg?raw";
+import step1Png from "../../content/gpu-workloads/assets/step1.png";
+import step2Png from "../../content/gpu-workloads/assets/step2.png";
+import step3Png from "../../content/gpu-workloads/assets/step3.png";
 
-const stepSvgs = [step1Raw, step2Raw, step3Raw];
+const stepPngs = [step1Png, step2Png, step3Png];
 
 type Props = {
   howItWorks: CollectionEntry<"gpuWorkloads">["data"]["howItWorks"];
@@ -16,27 +16,50 @@ type Props = {
 
 const { howItWorks } = Astro.props;
 
-const { badge, heading, headingHighlight, description, cta1, cta2, steps } = howItWorks;
+const { badge, heading, headingHighlight, description, cta1, cta2, steps } =
+  howItWorks;
 ---
 
 <section class="bg-bg-base w-full px-4 lg:px-12" id="get-started-section">
   <div>
     <Badge title={badge.title} />
     <h2 class="text-primary h4 grotesk mt-4 mb-3 max-w-3xl">
-      {heading}{headingHighlight && <span class="text-brand-100"> {headingHighlight}</span>}
+      {heading}{
+        headingHighlight && (
+          <span class="text-brand-100"> {headingHighlight}</span>
+        )
+      }
     </h2>
     <p class="text-secondary body2 mb-6 md:max-w-xl">
       {description}
     </p>
 
     <div class="mb-10 flex gap-3">
-      {cta1 && <Button title={cta1.title} url={cta1.url} variant="secondary" data-cta="deploy" />}
-      {cta2 && <Button title={cta2.title} url={cta2.url} variant="secondary" data-cta="schedule_call" />}
+      {
+        cta1 && (
+          <Button
+            title={cta1.title}
+            url={cta1.url}
+            variant="secondary"
+            data-cta="deploy"
+          />
+        )
+      }
+      {
+        cta2 && (
+          <Button
+            title={cta2.title}
+            url={cta2.url}
+            variant="secondary"
+            data-cta="schedule_call"
+          />
+        )
+      }
     </div>
   </div>
 
   <div
-    class="bg-surface/30 border-default/30 relative h-full w-full overflow-hidden"
+    class="bg-bg-base border-surface h-full w-full overflow-hidden rounded-lg border"
   >
     {
       steps.map((_step: any, index: number) => (
@@ -46,10 +69,7 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
             index === 0 ? "active max-md:scale-130 max-md:overflow-hidden" : "",
           ]}
         >
-          <div
-            class="step-svg-wrapper"
-            set:html={stepSvgs[index]}
-          />
+          <img src={stepPngs[index].src} alt={`Step ${index + 1}`} class="step-img w-full h-auto" />
         </div>
       ))
     }
@@ -96,11 +116,9 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
                 <h3 class="text-primary h4 grotesk mb-2 max-w-xs">
                   {step.title}
                 </h3>
-                <p class="text-secondary body2 max-w-sm">
-                  {step.description}
-                </p>
+                <p class="text-secondary body2 max-w-sm">{step.description}</p>
                 {step.note && (
-                  <p class="text-secondary body2 mb-6 mt-4 max-w-sm">
+                  <p class="text-secondary body2 mt-4 mb-6 max-w-sm">
                     {step.note}
                   </p>
                 )}
@@ -114,7 +132,7 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
     <div style="height: 0px;"></div>
   </div>
 
-  <div class="mt-6 flex items-center justify-between">
+  <div class="flex items-center justify-between">
     <div class="h-0.5 w-40 overflow-hidden rounded bg-white/20">
       <div
         class="slider-progress h-full bg-white transition-all duration-500"
@@ -148,19 +166,12 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } = how
     display: block;
   }
 
-  .step-svg-wrapper :global(svg) {
+  .step-img {
     width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
     height: auto;
     display: block;
-  }
-
-  .step-svg-wrapper :global(.step-glow) {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .step-image:hover .step-svg-wrapper :global(.step-glow) {
-    opacity: 1;
   }
   .step-content {
     transition:

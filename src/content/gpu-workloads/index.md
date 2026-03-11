@@ -60,7 +60,7 @@ howItWorks:
   steps:
     - title: "Set up your account"
       description: "Get started on the Nosana Deploy page by connecting your wallet or signing in with email."
-      note: "(Claim free credits when you log in with email.)"
+      note: "Claim free credits when you log in with email."
       image: "./assets/step1.svg"
     - title: "Configure & launch"
       description: "Choose a ready-made template or customize your own workload and launch it in a few clicks."
