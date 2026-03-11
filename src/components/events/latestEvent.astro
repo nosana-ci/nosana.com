@@ -2,26 +2,101 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Badge from "../ui/badge.astro";
+import { getYouTubeData } from "../../utils/youtube";
 
-const allEvents = await getCollection("events");
-const latestEvent = allEvents.sort(
-  (a, b) => new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
-)[0];
+const now = new Date();
 
-if (!latestEvent) return null;
+const events = await getCollection("events");
+const { featured } = await getYouTubeData();
 
-const { title, description, thumbnail, createdAt, time, url } =
-  latestEvent.data;
+let upcomingItems = [];
+let pastEvents = [];
 
-const eventDate = new Date(createdAt);
+for (const event of events) {
 
-const month = eventDate
+  const eventDate = new Date(event.data.createdAt);
+
+  if (eventDate >= now) {
+    upcomingItems.push({
+      type: "event",
+      date: eventDate,
+      data: event.data,
+    });
+  } else {
+    pastEvents.push({
+      type: "event",
+      date: eventDate,
+      data: event.data,
+    });
+  }
+}
+
+if (featured) {
+
+  const sessionDate = new Date(featured.publishedAt);
+
+  if (sessionDate >= now) {
+    upcomingItems.push({
+      type: "session",
+      date: sessionDate,
+      data: featured,
+    });
+  }
+}
+
+let selected;
+
+if (upcomingItems.length) {
+
+  upcomingItems.sort((a, b) => a.date - b.date);
+  selected = upcomingItems[0];
+
+} else {
+
+  pastEvents.sort((a, b) => b.date - a.date);
+  selected = pastEvents[0];
+}
+
+if (!selected) return null;
+
+let title;
+let description;
+let thumbnail;
+let createdAt;
+let time;
+let url;
+let badgeTitle;
+let embedLink;
+let isSession = false;
+
+if (selected.type === "event") {
+
+  ({ title, description, thumbnail, createdAt, time, url } = selected.data);
+  badgeTitle = "Upcoming Event";
+
+} else {
+
+  title = selected.data.title;
+  description = selected.data.description;
+  thumbnail = selected.data.thumbnail;
+  createdAt = selected.data.publishedAt;
+  embedLink = selected.data.embedLink;
+  time = "";
+  url = selected.data.watchUrl;
+
+  badgeTitle = "Upcoming Session";
+  isSession = true;
+}
+
+const displayDate = new Date(createdAt);
+
+const month = displayDate
   .toLocaleDateString("en-US", { month: "short" })
   .toUpperCase();
 
-const day = eventDate.getDate();
+const day = displayDate.getDate();
 
-const fullDate = eventDate.toLocaleDateString("en-US", {
+const fullDate = displayDate.toLocaleDateString("en-US", {
   weekday: "long",
   year: "numeric",
   month: "long",
@@ -31,24 +106,63 @@ const fullDate = eventDate.toLocaleDateString("en-US", {
 
 <section class="w-full">
   <div class="px-4 lg:px-12">
+
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       class="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center cursor-pointer"
     >
-      <div class="w-full overflow-hidden">
-        <Image
-          src={thumbnail}
-          alt={title}
-          class="w-full h-auto select-none pointer-events-none"
-        />
+
+      <div class="w-full overflow-hidden aspect-video rounded-lg relative">
+
+        {
+          isSession ? (
+
+            <>
+              <!-- Click overlay -->
+              <button
+                class="absolute inset-0 z-10 cursor-pointer"
+                id="video-overlay"
+                aria-label="Activate video"
+              />
+
+              <iframe
+                src={embedLink}
+                class="w-full h-full pointer-events-none"
+                allow="autoplay; encrypted-media; fullscreen"
+                allowfullscreen
+                id="session-video"
+              />
+            </>
+
+          ) : (
+
+            typeof thumbnail === "string" ? (
+              <img
+                src={thumbnail}
+                alt={title}
+                class="w-full h-full object-cover select-none pointer-events-none"
+              />
+            ) : (
+              <Image
+                src={thumbnail}
+                alt={title}
+                class="w-full h-full object-cover select-none pointer-events-none"
+              />
+            )
+
+          )
+        }
+
       </div>
 
       <div class="flex flex-col gap-8 lg:gap-10 flex-1">
-        <Badge title="Latest Event" class="w-fit" />
+
+        <Badge title={badgeTitle} class="w-fit" />
 
         <div class="flex flex-col gap-4">
+
           <h2 class="text-primary h4 grotesk lg:line-clamp-2 lg:max-w-xl transition-colors duration-300 group-hover:text-brand-100">
             {title}
           </h2>
@@ -56,12 +170,13 @@ const fullDate = eventDate.toLocaleDateString("en-US", {
           <p class="text-secondary body2 lg:max-w-2xl lg:line-clamp-3">
             {description}
           </p>
+
         </div>
 
         <div class="flex items-start gap-4">
 
           <div class="w-12 h-12 rounded-lg overflow-hidden flex flex-col shrink-0">
-            
+
             <div class="h-[30%] bg-[#C9C9C9] flex items-center justify-center">
               <span class="text-[10px] font-medium text-black leading-none">
                 {month}
@@ -73,9 +188,11 @@ const fullDate = eventDate.toLocaleDateString("en-US", {
                 {day}
               </span>
             </div>
+
           </div>
 
           <div class="flex flex-col">
+
             <span class="text-primary body4">
               {fullDate}
             </span>
@@ -85,10 +202,14 @@ const fullDate = eventDate.toLocaleDateString("en-US", {
                 {time}
               </span>
             )}
+
           </div>
 
         </div>
+
       </div>
+
     </a>
+
   </div>
 </section>

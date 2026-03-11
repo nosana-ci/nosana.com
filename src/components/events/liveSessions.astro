@@ -2,9 +2,9 @@
 import Pagination from "../ui/pagination.astro";
 import Button from "../ui/button.astro";
 
-import { getSessions } from "../../utils/sessions";
+import { getYouTubeData } from "../../utils/youtube";
 
-const { featured, sessions } = await getSessions();
+const { featured, sessions } = await getYouTubeData();
 
 // Sort newest first
 const sortedSessions = sessions.sort(
