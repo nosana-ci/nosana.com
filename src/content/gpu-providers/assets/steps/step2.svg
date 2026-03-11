@@ -790,7 +790,7 @@
 <rect x="979" y="88" width="7.00002" height="358" fill="#10E80C"/>
 <foreignObject x="981.9" y="83.9" width="171.2" height="366.2"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(2.05px);clip-path:url(#bgblur_1_5818_59997_clip_path);height:100%;width:100%"></div></foreignObject><rect data-figma-bg-blur-radius="4.1" x="986" y="88" width="163" height="358" fill="url(#paint14_linear_5818_59997)"/>
 </g>
-<path d="M12 0.5H1317C1323.35 0.5 1328.5 5.64873 1328.5 12V544C1328.5 550.351 1323.35 555.5 1317 555.5H12C5.64873 555.5 0.5 550.351 0.5 544V12C0.5 5.64873 5.64873 0.5 12 0.5Z" stroke="#2A2A2A"/>
+
 <defs>
 <filter id="filter0_f_5818_59997" x="266.281" y="-120.279" width="797.478" height="797.478" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
