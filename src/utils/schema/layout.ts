@@ -5,6 +5,7 @@ export const layoutSchema = ({ image }: SchemaContext) => z.object({
     heading: z.string(),
     description: z.string(),
     image: image(),
+    formUrl: z.string(),
   }),
 
   socialBannerMarquee: z.object({
