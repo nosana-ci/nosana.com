@@ -126,7 +126,7 @@ const { heading, description, image, formUrl } = newsletter;
 
     try {
       const emailValue = formData.get("email");
-      const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "http://dashboard.k8s.prd.nos.ci";
+      const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "https://dashboard.k8s.prd.nos.ci";
       const res = await fetch(`${apiBase}/api/newsletter/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
