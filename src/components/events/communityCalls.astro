@@ -1,13 +1,13 @@
 ---
 import { getEntry } from "astro:content";
-import { getCommunityCalls } from "../../utils/community-calls";
+import { getYouTubeData } from "../../utils/youtube";
 
 const entry = await getEntry("communityCalls", "index");
 if (!entry) return;
 
 const { title, description, nextCallDate } = entry.data;
 
-const { calls, fetchedAt } = await getCommunityCalls();
+const { communityCalls, fetchedAt } = await getYouTubeData();
 
 const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
   month: "numeric",
@@ -17,6 +17,7 @@ const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
   minute: "2-digit",
   second: "2-digit",
   hour12: true,
+  timeZoneName: "short",
 });
 ---
 
@@ -50,7 +51,7 @@ const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
 
       <tbody>
         {
-          calls.map((call, index) => (
+          communityCalls.map((call, index) => (
             <tr 
               class="border-elevated bg-surface/40 border transition community-call-row"
               style={{ display: index >= 6 ? 'none' : '' }}
@@ -99,7 +100,7 @@ const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
     </table>
   </div>
 
-  {calls.length > 6 && (
+  {communityCalls.length > 6 && (
     <button 
       id="community-show-more-btn"
       class="w-full border-elevated border-x border-b bg-surface/40 hover:bg-surface/80 transition py-4 px-6 text-primary body4 flex justify-center items-center cursor-pointer"
