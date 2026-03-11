@@ -11,8 +11,8 @@ pages:
   - export YOUTUBE_CHANNEL_ID=$YOUTUBE_CHANNEL_ID
   - npm ci
   - npm run build
-  - rm -rf public
-  - mv dist public
+  - cp -r dist/* public/
+  - rm -rf dist
 
   artifacts:
     paths:
