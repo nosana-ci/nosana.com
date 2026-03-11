@@ -102,39 +102,55 @@ const { heading, description, formUrl } = newsletter;
 </div>
 
 <script>
-const form = document.getElementById("newsletter-form-secondary");
+  const form = document.getElementById("newsletter-form-secondary");
 
-const BREVO_URL = form?.dataset.formUrl;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-form?.addEventListener("submit", (e) => {
+    const formData = new FormData(form);
+    const button = form.querySelector("button[type='submit']");
+    const buttonText = button.querySelector("span");
 
-  e.preventDefault();
+    const originalText = buttonText.innerHTML;
 
-  const emailInput = form.querySelector("input[name='email']");
-  const email = emailInput?.value?.trim();
+    button.disabled = true;
+    buttonText.innerHTML = "Subscribing...";
 
-  const button = form.querySelector("button[type='submit']");
-  const buttonText = button.querySelector("span");
+    try {
+      const emailValue = formData.get("email");
+      const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "http://dashboard.k8s.prd.nos.ci";
+      const res = await fetch(`${apiBase}/api/newsletter/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailValue }),
+      });
 
-  const originalText = buttonText.innerHTML;
+      if (!res.ok) throw new Error();
 
-  button.disabled = true;
-  buttonText.innerHTML = "Opening...";
+      window.dispatchEvent(
+        new CustomEvent("toast", {
+          detail: {
+            type: "success",
+            message: "Thank you for signing up. You'll start receiving the latest updates from Nosana shortly."
+          }
+        })
+      );
 
-  let url = BREVO_URL;
-
-  if (email) {
-    url += `?email=${encodeURIComponent(email)}`;
-  }
-
-  window.open(url, "_blank", "noopener,noreferrer");
-
-  form.reset();
-
-  setTimeout(() => {
-    button.disabled = false;
-    buttonText.innerHTML = originalText;
-  }, 400);
-
-});
+      form.reset();
+    } catch {
+      window.dispatchEvent(
+        new CustomEvent("toast", {
+          detail: {
+            type: "error",
+            message: "Failed to subscribe. Please try again."
+          }
+        })
+      );
+    } finally {
+      setTimeout(() => {
+        button.disabled = false;
+        buttonText.innerHTML = originalText;
+      }, 400);
+    }
+  });
 </script>

@@ -5,7 +5,6 @@ const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos";
 
 export async function getYouTubeData() {
-
   const searchUrl =
     `${SEARCH_URL}?part=snippet` +
     `&channelId=${CHANNEL_ID}` +
@@ -19,16 +18,25 @@ export async function getYouTubeData() {
 
   const videos = data.items ?? [];
 
+  if (videos.length === 0) {
+    return {
+      featured: null,
+      sessions: [],
+      communityCalls: [],
+      fetchedAt: new Date().toISOString(),
+    };
+  }
+
   const ids = videos.map((v: any) => v.id.videoId);
 
   const detailsRes = await fetch(
-    `${VIDEOS_URL}?part=liveStreamingDetails&id=${ids.join(",")}&key=${API_KEY}`
+    `${VIDEOS_URL}?part=liveStreamingDetails&id=${ids.join(",")}&key=${API_KEY}`,
   );
 
   const detailsData = await detailsRes.json();
 
   const detailsMap = new Map(
-    detailsData.items.map((d: any) => [d.id, d.liveStreamingDetails])
+    (detailsData.items ?? []).map((d: any) => [d.id, d.liveStreamingDetails]),
   );
 
   const sessions = [];
@@ -38,7 +46,6 @@ export async function getYouTubeData() {
   let liveSession = null;
 
   for (const video of videos) {
-
     const videoId = video.id.videoId;
     const snippet = video.snippet;
 
@@ -49,14 +56,13 @@ export async function getYouTubeData() {
       thumbnail: snippet.thumbnails.high?.url,
       publishedAt: snippet.publishedAt,
       embedLink: `https://www.youtube.com/embed/${videoId}`,
-      watchUrl: `https://youtube.com/watch?v=${videoId}`
+      watchUrl: `https://youtube.com/watch?v=${videoId}`,
     };
 
     const details = detailsMap.get(videoId);
 
     // Detect livestream state
     if (details?.scheduledStartTime && !details?.actualStartTime) {
-
       normalized.publishedAt = details.scheduledStartTime;
       normalized.isUpcoming = true;
 
@@ -71,41 +77,36 @@ export async function getYouTubeData() {
 
     // Detect community calls
     if (snippet.title.toLowerCase().includes("community call")) {
-
       const date = new Date(snippet.publishedAt);
 
       const formattedDate = date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
-        year: "numeric"
+        year: "numeric",
       });
 
       const formattedTime = date.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",
-        timeZoneName: "short"
+        timeZoneName: "short",
       });
 
       communityCalls.push({
         meeting: snippet.title,
         time: `${formattedDate} • ${formattedTime}`,
-        recordingUrl: normalized.watchUrl
+        recordingUrl: normalized.watchUrl,
       });
     }
   }
 
-  const featured =
-    upcomingSession ||
-    liveSession ||
-    sessions[0] ||
-    null;
+  const featured = upcomingSession || liveSession || sessions[0] || null;
 
-  const moreSessions = sessions.filter(s => s.id !== featured?.id);
+  const moreSessions = sessions.filter((s) => s.id !== featured?.id);
 
   return {
     featured,
     sessions: moreSessions,
     communityCalls,
-    fetchedAt: new Date()
+    fetchedAt: new Date(),
   };
 }
