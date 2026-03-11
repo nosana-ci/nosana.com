@@ -192,7 +192,7 @@ const {
       );
 
       // ── Newsletter Subscription ──
-      document.querySelectorAll<HTMLFormElement>('form[action="/api/newsletter"]').forEach((form) => {
+      document.querySelectorAll<HTMLFormElement>('#newsletter-form, #newsletter-form-secondary').forEach((form) => {
         form.addEventListener("submit", () => {
           window.dataLayer.push({
             event: "newsletter_subscribe",
