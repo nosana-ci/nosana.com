@@ -176,7 +176,7 @@
       --interactive -t
       --volume /root/.nosana/:/root/.nosana/
       --mount type=bind,source=/root/../podman.sock,target=/root/.nosana/podman/podman.sock
-      -e CLI_VERSION=${PRE_RELEASE}
+      -e NOSANA_NODE_VERSION=${PRE_RELEASE}
       -e NODE_OPTIONS=--dns-result-order=ipv4first
       --dns=1.1.1.1
       --dns=8.8.8.8
