@@ -810,7 +810,7 @@
 <rect x="528.5" y="393.5" width="274" height="274" rx="137" stroke="url(#paint12_linear_6569_26173)" stroke-opacity="0.25" stroke-width="23" stroke-dasharray="2.97 4"/>
 <path d="M724.172 432L670.467 518.147C669.719 519.347 670.289 520.93 671.63 521.377C671.875 521.458 672.106 521.584 672.307 521.745C673.441 522.652 675.136 522.328 675.829 521.052L724.172 432Z" fill="#113611"/>
 </g>
-<path d="M12 0.5H1317C1323.35 0.5 1328.5 5.64873 1328.5 12V544C1328.5 550.351 1323.35 555.5 1317 555.5H12C5.64873 555.5 0.5 550.351 0.5 544V12C0.5 5.64873 5.64873 0.5 12 0.5Z" stroke="#2A2A2A"/>
+
 <defs>
 <filter id="filter0_f_6569_26173" x="266.281" y="-120.279" width="797.478" height="797.478" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
