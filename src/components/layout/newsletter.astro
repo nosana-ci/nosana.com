@@ -10,7 +10,7 @@ if (!entry) {
 }
 
 const { newsletter } = entry.data;
-const { heading, description, image } = newsletter;
+const { heading, description, image, formUrl } = newsletter;
 ---
 
 <section class="w-full bg-bg-base px-4 lg:px-12 mb-8 md:mb-16 lg:mb-18">
@@ -29,6 +29,7 @@ const { heading, description, image } = newsletter;
       <!-- Form -->
       <form
         id="newsletter-form"
+        data-form-url={formUrl}
         class="flex flex-row flex-nowrap items-stretch gap-2
                bg-elevated border border-default rounded-lg lg:p-2 px-2 py-2.5
                w-full max-w-lg
@@ -109,54 +110,25 @@ const { heading, description, image } = newsletter;
 </section>
 
 <script>
-  const form = document.getElementById("newsletter-form");
+const form = document.getElementById("newsletter-form");
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+const BREVO_URL = form?.dataset.formUrl;
 
-    const formData = new FormData(form);
-    const button = form.querySelector("button[type='submit']");
-    const textWrapper = button.querySelector("span:first-child");
+form?.addEventListener("submit", (e) => {
 
-    const originalText = textWrapper.innerHTML;
+  e.preventDefault();
 
-    // Loading state
-    button.disabled = true;
-    textWrapper.innerHTML = "Subscribing...";
+  const emailInput = form.querySelector("input[name='email']");
+  const email = emailInput?.value?.trim();
 
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        body: formData,
-      });
+  let url = BREVO_URL;
 
-      if (!res.ok) throw new Error();
+  if (email) {
+    url += `?email=${encodeURIComponent(email)}`;
+  }
 
-      window.dispatchEvent(
-        new CustomEvent("toast", {
-          detail: {
-            type: "success",
-            message: "Thank you for signing up. You'll start receiving the latest updates from Nosana shortly."
-          }
-        })
-      );
+  window.open(url, "_blank", "noopener,noreferrer");
+  form.reset();
 
-      form.reset();
-    } catch {
-      window.dispatchEvent(
-        new CustomEvent("toast", {
-          detail: {
-            type: "error",
-            message: "Failed to subscribe. Please try again."
-          }
-        })
-      );
-    } finally {
-      // slight delay so UI feels connected to toast animation
-      setTimeout(() => {
-        button.disabled = false;
-        textWrapper.innerHTML = originalText;
-      }, 400);
-    }
-  });
+});
 </script>
