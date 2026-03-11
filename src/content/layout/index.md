@@ -3,6 +3,7 @@ newsletter:
   heading: "Stay Updated with Nosana"
   description: "Get the latest insights on AI infrastructure, GPU launches, and network innovations — all in one place"
   image: "./assets/newsletter.svg"
+  formUrl: "https://e86f0b9c.sibforms.com/serve/MUIFANFi3sjEN-g4SB-gULSu6lbPyPQr6yFFkhkw8145a9ppNvPA_ADIzsrf9crFHf4OfOfcOadN1H574-Akl-eOtsSaVjlKEpb0H5XeznWTZyeM__QhIv0S4MkcoSMt-JfaqoKyMUbZe-_5jugzdA8g10owWeToXrcv3gpT1NrvF6vFUKAU9P_rsB886OHsWj5CukP6osZlnTPT"
 
 socials:
   title: "Join the community"
