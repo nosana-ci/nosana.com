@@ -7,7 +7,11 @@ import heroVideo from "../../content/homepage/assets/heroBg.mp4";
 import gpuRaw from "../../content/gpu-providers/assets/gpu.svg?raw";
 import texture from "../../content/homepage/assets/texture.webp";
 
-const optimizedPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
+const optimizedPoster = await getImage({
+  src: heroBg,
+  format: "webp",
+  quality: 80,
+});
 
 import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
@@ -20,11 +24,14 @@ const { heroSection } = Astro.props;
 
 const { badge, heading, description, cta1, cta2 } = heroSection;
 
-const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice" ');
+const gpuSvg = gpuRaw.replace(
+  "<svg ",
+  '<svg preserveAspectRatio="xMaxYMax slice" ',
+);
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] max-h-[900px] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
+  class="relative h-[calc(100vh-5rem)] max-h-[900px] min-h-[600px] w-full overflow-hidden px-4 pt-10 lg:h-[110vh] lg:px-12 lg:pt-20 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
@@ -32,34 +39,32 @@ const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice
     muted
     playsinline
     poster={optimizedPoster.src}
-    class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
+    class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover select-none"
   >
     <source src={heroVideo} type="video/mp4" />
   </video>
 
   <div
-    class="relative z-10 bg-bg-base h-full rounded-t-xl overflow-hidden p-6 md:p-12 lg:p-20"
+    class="bg-bg-base relative z-10 h-full overflow-hidden rounded-t-xl p-6 md:p-12 lg:p-20"
   >
-    <div class="absolute inset-0 pointer-events-none mix-blend-hard-light z-0">
+    <div class="pointer-events-none absolute inset-0 z-0 mix-blend-hard-light">
       <Image
         src={texture}
         alt="texture"
         quality={40}
-        class="w-full h-full object-cover pointer-events-none select-none"
+        class="pointer-events-none h-full w-full object-cover select-none"
       />
     </div>
 
-    <div class="absolute inset-0 pointer-events-none z-0">
-      <div class="absolute right-0 bottom-0 lg:right-20 w-full h-full">
+    <div class="pointer-events-none absolute inset-0 z-0">
+      <div class="absolute right-0 bottom-0 h-full w-full lg:right-20">
         <div
-          class="w-full h-full pointer-events-none select-none [&>svg]:w-full [&>svg]:h-full [&>svg]:object-cover [&>svg]:object-bottom-right"
+          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover [&>svg]:object-bottom-right"
           set:html={gpuSvg}
         />
       </div>
       <div
-        class="absolute inset-0 pointer-events-none z-1 opacity-5
-              [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
-              [background-size:72px_72px]"
+        class="pointer-events-none absolute inset-0 z-1 [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:72px_72px] opacity-5"
       >
       </div>
     </div>
@@ -67,8 +72,8 @@ const gpuSvg = gpuRaw.replace('<svg ', '<svg preserveAspectRatio="xMaxYMax slice
     <div class="relative z-10 max-w-3xl">
       {badge && <Badge title={badge.title} icon={badge.icon} class="mb-4" />}
 
-      <h1 class="text-primary mb-4 grotesk h4">{heading}</h1>
-      <p class="text-secondary md:max-w-xl leading-relaxed mb-6 lg:mb-10 body2">
+      <h1 class="text-primary grotesk h4 mb-4">{heading}</h1>
+      <p class="text-secondary body2 mb-6 leading-relaxed md:max-w-xl lg:mb-10">
         {description}
       </p>
 

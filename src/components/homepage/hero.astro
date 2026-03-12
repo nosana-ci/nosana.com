@@ -7,7 +7,11 @@ import heroVideo from "../../content/homepage/assets/heroBg.mp4";
 import gpuRaw from "../../content/homepage/assets/gpu.svg?raw";
 import texture from "../../content/homepage/assets/texture.webp";
 
-const optimizedPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
+const optimizedPoster = await getImage({
+  src: heroBg,
+  format: "webp",
+  quality: 80,
+});
 
 import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
@@ -33,14 +37,13 @@ const gpuSvg = gpuRaw.replace(
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] max-h-[900px] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
+  class="relative h-[calc(100vh-5rem)] max-h-[900px] min-h-[600px] w-full overflow-hidden px-4 pt-10 lg:h-[110vh] lg:px-12 lg:pt-20 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
     loop
     muted
     playsinline
-    fetchpriority="high"
     poster={optimizedPoster.src}
     class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover select-none"
   >
@@ -61,10 +64,10 @@ const gpuSvg = gpuRaw.replace(
 
     <div class="pointer-events-none absolute inset-0 z-0">
       <div
-        class="absolute right-0 bottom-0 h-full w-full md:right-[15%] md:bottom-[10%] lg:bottom-0 lg:right-20 lg:w-full"
+        class="absolute right-0 bottom-0 h-full w-full md:right-[15%] md:bottom-[10%] lg:right-20 lg:bottom-0 lg:w-full"
       >
         <div
-          class="pointer-events-none h-full w-full select-none [&>svg]:h-full [&>svg]:w-full scale-100 md:scale-120 lg:scale-100"
+          class="pointer-events-none h-full w-full scale-100 select-none md:scale-120 lg:scale-100 [&>svg]:h-full [&>svg]:w-full"
           set:html={gpuSvg}
         />
       </div>
