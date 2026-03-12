@@ -7,7 +7,7 @@ import react from '@astrojs/react';
 import { redirects } from './src/redirects';
 
 export default defineConfig({
-  site: 'https://nosana-new.vercel.app',
+  site: 'https://nosana.com',
   redirects,
 
   server: {
@@ -20,7 +20,7 @@ export default defineConfig({
       priority: 0.7,
       lastmod: new Date(),
       serialize(item) {
-        if (item.url.endsWith('.app/')) {
+        if (item.url.endsWith('.com/')) {
           item.priority = 1.0;
           item.changefreq = 'daily';
         }
