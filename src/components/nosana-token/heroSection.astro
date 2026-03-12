@@ -12,19 +12,21 @@ if (!entry) {
 
 const { heroSection } = entry.data;
 
-const { badge, title, description, cta1, cta2, image_1, image_2 } =
-  heroSection;
+const { badge, title, description, cta1, cta2, image_1, image_2 } = heroSection;
 ---
 
-<section class="h-[calc(100vh-5rem)] max-h-[900px] w-full overflow-hidden p-4 lg:p-12">
-  <div class="relative h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0">
-
+<section
+  class="h-[calc(100vh-5rem)] max-h-[900px] min-h-[600px] w-full overflow-hidden p-4 lg:p-12"
+>
+  <div
+    class="relative h-full w-full overflow-hidden rounded-xl bg-[#191919] p-4 md:p-6 lg:rounded-3xl lg:p-12 lg:pr-0 lg:pb-0"
+  >
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
       <Image
         src={image_2}
         alt="Background Pattern"
-        class="h-full w-full object-cover opacity-60 pointer-events-none select-none"
+        class="pointer-events-none h-full w-full object-cover opacity-60 select-none"
       />
     </div>
 
@@ -32,12 +34,13 @@ const { badge, title, description, cta1, cta2, image_1, image_2 } =
     <Image
       src={image_1}
       alt="Nosana Token Hero"
-      class="absolute right-0 -bottom-20 z-0 w-full h-auto max-md:scale-[1.6] max-md:right-20 max-md:bottom-10 object-contain drop-shadow-2xl xl:w-[90%] pointer-events-none select-none"
+      class="pointer-events-none absolute right-0 -bottom-20 z-0 h-auto w-full object-contain drop-shadow-2xl select-none max-md:right-20 max-md:bottom-10 max-md:scale-[1.6] xl:w-[90%]"
     />
 
     <!-- Content -->
-    <div class="relative z-20 flex max-w-xl flex-col items-start gap-4 text-left">
-
+    <div
+      class="relative z-20 flex max-w-xl flex-col items-start gap-4 text-left"
+    >
       <Badge title={badge.text} icon={badge.icon} />
 
       <h1 class="h4 grotesk text-primary">
@@ -62,7 +65,7 @@ const { badge, title, description, cta1, cta2, image_1, image_2 } =
           data-cta="staking"
         />
       </div>
-
     </div>
   </div>
 </section>
+
