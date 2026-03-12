@@ -166,20 +166,7 @@ const { premium, community, others } = await getGPUMarkets();
     </div>
   </div>
 
-  <!-- Tabs -->
   <div class="w-full">
-    <!-- Radios -->
-    <input type="radio" name="gpu-tabs" id="tab-premium" checked />
-    <input type="radio" name="gpu-tabs" id="tab-community" />
-    <input type="radio" name="gpu-tabs" id="tab-others" />
-
-    <!-- Labels -->
-    <div class="tabs-header">
-      <label for="tab-premium" class="tab-label">Premium</label>
-      <label for="tab-community" class="tab-label">Community</label>
-      <label for="tab-others" class="tab-label">Others</label>
-    </div>
-
     <!-- GPU image -->
     <div class="relative w-full overflow-hidden">
       <Image
@@ -191,51 +178,19 @@ const { premium, community, others } = await getGPUMarkets();
       />
     </div>
 
-    <!-- Panels -->
-    <div class="tabs-content">
-      <div class="panel premium">
-        <GPUGrid items={premium} />
-        <div class="no-results text-secondary hidden py-10 text-center">
-          No GPUs found matching your search.
-        </div>
-        <div class="show-more-wrap flex w-full justify-center">
-          <button
-            type="button"
-            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-b border-default hover:bg-surface"
-          >
-            Show More
-          </button>
-        </div>
+    <!-- Premium GPUs -->
+    <div class="panel premium">
+      <GPUGrid items={premium} />
+      <div class="no-results text-secondary hidden py-10 text-center">
+        No GPUs found matching your search.
       </div>
-
-      <div class="panel community">
-        <GPUGrid items={community} />
-        <div class="no-results text-secondary hidden py-10 text-center">
-          No GPUs found matching your search.
-        </div>
-        <div class="show-more-wrap flex w-full justify-center">
-          <button
-            type="button"
-            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-b border-default hover:bg-surface"
-          >
-            Show More
-          </button>
-        </div>
-      </div>
-
-      <div class="panel others">
-        <GPUGrid items={others} />
-        <div class="no-results text-secondary hidden py-10 text-center">
-          No GPUs found matching your search.
-        </div>
-        <div class="show-more-wrap flex w-full justify-center">
-          <button
-            type="button"
-            class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-b border-default hover:bg-surface"
-          >
-            Show More
-          </button>
-        </div>
+      <div class="show-more-wrap flex w-full justify-center">
+        <button
+          type="button"
+          class="show-more-btn text-primary body2 bg-transparent w-full cursor-pointer py-4 transition border-b border-default hover:bg-surface"
+        >
+          Show More
+        </button>
       </div>
     </div>
   </div>
@@ -618,55 +573,7 @@ const { premium, community, others } = await getGPUMarkets();
 </script>
 
 <style>
-  input[type="radio"] {
-    display: none;
-  }
-
-  /* Tabs header */
-  .tabs-header {
-    display: flex;
-    gap: 1.5rem;
-    border-bottom: 1px solid #555555;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Tab base */
-  .tab-label {
-    padding-bottom: 0.75rem;
-    cursor: pointer;
-    color: #fafafa;
-    transition:
-      color 0.2s ease,
-      border-color 0.2s ease;
-    border-bottom: 2px solid transparent;
-  }
-
-  /* Hover state */
-  .tab-label:hover {
-    color: #10e80c;
-  }
-
-  /* Active tab */
-  #tab-premium:checked ~ .tabs-header label[for="tab-premium"],
-  #tab-community:checked ~ .tabs-header label[for="tab-community"],
-  #tab-others:checked ~ .tabs-header label[for="tab-others"] {
-    border-bottom-color: #10e80c;
-  }
-
-  /* Panels */
-  .tabs-content .panel {
-    display: none;
-  }
-
-  #tab-premium:checked ~ .tabs-content .premium {
-    display: block;
-  }
-
-  #tab-community:checked ~ .tabs-content .community {
-    display: block;
-  }
-
-  #tab-others:checked ~ .tabs-content .others {
+  .panel {
     display: block;
   }
 

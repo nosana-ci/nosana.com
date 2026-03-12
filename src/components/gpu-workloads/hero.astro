@@ -7,7 +7,11 @@ import heroVideo from "../../content/homepage/assets/heroBg.mp4";
 import heroImgRaw from "../../content/gpu-workloads/assets/heroImg.svg?raw";
 import texture from "../../content/homepage/assets/texture.webp";
 
-const optimizedPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
+const optimizedPoster = await getImage({
+  src: heroBg,
+  format: "webp",
+  quality: 80,
+});
 
 import Button from "../ui/button.astro";
 import Badge from "../ui/badge.astro";
@@ -27,7 +31,7 @@ const heroSvg = heroImgRaw.replace(
 ---
 
 <section
-  class="relative h-[calc(100vh-5rem)] max-h-[900px] w-full overflow-hidden px-4 pt-10 lg:pt-20 lg:h-[110vh] lg:px-12 2xl:h-[calc(100vh-5rem)]"
+  class="relative h-[calc(100vh-5rem)] max-h-[900px] min-h-[600px] w-full overflow-hidden px-4 pt-10 lg:h-[110vh] lg:px-12 lg:pt-20 2xl:h-[calc(100vh-5rem)]"
 >
   <video
     autoplay
@@ -53,7 +57,9 @@ const heroSvg = heroImgRaw.replace(
     </div>
 
     <div class="pointer-events-none absolute inset-0 z-0">
-      <div class="absolute -right-[20%] sm:right-0 bottom-[10%] md:bottom-0 h-full w-full">
+      <div
+        class="absolute -right-[20%] bottom-[10%] h-full w-full sm:right-0 md:bottom-0"
+      >
         <div
           class="pointer-events-none h-full w-full origin-center pb-8 select-none max-xl:scale-125 md:pb-16 lg:pb-18 [&>svg]:h-full [&>svg]:w-full"
           set:html={heroSvg}
