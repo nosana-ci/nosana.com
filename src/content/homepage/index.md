@@ -10,7 +10,7 @@ heroSection:
     An open-source GPU cloud built for AI and high-performance workloads. Run on demand with flexible pricing and up to 6× lower costs
 
   cta1:
-    title: "Free GPU Credits"
+    title: "Get Free GPU Credits"
     url: "https://deploy.nosana.com/?context=get-started"
     icon: "../../assets/icons/coin.svg"
 
@@ -83,7 +83,7 @@ whyNosanaSection:
 
 rentGPU:
   badge:
-    title: "GPU on Rent"
+    title: "Rent GPUs"
   heading: "High-Performance GPUs, On Demand"
   description: "Compare available NVIDIA GPUs by price and availability and choose what fits your needs"
   premium:
