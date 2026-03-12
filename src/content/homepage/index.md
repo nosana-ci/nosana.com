@@ -5,7 +5,7 @@ heroSection:
     title: "GPU Cloud"
     icon: "./assets/gpuIcon.svg"
 
-  heading: "Affordable GPU Rental at Scale"
+  heading: "Instant GPU Rental at Scale for AI & High-Performance Workloads"
   description: >
     An open-source GPU cloud built for AI and high-performance workloads. Run on demand with flexible pricing and up to 6× lower costs
 
