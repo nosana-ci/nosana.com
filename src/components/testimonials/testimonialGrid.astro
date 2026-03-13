@@ -38,6 +38,8 @@ const testimonialGridData = testimonials.map((t) => ({
   _slug: string;
 }>;
 
+const ITEMS_PER_PAGE = 6;
+
 function getRawSvg(path?: unknown, slug?: string) {
   if (!path || !slug || typeof path !== "string") return undefined;
   
@@ -51,7 +53,7 @@ function getRawSvg(path?: unknown, slug?: string) {
 }
 ---
 
-<section class="w-full" id="grid-pagination-section">
+<section class="w-full" id="grid-pagination-section" data-items-per-page={ITEMS_PER_PAGE}>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default">
     {
       testimonialGridData.map((item, index) => {
@@ -116,25 +118,29 @@ function getRawSvg(path?: unknown, slug?: string) {
     }
   </div>
 
-  <div class="flex items-center justify-center py-8 md:py-16 lg:py-18 gap-4">
-    <NavigateButton
-      id="grid-case-prev"
-      variant="secondary"
-      direction="left"
-      text="Back"
-      class="cursor-pointer"
-    />
+  {
+    testimonialGridData.length > ITEMS_PER_PAGE && (
+      <div class="flex items-center justify-center py-8 md:py-16 lg:py-18 gap-4">
+        <NavigateButton
+          id="grid-case-prev"
+          variant="secondary"
+          direction="left"
+          text="Back"
+          class="cursor-pointer"
+        />
 
-    <div id="grid-case-pages" class="flex gap-2"></div>
+        <div id="grid-case-pages" class="flex gap-2" />
 
-    <NavigateButton
-      id="grid-case-next"
-      variant="secondary"
-      direction="right"
-      text="Next"
-      class="cursor-pointer"
-    />
-  </div>
+        <NavigateButton
+          id="grid-case-next"
+          variant="secondary"
+          direction="right"
+          text="Next"
+          class="cursor-pointer"
+        />
+      </div>
+    )
+  }
 </section>
 
 <script>
@@ -152,7 +158,7 @@ function getRawSvg(path?: unknown, slug?: string) {
     ) as HTMLButtonElement | null;
     const pagesContainer = container.querySelector("#grid-case-pages");
 
-    const ITEMS_PER_PAGE = 6;
+    const ITEMS_PER_PAGE = parseInt(container.dataset.itemsPerPage || "6");
     const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
 
     let currentPage = 0;
