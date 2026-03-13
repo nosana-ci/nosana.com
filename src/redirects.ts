@@ -31,6 +31,7 @@ export const redirects = {
   "/blog/deployment_manager_2": "/blog/visual-command-center-managing-deployments-with-nosanas-dashboard",
   "/blog/folding-at-home": "/blog/nosanas-spare-gpu-capacity-is-now-powering-scientific-research",
   "/blog/newsletter-october-2025": "/blog/nosana-monthly-october-edition",
+  "/blog/newsletter-february-2026": "/blog/nosana-monthly-february-edition",
   "/blog/voting": "/blog/from-proposal-to-vote-how-nnp-0001-will-be-decided",
   "/blog/nosvember": "/blog/nosvember-games-a-month-of-celebration-for-the-nosana-community",
   "/blog/tokenomics-proposal": "/blog/from-yield-to-growth-aligning-nos-rewards-with-real-usage",
