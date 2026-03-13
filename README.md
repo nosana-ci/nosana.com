@@ -1,4 +1,4 @@
-# Nosana Website
+# Nosana Website.
 
 This project is the main website for Nosana, built with Astro. Nosana is a decentralized GPU cloud platform designed for AI and high-performance workloads, allowing users to rent affordable GPUs or provide idle GPU power to the network.
 
