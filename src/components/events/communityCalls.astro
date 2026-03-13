@@ -7,18 +7,18 @@ if (!entry) return;
 
 const { title, description, nextCallDate } = entry.data;
 
-const { communityCalls, fetchedAt } = await getYouTubeData();
+const { communityCalls } = await getYouTubeData();
 
-const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
-  month: "numeric",
-  day: "numeric",
-  year: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: true,
-  timeZoneName: "short",
-});
+// const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
+//   month: "numeric",
+//   day: "numeric",
+//   year: "numeric",
+//   hour: "numeric",
+//   minute: "2-digit",
+//   second: "2-digit",
+//   hour12: true,
+//   timeZoneName: "short",
+// });
 ---
 
 <section id="community-calls" class="w-full px-4 py-10 md:px-12 md:py-24">
@@ -109,7 +109,7 @@ const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
     </button>
   )}
 
-  <div
+  <!-- <div
     class="mt-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
   >
     <p class="text-secondary body4">
@@ -120,7 +120,7 @@ const lastUpdatedFormatted = fetchedAt.toLocaleString("en-US", {
       Last update:<br />
       <span class="text-primary">{lastUpdatedFormatted}</span>
     </p>
-  </div>
+  </div> -->
 </section>
 
 <script>
