@@ -1,4 +1,4 @@
----
+ ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import NavigateButton from "../ui/navigateButton.astro";
@@ -53,7 +53,7 @@ function getRawSvg(path?: unknown, slug?: string) {
 }
 ---
 
-<section class="w-full" id="grid-pagination-section" data-items-per-page={ITEMS_PER_PAGE}>
+<section class="w-full pb-8 md:pb-16 lg:pb-18" id="grid-pagination-section" data-items-per-page={ITEMS_PER_PAGE}>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-default">
     {
       testimonialGridData.map((item, index) => {
@@ -120,7 +120,11 @@ function getRawSvg(path?: unknown, slug?: string) {
 
   {
     testimonialGridData.length > ITEMS_PER_PAGE && (
+<<<<<<< HEAD
+      <div class="flex items-center justify-center pt-8 md:pt-16 lg:pt-18 gap-4">
+=======
       <div class="flex items-center justify-center py-8 md:py-16 lg:py-18 gap-4">
+>>>>>>> 3597b7dc45f3337a10da3136bc068fc2b94dbde8
         <NavigateButton
           id="grid-case-prev"
           variant="secondary"
