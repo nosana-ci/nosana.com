@@ -1,6 +1,37 @@
 const API_KEY = import.meta.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = import.meta.env.YOUTUBE_CHANNEL_ID;
 
+function extractDateFromTitle(title: string, uploadDate: Date): Date {
+  const months = [
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december",
+    "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"
+  ];
+
+  const monthNames = months.join("|");
+  // Match "Month Day" or "Day Month", e.g., "May 29" or "29 May"
+  const dateRegex = new RegExp(`(?:(${monthNames})[\\s,.]+(\\d{1,2})|(\\d{1,2})[\\s,.]+(${monthNames}))`, "i");
+
+  const match = title.match(dateRegex);
+  if (match) {
+    const monthStr = (match[1] || match[4]).toLowerCase();
+    const day = parseInt(match[2] || match[3], 10);
+
+    let monthIndex = months.indexOf(monthStr);
+    if (monthIndex !== -1) monthIndex = monthIndex % 12;
+
+    const result = new Date(uploadDate);
+    result.setUTCMonth(monthIndex);
+    result.setUTCDate(day);
+    
+    return result;
+  }
+
+  return uploadDate;
+}
+
+
+
 const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos";
 const PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems";
@@ -97,21 +128,27 @@ export async function getYouTubeData() {
     .map((item: any) => {
       const snippet = item.snippet;
       const contentDetails = item.contentDetails;
-      const date = new Date(
+      const uploadDate = new Date(
         contentDetails?.videoPublishedAt || snippet.publishedAt,
       );
+
+      const date = extractDateFromTitle(snippet.title, uploadDate);
 
       const formattedDate = date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
+        timeZone: "UTC",
       });
 
       const formattedTime = date.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",
         timeZoneName: "short",
+        timeZone: "UTC",
       });
+
+
 
       return {
         meeting: snippet.title,
