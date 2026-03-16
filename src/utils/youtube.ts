@@ -109,6 +109,8 @@ export async function getYouTubeData() {
 
     const details = detailsMap.get(videoId);
 
+    if (!details) continue;
+
     // Detect livestream state
     if (details?.scheduledStartTime && !details?.actualStartTime) {
       normalized.publishedAt = details.scheduledStartTime;
