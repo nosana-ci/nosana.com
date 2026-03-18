@@ -462,7 +462,9 @@ const headingParts = heading.split(" - ");
       markets.forEach((market: any) => {
         if (market.gpu_types && market.gpu_types.length) {
           market.gpu_types.forEach((gpu: string) => {
-            pricePerGpu[gpu] = market.usd_reward_per_hour;
+            if (!gpu.toLowerCase().includes("laptop")) {
+              pricePerGpu[gpu] = market.usd_reward_per_hour;
+            }
           });
         }
       });
