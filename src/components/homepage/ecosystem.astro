@@ -39,24 +39,24 @@ const formatUSD = (value: string | number) => {
 };
 
 const liveStats = apiStats
-  ? [
-      {
-        value: formatMarketCap(apiStats.marketCap),
-        label: ecosystemSection.stats[0]?.label ?? "Market cap of NOS",
-      },
-      {
-        value: formatUSD(apiStats.usdValueStaked),
-        label: ecosystemSection.stats[1]?.label ?? "Value secured on the network",
-      },
-      {
-        value: `${apiStats.stakers.toLocaleString("en-US")}+`,
-        label: ecosystemSection.stats[2]?.label ?? "Active stakers",
-      },
-      {
-        value: `$${apiStats.price.toFixed(2)}`,
-        label: ecosystemSection.stats[3]?.label ?? "Current NOS price",
-      },
-    ]
+  ? ecosystemSection.stats.map((stat, index) => {
+      let value = stat.value;
+      switch (index) {
+        case 0:
+          if (apiStats.marketCap != null) value = formatMarketCap(apiStats.marketCap);
+          break;
+        case 1:
+          if (apiStats.usdValueStaked != null) value = formatUSD(apiStats.usdValueStaked);
+          break;
+        case 2:
+          if (apiStats.stakers != null) value = `${apiStats.stakers.toLocaleString("en-US")}+`;
+          break;
+        case 3:
+          if (apiStats.price != null) value = `$${apiStats.price.toFixed(2)}`;
+          break;
+      }
+      return { ...stat, value };
+    })
   : ecosystemSection.stats;
 ---
 

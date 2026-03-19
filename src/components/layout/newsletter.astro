@@ -2,6 +2,8 @@
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import chevronDownDouble from "../../assets/icons/chevronDownDouble.svg?raw";
+import closeIcon from "../../assets/icons/close.svg";
+import messageIcon from "../../assets/icons/message.svg";
 
 const entry = await getEntry("layout", "index");
 
@@ -108,14 +110,164 @@ const { heading, description, image, formUrl } = newsletter;
   </div>
 </section>
 
-<script>
-  const form = document.getElementById("newsletter-form");
+<!-- Confirmation Modal -->
+<div
+  id="newsletter-confirm-modal"
+  class="fixed inset-0 z-9999 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 pointer-events-none"
+  style="display: none"
+>
+  <!-- Backdrop -->
+  <div
+    id="newsletter-confirm-backdrop"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+  ></div>
 
-  form?.addEventListener("submit", async (e) => {
+  <!-- Modal Card -->
+  <div
+    id="newsletter-confirm-card"
+    class="relative w-full max-w-sm bg-surface border border-default rounded-lg p-8
+           flex flex-col items-center text-center
+           scale-95 translate-y-4 transition-all duration-300"
+  >
+    <!-- Close Button -->
+    <button
+      id="newsletter-confirm-close"
+      class="absolute top-5 right-5 p-2 rounded-full hover:bg-white/5 transition-colors cursor-pointer group"
+      aria-label="Close"
+    >
+      <Image 
+        src={closeIcon} 
+        alt="close" 
+        width={14} 
+        height={14} 
+        class="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" 
+      />
+    </button>
+
+    <!-- Icon Section -->
+    <div class="relative mb-6">
+      <div class="w-20 h-20 rounded-full flex items-center justify-center bg-white/5">
+        <div class="relative w-10 h-10 flex items-center justify-center">
+            <Image
+                src={messageIcon}
+                alt="message"
+                width={40}
+                height={40}
+                class="w-full h-full"
+            />
+        </div>
+      </div>
+    </div>
+
+    <!-- Text content -->
+    <div class="space-y-3 mb-8">
+      <h3 class="grotesk text-2xl font-bold text-primary leading-tight">
+        Confirm Subscription
+      </h3>
+    </div>
+
+    <!-- Confirmation Area -->
+    <div class="w-full space-y-8">
+      <div class="flex flex-col gap-4 text-left">
+        <label class="flex items-start gap-4 cursor-pointer group">
+          <input 
+            type="checkbox" 
+            id="newsletter-confirm-checkbox"
+            class="w-5 h-5 mt-0.5 rounded border-default bg-white/5 accent-brand-100 cursor-pointer transition-all shrink-0"
+          />
+          <span class="text-secondary text-sm group-hover:text-primary transition-colors leading-relaxed">
+            I agree to receive your newsletters and accept the data privacy statement.
+          </span>
+        </label>
+        <p class="text-secondary/60 text-[13px] leading-relaxed pl-9">
+          You may unsubscribe at any time using the link in our newsletter.
+        </p>
+      </div>
+
+      <div class="flex gap-3 w-full">
+        <button
+          id="newsletter-confirm-cancel"
+          class="flex-1 py-3 px-4 rounded-sm font-semibold border border-default text-secondary hover:text-primary hover:bg-white/5 transition-all cursor-pointer"
+        >
+          Cancel
+        </button>
+        <button
+          id="newsletter-confirm-submit"
+          disabled
+          class="flex-1 py-3 px-4 rounded-sm font-semibold bg-white/10 border border-default text-primary opacity-50 cursor-not-allowed transition-all"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("newsletter-form") as HTMLFormElement;
+  const modal = document.getElementById("newsletter-confirm-modal");
+  const backdrop = document.getElementById("newsletter-confirm-backdrop");
+  const card = document.getElementById("newsletter-confirm-card");
+  const closeBtn = document.getElementById("newsletter-confirm-close");
+  const cancelBtn = document.getElementById("newsletter-confirm-cancel");
+  const confirmBtn = document.getElementById("newsletter-confirm-submit") as HTMLButtonElement;
+  const checkbox = document.getElementById("newsletter-confirm-checkbox") as HTMLInputElement;
+
+  function showModal() {
+    if (!modal || !card) return;
+    modal.style.display = "flex";
+    void modal.offsetWidth;
+    modal.classList.remove("opacity-0", "pointer-events-none");
+    card.classList.remove("scale-95", "translate-y-4");
+  }
+
+  function hideModal() {
+    if (!modal || !card) return;
+    modal.classList.add("opacity-0", "pointer-events-none");
+    card.classList.add("scale-95", "translate-y-4");
+    setTimeout(() => {
+      modal.style.display = "none";
+      if (checkbox) {
+        checkbox.checked = false;
+        updateConfirmButton();
+      }
+    }, 300);
+  }
+
+  function updateConfirmButton() {
+    if (!confirmBtn || !checkbox) return;
+    if (checkbox.checked) {
+      confirmBtn.disabled = false;
+      confirmBtn.classList.remove("opacity-50", "cursor-not-allowed", "bg-white/10");
+      confirmBtn.classList.add("bg-white/20", "hover:bg-white/25", "cursor-pointer");
+    } else {
+      confirmBtn.disabled = true;
+      confirmBtn.classList.add("opacity-50", "cursor-not-allowed", "bg-white/10");
+      confirmBtn.classList.remove("bg-white/20", "hover:bg-white/25", "cursor-pointer");
+    }
+  }
+
+  checkbox?.addEventListener("change", updateConfirmButton);
+  closeBtn?.addEventListener("click", hideModal);
+  cancelBtn?.addEventListener("click", hideModal);
+  backdrop?.addEventListener("click", hideModal);
+
+  form?.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (form.checkValidity()) {
+      showModal();
+    } else {
+      form.reportValidity();
+    }
+  });
+
+  confirmBtn?.addEventListener("click", async () => {
+    if (!checkbox || !checkbox.checked) return;
+    
+    hideModal();
 
     const formData = new FormData(form);
-    const button = form.querySelector("button[type='submit']");
+    const button = form.querySelector("button[type='submit']") as HTMLButtonElement;
     const textWrapper = button.querySelector("span:first-child");
 
     const originalText = textWrapper.innerHTML;
@@ -126,7 +278,7 @@ const { heading, description, image, formUrl } = newsletter;
 
     try {
       const emailValue = formData.get("email");
-      const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "https://dashboard.k8s.prd.nos.ci";
+      const apiBase = (import.meta as any).env.PUBLIC_API_BASE_URL || "https://dashboard.k8s.prd.nos.ci";
       const res = await fetch(`${apiBase}/api/newsletter/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
