@@ -48,7 +48,7 @@ const formatNumber = (num: number | string): string =>
   Number(num).toLocaleString();
 
 const formatPrice = (num: number): string =>
-  `$${num.toFixed(4)}`;
+  typeof num === "number" ? `$${num.toFixed(4)}` : "n/a";
 
 // -----------------------------
 // Map Metrics
@@ -70,7 +70,9 @@ function resolveMetric(metric: typeof community.metrics[number]) {
       return {
         ...metric,
         value: formatPrice(apiStats.price),
-        subvalue: `${apiStats.dailyPriceChange.toFixed(2)}%`,
+        subvalue: typeof apiStats.dailyPriceChange === "number"
+          ? `${apiStats.dailyPriceChange.toFixed(2)}%`
+          : "0.00%",
       };
 
     case "Volume (24h)":
