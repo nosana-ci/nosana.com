@@ -1,7 +1,8 @@
 ---
+category: "blog"
 title: "Nosana x ElizaOS Agent Challenge"
 description: Build personal AI agents with ElizaOS and deploy them on Nosana's decentralized GPU network. Compete for $3,000 USDC in prizes!
-img: /img/NosanaXEliza.jpg
+thumbnail: "./assets/NosanaXEliza.jpg"
 createdAt: "2026-03-24"
 tags:
   - product
@@ -51,7 +52,7 @@ Build something personal — an agent that helps YOU or your community! Here are
 
 Take a look at our schedule here: [Luma Nosana](https://luma.com/calendar/cal-RF19mq3EtF4juLc)
 
-![](./../../assets/img/NosanaXEliza_schedule.png)
+![](./assets/NosanaXEliza_schedule.png)
 
 ## The Framework: ElizaOS
 
