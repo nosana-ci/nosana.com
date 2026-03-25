@@ -3,7 +3,7 @@ category: "blog"
 title: "Nosana x ElizaOS Agent Challenge"
 description: Build personal AI agents with ElizaOS and deploy them on Nosana's decentralized GPU network. Compete for $3,000 USDC in prizes!
 thumbnail: "./assets/NosanaXEliza.jpg"
-createdAt: "2026-03-24"
+createdAt: "2026-03-25"
 tags:
   - product
   - challenge
@@ -68,7 +68,7 @@ We're using [ElizaOS](https://github.com/elizaos/eliza) (v2), the powerful multi
 
 ### Step 1: Register & Get Credits
 
-1. Star the required repos: [Agent Challenge](https://github.com/nosana-ci/agent-challenge), [Nosana CLI](https://github.com/nosana-ci/nosana-cli), [Nosana SDK](https://github.com/nosana-ci/nosana-sdk), [ElizaOS](https://github.com/elizaos/eliza)
+1. Star the required repos: [Agent Challenge](https://github.com/nosana-ci/agent-challenge), [Nosana CLI](https://github.com/nosana-ci/nosana-cli), [Nosana SDK](https://github.com/nosana-ci/nosana-kit), [ElizaOS](https://github.com/elizaos/eliza)
 2. Sign up at [nosana.com/builders-credits](https://nosana.com/builders-credits) to receive free Nosana credits (airdropped twice daily!)
 3. Register at [SuperTeam](https://earn.superteam.fun/listing/nosana-builders-elizaos-challenge)
 
