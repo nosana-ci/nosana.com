@@ -70,7 +70,14 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
       workbox: {
+        maximumFileSizeToCacheInBytes: 100 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,avif,woff,woff2,json}'],
+        manifestTransforms: [
+          async (entries) => {
+            const manifest = entries.filter((entry) => entry.size <= 10 * 1024 * 1024);
+            return { manifest, warnings: [] };
+          }
+        ],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.destination === 'image',
