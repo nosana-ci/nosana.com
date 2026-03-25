@@ -81,17 +81,14 @@ Fork the [challenge repository](https://github.com/nosana-ci/agent-challenge) an
 git clone https://github.com/YOUR-USERNAME/agent-challenge
 cd agent-challenge
 
-# Checkout the ElizaOS challenge branch
-git checkout elizaos-challenge
-
 # Set up your environment
 cp .env.example .env
 
-# Install dependencies (requires Node.js 23+)
-pnpm install
+# Install dependencies
+bun i -g @elizaos/cli
 
-# Start the agent
-pnpm start
+# Start your agent in development mode
+elizaos dev
 ```
 
 ### Step 3: Deploy to Nosana
@@ -112,7 +109,7 @@ Before the April 14, 2026 deadline, submit your project on the [SuperTeam Challe
 
 Your submission **must** include:
 
-- ✅ **ElizaOS Agent** - Built on the `elizaos-challenge` branch
+- ✅ **ElizaOS Agent** - Built with https://docs.elizaos.ai/
 - ✅ **Frontend/UI** - Custom interface to interact with your agent
 - ✅ **Deployed on Nosana** - Running on Nosana GPU network (no traditional cloud)
 - ✅ **Docker Container** - Properly containerized application
@@ -161,7 +158,7 @@ Clear README, well-commented code, setup instructions, usage guidelines
 - **Discord**: Join [Nosana Discord](https://nosana.com/discord)
 - **Dev Chat**: [Builders Challenge Channel](https://discord.com/channels/236263424676331521/1354391113028337664)
 - **Twitter**: Follow [@nosana_ai](https://x.com/nosana_ai)
-- **Docs**: [Nosana Documentation](https://docs.nosana.io) | [ElizaOS Docs](https://elizaos.github.io/eliza/)
+- **Docs**: [Nosana Documentation](https://learn.nosana.io) | [ElizaOS Docs](https://elizaos.github.io/eliza/)
 - **Dashboard**: [deploy.nosana.com](https://deploy.nosana.com)
 - **Builder Credits**: [nosana.com/builders-credits](https://nosana.com/builders-credits)
 
