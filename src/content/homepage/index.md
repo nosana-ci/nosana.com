@@ -11,7 +11,7 @@ heroSection:
 
   cta1:
     title: "Get Free GPU Credits"
-    url: "https://deploy.nosana.com/?context=get-started"
+    url: "https://deploy.nosana.com/"
     icon: "../../assets/icons/coin.svg"
 
   cta2:
@@ -176,7 +176,7 @@ banner:
   description: "Deploy directly from the Dashboard and watch your workload go live in real time"
   cta:
     title: "Get Free GPU Credits"
-    url: "https://deploy.nosana.com/?context=get-started"
+    url: "https://deploy.nosana.com/"
     icon: "../../assets/icons/coin.svg"
   image: "./assets/bannerImg.webp"
 
@@ -220,7 +220,7 @@ ctaSection:
   description: "No Limits. Only Possibilities."
   cta1:
     title: "Free GPU Credits"
-    url: "https://deploy.nosana.com/?context=get-started"
+    url: "https://deploy.nosana.com/"
   cta2:
     title: "Book Free Call"
     url: "https://calendly.com/bourjois-nos/sales-bd"
