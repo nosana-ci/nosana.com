@@ -3,12 +3,18 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import AstroPWA from '@vite-pwa/astro';
 
 import { redirects } from './src/redirects';
 
 export default defineConfig({
   site: 'https://nosana.com',
   redirects,
+
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover'
+  },
 
   server: {
     host: true,
@@ -58,16 +64,53 @@ export default defineConfig({
     }),
 
     react(),
+
+    AstroPWA({
+      mode: 'production',
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,avif,woff,woff2,json}'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+              },
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'font',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'fonts',
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 365 * 24 * 60 * 60, // 1 Year
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/dashboard\.k8s\.prd\.nos\.ci\/api\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60, // 1 Hour
+              },
+            },
+          },
+        ],
+      },
+    }),
   ],
 
-  build: {
-    inlineStylesheets: "auto",
-  },
-
   vite: {
-    build: {
-      assetsInlineLimit: 16000,
-    },
     plugins: [tailwindcss()]
   }
 });
