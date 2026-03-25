@@ -4,6 +4,7 @@ import Navbar from "../components/layout/navbar.astro";
 import Footer from "../components/layout/footer.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Toast from "../components/ui/toast.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
@@ -72,6 +73,7 @@ const {
       ogDescription={ogDescription}
     />
     <slot name="head" />
+    <ClientRouter />
   </head>
 
   <body class="bg-bg-base text-primary min-h-screen font-sans">
