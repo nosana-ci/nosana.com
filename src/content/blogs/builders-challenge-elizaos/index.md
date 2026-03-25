@@ -18,7 +18,7 @@ This challenge draws inspiration from the OpenClaw movement, emphasizing individ
 - **Prize Pool**: $3,000 USDC for top 10 submissions
 - **Submission Deadline**: April 14, 2026
 - **Submission Platform**: [SuperTeam Builders Challenge Page](https://earn.superteam.fun/listing/nosana-builders-elizaos-challenge)
-- **GitHub Repository**: [Agent Challenge Starter](https://github.com/nosana-ci/agent-challenge/tree/elizaos-challenge)
+- **GitHub Repository**: [Agent Challenge Starter](https://github.com/nosana-ci/agent-challenge/)
 - **Dashboard**: [deploy.nosana.com](https://deploy.nosana.com)
 
 ## Your Mission
@@ -74,7 +74,7 @@ We're using [ElizaOS](https://github.com/elizaos/eliza) (v2), the powerful multi
 
 ### Step 2: Fork & Build
 
-Fork the [challenge repository](https://github.com/nosana-ci/agent-challenge) and checkout the `elizaos-challenge` branch to start building your agent.
+Fork the [challenge repository](https://github.com/nosana-ci/agent-challenge) to start building your agent.
 
 ```bash
 # Fork this repo on GitHub, then clone your fork
