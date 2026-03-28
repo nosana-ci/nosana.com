@@ -18,7 +18,7 @@ Large datasets are used to build AI models—usually neural networks—through a
 Models go through an inference step after training, where they apply their acquired patterns to fresh, untrained data. For real-world AI applications, inference is essential. It requires speed and efficiency, particularly in situations where decisions must be made quickly.
 
 <div style="width: 60%; margin: 0 auto;">
-<img alt="What is required to run AI" src="/img/inference_training.png" />
+<img alt="What is required to run AI" src="/img/inference_training.png" loading="lazy" decoding="async" />
 </div>
 
 ## Exploring the Distinction

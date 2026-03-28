@@ -24,10 +24,12 @@ const { badge, title, description, image } = visionSection;
         {description}
       </p>
     </div>
-    <Image 
-      src={image} 
-      alt={title} 
+    <Image
+      src={image}
+      alt={title}
       class="w-full h-auto object-contain pointer-events-none select-none"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </section>

@@ -12,7 +12,7 @@ tags:
 Adobe’s Photoshop should be ready to renounce the crown because there’s a new kid on the block aiming to be the best in class for creative tools. Nosana is proud to announce its partnership with Sogni.AI, a cutting-edge platform that is reshaping the world of art generation and editing. Together, Nosana and Sogni.AI are bringing AI-powered creativity tools to iOS and macOS users, allowing them to generate and enhance images, videos and animations faster and more efficiently than ever before.
 
 <div style="width: 100%; text-align:center; margin: 0 auto;">
-<img alt="Adobe’s Photoshop should be ready to renounce the crown because there’s a new kid on the block aiming to be the best in class for creative tools" src="/img/spaceman.png" />
+<img alt="Adobe’s Photoshop should be ready to renounce the crown because there’s a new kid on the block aiming to be the best in class for creative tools" src="/img/spaceman.png" loading="lazy" decoding="async" />
 </div>
 
 ## **Nosana and [Sogni.AI](http://sogni.ai/) Team Up**

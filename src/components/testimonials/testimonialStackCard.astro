@@ -34,6 +34,8 @@ const { name, username, logo, message, rating } = Astro.props;
     width={601}
     height={375}
     class="absolute bottom-0 right-0 w-2/3 h-auto object-cover pointer-events-none select-none"
+    loading="lazy"
+    decoding="async"
   />
 
   {/* Content */}
@@ -41,7 +43,7 @@ const { name, username, logo, message, rating } = Astro.props;
     {/* Header */}
     <div class="flex items-center gap-6">
       <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-black">
-        <Image src={logo} alt={name} class="w-full h-full object-cover" />
+        <Image src={logo} alt={name} class="w-full h-full object-cover" loading="lazy" decoding="async" />
       </div>
 
       <div class="leading-tight">

@@ -38,12 +38,14 @@ const headingParts = heading.split(" - ");
         <div class={`sm:border-l ${feature.title !== "Real-Time Metrics" ? "border-b" : ""} sm:border-b-0 border-white/20  sm:p-8 py-6 min-h-[280px] md:min-h-[360px] lg:min-h-[440px]`}>
           <!-- Icon -->
           <div class="mb-6">
-            <Image 
-              src={feature.icon} 
+            <Image
+              src={feature.icon}
               alt={feature.title}
               width={100}
               height={100}
               class="invert opacity-70 w-[100px] h-[100px] md:w-[120px] md:h-[120px] pointer-events-none select-none"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

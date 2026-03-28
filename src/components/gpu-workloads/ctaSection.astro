@@ -24,8 +24,10 @@ const { heading, headingHighlight, headingEnd, description, cta1, cta2 } =
       src={ctaBGmobile}
       alt=""
       class="lg:hidden h-full w-full object-cover pointer-events-none select-none scale-110"
+      loading="lazy"
+      decoding="async"
     />
-    <Image src={ctaBG} alt="" class="hidden lg:block h-full w-full object-cover pointer-events-none select-none" />
+    <Image src={ctaBG} alt="" class="hidden lg:block h-full w-full object-cover pointer-events-none select-none" loading="lazy" decoding="async" />
     <div
       class="pointer-events-none absolute inset-0 z-10 size-full lg:hidden"
       style="background: linear-gradient(to bottom, #141414 20%, transparent 100%);"
@@ -80,7 +82,7 @@ const { heading, headingHighlight, headingEnd, description, cta1, cta2 } =
             <Fragment set:html={logoFace} />
           </div>
           <div class="absolute inset-x-0 -bottom-10 flex justify-center z-30">
-            <Image src={ctaBorder} alt="" class="w-full h-auto object-contain" />
+            <Image src={ctaBorder} alt="" class="w-full h-auto object-contain" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

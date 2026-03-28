@@ -28,7 +28,7 @@ Nosana jobs are paid with NOS, the lifeblood of our network. Clients use NOS to 
 
 We’ve integrated Jupiter’s swap functionality under the hood, so you always get the best conversion rate for your tokens at the moment of purchase. Simple, secure, and designed to keep you moving forward.
 
-![Swapping Feature](./assets/swap_complete.gif)
+<img alt="Swapping Feature" src="./assets/swap_complete.webp" loading="lazy" decoding="async" />
 
 ---
 

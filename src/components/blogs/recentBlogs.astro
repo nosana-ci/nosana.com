@@ -58,10 +58,12 @@ const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
         class="blog-card border-r border-b border-white/10 pt-4 px-4 lg:pt-10 lg:px-6 flex flex-col gap-4 hover:bg-white/2 transition group h-full overflow-hidden"
       >
         <div class="w-full aspect-video overflow-hidden">
-          <Image 
-            src={blog.thumbnail} 
-            alt={blog.title} 
+          <Image
+            src={blog.thumbnail}
+            alt={blog.title}
             class="w-full h-full object-cover select-none pointer-events-none"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         
