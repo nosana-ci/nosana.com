@@ -55,6 +55,8 @@ if (recommendedEvents.length === 0) return null;
                 src={data.thumbnail}
                 alt={data.title}
                 class="w-full h-full object-cover select-none pointer-events-none"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

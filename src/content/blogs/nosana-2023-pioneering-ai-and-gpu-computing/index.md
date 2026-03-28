@@ -20,7 +20,7 @@ We observed the need for scalable computational resources as a result of the ris
 This transition isn't merely a business decision; it's a commitment to pushing the boundaries of AI and blockchain integration. It addresses immediate AI industry needs while laying the groundwork for future innovations, emphasizing our dedication to realizing AI's full potential.
 
 <div style="width: 70%; margin: 0 auto;">
-<img alt="Solana Breakpoint stage" src="/img/solana-break-point-stage.png" />
+<img alt="Solana Breakpoint stage" src="/img/solana-break-point-stage.png" loading="lazy" decoding="async" />
 </div>
 
 
@@ -29,7 +29,7 @@ This transition isn't merely a business decision; it's a commitment to pushing t
 Throughout 2023, Nosana laid the foundation for a future where a decentralized community governs AI inference. Our team attended and spoke at several events, including EthCC Paris, Solana Hacker House, and most recently [Solana Breakpoint](https://nosana.io/blog/breakpoint-2023-bridging-the-global-gpu-shortage), to name a few. Beyond attending these larger conferences, we also organized and attended meetups, hackathons, and other gatherings, enabling us to connect with the Nosana community and gain a deeper understanding of their needs and aspirations. These interactions were undoubtedly a highlight of the year! 
 
 <div style="width: 70%; margin: 0 auto;">
-<img alt="Solana Breakpoint" src="/img/solana-break-point.png" />
+<img alt="Solana Breakpoint" src="/img/solana-break-point.png" loading="lazy" decoding="async" />
 </div>
 
 ### Incentivized Public Test Grid
@@ -37,7 +37,7 @@ Throughout 2023, Nosana laid the foundation for a future where a decentralized c
 In December, Nosana launched the first phase of its [Incentivized Public Test Grid](https://nosana.sh/test-grid). This highly anticipated program demonstrates the potential power of Nosana’s GPU network. Over 100 GPUs were connected by developers, data scientists, and AI enthusiasts to establish the first grid. This selection consisted of over 20 different kinds of consumer devices, from RTX 3060 laptop cards to A6000s, reinforcing our focus on supporting a diversity of devices. The test grid has given the project valuable information on performance, update procedures, pricing, and growth and is paving the way for the coming year.
 
 <div style="width: 100%; margin: 0 auto;">
-<img alt="Test Grid Graph" src="/img/test-grid-graph.jpg" />
+<img alt="Test Grid Graph" src="/img/test-grid-graph.jpg" loading="lazy" decoding="async" />
 </div>
 
 

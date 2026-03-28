@@ -39,10 +39,12 @@ if (recommendedBlogs.length === 0) return null;
           ]}
         >
           <div class="w-full md:w-[280px] lg:w-[260px] shrink-0 aspect-video overflow-hidden">
-            <Image 
-              src={blog.data.thumbnail} 
-              alt={blog.data.title} 
+            <Image
+              src={blog.data.thumbnail}
+              alt={blog.data.title}
               class="w-full h-full object-cover select-none pointer-events-none"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

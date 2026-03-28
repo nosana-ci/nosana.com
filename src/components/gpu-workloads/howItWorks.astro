@@ -69,7 +69,7 @@ const { badge, heading, headingHighlight, description, cta1, cta2, steps } =
             index === 0 ? "active max-md:scale-130 max-md:overflow-hidden" : "",
           ]}
         >
-          <img src={stepPngs[index].src} alt={`Step ${index + 1}`} class="step-img w-full h-auto" />
+          <img src={stepPngs[index].src} alt={`Step ${index + 1}`} class="step-img w-full h-auto" loading="eager" decoding="async" />
         </div>
       ))
     }

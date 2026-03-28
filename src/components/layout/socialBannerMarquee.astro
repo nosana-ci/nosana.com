@@ -34,6 +34,8 @@ const secondHalf = items.slice(mid);
                 src={item.image}
                 alt="social banner image"
                 class="w-[200px] md:w-[280px] lg:w-[360px] h-[160px] md:h-[210px] lg:h-[280px] object-cover rounded-lg bg-elevated"
+                loading="lazy"
+                decoding="async"
               />
 
               <div class="w-[160px] md:w-[210px] lg:w-[280px] aspect-square rounded-lg bg-elevated flex flex-col items-center justify-center text-center px-6">
@@ -62,6 +64,8 @@ const secondHalf = items.slice(mid);
                 src={item.image}
                 alt="social banner image"
                 class="w-[200px] md:w-[280px] lg:w-[360px] h-[160px] md:h-[210px] lg:h-[280px] object-cover rounded-lg"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           ))}

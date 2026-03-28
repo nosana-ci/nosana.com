@@ -29,7 +29,7 @@ GPUs stand out in parallel processing through numerous cores or arithmetic logic
 To illustrate these differences, consider the analogy of a CPU as a head chef in a large restaurant responsible for flipping hundreds of burgers. Although the head chef could perform this task individually, it may not be the most efficient use of time. Interruptions or slowdowns in kitchen operations might occur. In contrast, a GPU is akin to a junior assistant with ten hands, proficient at flipping 100 burgers in 10 seconds, demonstrating the efficiency of parallel processing.
 
 <div style="width: 100%; margin: 0 auto;">
-<img alt="Summary of Differences: CPU vs GPU" src="/img/summary_difference.png" />
+<img alt="Summary of Differences: CPU vs GPU" src="/img/summary_difference.png" loading="lazy" decoding="async" />
 </div>
 
 _**Similarities Shared by GPUs and CPUs**_
