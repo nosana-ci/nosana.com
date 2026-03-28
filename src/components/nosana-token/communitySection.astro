@@ -54,6 +54,8 @@ const resolvedMetrics = community.metrics;
               <Image
                 src={metric.icon}
                 alt={metric.label}
+                loading="lazy"
+                decoding="async"
                 class="pointer-events-none aspect-square w-[45px] object-contain select-none md:w-[60px] lg:w-[80px]"
               />
             </div>

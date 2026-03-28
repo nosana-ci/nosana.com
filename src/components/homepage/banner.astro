@@ -53,7 +53,8 @@ const { banner } = entry.data as {
       src={banner.image}
       alt={banner.heading}
       class="w-full h-full object-contain object-bottom pointer-events-none select-none"
-      loading="eager"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </section>

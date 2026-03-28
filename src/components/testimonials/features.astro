@@ -14,12 +14,14 @@ const { features = [] } = entry?.data || {};
       >
         <!-- Icon -->
         <div class="mb-8 lg:mb-12">
-          <Image 
-            src={feature.icon} 
+          <Image
+            src={feature.icon}
             alt={feature.title}
             width={120}
             height={120}
             class="h-[100px] lg::h-[125px] w-auto aspect-square pointer-events-none select-none text-tertiary"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 

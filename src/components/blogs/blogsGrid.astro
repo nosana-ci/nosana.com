@@ -84,10 +84,12 @@ const pageItems = Array.from({ length: totalPages }, (_, i) => String(i + 1));
         data-date={blog.formattedDate.toLowerCase()}
       >
         <div class="w-full aspect-video overflow-hidden">
-          <Image 
-            src={blog.thumbnail} 
-            alt={blog.title} 
+          <Image
+            src={blog.thumbnail}
+            alt={blog.title}
             class="w-full h-full object-cover select-none pointer-events-none"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         

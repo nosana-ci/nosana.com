@@ -75,9 +75,13 @@ const { heroSection } = entry.data;
 
   .grants-hero-svg .coin {
     animation: coin-oscillate 3s ease-in-out infinite;
-    will-change: transform;
+    animation-play-state: paused;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+  }
+
+  .grants-hero-svg.is-visible .coin {
+    animation-play-state: running;
   }
 
   .grants-hero-svg .coin-2 {
@@ -90,9 +94,13 @@ const { heroSection } = entry.data;
 
   .grants-hero-svg .wire-light {
     animation: wire-light-move 3s linear infinite;
-    will-change: transform, opacity;
+    animation-play-state: paused;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+  }
+
+  .grants-hero-svg.is-visible .wire-light {
+    animation-play-state: running;
   }
 
   .grants-hero-svg .wire-light-2 {
@@ -109,6 +117,13 @@ const { heroSection } = entry.data;
 
   .grants-hero-svg .wire-light-5 {
     animation-delay: 0.9s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grants-hero-svg .coin,
+    .grants-hero-svg .wire-light {
+      animation: none;
+    }
   }
 </style>
 
@@ -129,4 +144,18 @@ const { heroSection } = entry.data;
   }
   updateHeroSvgViewBox();
   window.addEventListener("resize", updateHeroSvgViewBox);
+
+  // Pause animations when hero is off-screen to free up the compositor
+  const heroContainer = document.querySelector(".grants-hero-svg");
+  if (heroContainer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          heroContainer.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0 }
+    );
+    observer.observe(heroContainer);
+  }
 </script>

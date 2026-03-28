@@ -20,6 +20,11 @@ export default defineConfig({
     host: true,
   },
 
+  image: {
+    formats: ['webp'],
+    quality: 80,
+  },
+
   integrations: [
     sitemap({
       changefreq: 'weekly',

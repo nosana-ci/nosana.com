@@ -34,6 +34,8 @@ const { badge, title, members } = teamSection;
                 src={member.image}
                 alt={member.name}
                 class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div class="flex items-baseline gap-4">

@@ -14,7 +14,7 @@ In the vast realm of data science, the evolution of machine learning has been re
 In this educational mini-series, we will help you understand the dynamics of deep learning, its applications, and the pivotal role of GPU acceleration.
 
 <div style="width: 60%; margin: 0 auto;">
-<img alt="Machine Learning vs Deep Learning" src="/img/deep_learning2.png" />
+<img alt="Machine Learning vs Deep Learning" src="/img/deep_learning2.png" loading="lazy" decoding="async" />
 </div>
 
 ### ***Machine Learning vs. Deep Learning:***
