@@ -8,7 +8,7 @@ import { getGPUMarkets } from "../../utils/gpuMarkets";
 import searchIcon from "../../assets/icons/search.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import closeIcon from "../../assets/icons/close.svg";
-import gpuHero from "../../content/homepage/assets/gpuhalf.svg";
+import gpuHero from "../../content/homepage/assets/gpuhalf.webp";
 // import gpuCircle from "../../content/homepage/assets/gpuCircle.png";
 
 const entry = await getEntry("homepage", "index");
@@ -175,8 +175,7 @@ const { premium, community, others } = await getGPUMarkets();
       <Image
         src={gpuHero}
         alt="GPU"
-        format="webp"
-        quality={75}
+        quality={85}
         class="pointer-events-none h-auto w-full select-none"
         loading="lazy"
         decoding="async"
