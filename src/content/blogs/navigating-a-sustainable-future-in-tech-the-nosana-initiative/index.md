@@ -21,7 +21,7 @@ In response, we’re introducing an innovative, sustainable solution. We’re cr
 Our strategy emphasizes the efficient utilization of existing resources. By tapping into idle GPUs on personal computers and small-scale servers, we unlock a vast, untapped resource. We envision that this will not only provide a much-needed boost to GPU availability but also encourage a culture of resource efficiency, which is crucial in our transition to a more sustainable future.
 
 <div style="width: 60%; margin: 0 auto;">
-<img alt="The Environmental Impact of Centralized Data Centers" src="/img/green_tech.png" />
+<img alt="The Environmental Impact of Centralized Data Centers" src="/img/green_tech.png" loading="lazy" decoding="async" />
 </div>
 
 ### The Environmental Impact of Centralized Data Centers
@@ -33,7 +33,7 @@ The rising concern over data center energy consumption is growing. Centralized d
 Our decentralized approach offers a compelling solution. By distributing computing tasks across a network of personal and idle GPUs, the dependence on massive data centers is significantly reduced. This not only cuts down on energy usage but also lessens the environmental impact associated with traditional data center operations. This shift is not just beneficial from a technical standpoint but also from an environmental perspective. Decentralization means that computing power is no longer concentrated in a few locations, which often rely on non-renewable energy sources. Instead, it taps into the distributed network of GPUs, possibly powered by cleaner, renewable energy sources. This significantly reduces the carbon footprint associated with high-performance computing.
 
 <div style="width: 30%; margin: 0 auto;">
-<img alt="Nosana's GPU Compute Grid as a Sustainable Solution for AI Inference" src="/img/sustainable.png"/>
+<img alt="Nosana's GPU Compute Grid as a Sustainable Solution for AI Inference" src="/img/sustainable.png" loading="lazy" decoding="async"/>
 </div>
 
 ### Fostering a Community for Eco-Conscious Tech Advancements

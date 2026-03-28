@@ -23,7 +23,7 @@ Let’s start with the fundamentals of LLMs. What is an LLM? How does it work? A
 For anyone reading up on LLMs they might seem like complex neural networks used in artificial intelligence. While this is true to some extent, in practice, LLMs essentially consist of two easy to understand files. The model weights file, and the model code file. The model weights file contains the parameters of the model and determines the model size which is measured in bytes. The model code file contains the instructions on how to load and run the model.
 
 <div style="width: 100%; text-align:center; margin: 0 auto;">
-<img alt="LLM" src="/img/LLM.png" />
+<img alt="LLM" src="/img/LLM.png" loading="lazy" decoding="async" />
 </div>
 
 When looking at llama3.1–70B, the identifier 70B means the model contains 70 billion parameters. The parameters of the model are stored with 16-bit floating point precision, which equals to 2 bytes, making the model weights file size 140 gigabytes.
@@ -31,7 +31,7 @@ When looking at llama3.1–70B, the identifier 70B means the model contains 70 b
 Each parameter in the model weights file corresponds to a neuron in the architecture described in the model code file. For most modern day LLMs this architecture is called a transformer. The image below shows a generalized transformer architecture used for producing text.
 
 <div style="width: 100%; max-width: 500px; margin: 0 auto;">
-<img alt="LLM" src="/img/InputOutput.png" />
+<img alt="LLM" src="/img/InputOutput.png" loading="lazy" decoding="async" />
 </div>
 
 A detailed explanation of transformers is beyond the scope of this article, so we will focus only on the part that is the most important to understand for this benchmarking research. For a LLM to output text it needs to perform computations at every layer, and to do this, it needs to have its parameters and specific cached computations loaded into memory at the respective layers in the model.
@@ -46,7 +46,7 @@ In the prefill phase, the model processes all input tokens simultaneously to com
 At the start of the decoding phase, the model uses the cached information computed during the prefill phase to generate a token. From this point on, for every newly generated token, the previous token needs to pass through the network together with the cached computations. This process of repeatedly going through the network is not computationally intensive as computations only have to be performed for a single token. Instead, the decoding phase is memory intensive, because the cached information has to be moved around to perform the necessary computations.
 
 <div style="width: 100%; margin: 0 auto;">
-<img alt="Phases" src="/img/prefillphase.gif" />
+<img alt="Phases" src="/img/prefillphase.gif" loading="lazy" decoding="async" />
 </div>
 
 The prefill phase is **compute bound**, while the decoding phase is **memory bound**. A process is considered compute-bound when it requires significant computation and its speed or performance is limited primarily by the amount of processing power of the hardware. A process is memory bound when its performance is limited by the rate at which data moves to and from memory. This rate is called the **memory bandwidth**.
@@ -69,7 +69,7 @@ We have covered the fundamentals of LLMs and understand which variables are impo
 Quantization reduces the precision of the model’s weights to lower bit representations. For example, if we would use quantization to transform the 16-bit floating point precision of our llama3.1–8B model to 8-bit integer, then we would reduce the model size from 16GB to 8GB. While this can have an impact on the accuracy of the model, the significant decrease in memory usage makes it a viable optimization technique.
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Llama 3.1" src="/img/Llama3-1.png" />
+<img alt="Llama 3.1" src="/img/Llama3-1.png" loading="lazy" decoding="async" />
 </div>
 
 Computation enhancement focuses on optimizing the operations performed within the model such as the attention mechanism. This mechanism is an important part of the transformer’s success, but also computationally expensive. By modifying the order of computations or by fusing together certain model layers we can reduce the data that needs to be written from and to memory.
@@ -93,11 +93,11 @@ As mentioned, Ollama was picked as the initial framework for benchmarking due to
 The performance data contains variables on the total amount of produced tokens and how long it took to produce them, but also the clockspeed and the wattage of the GPU. The system specifications data contains variables on an extensive set of system configurations that can have either large or small effects on model performance. The tables below illustrate the kinds of variables and their potential values.
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Specs" src="/img/Specs_Column.png" />
+<img alt="Specs" src="/img/Specs_Column.png" loading="lazy" decoding="async" />
 </div>
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Performance" src="/img/Performance_Column.png" />
+<img alt="Performance" src="/img/Performance_Column.png" loading="lazy" decoding="async" />
 </div>
 
 With the to be collected variables defined, we now had to pick a model for benchmarking. Given the notable performance of the newly launched llama models and the Nosana nodes with a wide variety of VRAM capacities, we decided to pick llama3.1–8B that can fit on all GPUs.
@@ -121,13 +121,13 @@ The dataset we used contains information on 10,596 jobs performed by 550 unique 
 As an initial goal of our benchmarking research we set out to create fair markets. In the presented results we have aggregated the data on market level, so we can show the performance for each market and highlight opportunities for improvements.
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Performance" src="/img/market_performance.png" />
+<img alt="Performance" src="/img/market_performance.png" loading="lazy" decoding="async" />
 </div>
 
 In the above visual we see the average tokens per second for each market. All the way at the top we have the H100 with 111 tokens per second, and at the bottom we have the RTX 4060 with 42 tokens per second. At first glance, this graph does not indicate anything out of the ordinary. On average the general trend seems to be, the more expensive the GPU the better the performance.
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Performance" src="/img/market_performance_v.png" />
+<img alt="Performance" src="/img/market_performance_v.png" loading="lazy" decoding="async" />
 </div>
 
 When we look at the performance variation within markets, indicated by the black bar, we get some more interesting findings. The larger the variation within a market the more varied the performance of different nodes within a market is. Varied performance within markets is undesirable for both clients and node runners. When clients use a Nosana node for inference compute, they want reliable performance suitable for their application. When node runners provide compute, they want to be paid based on the quality of compute they provide. A high variance within markets interferes with both of these objectives.
@@ -137,7 +137,7 @@ So having completely fair markets would mean that we would have a variance of 0 
 The visual below illustrates what would happen to the market if a 20% or a stricter 10% threshold were to be implemented.
 
 <div style="width: 100%; text-align: center; margin: 0 auto;">
-<img alt="Performance" src="/img/performance_thresholds.png" />
+<img alt="Performance" src="/img/performance_thresholds.png" loading="lazy" decoding="async" />
 </div>
 
 As we can see, for the markets with high variation, the threshold causes a significant increase in performance. This is because the threshold removes a larger amount of underperforming nodes within these markets. As a result, these markets become fairer because they provide more reliable compute to clients, and payout similar amounts for similar quality compute.

@@ -26,6 +26,8 @@ const { highlights } = Astro.props;
               width={150}
               height={150}
               class="mb-16"
+              loading="lazy"
+              decoding="async"
             />
             <h3 class="text-primary body1 mb-3 font-medium">{item.title}</h3>
             <p class="text-secondary body3">{item.description}</p>

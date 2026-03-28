@@ -36,6 +36,8 @@ const displayRole = role ?? "Founders, Nosana";
           src={thumbnail}
           alt={title}
           class="w-full h-auto select-none pointer-events-none"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -46,12 +48,12 @@ const displayRole = role ?? "Founders, Nosana";
         <div class="flex items-center gap-3 mb-4">
           {logo ? (
             <>
-              <Image src={logo} alt="Partner Logo" class="h-8 w-auto" />
+              <Image src={logo} alt="Partner Logo" class="h-8 w-auto" loading="lazy" decoding="async" />
               <span class="text-secondary caption1 uppercase">x</span>
-              <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" />
+              <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" loading="lazy" decoding="async" />
             </>
           ) : (
-            <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" />
+            <Image src={NosanaLogo} alt="Nosana Logo" class="h-6 w-auto" loading="lazy" decoding="async" />
           )}
         </div>
 

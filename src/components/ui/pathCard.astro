@@ -26,12 +26,16 @@ const [titleMain, titleSub] = title.split("-");
         aria-hidden="true"
         quality={100}
         class="pointer-events-none absolute inset-0 z-20 h-auto w-full opacity-0 transition-opacity duration-300 group-hover/pathcard:opacity-100"
+        loading="lazy"
+        decoding="async"
       />
 
       <img
         src={image.src ?? image}
         alt={title}
         class="path-card-image border-elevated relative z-10 h-auto w-full border select-none"
+        loading="lazy"
+        decoding="async"
       />
     </div>
 

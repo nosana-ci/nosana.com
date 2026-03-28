@@ -120,6 +120,8 @@ const resolvedMetrics = community.metrics.map(resolveMetric);
               src={metric.icon}
               alt={metric.label}
               class="w-[45px] md:w-[60px] lg:w-[80px] aspect-square object-contain select-none pointer-events-none"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

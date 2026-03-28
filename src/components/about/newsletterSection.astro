@@ -45,10 +45,12 @@ const { heading, description, image } = newsletterSection;
 
         <!-- Right Column: Image (Keyboard) -->
         <div class="flex items-center justify-center md:justify-end">
-             <Image 
-                src={image} 
-                alt="Newsletter" 
+             <Image
+                src={image}
+                alt="Newsletter"
                 class="w-full max-w-[400px] h-auto object-contain"
+                loading="lazy"
+                decoding="async"
             />
         </div>
       </div>

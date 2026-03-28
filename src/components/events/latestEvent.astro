@@ -143,12 +143,16 @@ const fullDate = displayDate.toLocaleDateString("en-US", {
                 src={thumbnail}
                 alt={title}
                 class="w-full h-full object-cover select-none pointer-events-none"
+                loading="lazy"
+                decoding="async"
               />
             ) : (
               <Image
                 src={thumbnail}
                 alt={title}
                 class="w-full h-full object-cover select-none pointer-events-none"
+                loading="lazy"
+                decoding="async"
               />
             )
 

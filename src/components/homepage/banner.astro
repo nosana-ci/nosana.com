@@ -54,6 +54,8 @@ const { banner } = entry.data as {
       alt={banner.heading}
       class="w-full h-full object-contain object-bottom pointer-events-none select-none"
       loading="eager"
+      decoding="async"
+      fetchpriority="high"
     />
   </div>
 </section>

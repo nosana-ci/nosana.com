@@ -15,7 +15,7 @@ tags:
 * [**AI Powered Summit with Akash Network**](https://lu.ma/AIPowered) **\- Sep 17**
   Jesse will be speaking on a panel about Advancements and Implications for Distributed Learning Systems.
   <div style="width: 100%; margin: 0 auto;">
-<img alt="Advancements and Implications for Distributed Learning Systems" src="/img/panel.png" />
+<img alt="Advancements and Implications for Distributed Learning Systems" src="/img/panel.png" loading="lazy" decoding="async" />
 </div>
 
 * [**Token2049 Singapore**](https://www.asia.token2049.com/) **\- Sep 18-19, Marina Bay Sands**
@@ -26,7 +26,7 @@ tags:
 
   Jesse will participate in a panel to discuss the latest advancements in DePIN and AI.
   <div style="width: 100%; margin: 0 auto;">
-<img alt="AI and DePIN: Catalysts for the Next Market Cycle" src="/img/hack_singapore.png" />
+<img alt="AI and DePIN: Catalysts for the Next Market Cycle" src="/img/hack_singapore.png" loading="lazy" decoding="async" />
 </div>
 
 * [**Solana Breakpoint**](https://solana.com/breakpoint) **\- Sep 20-21**  

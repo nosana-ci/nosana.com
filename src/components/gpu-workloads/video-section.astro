@@ -34,6 +34,7 @@ const { heading, videoSrc, youtubeId, poster, cta, darkControls = false } = Astr
         src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0`}
         allow="autoplay; encrypted-media"
         allowfullscreen={false}
+        loading="lazy"
         data-youtube
       />
     ) : (

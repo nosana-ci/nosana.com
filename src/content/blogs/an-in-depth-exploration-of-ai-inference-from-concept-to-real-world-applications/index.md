@@ -21,7 +21,7 @@ NVIDIA's latest H100 GPUs, based on the Hopper architecture, exemplify this adva
 NVIDIA has introduced specialized hardware like the NVIDIA L4, a low-profile accelerator for AI and graphics capable of running models and encoding video up to 120 times faster than CPU-based platforms. The NVIDIA L40, another variant, is tailored for AI-powered image generation, underscoring the diverse applications of these new GPUs. Also, the NVIDIA H100 NVL is a special chip for real-time large language model (LLM) inference. It is made to work with huge LLMs like ChatGPT and can make inferences up to 12 times faster than with older models.
 
 <div style="width: 100%; margin: 0 auto;">
-<img alt="NVIDIA GeForce RTX 4090" src="/img/4090.png" />
+<img alt="NVIDIA GeForce RTX 4090" src="/img/4090.png" loading="lazy" decoding="async" />
 </div>
 
 These developments in GPU technology are transforming AI inference, making it faster, more efficient, and more accessible for a range of applications, from the edge to the cloud. Integrating the recent advancements in GPU technology with Nosana's use of blockchain technology for decentralized GPU computing further revolutionizes the AI inference landscape. Nosana leverages blockchain technology to create a distributed network of GPU resources, creating open access to high-powered computing for AI. The decentralized approach allows anyone to contribute their GPU resources to the network, which can then be utilized for AI inference tasks. Combining NVIDIA's latest GPU advancements with Nosana's blockchain-based platform enables more efficient and scalable AI processing, opening up new possibilities for AI applications across different industries. This synergy between cutting-edge GPU technology and blockchain-based decentralization by Nosana represents a significant step forward in making AI inference more accessible and powerful.
@@ -31,7 +31,7 @@ These developments in GPU technology are transforming AI inference, making it fa
 Healthcare: AI inference is transforming medical diagnostics, enabling early disease identification and improving patient outcomes. Trained deep learning models analyze medical images, real-time patient vital signs, and electronic health records, providing invaluable insights for clinical decision-making and medical research.
 
 <div style="width: 100%; margin: 0 auto;">
-<img alt="Trained deep learning models analyze medical images." src="/img/chip.png" />
+<img alt="Trained deep learning models analyze medical images." src="/img/chip.png" loading="lazy" decoding="async" />
 </div>
 
 Autonomous Vehicles: AI inference plays a pivotal role in autonomous vehicles, enabling them to navigate roads, detect obstacles, and make real-time decisions to ensure safety. By analyzing sensor data from cameras, radar, and lidar, AI models enable autonomous vehicles to perceive their surroundings and respond accordingly, paving the way for safer and more efficient transportation.

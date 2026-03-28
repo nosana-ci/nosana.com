@@ -40,6 +40,8 @@ const { premium, community, others } = await getGPUMarkets();
         width={24}
         height={24}
         class="mr-4 opacity-60"
+        loading="lazy"
+        decoding="async"
       />
       <input
         id="gpu-search-input"
@@ -176,6 +178,8 @@ const { premium, community, others } = await getGPUMarkets();
         format="webp"
         quality={75}
         class="pointer-events-none h-auto w-full select-none"
+        loading="lazy"
+        decoding="async"
       />
     </div>
 
