@@ -1,0 +1,31 @@
+# Astro hashed assets (JS, CSS, images) — fingerprinted, safe to cache forever
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts — don't change between deploys
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static images and media — cache 1 day, serve stale up to 7 days while revalidating
+/img/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/og/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/lottie/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Root-level static assets (favicons, manifests, logos)
+/*.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*.svg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*.ico
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# HTML pages — no browser cache, but allow CDN to cache 1hr with stale-while-revalidate
+/*
+  Cache-Control: public, max-age=0, s-maxage=3600, stale-while-revalidate=86400
