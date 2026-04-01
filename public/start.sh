@@ -20,6 +20,10 @@
           NOSANA_NODE_VERBOSE=true
           shift
           ;;
+        --disable-tty)
+          DISABLE_TTY=true
+          shift
+          ;;
         --network=*)
           SOL_NET_ENV="${1#*=}"
           shift
@@ -171,11 +175,14 @@
       --pull=always
       --name nosana-node
       --network NOSANA_GATEWAY
-      --interactive -t
       --volume /root/.nosana/:/root/.nosana/
       --mount type=bind,source=/root/../podman.sock,target=/root/.nosana/podman/podman.sock
       -e NOSANA_NODE_VERSION=${PRE_RELEASE}
     )
+
+    if [[ $DISABLE_TTY != true ]]; then
+      DOCKER_ARGS+=(--interactive -t)
+    fi
 
     docker exec -it podman podman run \
       ${DOCKER_ARGS[@]} \
