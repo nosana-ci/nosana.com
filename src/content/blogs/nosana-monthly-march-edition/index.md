@@ -12,9 +12,8 @@ tags:
 
 The Nosana website has been fully upgraded. It is now faster, clearer, and built for builders from the first click.
 
-You can now claim $50 in free GPU credits directly on the website in seconds and start running workloads immediately.
-
 The new experience brings:
+
 - Clearer product navigation and documentation.
 - A built-in GPU spend calculator.
 - Transparent host earnings insights.
@@ -42,6 +41,7 @@ We launched a dedicated hub where providers can manage everything in one place.
 At [host.nosana.com](https://host.nosana.com)
 
 You can:
+
 - Track performance and earnings.
 - Monitor uptime, rewards, and workload activity.
 - Follow step-by-step guides to become a host.
@@ -136,8 +136,8 @@ Nosana is moving from potential to execution!
 
 Useful Links
 
-* [Nosana Website](https://nosana.com/)
-* [Join the Discord](https://nosana.com/discord)
-* [Follow us on X](https://nosana.com/x)
-* [Nosana on GitHub](https://nosana.com/github)
-* [Nosana Grants Program Page](https://grants.nosana.com/)
+- [Nosana Website](https://nosana.com/)
+- [Join the Discord](https://nosana.com/discord)
+- [Follow us on X](https://nosana.com/x)
+- [Nosana on GitHub](https://nosana.com/github)
+- [Nosana Grants Program Page](https://grants.nosana.com/)
