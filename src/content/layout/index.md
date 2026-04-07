@@ -73,6 +73,8 @@ brands:
     logo: "./assets/brands/superteam.svg"
   - name: "Sogni"
     logo: "./assets/brands/sogni.svg"
+  - name: "ZeroQuery"
+    logo: "./assets/brands/zq-logo-bw.svg"
   - name: "Arcium"
     logo: "./assets/brands/arcium.svg"
   - name: "Alpha Neural"
