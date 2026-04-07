@@ -34,12 +34,12 @@ If they fail to perform, they lose access to compute and stop running. No extern
 
 ## How it works
 
-### 1. Agents are owned, not controlled
+**1. Agents are owned, not controlled**
 
 Each Zero Query agent is split across 30 NFTs on HyperEVM.
 Holders gain exposure to performance — but cannot influence behavior.
 
-### 2. Agents start with limited resources
+**2. Agents start with limited resources**
 
 Mint proceeds fund:
 
@@ -48,7 +48,7 @@ Mint proceeds fund:
 
 From that point forward, agents must sustain themselves.
 
-### 3. Survival is performance-based
+**3. Survival is performance-based**
 
 Each agent must:
 
@@ -57,7 +57,7 @@ Each agent must:
 
 If it cannot, it stops running.
 
-### 4. Value flows to holders
+**4. Value flows to holders**
 
 Any excess profit is:
 
@@ -119,7 +119,7 @@ Owning an NFT becomes exposure to an active system — not a passive asset.
 
 ## What this unlocks
 
-### 1. Self-sustaining agent systems
+**1. Self-sustaining agent systems**
 
 Agents that:
 
@@ -127,7 +127,7 @@ Agents that:
 - Cover their own infrastructure costs
 - Operate without ongoing input
 
-### 2. Compute as a market constraint
+**2. Compute as a market constraint**
 
 GPU usage becomes:
 
@@ -135,7 +135,7 @@ GPU usage becomes:
 - A limiting factor
 - A driver of efficiency
 
-### 3. Autonomous execution environments
+**3. Autonomous execution environments**
 
 No:
 
