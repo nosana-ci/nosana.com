@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Outer black background -->
+  <rect width="1024" height="1024" fill="#000"/>
+  <!-- White border frame -->
+  <rect x="60" y="60" width="904" height="904" fill="#fff"/>
+  <!-- Inner black square -->
+  <rect x="90" y="90" width="844" height="844" fill="#000"/>
+  <!-- Z letter -->
+  <path d="M 160 230 L 460 230 L 460 330 L 270 700 L 460 700 L 460 800 L 160 800 L 160 700 L 350 330 L 160 330 Z" fill="#d9d9d9"/>
+  <!-- Q letter -->
+  <path d="M 520 310 Q 520 230 600 230 L 780 230 Q 860 230 860 310 L 860 720 Q 860 800 780 800 L 740 800 L 800 860 L 720 860 L 650 800 L 600 800 Q 520 800 520 720 Z M 620 330 L 620 700 L 760 700 L 760 330 Z" fill="#d9d9d9"/>
+</svg>
