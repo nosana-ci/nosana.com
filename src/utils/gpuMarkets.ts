@@ -15,6 +15,9 @@ export interface CategorizedGPUs {
   others: GPUItem[];
 }
 
+const MARKETS_API_URL = "https://dashboard.k8s.prd.nos.ci/api/markets/";
+const RUNNING_JOBS_API_URL = "https://dashboard.k8s.prd.nos.ci/api/jobs/running";
+
 function extractSeries(name: string, slug?: string): string | null {
   const source = `${name} ${slug ?? ""}`.toLowerCase();
 
@@ -47,8 +50,8 @@ export async function getGPUMarkets(): Promise<CategorizedGPUs> {
   try {
     // 1. Fetch REST API data (name, slug, type, price) + running jobs
     const [marketsRes, runningRes] = await Promise.all([
-      fetch("https://dashboard.k8s.prd.nos.ci/api/markets/"),
-      fetch("https://dashboard.k8s.prd.nos.ci/api/jobs/running"),
+      fetch(MARKETS_API_URL, { cache: "no-store" }),
+      fetch(RUNNING_JOBS_API_URL, { cache: "no-store" }),
     ]);
 
     if (!marketsRes.ok) {

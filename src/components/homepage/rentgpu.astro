@@ -199,6 +199,26 @@ const { premium, community, others } = await getGPUMarkets();
     </div>
   </div>
 
+  <template id="gpu-row-template">
+    <div class="gpu-row px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3">
+      <div class="gpu-name text-primary font-medium mb-2 md:mb-0 truncate min-w-0"></div>
+      <div class="gpu-mobile-info flex justify-between gap-4 md:hidden">
+        <div class="text-primary truncate min-w-0">
+          <span class="text-secondary">Price: </span>
+          <span class="gpu-price-mobile"></span>
+        </div>
+        <div class="text-primary text-right shrink-0">
+          <span class="text-secondary">Availability: </span>
+          <span class="availability-value gpu-availability-mobile"></span>
+        </div>
+      </div>
+      <div class="gpu-price-desktop hidden md:block md:text-center text-primary"></div>
+      <div class="hidden md:block md:text-right text-primary">
+        <span class="availability-value gpu-availability-desktop"></span>
+      </div>
+    </div>
+  </template>
+
 </section>
 
 <!-- <style>
@@ -217,6 +237,73 @@ const { premium, community, others } = await getGPUMarkets();
 </style> -->
 
 <script>
+  import { getGPUMarkets } from "../../utils/gpuMarkets";
+
+  function createGPURow(item: {
+    address: string;
+    gpu: string;
+    priceDisplay: string;
+    priceValue: number | null;
+    series: string | null;
+    availability: string;
+  }) {
+    const template = document.getElementById("gpu-row-template") as HTMLTemplateElement | null;
+    const row = template?.content.firstElementChild?.cloneNode(true) as HTMLElement | undefined;
+
+    if (!row) return null;
+
+    row.dataset.marketAddress = item.address;
+    row.dataset.gpuName = item.gpu.toLowerCase();
+    row.dataset.gpuPrice = item.priceDisplay.toLowerCase();
+    row.dataset.priceValue = item.priceValue == null ? "" : String(item.priceValue);
+    row.dataset.series = item.series ?? "";
+
+    const name = row.querySelector(".gpu-name");
+    const mobilePrice = row.querySelector(".gpu-price-mobile");
+    const desktopPrice = row.querySelector(".gpu-price-desktop");
+    const mobileAvailability = row.querySelector(".gpu-availability-mobile");
+    const desktopAvailability = row.querySelector(".gpu-availability-desktop");
+
+    if (name) name.textContent = item.gpu;
+    if (mobilePrice) mobilePrice.textContent = item.priceDisplay;
+    if (desktopPrice) desktopPrice.textContent = item.priceDisplay;
+    if (mobileAvailability) mobileAvailability.textContent = item.availability;
+    if (desktopAvailability) desktopAvailability.textContent = item.availability;
+
+    return row;
+  }
+
+  async function refreshRenderedGPUMarkets() {
+    try {
+      const { premium } = await getGPUMarkets();
+      const premiumPanel = document.querySelector(".panel.premium");
+      const rowsContainer = premiumPanel?.querySelector("[data-gpu-rows]");
+
+      if (!(rowsContainer instanceof HTMLElement)) return null;
+
+      const rows = premium
+        .map((item) => createGPURow(item))
+        .filter((row): row is HTMLElement => row instanceof HTMLElement);
+
+      rowsContainer.replaceChildren(...rows);
+
+      const noResults = premiumPanel?.querySelector(".no-results");
+      if (noResults instanceof HTMLElement) {
+        noResults.classList.add("hidden");
+      }
+
+      const showMoreWrap = premiumPanel?.querySelector(".show-more-wrap");
+      if (showMoreWrap instanceof HTMLElement) {
+        showMoreWrap.classList.remove("hidden");
+      }
+
+      return premium;
+    } catch (error) {
+      console.error("Error refreshing rendered GPU markets:", error);
+      return null;
+    }
+  }
+
   function initSearch() {
     const searchInput = document.getElementById(
       "gpu-search-input",
@@ -319,10 +406,13 @@ const { premium, community, others } = await getGPUMarkets();
     });
   }
 
+  await refreshRenderedGPUMarkets();
+
   // Initialize on page load and after swaps (Astro view transitions)
   initSearch();
   initShowMore();
-  document.addEventListener("astro:after-swap", () => {
+  document.addEventListener("astro:after-swap", async () => {
+    await refreshRenderedGPUMarkets();
     initSearch();
     initShowMore();
   });
