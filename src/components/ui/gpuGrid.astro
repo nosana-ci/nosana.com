@@ -8,7 +8,7 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<div class="w-full overflow-hidden">
+<div class="w-full overflow-hidden" data-gpu-grid>
   <!-- Header -->
   <div
     class="grid grid-cols-3
@@ -21,7 +21,7 @@ const { items } = Astro.props;
   </div>
 
   <!-- Rows -->
-  <div class="divide-y divide-default border-b border-default">
+  <div class="divide-y divide-default border-b border-default" data-gpu-rows>
     {items.map((item) => (
       <div
         class="gpu-row px-4 md:px-6 py-6 body2 md:grid md:grid-cols-3"
