@@ -19,13 +19,12 @@ The challenge generated strong momentum across the ecosystem:
 
 - **105 submissions** via Superteam
 - Submitter geography (32 distinct countries)
-- Nigeria 34
-- India 12
-- United States 10
-- Indonesia 7
-- Spain 4
-- Kenya 3
--
+  - Nigeria 34
+  - India 12
+  - United States 10
+  - Indonesia 7
+  - Spain 4
+  - Kenya 3
 - **1,100+ community messages**
 - **200+ tweets**
 - **650 unique visitors to the agent challenge repo**
