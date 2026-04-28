@@ -17,20 +17,13 @@ From DeFi analysts and productivity copilots to Android device agents and multi-
 
 The challenge generated strong momentum across the ecosystem:
 
-- **105 submissions** via Superteam
+- 105 submissions via Superteam
 - Submitter geography (32 distinct countries)
-  - Nigeria 34
-  - India 12
-  - United States 10
-  - Indonesia 7
-  - Spain 4
-  - Kenya 3
-- **1,100+ community messages**
-- **200+ tweets**
-- **650 unique visitors to the agent challenge repo**
-- **428 Clones**
-- **550 stars across agent-challenge, nosanta-kit, nosana-cli, and nosana-programs repositories**
-- **Dozens of live product demos, repositories, and production-ready concepts**
+- 1,100+ community messages
+- 200+ tweets
+- 650 unique visitors to the agent challenge repo
+- 550 stars across agent-challenge, nosanta-kit, nosana-cli, and nosana-programs repositories
+- Dozens of live product demos, repositories, and production-ready concepts
 
 More than a hackathon, this became a live showcase of what builders can create when GPU access is open, flexible, and available on demand.
 
