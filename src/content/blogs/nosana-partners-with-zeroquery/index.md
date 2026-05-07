@@ -167,7 +167,7 @@ Most AI agents today are tools. Zero Query agents operate under real economic pr
 ## Useful Links
 
 - [Nosana Website](https://nosana.io)
-- [Zeroquery Website](https://zeroquery.com)
+- [Zeroquery Website](https://zeroquery.ai)
 - [Join the Discord](https://discord.gg/nosana-ai)
 - [Follow us on X](https://x.com/nosana_ai)
 - [Nosana on GitHub](https://github.com/nosana-ci)
