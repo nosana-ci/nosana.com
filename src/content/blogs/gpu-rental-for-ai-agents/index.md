@@ -126,15 +126,15 @@ Nosana provides GPU compute for the workloads that often power AI agents: infere
 
 In practice, Nosana's documentation includes examples for:
 
-Ollama for running LLMs
-TinyLlama for lightweight LLM inference
-vLLM for OpenAI-compatible serving
-LMDeploy for efficient language model inference
-Open WebUI for interacting with LLM runners through a web interface
-Stable Diffusion WebUI for image generation
-Whisper for speech recognition and transcription
-Jupyter Notebooks with GPU support
-Multi Job workflows for running multiple jobs
+- Ollama for running LLMs
+- TinyLlama for lightweight LLM inference
+- vLLM for OpenAI-compatible serving
+- LMDeploy for efficient language model inference
+- Open WebUI for interacting with LLM runners through a web interface
+- Stable Diffusion WebUI for image generation
+- Whisper for speech recognition and transcription
+- Jupyter Notebooks with GPU support
+- Multi Job workflows for running multiple jobs
 
 This matters because most AI agents are not one-model systems. An agent may use an LLM for reasoning, Whisper for transcription, Stable Diffusion for image generation, and custom containers for application-specific logic. A flexible GPU rental platform should support that variety instead of forcing every workload into one fixed deployment pattern.
 
