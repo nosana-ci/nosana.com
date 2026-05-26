@@ -13,7 +13,7 @@ const { heading, description } = earningSection;
 const headingParts = heading.split(" - ");
 ---
 
-<section class="w-full bg-bg-base px-4 md:px-12">
+<section class="bg-bg-base w-full px-4 md:px-12">
   <!-- Heading -->
   <h2 class="text-primary h4 grotesk mb-4 max-w-3xl">
     {headingParts[0]}
@@ -66,7 +66,7 @@ const headingParts = heading.split(" - ");
           <ul
             id="gpuOptions"
             data-lenis-prevent
-            class="bg-surface absolute left-0 z-50 mt-0 hidden w-full rounded-b-lg py-1 max-h-64 overflow-y-auto overscroll-contain"
+            class="bg-surface absolute left-0 z-50 mt-0 hidden max-h-64 w-full overflow-y-auto overscroll-contain rounded-b-lg py-1"
           >
             <li
               class="gpu-option body2 md:caption1 text-secondary hover:bg-bg-base cursor-pointer px-4 py-3 transition-colors"
@@ -82,7 +82,7 @@ const headingParts = heading.split(" - ");
         <h3 class="text-primary body2 mb-3">
           How many available hours do <br /> you have per month?
         </h3>
-        <p class="text-secondary body4 italic mb-6">
+        <p class="text-secondary body4 mb-6 italic">
           These are the hours when your GPU is not in use. Use the slider to
           indicate the total idle hours you can contribute.
         </p>
@@ -153,11 +153,14 @@ const headingParts = heading.split(" - ");
                 class="text-primary grotesk text-5xl font-medium sm:text-7xl"
                 >...</span
               >
-              <span class="text-primary grotesk text-2xl font-medium sm:text-4xl">NOS</span>
+              <span
+                class="text-primary grotesk text-2xl font-medium sm:text-4xl"
+                >NOS</span
+              >
             </span>
             <span
               id="monthlyEarnings"
-              class="grotesk text-xl font-medium text-secondary whitespace-nowrap sm:text-2xl"
+              class="grotesk text-secondary text-xl font-medium whitespace-nowrap sm:text-2xl"
               >.../month</span
             >
           </div>
@@ -169,17 +172,14 @@ const headingParts = heading.split(" - ");
         >
           <div class="flex flex-col gap-1">
             <span class="body4 text-tertiary">GPU type:</span>
-            <span id="gpuTypeDisplay" class="body2 text-primary"
-              >...</span
-            >
+            <span id="gpuTypeDisplay" class="body2 text-primary">...</span>
           </div>
 
           <div class="flex flex-col gap-1 text-right">
             <span class="body4 text-tertiary">Duration:</span>
             <span
               id="durationDisplay"
-              class="body2 whitespace-nowrap text-primary"
-              >...</span
+              class="body2 text-primary whitespace-nowrap">...</span
             >
           </div>
         </div>
@@ -275,7 +275,9 @@ const headingParts = heading.split(" - ");
   const totalEarningsEl = document.getElementById("totalEarnings");
   const monthlyEarningsEl = document.getElementById("monthlyEarnings");
   const durationDisplay = document.getElementById("durationDisplay");
-  const hoursSlider = document.getElementById("hoursSlider") as HTMLInputElement;
+  const hoursSlider = document.getElementById(
+    "hoursSlider",
+  ) as HTMLInputElement;
   const progressFill = document.getElementById("progressFill");
   const hoursTooltip = document.getElementById("hoursTooltip");
   const hoursTooltipValue = document.getElementById("hoursTooltipValue");
@@ -418,10 +420,7 @@ const headingParts = heading.split(" - ");
   });
 
   document.addEventListener("click", (e) => {
-    if (
-      dropdownContainer &&
-      !dropdownContainer.contains(e.target as Node)
-    ) {
+    if (dropdownContainer && !dropdownContainer.contains(e.target as Node)) {
       closeDropdown();
     }
   });
@@ -455,17 +454,14 @@ const headingParts = heading.split(" - ");
         (market: any) =>
           !excludeMarkets.includes(market.slug) &&
           market.type === "PREMIUM" &&
-          !market.slug.includes("laptop"),
+          !market.slug.includes("laptop") &&
+          !market.client,
       );
 
       const pricePerGpu: Record<string, number> = {};
       markets.forEach((market: any) => {
-        if (market.gpu_types && market.gpu_types.length) {
-          market.gpu_types.forEach((gpu: string) => {
-            if (!gpu.toLowerCase().includes("laptop")) {
-              pricePerGpu[gpu] = market.usd_reward_per_hour;
-            }
-          });
+        if (market.name && !market.name.toLowerCase().includes("laptop")) {
+          pricePerGpu[market.name] = market.usd_reward_per_hour;
         }
       });
 
