@@ -54,7 +54,7 @@ This is where Nosana becomes relevant. Nosana is not trying to be another generi
 
 For builders, Nosana offers a practical way to run GPU workloads on demand. That can include AI inference, model-related workloads, rendering, simulations, agent workflows, and other compute-heavy tasks. Instead of treating compute as something locked behind large cloud commitments, Nosana gives teams a way to start testing, understand performance, and continue building based on actual usage.
 
-Before running a workload, builders can also estimate the cost. Nosana’s GPU workloads page lets you calculate expected pricing based on GPU type, runtime, and workload requirements, making it easier to plan compute spend before you start testing. [Estimate your workload cost,](%20https://nosana.com/gpu-workloads/) top up your credits, and run it on Nosana.
+Before running a workload, builders can also estimate the cost. Nosana’s GPU workloads page lets you calculate expected pricing based on GPU type, runtime, and workload requirements, making it easier to plan compute spend before you start testing. [Estimate your workload cost,](https://nosana.com/gpu-workloads/) top up your credits, and run it on Nosana.
 
 This matters because the AI infrastructure problem is not abstract anymore. If you are building an AI product, your compute layer affects your speed, costs, reliability, and ability to scale. Nosana gives developers a way to work directly with that layer instead of only talking about it. You can run workloads, see how they perform, and evaluate whether decentralized GPU compute makes sense for your product.
 
