@@ -2,7 +2,7 @@
 category: "blog"
 title: "How to Build AI Workflows That Produce Better Outputs, Not AI Slop"
 description: ""
-thumbnail: "./assets/NosanaBlogAISlop.jpg"
+thumbnail: "./assets/NosanaBlogAISLop.jpg"
 createdAt: "2026-06-19"
 tags:
   - "news"
