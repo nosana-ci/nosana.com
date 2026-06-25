@@ -10,7 +10,7 @@ heroSection:
     An open-source GPU cloud built for AI and high-performance workloads. Run on demand with flexible pricing and up to 6× lower costs
 
   cta1:
-    title: "Get Free GPU Credits"
+    title: "Run GPU Workloads"
     url: "https://deploy.nosana.com/"
     icon: "../../assets/icons/coin.svg"
 
@@ -175,7 +175,7 @@ banner:
   heading: "Bring your Project to life on Nosana"
   description: "Deploy directly from the Dashboard and watch your workload go live in real time"
   cta:
-    title: "Get Free GPU Credits"
+    title: "Run GPU Workloads"
     url: "https://deploy.nosana.com/"
     icon: "../../assets/icons/coin.svg"
   image: "./assets/bannerImg.webp"
@@ -211,15 +211,15 @@ latestBlogsMock:
 
 testimonials:
   heading: "Voices from the Community"
-  description: 
-  - "Nosana runs on fully open-source infrastructure and a global network of GPU providers."
-  - "This gives teams transparency, flexibility, and the ability to run workloads without vendor lock-in"
+  description:
+    - "Nosana runs on fully open-source infrastructure and a global network of GPU providers."
+    - "This gives teams transparency, flexibility, and the ability to run workloads without vendor lock-in"
 
 ctaSection:
   heading: "Ready to get started?"
   description: "No Limits. Only Possibilities."
   cta1:
-    title: "Free GPU Credits"
+    title: "Run GPU Workloads"
     url: "https://deploy.nosana.com/"
   cta2:
     title: "Book Free Call"
