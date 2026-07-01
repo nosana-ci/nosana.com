@@ -28,7 +28,7 @@ HackerNoon also published a feature exploring why access to GPUs is becoming one
 
 [Read it here](https://hackernoon.com/why-gpu-access-is-becoming-the-real-ai-infrastructure-battle)
 
-**Centralized vs. Decentralized Compute**
+## Centralized vs. Decentralized Compute
 
 Nosana joined Akash Network, Aethir, and io.net for a live discussion about the future of the GPU industry.
 
@@ -60,7 +60,7 @@ Nosana also introduced support for purchasing credits with **NOS or USDC**. Conn
 
 [Buy credits and deploy](https://deploy.nosana.com)
 
-**GPU Compute Hours Added to Nosana Explore**
+## GPU Compute Hours Added to Nosana Explore
 
 Nosana Explore now displays **GPU Compute Hours** alongside job count.
 
@@ -90,9 +90,9 @@ Congratulations to the winners and everyone who joined the event to build.
 
 ![](./assets/image4.png)
 
-## New on the Nosana Blog
+# New on the Nosana Blog
 
-### The Real Cost of AI Agents
+## The Real Cost of AI Agents
 
 Running an AI agent involves more than a single model request. Tool calls, context windows, repeated reasoning steps, retries, and continuous workloads can all affect infrastructure costs.
 
@@ -100,7 +100,7 @@ This article breaks down where those costs come from and what builders should co
 
 [Read the article](https://nosana.com/blog/the-real-cost-of-ai-agents/)
 
-**Why AI Apps Feel Slow**
+## Why AI Apps Feel Slow
 
 AI application latency can come from several layers, including model inference, data transfer, orchestration, cold starts, and external tools.
 
@@ -108,7 +108,7 @@ Learn what causes delays and how developers can build more responsive AI applica
 
 [Read the article](https://nosana.com/blog/why-ai-apps-feel-slow/)
 
-**How to Build AI Workflows That Don't Produce Slop**
+## How to Build AI Workflows That Don't Produce Slop
 
 When an AI workflow repeatedly generates generic or uncommitted output, the prompt is rarely the only problem.
 
@@ -116,7 +116,7 @@ This guide explains how clearer tasks, stronger context, and smaller workflow st
 
 [Read the guide](https://nosana.com/blog/how-to-build-ai-workflows-that-dont-produce-slop/)
 
-**Can You Mine Crypto With Cloud GPUs?**
+## Can You Mine Crypto With Cloud GPUs?
 
 Cloud GPU mining involves several technical and economic considerations, from workload compatibility to infrastructure costs.
 
@@ -124,7 +124,7 @@ This article explores how mining workloads operate on cloud GPU infrastructure a
 
 [Read the article](https://nosana.com/blog/can-you-mine-crypto-with-cloud-gpus/)
 
-**Build on Nosana**
+# Build on Nosana
 
 Whether you are experimenting with AI agents, robotics, inference workloads, or open-source AI infrastructure, Nosana gives you access to distributed GPU compute without relying on traditional cloud providers.
 
