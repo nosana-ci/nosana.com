@@ -54,7 +54,7 @@ This testing process addressed the central challenge of decentralized GPU comput
 
 ## **Mainnet Turned the Network Into a Public GPU Marketplace**
 
-Nosana opened its GPU marketplace to the public on January 14, 2025\. The launch moved the project from controlled testing into a production environment where customers could run workloads and GPU providers could earn by supplying computing power. ([Nosana](https://nosana.com/blog/nosanas-gpu-marketplace-is-open-to-the-public/?utm_source=chatgpt.com))
+Nosana opened its GPU marketplace to the public on January 14, 2025\. The launch moved the project from controlled testing into a production environment where customers could run workloads and GPU providers could earn by supplying computing power.
 
 Reaching mainnet proved that the technical and economic network could operate publicly, but it also changed the standard against which Nosana would be evaluated. Once developers begin paying for GPU compute, they compare the experience not only with other DePIN networks but with established cloud platforms.
 
