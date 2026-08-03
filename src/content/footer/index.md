@@ -43,6 +43,10 @@ navigation:
       url: "/support"
     - name: "Brand Assets"
       url: "/brand-assets"
+    - name: "Privacy Policy"
+      url: "/privacy-policy"
+    - name: "Terms & Conditions"
+      url: "/terms-and-conditions"
 
 copyright: "Copyright © 2026 Nosana. All Rights Reserved."
 termsAndConditionsUrl: "/terms-and-conditions"
