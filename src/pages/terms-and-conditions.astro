@@ -1,0 +1,170 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Terms and Conditions"
+  description="Nosana Terms and Conditions: the agreement for using the Nosana Network and related services."
+  ogImage="/og/home.png"
+  ogTitle="Terms and Conditions | Nosana"
+  ogDescription="Nosana Terms and Conditions: the agreement for using the Nosana Network and related services."
+>
+  <div class="mx-auto max-w-3xl px-4 py-12 md:px-12 md:py-20 lg:py-24">
+    <h1 class="grotesk h4 text-primary mb-2">Terms and Conditions</h1>
+    <p class="body4 text-tertiary mb-10">Last updated: August 3, 2026</p>
+
+    <div class="body3 text-secondary flex flex-col gap-2 leading-relaxed [&_h2]:grotesk [&_h2]:h6 [&_h2]:text-primary [&_h2]:mt-10 [&_h2+h3]:mt-2 [&_h2]:mb-3 [&_h3]:grotesk [&_h3]:text-primary [&_h3]:mt-8 [&_h3]:mb-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2 [&_strong]:text-primary [&_a]:text-brand-100 [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        These Terms of Service ("Terms") are an agreement between you and Nosana BV ("Nosana," "we," "us," or "our"). They govern your access to and use of the website at nosana.com (the "Website"), the compute platform at deploy.nosana.com and its related components (the "Platform"), and the other services, software, applications and features we provide from time to time (together, the "Services").
+      </p>
+      <p>
+        By using the Services you agree to these Terms and our Privacy Policy. If you do not agree, do not use the Services. If you use the Services for an organisation, you confirm you are authorised to accept these Terms on its behalf.
+      </p>
+
+      <h2>1. Who may use the Services</h2>
+      <p>
+        You must be at least 18 and able to enter into a binding agreement. You may not use the Services if you are subject to applicable sanctions or are located in a sanctioned country or territory. You are responsible for complying with the laws that apply to you.
+      </p>
+
+      <h2>2. The Nosana Network</h2>
+      <p>
+        The Nosana Network is a decentralised GPU compute marketplace that connects people and organisations who need GPU compute ("Clients") with independent GPU machines and their operators ("Hosts"). Clients create Deployments, which run as Jobs; each Job is scheduled to a Host in a GPU Market and runs there as a container. Coordination, staking and payment are handled through smart contracts (Programs) on the Solana blockchain and the NOS token (together, the "Protocol").
+      </p>
+      <p>
+        The Protocol and the Hosts' hardware are run by independent parties, not by us. We provide the software and coordination layer, but we do not control the machines your Jobs run on, do not take custody of your Job data, and do not take custody of any digital assets on the Protocol. Hosts are not our employees or agents. How we handle personal data is described in our Privacy Policy.
+      </p>
+
+      <h2>3. Your right to use the Services</h2>
+      <p>
+        Subject to these Terms, we grant you a personal, limited, revocable, non-exclusive and non-transferable right to use the Services. Any software, content and documentation we make available is licensed, not sold, to you. Parts of the Protocol and our software may be released under separate open-source licences, which govern that software. We may update, interrupt or discontinue the Services at any time, and we do not promise they will always be available or error-free.
+      </p>
+
+      <h2>4. Acceptable use</h2>
+      <p>When using the Services, you agree not to:</p>
+      <ul>
+        <li>break the law, infringe others' rights, or use the Services for any unlawful purpose;</li>
+        <li>submit or run any Job involving malware, exploits, unauthorised access, attacks on other systems, or other harmful or abusive activity;</li>
+        <li>submit content or data that is illegal, including child sexual abuse material or content that sexualises minors;</li>
+        <li>interfere with, overload or disrupt the Services or the Network, or bypass their security or access controls;</li>
+        <li>copy, resell, scrape or reverse-engineer the Services except as permitted by law or a documented interface; or</li>
+        <li>remove or alter any legal or proprietary notices.</li>
+      </ul>
+      <p>
+        You are responsible for everything you do through the Services, including the Deployments and Jobs you create and the code, models and data associated with them, and for having the rights needed to process them. If you take part as a Host, you are responsible for your own machine and for meeting your obligations under these Terms and applicable law, including any data-protection obligations that apply to data processed on your machine.
+      </p>
+
+      <h2>5. NOS token, Credits and payments</h2>
+      <p>
+        You can pay for deploying Jobs on the Network using NOS tokens or Credits. Blockchain transactions are generally irreversible, so check the details before you confirm. We do not hold your digital assets. You are responsible for your wallet, keys and account credentials. Fees and compute prices may change and may be set by the Protocol, by Hosts, or by the GPU Market. You are responsible for any taxes that apply to you. Nothing in the Services is financial, investment, legal or tax advice, or an offer to buy or sell any token.
+      </p>
+
+      <h2>6. Your content and our intellectual property</h2>
+      <p>
+        You keep the rights you already hold in the code, models and data you submit, and you grant us only the limited rights needed to operate and improve the Services and to comply with law. The Services themselves (including our software, text, graphics and logos, but excluding your content and separately-licensed open-source components) belong to us or our licensors. If you send us feedback or suggestions, we may use them freely without any obligation to you.
+      </p>
+
+      <h2>7. Third-party services</h2>
+      <p>
+        The Services may link to or work with third-party products such as wallets (for example Phantom or Solflare), blockchain explorers and community platforms. We do not control or endorse them, and your use of them is governed by their own terms and privacy policies. You use them at your own risk.
+      </p>
+
+      <h2>8. Privacy and data</h2>
+      <p>
+        Our Privacy Policy explains how we handle personal data, including data connected to the Jobs and transactions on the Network. It forms part of these Terms.
+      </p>
+
+      <h2>9. Disclaimers</h2>
+      <p>
+        THE SERVICES, THE NETWORK AND THE PROTOCOL ARE PROVIDED "AS IS" AND "AS AVAILABLE," AND YOU USE THEM AT YOUR OWN RISK.
+      </p>
+      <p>
+        To the extent permitted by law, we disclaim all warranties, whether express or implied, including warranties of merchantability, fitness for a particular purpose and non-infringement. We do not warrant that the Services will be uninterrupted, secure or error-free, or that Jobs, data or digital assets will be protected against loss or unauthorised access. You also acknowledge the risks of blockchain technology and digital assets, including smart-contract vulnerabilities, network forks, irreversible transactions, loss of keys, price volatility and possible total loss of value, and you accept those risks.
+      </p>
+
+      <h2>10. Limitation of liability</h2>
+      <p>
+        To the extent permitted by law, we will not be liable for any indirect or consequential loss, or for lost profits, revenue, data or digital assets. Our total liability arising from the Services will not exceed the amount you paid us for the Services in the six months before the claim, or one hundred euros (€100), whichever is greater. These limits do not apply to your indemnification obligations under Section 11, your breach of Section 4 (Acceptable use), or your infringement of our or another party's intellectual property rights. Nothing in these Terms limits liability that cannot be limited under Netherlands law, including liability for intent or deliberate recklessness, or your mandatory rights as a consumer.
+      </p>
+
+      <h2>11. Indemnification</h2>
+      <p>
+        You agree to cover our reasonable losses and costs (including legal fees) arising from your use of the Services, the Jobs you create or host, your breach of these Terms or the law, or your infringement of anyone's rights, to the extent permitted by law.
+      </p>
+
+      <h2>12. Suspension and termination</h2>
+      <p>
+        We may suspend or end your access to the Services if you breach these Terms, provide false information, misuse the Services, or where we reasonably need to in order to comply with the law or protect the Services or others. Terms that by their nature should continue after termination (such as those on your content, disclaimers, liability, indemnification and governing law) will continue to apply.
+      </p>
+
+      <h2>13. Governing law and disputes</h2>
+      <p>
+        These Terms are governed by the laws of the Netherlands. If a dispute arises, please contact us first so we can try to resolve it informally. Any dispute that cannot be resolved will be submitted to the competent courts of Amsterdam, the Netherlands, unless mandatory law (for example, consumer-protection law) gives you the right to bring proceedings elsewhere.
+      </p>
+
+      <h2>14. Changes to these Terms</h2>
+      <p>
+        We may update these Terms from time to time. If changes are material, we will take reasonable steps to let you know, for example by posting a notice or updating the date above. Continuing to use the Services after changes take effect means you accept them.
+      </p>
+
+      <h2>15. General</h2>
+      <p>
+        We are not responsible for delays or failures caused by events beyond our reasonable control. You may not transfer these Terms without our consent; we may transfer them. If any part of these Terms is found unenforceable, the rest stays in effect. These Terms, together with the Privacy Policy, are the entire agreement between us about the Services.
+      </p>
+
+      <h2>16. Contact</h2>
+      <p>
+        Questions about these Terms: <a href="mailto:team@nosana.io">team@nosana.io</a>.
+      </p>
+      {/*
+        NOTES FOR REVIEW: internal only, not rendered. Confirm each item, then remove.
+
+        - Counterparty entity: this Terms of Service is between the user and NOSANA B.V. (the operating
+          company), NOT the Nosana Foundation. The Privacy Policy remains under the Foundation. Following the
+          Akash pattern, the entity is named once (in the opening line) but deliberately NOT identified: no
+          registered address or KvK number is given. TRADE-OFF: Akash gets away with this partly as a US
+          entity. A Dutch BV serving EU consumers is a "trader," and EU consumer / e-commerce rules generally
+          require the trader's identity and geographic address to be made available to consumers. You can keep
+          that out of the ToS body (as here), but you likely still need it reachable somewhere, e.g., a legal-
+          notice / imprint page or the contact section of the site. Confirm the BV is correctly and legally
+          named, and that identity/address is available elsewhere, with counsel.
+
+        - Split entity (KEEP THIS TRUE): ToS = BV, Privacy Policy = Foundation. This split only holds up if the
+          FOUNDATION genuinely remains the data controller (i.e., it decides how personal data is processed). If
+          in practice the BV makes the data-processing decisions (it operates the site, logs, and payments), the
+          BV is the de facto controller and the Privacy Policy's controller should move to the BV. Confirm with
+          counsel which entity actually controls the data, and align the Privacy Policy accordingly.
+
+        - EU footprint (deliberate): a Netherlands BV is EU-established, so this operating relationship sits under
+          full GDPR by establishment and Dutch/EU consumer-protection law. That is the trade-off of choosing a
+          Dutch BV over an offshore entity, and it was chosen knowingly. Governing law, courts, liability floor
+          and currency below were all set to match a Dutch entity.
+
+        - Governing law / disputes: set to Netherlands law + competent courts of Amsterdam, which is the natural
+          and coherent choice for a Dutch BV. NOTE on arbitration: unlike the offshore-foundation route, a broad
+          binding-arbitration + class-action-waiver clause (as Akash uses) is generally NOT enforceable against
+          EU consumers and can be struck down under EU consumer law. For a Dutch BV facing consumers, the court
+          route is usually the safer and often mandatory choice. Confirm with counsel before adding arbitration.
+
+        - Liability cap + currency: cap formula (greater of six months' fees or €100) is standard and matches
+          Akash's own terms almost verbatim. Currency set to euros to match the Dutch entity. Standard carve-outs
+          added so the cap does not shield the user's indemnification, prohibited-use, or IP-infringement
+          obligations. The consumer carve-out references Netherlands law / mandatory consumer rights. Confirm the
+          figure with counsel, bearing in mind mandatory EU consumer protections.
+
+        - Services in scope: now anchored (Akash-style) to the Website (nosana.com) and the Platform
+          (deploy.nosana.com), with a catch-all for other services/software/features. This means the SDK
+          (@nosana/kit), the CLI (@nosana/cli), the host software, and apps like Explore/Host/Stake are no longer
+          named individually; they fall under the catch-all. Confirm that is intended; name them explicitly if
+          you want them clearly in scope.
+
+        - Contact address: team@nosana.io is used. Confirm this inbox is monitored for legal notices, or route
+          legal notices to a dedicated address.
+
+        - Minimum age: set at a straightforward 18+ with no supervised-minor carve-out, which is cleaner for a
+          service involving crypto payments and staking. Confirm you're comfortable leaving that out.
+      */}
+    </div>
+  </div>
+</Layout>
