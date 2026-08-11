@@ -1,7 +1,23 @@
 image: node:18
 
+# semver.yml tags each deploy as vX.Y.Z; github-release.yml turns those tags
+# into GitHub releases on the nosana.com mirror.
+include:
+  - project: nosana-ci/tools/cicd/gitlab-ci
+    file: templates/semver.yml
+  - project: nosana-ci/tools/cicd/gitlab-ci
+    file: templates/github-release.yml
+
 stages:
+  - test
   - deploy
+
+variables:
+  GITHUB_REPO: nosana.com # enables the github-release job on vX.Y.Z tags
+
+mr-title-lint:
+  extends: .mr-title-lint
+  stage: test
 
 pages:
   stage: deploy
@@ -20,3 +36,16 @@ pages:
 
   only:
     - main
+
+# Bumps the patch version and pushes a vX.Y.Z tag once main is deployed.
+release:
+  extends: .release
+  stage: .post
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# In `deploy`, not `.post`: on a tag pipeline this is the only job that runs, and
+# a pipeline consisting solely of .pre/.post jobs is never executed.
+github-release:
+  extends: .github-release
+  stage: deploy
