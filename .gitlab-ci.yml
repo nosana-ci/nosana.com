@@ -15,7 +15,6 @@ stages:
 variables:
   GITHUB_REPO: nosana.com # enables the github-release job on vX.Y.Z tags
 
-# This repo had no merge request pipelines before; this adds one.
 mr-title-lint:
   extends: .mr-title-lint
   stage: test
