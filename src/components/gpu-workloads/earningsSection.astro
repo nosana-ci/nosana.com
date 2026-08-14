@@ -526,15 +526,14 @@ const headingParts = heading.split(" - ");
         (market: any) =>
           !excludeMarkets.includes(market.slug) &&
           market.type === "PREMIUM" &&
-          !market.slug.includes("laptop"),
+          !market.slug.includes("laptop") &&
+          !market.client,
       );
 
       const pricePerGpu: Record<string, number> = {};
       markets.forEach((market: any) => {
-        if (market.gpu_types && market.gpu_types.length) {
-          market.gpu_types.forEach((gpu: string) => {
-            pricePerGpu[gpu] = market.usd_reward_per_hour;
-          });
+        if (market.name && !market.name.toLowerCase().includes("laptop")) {
+          pricePerGpu[market.name] = market.usd_reward_per_hour;
         }
       });
 
