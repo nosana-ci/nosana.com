@@ -105,6 +105,14 @@
       log_std "✅ Nvidia Container Toolkit installed. "
     fi
 
+    if [[ ! -d /run/nvidia-persistenced ]]; then
+      log_err "🧯 The NVIDIA persistence daemon is not running."
+      log_err "🔋 Please start it with 'sudo systemctl start nvidia-persistenced' and run this script again."
+      exit 1
+    else
+      log_std "✅ Nvidia persistence daemon running. "
+    fi
+
     docker rm --force podman &>/dev/null
     log_std "🔎 Checking if Nvidia Container Toolkit is configured.."
     if docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu18.04 nvidia-smi &>/dev/null; then
@@ -130,6 +138,7 @@
 
     docker run -d \
       --pull=always \
+      --mount type=bind,source=/run/nvidia-persistenced,target=/run/nvidia-persistenced,bind-propagation=rslave \
       --gpus=all \
       --name podman \
       --device /dev/fuse \
