@@ -147,7 +147,7 @@
       --privileged \
       -e ENABLE_GPU=true \
       -e NVIDIA_DRIVER_CAPABILITIES=all \
-      nosana/podman:v1.1.1 unix:/podman.sock
+      nosana/podman:v1.1.2 unix:/podman.sock
 
     sleep 5 # wait for podman to start
 
