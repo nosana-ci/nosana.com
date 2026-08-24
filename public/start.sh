@@ -40,6 +40,8 @@
   }
 
   main() {
+    PODMAN_VERSION="1.1.2"
+    SCRIPT_VERSION="${PODMAN_VERSION}-1"
     PRE_RELEASE=""
     SOL_NET_ENV="mainnet"
     handle_options "$@"
@@ -147,7 +149,7 @@
       --privileged \
       -e ENABLE_GPU=true \
       -e NVIDIA_DRIVER_CAPABILITIES=all \
-      nosana/podman:v1.1.2 unix:/podman.sock
+      nosana/podman:v${PODMAN_VERSION} unix:/podman.sock
 
     sleep 5 # wait for podman to start
 
@@ -187,6 +189,7 @@
       --volume /root/.nosana/:/root/.nosana/
       --mount type=bind,source=/root/../podman.sock,target=/root/.nosana/podman/podman.sock
       -e NOSANA_NODE_VERSION=${PRE_RELEASE}
+      -e NOSANA_START_SCRIPT_VERSION=${SCRIPT_VERSION}
     )
 
     if [[ $DISABLE_TTY != true ]]; then
