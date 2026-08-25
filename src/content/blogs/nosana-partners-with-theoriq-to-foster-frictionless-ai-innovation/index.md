@@ -4,6 +4,8 @@ title: "Nosana Partners with Theoriq to Foster Frictionless AI Innovation"
 description: "Power your latest AI invention with just a flick of a switch."
 thumbnail: "./assets/theoriq_blog.jpg"
 logo: "./assets/theoriq.svg"
+focus: "Agentic AI Infrastructure"
+impact: "Removing friction from building and deploying AI agents"
 createdAt: "2024-07-09"
 tags:
   - "news"

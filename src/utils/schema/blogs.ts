@@ -20,7 +20,9 @@ export const blogsSchema = ({ image }: SchemaContext) =>
       role: z.string().optional(),
       createdAt: z.coerce.date(),
       tags: z.array(z.string()).optional(),
-      focus: z.string().default('AI-Powered Art Generation'),
-      impact: z.string().default('Unlocking decentralized creativity with on-demand GPU power'),
+      // No defaults: these are per-partner, a shared default mislabels every
+      // case study that omits them.
+      focus: z.string().optional(),
+      impact: z.string().optional(),
     }),
   ]);
