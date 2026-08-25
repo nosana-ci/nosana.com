@@ -23,22 +23,63 @@ function extractDateFromTitle(title: string, uploadDate: Date): Date {
     const result = new Date(uploadDate);
     result.setUTCMonth(monthIndex);
     result.setUTCDate(day);
-    
+
     return result;
   }
 
   return uploadDate;
 }
 
+// Titles and descriptions arrive HTML-escaped; both are rendered with textContent.
+const ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'",
+};
 
+function decodeEntities(text: string): string {
+  return text.replace(/&(?:#(\d+)|(\w+));/g, (m, dec, name) =>
+    dec ? String.fromCodePoint(Number(dec)) : (ENTITIES[name] ?? m),
+  );
+}
 
 const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos";
 const PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems";
 const COMMUNITY_CALLS_PLAYLIST_ID = "PLSGyz3VCGoSANR6adEtHBUm4u4Rad_mZz";
 
+// search.list costs 100 quota units against a 10,000/day default; the other two
+// cost 1. Memoised so a build makes one search, not one per consumer.
+let cached: ReturnType<typeof loadYouTubeData> | null = null;
 
-export async function getYouTubeData() {
+// A rejected key comes back as HTTP 200 with an `error` body, so res.ok alone
+// is not enough to tell success from failure.
+async function fetchJson(url: string, label: string) {
+  const res = await fetch(url);
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok || data?.error) {
+    const err = data?.error;
+    const reason = err?.errors?.[0]?.reason ?? `HTTP ${res.status}`;
+    throw new Error(
+      `[youtube] ${label} failed (${reason}): ${err?.message ?? res.statusText}`,
+    );
+  }
+
+  return data;
+}
+
+export function getYouTubeData() {
+  if (!cached) cached = loadYouTubeData();
+  return cached;
+}
+
+async function loadYouTubeData() {
+  if (!API_KEY || !CHANNEL_ID) {
+    throw new Error(
+      "[youtube] YOUTUBE_API_KEY and YOUTUBE_CHANNEL_ID must be set. In CI they " +
+        "come from the project's CI/CD variables; locally they come from .env.",
+    );
+  }
+
   const searchUrl =
     `${SEARCH_URL}?part=snippet` +
     `&channelId=${CHANNEL_ID}` +
@@ -53,77 +94,70 @@ export async function getYouTubeData() {
     `&maxResults=50` +
     `&key=${API_KEY}`;
 
-  const [searchRes, playlistRes] = await Promise.all([
-    fetch(searchUrl),
-    fetch(playlistUrl),
-  ]);
-
   const [searchData, playlistData] = await Promise.all([
-    searchRes.json(),
-    playlistRes.json(),
+    fetchJson(searchUrl, "channel search"),
+    fetchJson(playlistUrl, "community calls playlist"),
   ]);
 
-  const videos = searchData.items ?? [];
-  const playlistItems = playlistData.items ?? [];
+  const videos = searchData?.items ?? [];
+  const playlistItems = playlistData?.items ?? [];
 
   if (videos.length === 0 && playlistItems.length === 0) {
-    return {
-      featured: null,
-      sessions: [],
-      communityCalls: [],
-    };
+    throw new Error(
+      `[youtube] the API accepted the key but returned no videos for channel ` +
+        `${CHANNEL_ID} and no items for playlist ${COMMUNITY_CALLS_PLAYLIST_ID}.`,
+    );
   }
 
-
-  const ids = videos.map((v: any) => v.id.videoId);
-
-  const detailsRes = await fetch(
-    `${VIDEOS_URL}?part=liveStreamingDetails&id=${ids.join(",")}&key=${API_KEY}`,
-  );
-
-  const detailsData = await detailsRes.json();
-
-  const detailsMap = new Map(
-    (detailsData.items ?? []).map((d: any) => [d.id, d.liveStreamingDetails]),
-  );
-
   const sessions = [];
-
 
   let upcomingSession = null;
   let liveSession = null;
 
-  for (const video of videos) {
-    const videoId = video.id.videoId;
-    const snippet = video.snippet;
+  if (videos.length) {
+    const ids = videos.map((v: any) => v.id.videoId);
 
-    const normalized = {
-      id: videoId,
-      title: snippet.title,
-      description: snippet.description,
-      thumbnail: snippet.thumbnails.high?.url,
-      publishedAt: snippet.publishedAt,
-      embedLink: `https://www.youtube.com/embed/${videoId}`,
-      watchUrl: `https://youtube.com/watch?v=${videoId}`,
-    };
+    const detailsData = await fetchJson(
+      `${VIDEOS_URL}?part=liveStreamingDetails&id=${ids.join(",")}&key=${API_KEY}`,
+      "livestream details",
+    );
 
-    const details = detailsMap.get(videoId);
+    const detailsMap = new Map(
+      (detailsData.items ?? []).map((d: any) => [d.id, d.liveStreamingDetails]),
+    );
 
-    if (!details) continue;
+    for (const video of videos) {
+      const videoId = video.id.videoId;
+      const snippet = video.snippet;
 
-    // Detect livestream state
-    if (details?.scheduledStartTime && !details?.actualStartTime) {
-      normalized.publishedAt = details.scheduledStartTime;
-      normalized.isUpcoming = true;
+      const normalized: any = {
+        id: videoId,
+        title: decodeEntities(snippet.title),
+        description: decodeEntities(snippet.description),
+        thumbnail: snippet.thumbnails.high?.url,
+        publishedAt: snippet.publishedAt,
+        embedLink: `https://www.youtube-nocookie.com/embed/${videoId}`,
+        watchUrl: `https://youtube.com/watch?v=${videoId}`,
+      };
 
-      if (!upcomingSession) upcomingSession = normalized;
+      const details = detailsMap.get(videoId);
+
+      if (!details) continue;
+
+      // Detect livestream state
+      if (details?.scheduledStartTime && !details?.actualStartTime) {
+        normalized.publishedAt = details.scheduledStartTime;
+        normalized.isUpcoming = true;
+
+        if (!upcomingSession) upcomingSession = normalized;
+      }
+
+      if (details?.actualStartTime && !details?.actualEndTime) {
+        if (!liveSession) liveSession = normalized;
+      }
+
+      sessions.push(normalized);
     }
-
-    if (details?.actualStartTime && !details?.actualEndTime) {
-      if (!liveSession) liveSession = normalized;
-    }
-
-    sessions.push(normalized);
   }
 
   const communityCalls = playlistItems
@@ -143,25 +177,19 @@ export async function getYouTubeData() {
         timeZone: "UTC",
       });
 
-      const formattedTime = date.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        timeZoneName: "short",
-        timeZone: "UTC",
-      });
-
-
-
       return {
-        meeting: snippet.title,
-        time: `${formattedDate} • ${formattedTime}`,
+        time: formattedDate,
         recordingUrl: `https://youtube.com/watch?v=${snippet.resourceId.videoId}`,
         publishedAt: date,
       };
     })
-    .sort((a: any, b: any) => b.publishedAt.getTime() - a.publishedAt.getTime())
-    .map(({ publishedAt, ...rest }: any) => rest);
-
+    .sort((a: any, b: any) => a.publishedAt.getTime() - b.publishedAt.getTime())
+    // Numbered oldest-first so a call keeps its number; rendered newest-first.
+    .map(({ publishedAt, ...call }: any, index: number) => ({
+      meeting: `#${index + 1}`,
+      ...call,
+    }))
+    .reverse();
 
   const featured = upcomingSession || liveSession || sessions[0] || null;
 
@@ -172,5 +200,4 @@ export async function getYouTubeData() {
     sessions: moreSessions,
     communityCalls,
   };
-
 }

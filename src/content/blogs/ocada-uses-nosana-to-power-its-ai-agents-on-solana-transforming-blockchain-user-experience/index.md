@@ -4,6 +4,8 @@ title: "Ocada uses Nosana to power its AI agents on Solana, transforming blockch
 description: "Nosana’s partnership with Ocada is unlocking a new era of AI-powered blockchain innovation—from automated trading and security analysis to transforming and simplifying the blockchain user experience."
 thumbnail: "./assets/NosanaOcada2Blog.jpg"
 logo: "./assets/ocada.svg"
+focus: "AI Agents on Solana"
+impact: "Transforming blockchain user experience with always-on AI agents"
 createdAt: "2025-01-23"
 tags:
   - "news"

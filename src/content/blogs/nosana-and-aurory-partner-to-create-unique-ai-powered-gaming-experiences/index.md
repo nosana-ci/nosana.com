@@ -4,6 +4,8 @@ title: "Nosana and Aurory Partner to Create Unique AI-powered Gaming Experiences
 description: "Nosana is excited to announce a new partnership with Aurory to use the power of AI to create even better gaming experiences."
 thumbnail: "./assets/NosanaXAuroryBlog.jpg"
 logo: "./assets/aurory.svg"
+focus: "AI-Powered Gaming"
+impact: "Bringing AI-driven gameplay experiences to a Web3 gaming ecosystem"
 createdAt: "2024-06-11"
 tags:
   - "news"

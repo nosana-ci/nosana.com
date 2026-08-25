@@ -4,6 +4,8 @@ title: "Nosana Partners with Sogni.AI to Empower Creativity Through AI-Powered A
 description: "Nosana's partnership with Sogni.AI is unlocking a new era of AI-powered creativity for iOS and macOS users, making art generation and editing faster than ever."
 thumbnail: "./assets/NosanaSogniBlog.jpg"
 logo: "./assets/sogni.svg"
+focus: "AI-Powered Art Generation"
+impact: "Unlocking decentralized creativity with on-demand GPU power"
 createdAt: "2024-09-24"
 tags:
   - "news"
