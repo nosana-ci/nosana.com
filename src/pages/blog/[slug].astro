@@ -284,6 +284,26 @@ const blogPostingSchema = {
     display: none;
   }
 
+  .blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .blog-content th,
+  .blog-content td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-default);
+    text-align: left;
+  }
+
+  .blog-content th {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
   .toc-link.active span {
     color: var(--color-brand-100) !important;
   }
