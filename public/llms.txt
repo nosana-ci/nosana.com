@@ -1,0 +1,71 @@
+# Nosana
+
+Nosana is an open-source GPU cloud for AI inference and other high-performance
+workloads. You rent GPU capacity on demand from a distributed network of
+providers, or contribute idle GPUs and earn for running other people's
+workloads. Everything a person can do in the dashboard is also available over a
+public HTTP API, a TypeScript SDK, and an agent skill.
+
+## When to use Nosana
+
+Reach for Nosana when a job needs a GPU that the calling machine does not have:
+
+- **Serving an open-weights model.** Deploy vLLM, Ollama or llama.cpp behind an
+  HTTPS endpoint and call it like any other inference API.
+- **Long-running GPU services.** A deployment keeps replicas running and
+  replaces them when a host drops, so it suits a service rather than a one-shot
+  script.
+- **Batch GPU work.** Rendering, simulation, fine-tuning, benchmarking — a job
+  runs a container image on a GPU and exits.
+- **Agents that need to provision compute themselves.** The API is
+  key-authenticated and scriptable, so an agent can pick a market, deploy, poll
+  for readiness and tear down without a human in the loop.
+
+Nosana is **not** the right tool for CPU-only batch work, general web hosting,
+persistent databases, or anything needing stable storage between runs — a
+deployment's filesystem does not survive it.
+
+How an agent should call it: authenticate with an API key or a Nosana Connect
+OAuth token, choose a market with `GET /api/markets/`, create a deployment with
+`POST /api/deployments/create`, start it, then poll the endpoint URL until it
+answers. A job reported as `RUNNING` has been placed on a host, which is not
+the same as its container serving traffic — poll the endpoint, not the job
+state.
+
+## Programmatic access
+
+- [OpenAPI 3.1 document](https://api.nosana.com/api/openapi.json) — every public
+  endpoint across deployments, jobs, markets, credits and nodes
+- [API reference](https://api.nosana.com/api/docs) — the same document, browsable
+- [Authentication walkthrough for agents](https://nosana.com/auth.md)
+- [Pricing, machine-readable](https://nosana.com/pricing.md)
+- [Agent skill index](https://nosana.com/.well-known/agent-skills/index.json)
+- [Agentic resource catalog](https://nosana.com/.well-known/ard.json)
+- [nosana-kit on GitHub](https://github.com/nosana-ci/nosana-kit) — TypeScript
+  SDK, agent skill and API clients
+
+## Documentation
+
+- [Introduction](https://docs.nosana.com/about/introduction)
+- [Getting started](https://docs.nosana.com/about/getting-started)
+- [Key concepts](https://docs.nosana.com/about/key-concepts)
+- [Deployments](https://docs.nosana.com/deployments/intro)
+- [GPU markets](https://docs.nosana.com/deployments/gpu-markets)
+- [Job definition schema](https://docs.nosana.com/deployments/jobs/job-definition/intro)
+- [Health checks](https://docs.nosana.com/deployments/jobs/job-definition/health-checks)
+- [API introduction](https://docs.nosana.com/api/intro)
+- [Get an API key](https://docs.nosana.com/api/get-api-key)
+- [API authentication](https://docs.nosana.com/api/auth)
+- [Creating deployments](https://docs.nosana.com/api/create-deployments)
+- [Credits](https://docs.nosana.com/api/credits)
+- [TypeScript SDK reference](https://docs.nosana.com/kit/)
+
+## Product
+
+- [Run GPU workloads](https://nosana.com/gpu-workloads/) — renting compute
+- [Provide GPUs](https://nosana.com/gpu-providers/) — contributing hardware
+- [Dashboard](https://deploy.nosana.com/) — sign up, credits, deployments
+- [NOS token](https://nosana.com/nosana-token/)
+- [Grants](https://nosana.com/grants/)
+- [About](https://nosana.com/about/)
+- [Support](https://nosana.com/support/)
