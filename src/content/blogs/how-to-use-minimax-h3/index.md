@@ -104,12 +104,12 @@ The first time you look at H3's generation modes, the names can make the model s
 
 The easiest way to choose is simply to ask what material you already have and how much control you want.
 
-| If you want to... | Use |
-| ----- | ----- |
-| Create a complete video from a prompt | **T2VA** |
-| Animate an existing image | **I2VA** |
-| Control both the beginning and end | **FL2VA** |
-| Generate a scene that finishes on a specific image | **L2VA** |
+| If you want to...                                   | Use        |
+| --------------------------------------------------- | ---------- |
+| Create a complete video from a prompt               | **T2VA**   |
+| Animate an existing image                           | **I2VA**   |
+| Control both the beginning and end                  | **FL2VA**  |
+| Generate a scene that finishes on a specific image  | **L2VA**   |
 | Use images, videos, or audio as creative references | **Ref2VA** |
 
 ## **Text to Video: T2VA**
@@ -212,7 +212,7 @@ You're describing a scene that changes over time.
 
 > **Simple prompt**
 
-[Structured\_Prompt.mp4](https://drive.google.com/file/d/1-ki2F7hsfr7s0Yyg3Cmms4vEiJMfhekU/view?usp=sharing)
+[Structured_Prompt.mp4](https://drive.google.com/file/d/1-ki2F7hsfr7s0Yyg3Cmms4vEiJMfhekU/view?usp=sharing)
 
 ```
 Cinematic chase scene on rooftops at dusk, a man leaping between skyscrapers with people chasing him, flying cars in the background.
@@ -220,7 +220,7 @@ Cinematic chase scene on rooftops at dusk, a man leaping between skyscrapers wit
 
 > **Structured prompt**
 
-[Structured\_Prompt.mp4](https://drive.google.com/file/d/1-ki2F7hsfr7s0Yyg3Cmms4vEiJMfhekU/view?usp=sharing)
+[Structured_Prompt.mp4](https://drive.google.com/file/d/1-ki2F7hsfr7s0Yyg3Cmms4vEiJMfhekU/view?usp=sharing)
 
 ```
 Realistic live-action cinematic look, action movie trailer: practical film photography style, a post-rain dusk metropolis, anamorphic lens, shallow depth of field, film grain, city volumetric fog, flying-car traffic between the towers, restrained grading for a premium feel, powerful natural movement.
@@ -298,10 +298,10 @@ Paste your prompt in the dialogue box
 
 Run and Review the Result
 
-1. Click **Run** in the top-right corner.  
-2. Monitor the job queue as ComfyUI processes your audiovisual generation.  
-3. Once the job completes, use the **Save Video** player to inspect your clip.  
-4. Review both the picture and audio. Ensure the playback is smooth, clear, and that the result captures your core prompt intent.  
+1. Click **Run** in the top-right corner.
+2. Monitor the job queue as ComfyUI processes your audiovisual generation.
+3. Once the job completes, use the **Save Video** player to inspect your clip.
+4. Review both the picture and audio. Ensure the playback is smooth, clear, and that the result captures your core prompt intent.
 5. If you want a variation, adjust the noise seed and run the generation again. While a reused seed produces similar results, every generation is unique.
 
 ![Comfy UI; result](./assets/image3.png)
@@ -322,12 +322,10 @@ Rendering a 5-second video using the RTX-5090 takes approximately 2 minutes, res
 
 Alternatively, this cost breaks down as follows:
 
-* 75 video generations per dollar  
-* Approximately $0.16 per minute of completed video content
+- 75 video generations per dollar
+- Approximately $0.16 per minute of completed video content
 
 These numbers will make this section considerably more useful for creators deciding whether H3 fits their workflow.
-
-> 
 
 ### **Can you use MiniMax H3 commercially?**
 
@@ -347,10 +345,10 @@ Need a more custom compute setup? **Get in touch with the Nosana team and we’l
 
 ## Useful Links
 
-* [Nosana Website](https://nosana.com/)  
-* [**Try MiniMax H3 on Nosana**](https://deploy.nosana.com/deployments/create?template=minimax-h3-i2v-32gb)  
-* [Nosana Minimax H3 Template](https://deploy.nosana.com/deployments/create?template=minimax-h3-i2v-32gb)  
-* [Join the Discord](https://nosana.com/discord)  
-* [Follow us on X](https://nosana.com/twitter/)  
-* [Nosana on GitHub](https://nosana.com/github/)  
-* [Nosana Grants Program](https://nosana.com/grants)
+- [Nosana Website](https://nosana.com/)
+- [**Try MiniMax H3 on Nosana**](https://deploy.nosana.com/deployments/create?template=minimax-h3-i2v-32gb)
+- [Nosana Minimax H3 Template](https://deploy.nosana.com/deployments/create?template=minimax-h3-i2v-32gb)
+- [Join the Discord](https://nosana.com/discord)
+- [Follow us on X](https://nosana.com/twitter/)
+- [Nosana on GitHub](https://nosana.com/github/)
+- [Nosana Grants Program](https://nosana.com/grants)
