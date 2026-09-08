@@ -1,0 +1,45 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://nosana.com",
+      "service-desc": [
+        {
+          "href": "https://api.nosana.com/api/openapi.json",
+          "type": "application/vnd.oai.openapi+json",
+          "title": "Nosana API — OpenAPI 3.1 description"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://api.nosana.com/api/docs",
+          "type": "text/html",
+          "title": "Nosana API reference"
+        },
+        {
+          "href": "https://docs.nosana.com/api/intro",
+          "type": "text/html",
+          "title": "Nosana API documentation"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://nosana.com/auth.md",
+          "type": "text/markdown",
+          "title": "Authenticating with Nosana"
+        },
+        {
+          "href": "https://nosana.com/pricing.md",
+          "type": "text/markdown",
+          "title": "Nosana pricing"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://nosana.com/support/",
+          "type": "text/html",
+          "title": "Support"
+        }
+      ]
+    }
+  ]
+}

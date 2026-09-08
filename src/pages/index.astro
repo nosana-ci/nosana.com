@@ -30,17 +30,67 @@ const { seoDescription, seoImage, noIndex } = entry.data;
 
 const heroPoster = await getImage({ src: heroBg, format: "webp", quality: 80 });
 
-const organizationSchema = {
+const siteUrl = Astro.site?.href ?? "https://nosana.com/";
+
+// One @graph rather than separate blocks, so the entities reference each other
+// by @id: an agent reading the Service knows which Organization provides it.
+// Prices are deliberately absent here — pricing.md and the markets API are the
+// single source, and a number duplicated into markup goes stale unnoticed.
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Nosana",
-  url: Astro.site?.href,
-  logo: new URL("/favicon-96x96.png", Astro.site).href,
-  description: seoDescription,
-  sameAs: [
-    "https://twitter.com/nosana_ai",
-    "https://github.com/nosana-ci",
-    "https://discord.gg/nosana",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: "Nosana",
+      url: siteUrl,
+      logo: new URL("/favicon-96x96.png", Astro.site).href,
+      description: seoDescription,
+      sameAs: [
+        "https://twitter.com/nosana_ai",
+        "https://github.com/nosana-ci",
+        "https://discord.gg/nosana",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: "Nosana",
+      description: seoDescription,
+      publisher: { "@id": `${siteUrl}#organization` },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}#gpu-cloud`,
+      name: "Nosana GPU cloud",
+      serviceType: "GPU cloud computing",
+      description:
+        "On-demand GPU compute for AI inference, fine-tuning, rendering and simulation, billed per second at the price of the GPU market you deploy to.",
+      provider: { "@id": `${siteUrl}#organization` },
+      areaServed: "Worldwide",
+      termsOfService: new URL("/terms-and-conditions/", Astro.site).href,
+      offers: {
+        "@type": "Offer",
+        url: new URL("/pricing.md", Astro.site).href,
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        description:
+          "Per-second billing per GPU market. Live prices: https://api.nosana.com/api/markets/",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteUrl}#kit`,
+      name: "@nosana/kit",
+      applicationCategory: "DeveloperApplication",
+      description:
+        "TypeScript SDK and agent skill for deploying and managing GPU workloads on Nosana.",
+      url: "https://github.com/nosana-ci/nosana-kit",
+      operatingSystem: "Node.js",
+      publisher: { "@id": `${siteUrl}#organization` },
+      offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+    },
   ],
 };
 ---
@@ -55,7 +105,8 @@ const organizationSchema = {
 >
   <Fragment slot="head">
     <link rel="preload" as="image" href={heroPoster.src} fetchpriority="high" />
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <link rel="alternate" type="text/markdown" href="/index.md" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </Fragment>
 	<Hero />
 	<div class="bg-bg-base py-8 md:py-16 lg:py-18 w-full"><Brands /></div>

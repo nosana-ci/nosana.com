@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "version": "0.2.0",
+  "publisher": {
+    "name": "Nosana",
+    "url": "https://nosana.com",
+    "repository": "https://github.com/nosana-ci/nosana-kit"
+  },
+  "skills": [
+    {
+      "name": "nosana",
+      "description": "Deploy and monitor GPU workloads on the Nosana network with @nosana/kit. Use when creating, starting, monitoring, debugging, or tearing down a Nosana deployment; writing or validating a job definition; picking a GPU market; reaching a deployed service's endpoint; reading deployment logs; or handling credits, vaults, and Nosana API errors.",
+      "type": "skill-md",
+      "url": "https://raw.githubusercontent.com/nosana-ci/nosana-kit/3d117eb08656ed87f4dd24a04d0a88a5d7d7c56e/packages/skills/skills/nosana/SKILL.md",
+      "digest": "sha256:e2464cb1a711b2ad2086c87937e33e0dbc54a6e29dce9d153fdb517d4a914611",
+      "license": "MIT",
+      "source": "https://github.com/nosana-ci/nosana-kit/tree/main/packages/skills/skills/nosana"
+    }
+  ]
+}

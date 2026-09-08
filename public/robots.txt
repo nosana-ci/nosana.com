@@ -1,3 +1,34 @@
 User-agent: *
 Allow: /
-Sitemap: https://nosana-new.vercel.app/sitemap-0.xml
+
+# Answer and search crawlers: allowed. These cite sources, so being indexed by
+# them sends traffic back.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Bulk training-corpus crawlers: disallowed. They neither cite nor refer.
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://nosana.com/sitemap-index.xml
