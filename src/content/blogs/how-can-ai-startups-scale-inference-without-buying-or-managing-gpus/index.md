@@ -2,7 +2,7 @@
 category: "blog"
 title: "How Can AI Startups Scale Inference Without Buying or Managing GPUs?"
 description: "Inference is where an AI product meets real users, and it can become one of the largest operating costs for a startup. How to scale it without owning hardware or running a GPU cluster."
-thumbnail: "./assets/PLACEHOLDER-thumbnail.png"
+thumbnail: "./assets/scale-inference-without-managing-gpus.png"
 createdAt: "2026-09-14"
 tags:
   - "AI & ML"
@@ -64,8 +64,6 @@ The first step is to package the inference service as a containerized workload. 
 
 The team must then estimate the workload's actual hardware requirements. Model size matters, but so do context length, batch size, precision, concurrent requests, and memory used during inference. A realistic test deployment is usually more useful than selecting hardware based only on a model's published parameter count.
 
-Before selecting a GPU, teams should understand how much VRAM their workload requires. Our practical VRAM guide explains how model size, precision, context length, batch size, and inference type affect GPU requirements.
-
 Once those requirements are clear, the startup can select a suitable GPU market on Nosana. There is no need to use the largest available GPU for every workload. Matching each model with the most affordable GPU that can run it reliably is one of the most effective ways to control inference costs. Teams can compare available GPUs and calculate their estimated workload costs with the [Nosana GPU calculator](https://nosana.com/gpu-workloads/).
 
 The workload can then be deployed on a compatible host and connected to the startup's application through an endpoint. As demand changes, the application can launch additional deployments, distribute traffic between instances, or stop capacity it no longer needs.
@@ -119,8 +117,6 @@ Training is the process of creating or adjusting a model using data. Inference o
 The right GPU depends primarily on the model, available VRAM, precision, context length, batch size, and expected request volume. Smaller language models and lightweight image-processing workloads may run on GPUs with 8–12 GB of VRAM, while larger language models, high-resolution image generation, and video models may require 24–48 GB or more.
 
 For example, a quantized 7B language model may fit within 8–12 GB of VRAM, while a 13B model commonly needs around 16–24 GB, depending on precision and context length. Larger models or demanding video-generation workloads may require 48 GB or more. Teams should benchmark the complete workload because runtime memory usage can exceed the space required to load the model alone.
-
-For a more detailed breakdown, see our practical guide to choosing a GPU based on VRAM requirements.
 
 ### Is decentralized GPU compute cheaper than a traditional cloud?
 
