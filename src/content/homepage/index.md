@@ -10,8 +10,8 @@ heroSection:
     An open-source GPU cloud built for AI and high-performance workloads. Run on demand with flexible pricing and up to 6× lower costs
 
   cta1:
-    title: "Get Free GPU Credits"
-    url: "https://deploy.nosana.com/"
+    title: "Get GPU Credits"
+    url: "https://deploy.nosana.com/account?topup=1"
     icon: "../../assets/icons/coin.svg"
 
   cta2:
@@ -175,8 +175,8 @@ banner:
   heading: "Bring your Project to life on Nosana"
   description: "Deploy directly from the Dashboard and watch your workload go live in real time"
   cta:
-    title: "Get Free GPU Credits"
-    url: "https://deploy.nosana.com/"
+    title: "Get GPU Credits"
+    url: "https://deploy.nosana.com/account?topup=1"
     icon: "../../assets/icons/coin.svg"
   image: "./assets/bannerImg.webp"
 
@@ -219,8 +219,8 @@ ctaSection:
   heading: "Ready to get started?"
   description: "No Limits. Only Possibilities."
   cta1:
-    title: "Get Free GPU Credits"
-    url: "https://deploy.nosana.com/"
+    title: "Get GPU Credits"
+    url: "https://deploy.nosana.com/account?topup=1"
   cta2:
     title: "Book Free Call"
     url: "https://calendly.com/bourjois-nos/sales-bd"
