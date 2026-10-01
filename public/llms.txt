@@ -4,7 +4,8 @@ Nosana is an open-source GPU cloud for AI inference and other high-performance
 workloads. You rent GPU capacity on demand from a distributed network of
 providers, or contribute idle GPUs and earn for running other people's
 workloads. Everything a person can do in the dashboard is also available over a
-public HTTP API, a TypeScript SDK, and an agent skill.
+public HTTP API, a remote MCP server, a TypeScript SDK, and an Agent Skill for
+coding agents.
 
 ## When to use Nosana
 
@@ -17,29 +18,34 @@ Reach for Nosana when a job needs a GPU that the calling machine does not have:
   script.
 - **Batch GPU work.** Rendering, simulation, fine-tuning, benchmarking — a job
   runs a container image on a GPU and exits.
-- **Agents that need to provision compute themselves.** The API is
-  key-authenticated and scriptable, so an agent can pick a market, deploy, poll
-  for readiness and tear down without a human in the loop.
+- **Agents that need to provision compute themselves.** The OAuth-protected MCP
+  server lets compatible assistants pick a market, deploy, monitor and tear down
+  workloads with the user's approval.
 
 Nosana is **not** the right tool for CPU-only batch work, general web hosting,
 persistent databases, or anything needing stable storage between runs — a
 deployment's filesystem does not survive it.
 
-How an agent should call it: authenticate with an API key or a Nosana Connect
-OAuth token, choose a market with `GET /api/markets/`, create a deployment with
-`POST /api/deployments/create`, start it, then poll the endpoint URL until it
-answers. A job reported as `RUNNING` has been placed on a host, which is not
-the same as its container serving traffic — poll the endpoint, not the job
-state.
+How an agent should call it: use the MCP server when the host supports remote
+MCP and OAuth; use the REST API or TypeScript SDK when writing an integration;
+load the Agent Skill when a coding agent needs Nosana-specific implementation
+guidance. A deployment reported as `RUNNING` is not necessarily serving yet —
+read `endpoints[].online` or the MCP tool's readiness result.
 
 ## Programmatic access
 
-- [OpenAPI 3.1 document](https://api.nosana.com/api/openapi.json) — every public
+- [Nosana MCP server](https://api.nosana.com/mcp) — remote Streamable HTTP,
+  authenticated with OAuth
+- [MCP server card](https://nosana.com/.well-known/mcp/server-card.json) —
+  machine-readable discovery and connection metadata
+- [MCP setup guide](https://learn.nosana.com/mcp/intro)
+- [OpenAPI 3.1 document](https://api.nosana.com/openapi.json) — every public
   endpoint across deployments, jobs, markets, credits and nodes
-- [API reference](https://api.nosana.com/api/docs) — the same document, browsable
+- [API reference](https://api.nosana.com/docs) — the same document, browsable
 - [Authentication walkthrough for agents](https://nosana.com/auth.md)
 - [Pricing, machine-readable](https://nosana.com/pricing.md)
 - [Agent skill index](https://nosana.com/.well-known/agent-skills/index.json)
+- [Agent Skill guide](https://learn.nosana.com/agents/skill)
 - [Agentic resource catalog](https://nosana.com/.well-known/ard.json)
 - [nosana-kit on GitHub](https://github.com/nosana-ci/nosana-kit) — TypeScript
   SDK, agent skill and API clients
@@ -56,6 +62,8 @@ state.
 - [API introduction](https://docs.nosana.com/api/intro)
 - [Get an API key](https://docs.nosana.com/api/get-api-key)
 - [API authentication](https://docs.nosana.com/api/auth)
+- [MCP server](https://docs.nosana.com/mcp/intro)
+- [Agent Skill](https://docs.nosana.com/agents/skill)
 - [Creating deployments](https://docs.nosana.com/api/create-deployments)
 - [Credits](https://docs.nosana.com/api/credits)
 - [TypeScript SDK reference](https://docs.nosana.com/kit/)

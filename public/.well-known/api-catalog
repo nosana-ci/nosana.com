@@ -4,14 +4,14 @@
       "anchor": "https://nosana.com",
       "service-desc": [
         {
-          "href": "https://api.nosana.com/api/openapi.json",
+          "href": "https://api.nosana.com/openapi.json",
           "type": "application/vnd.oai.openapi+json",
           "title": "Nosana API — OpenAPI 3.1 description"
         }
       ],
       "service-doc": [
         {
-          "href": "https://api.nosana.com/api/docs",
+          "href": "https://api.nosana.com/docs",
           "type": "text/html",
           "title": "Nosana API reference"
         },
@@ -19,6 +19,16 @@
           "href": "https://docs.nosana.com/api/intro",
           "type": "text/html",
           "title": "Nosana API documentation"
+        },
+        {
+          "href": "https://learn.nosana.com/mcp/intro",
+          "type": "text/html",
+          "title": "Nosana MCP server"
+        },
+        {
+          "href": "https://learn.nosana.com/agents/skill",
+          "type": "text/html",
+          "title": "Nosana Agent Skill"
         }
       ],
       "service-meta": [

@@ -5,7 +5,7 @@
       "displayName": "Nosana API",
       "description": "Deploy and manage GPU workloads: deployments, jobs, GPU markets, credits, nodes and network statistics.",
       "type": "application/vnd.oai.openapi+json",
-      "url": "https://api.nosana.com/api/openapi.json",
+      "url": "https://api.nosana.com/openapi.json",
       "representativeQueries": [
         "deploy an nginx container on an NVIDIA 4090 GPU",
         "what does an hour on an H100 cost on Nosana",
@@ -16,13 +16,38 @@
     {
       "identifier": "urn:air:nosana.com:skill:nosana",
       "displayName": "Nosana agent skill",
-      "description": "Procedural knowledge for driving Nosana with the @nosana/kit TypeScript SDK: creating and starting deployments, picking a market, waiting for an endpoint to serve, reading logs, and handling credits and errors.",
+      "description": "Procedural knowledge for driving Nosana with the @nosana/kit TypeScript SDK: creating and starting deployments, picking a market, reading endpoint readiness, reading logs, and handling credits and errors.",
       "type": "text/markdown",
-      "url": "https://raw.githubusercontent.com/nosana-ci/nosana-kit/3d117eb08656ed87f4dd24a04d0a88a5d7d7c56e/packages/skills/skills/nosana/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nosana-ci/nosana-kit/89f88b3947be05ec93b3de9a778ef8ceb5051256/packages/skills/skills/nosana/SKILL.md",
       "representativeQueries": [
         "write TypeScript that deploys a model on Nosana",
         "why did my Nosana deployment never start serving",
         "which Nosana GPU market should I use"
+      ]
+    },
+    {
+      "identifier": "urn:air:nosana.com:mcp:nosana",
+      "displayName": "Nosana MCP server",
+      "description": "OAuth-protected tools for choosing GPU markets and creating, monitoring, scaling, stopping and debugging Nosana deployments.",
+      "type": "application/mcp-server-card+json",
+      "url": "https://nosana.com/.well-known/mcp/server-card.json",
+      "tags": [
+        "gpu",
+        "compute",
+        "deployments",
+        "mcp"
+      ],
+      "capabilities": [
+        "list GPU markets",
+        "inspect credits",
+        "manage deployments",
+        "read jobs and events"
+      ],
+      "representativeQueries": [
+        "which Nosana GPU market should I use",
+        "deploy my container on a 4090",
+        "why is my deployment not serving",
+        "stop my running deployment"
       ]
     }
   ],
@@ -33,15 +58,19 @@
       "note": "This catalog is served from the publisher's own domain over HTTPS."
     },
     "source": {
-      "repository": "https://github.com/nosana-ci/nosana-kit",
+      "repository": "https://github.com/nosana-ci",
       "license": "MIT",
-      "note": "Every resource listed here is built from this public repository."
+      "note": "Nosana publishes its SDK and Agent Skill as open source; the MCP server card and endpoint are served from Nosana-controlled production domains."
     },
     "integrity": [
       {
         "identifier": "urn:air:nosana.com:skill:nosana",
-        "digest": "sha256:e2464cb1a711b2ad2086c87937e33e0dbc54a6e29dce9d153fdb517d4a914611",
+        "digest": "sha256:f515f1810329b6070632366ee5b0603cea6276ce1294de7a18ee701b41e11e29",
         "note": "Pinned to an immutable commit; the digest is over the artifact's raw bytes."
+      },
+      {
+        "identifier": "urn:air:nosana.com:mcp:nosana",
+        "note": "The server card is published on Nosana’s controlled domain and points to the OAuth-protected production MCP endpoint."
       }
     ],
     "contact": "https://nosana.com/support/"

@@ -33,13 +33,15 @@ databases, or anything requiring storage that survives a deployment.
 
 ## For agents and developers
 
-- [OpenAPI 3.1 document](https://api.nosana.com/api/openapi.json) and
-  [API reference](https://api.nosana.com/api/docs)
+- [OpenAPI 3.1 document](https://api.nosana.com/openapi.json) and
+  [API reference](https://api.nosana.com/docs)
 - [Authentication walkthrough](https://nosana.com/auth.md) — how to obtain credentials
 - [Pricing](https://nosana.com/pricing.md) — machine-readable
 - [llms.txt](https://nosana.com/llms.txt) — index of everything above
 - [Documentation](https://docs.nosana.com/about/introduction)
-- [nosana-kit on GitHub](https://github.com/nosana-ci/nosana-kit) — TypeScript SDK and agent skill
+- [Nosana MCP server](https://learn.nosana.com/mcp/intro) — connect an AI assistant with OAuth
+- [Nosana Agent Skill](https://learn.nosana.com/agents/skill) — teach coding agents the SDK workflow
+- [nosana-kit on GitHub](https://github.com/nosana-ci/nosana-kit) — TypeScript SDK and Agent Skill
 
 ## Getting started
 

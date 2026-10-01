@@ -11,8 +11,8 @@
       "name": "nosana",
       "description": "Deploy and monitor GPU workloads on the Nosana network with @nosana/kit. Use when creating, starting, monitoring, debugging, or tearing down a Nosana deployment; writing or validating a job definition; picking a GPU market; reaching a deployed service's endpoint; reading deployment logs; or handling credits, vaults, and Nosana API errors.",
       "type": "skill-md",
-      "url": "https://raw.githubusercontent.com/nosana-ci/nosana-kit/3d117eb08656ed87f4dd24a04d0a88a5d7d7c56e/packages/skills/skills/nosana/SKILL.md",
-      "digest": "sha256:e2464cb1a711b2ad2086c87937e33e0dbc54a6e29dce9d153fdb517d4a914611",
+      "url": "https://raw.githubusercontent.com/nosana-ci/nosana-kit/89f88b3947be05ec93b3de9a778ef8ceb5051256/packages/skills/skills/nosana/SKILL.md",
+      "digest": "sha256:f515f1810329b6070632366ee5b0603cea6276ce1294de7a18ee701b41e11e29",
       "license": "MIT",
       "source": "https://github.com/nosana-ci/nosana-kit/tree/main/packages/skills/skills/nosana"
     }

@@ -1,0 +1,20 @@
+{
+  "name": "nosana",
+  "version": "1.0.0",
+  "kind": "product",
+  "description": "Deploy and manage GPU workloads on the Nosana network through an OAuth-protected remote MCP server.",
+  "url": "https://api.nosana.com/mcp",
+  "transport": "streamable-http",
+  "instructions": "Use Nosana MCP to inspect GPU markets and credits, then create, monitor, scale or stop deployments. Read operations are safe to call directly. Confirm with the user before operations that create, start, scale, stop or delete deployments because running workloads spend credits.",
+  "documentation": "https://learn.nosana.com/mcp/intro",
+  "authentication": {
+    "type": "oauth2",
+    "protectedResourceMetadata": "https://api.nosana.com/.well-known/oauth-protected-resource"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": false
+  },
+  "provider": "Nosana",
+  "homepage": "https://nosana.com"
+}

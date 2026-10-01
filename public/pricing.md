@@ -80,7 +80,7 @@ price. See [the NOS token](https://nosana.com/nosana-token/).
 ## Free of charge
 
 Reading is free and unauthenticated: markets, market metadata, node and network
-statistics, and the [OpenAPI document](https://api.nosana.com/api/openapi.json).
+statistics, and the [OpenAPI document](https://api.nosana.com/openapi.json).
 Only deployments consume credits.
 
 ## Earning instead of paying
