@@ -2,7 +2,7 @@
 category: "blog"
 title: "Nosana Monthly - September 2026: New Tools, Growing GPU Demand and Builders in Action"
 description: ""
-thumbnail: "./assets/image.png"
+thumbnail: "./assets/image.jpg"
 createdAt: "2026-10-01"
 tags:
   - "news"
