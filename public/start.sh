@@ -16,6 +16,10 @@
           PRE_RELEASE="next"
           shift
           ;;
+        --dev-release)
+          PRE_RELEASE="dev"
+          shift
+          ;;
         --verbose)
           NOSANA_NODE_VERBOSE=true
           shift
@@ -178,7 +182,7 @@
       log_std "🔥 Starting Nosana-Node..."
     fi
 
-    if [[ $PRE_RELEASE == "next" ]]; then
+    if [[ -n $PRE_RELEASE ]]; then
       log_err "WARNING: Users may experience bugs and instability when running a pre-released version."
     fi
 
