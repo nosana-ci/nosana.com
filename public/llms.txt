@@ -11,6 +11,9 @@ coding agents.
 
 Reach for Nosana when a job needs a GPU that the calling machine does not have:
 
+- **Calling an open model without deploying it.** Use
+  [LLM Inference](https://learn.nosana.com/llm/), an OpenAI-compatible API
+  billed per token against your credits.
 - **Serving an open-weights model.** Deploy vLLM, Ollama or llama.cpp behind an
   HTTPS endpoint and call it like any other inference API.
 - **Long-running GPU services.** A deployment keeps replicas running and
@@ -52,21 +55,23 @@ read `endpoints[].online` or the MCP tool's readiness result.
 
 ## Documentation
 
-- [Introduction](https://docs.nosana.com/about/introduction)
-- [Getting started](https://docs.nosana.com/about/getting-started)
-- [Key concepts](https://docs.nosana.com/about/key-concepts)
-- [Deployments](https://docs.nosana.com/deployments/intro)
-- [GPU markets](https://docs.nosana.com/deployments/gpu-markets)
-- [Job definition schema](https://docs.nosana.com/deployments/jobs/job-definition/intro)
-- [Health checks](https://docs.nosana.com/deployments/jobs/job-definition/health-checks)
-- [API introduction](https://docs.nosana.com/api/intro)
-- [Get an API key](https://docs.nosana.com/api/get-api-key)
-- [API authentication](https://docs.nosana.com/api/auth)
-- [MCP server](https://docs.nosana.com/mcp/intro)
-- [Agent Skill](https://docs.nosana.com/agents/skill)
-- [Creating deployments](https://docs.nosana.com/api/create-deployments)
-- [Credits](https://docs.nosana.com/api/credits)
-- [TypeScript SDK reference](https://docs.nosana.com/kit/)
+- [Introduction](https://learn.nosana.com/about/introduction)
+- [Getting started](https://learn.nosana.com/about/getting-started)
+- [Key concepts](https://learn.nosana.com/about/key-concepts)
+- [Deployments](https://learn.nosana.com/deployments/intro)
+- [GPU markets](https://learn.nosana.com/deployments/gpu-markets)
+- [Job definition schema](https://learn.nosana.com/deployments/jobs/job-definition/intro)
+- [Health checks](https://learn.nosana.com/deployments/jobs/job-definition/health-checks)
+- [LLM Inference](https://learn.nosana.com/llm/) — OpenAI-compatible API for
+  open models, billed per token against your credits
+- [API introduction](https://learn.nosana.com/api/intro)
+- [Get an API key](https://learn.nosana.com/api/get-api-key)
+- [API authentication](https://learn.nosana.com/api/auth)
+- [MCP server](https://learn.nosana.com/mcp/intro)
+- [Agent Skill](https://learn.nosana.com/agents/skill)
+- [Creating deployments](https://learn.nosana.com/api/create-deployments)
+- [Credits](https://learn.nosana.com/api/credits)
+- [TypeScript SDK reference](https://learn.nosana.com/kit/)
 
 ## Product
 
