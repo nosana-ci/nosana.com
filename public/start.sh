@@ -45,7 +45,7 @@
 
   main() {
     PODMAN_VERSION="1.1.2"
-    SCRIPT_VERSION="${PODMAN_VERSION}-2"
+    SCRIPT_VERSION="${PODMAN_VERSION}-3"
     PRE_RELEASE=""
     SOL_NET_ENV="mainnet"
     handle_options "$@"
@@ -146,7 +146,6 @@
       --pull=always \
       --mount type=bind,source=/run/nvidia-persistenced,target=/run/nvidia-persistenced,bind-propagation=rslave \
       --gpus=all \
-      --pid=host \
       --name podman \
       --device /dev/fuse \
       --mount source=podman-cache,target=/var/lib/containers \
