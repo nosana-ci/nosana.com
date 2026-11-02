@@ -52,9 +52,9 @@ On November 12, put your Nosana, DePIN and AI knowledge to the test in a live Di
 
 [Join the Nosana Discord](https://discord.gg/AKpKJPheVX)
 
-## **November 19: Build Local, Launch Global with Superteams**
+## **November 10: Build Local, Launch Global with Superteams**
 
-Three Superteams. One conversation. New opportunities across Solana. On November 19, Nosana brings Superteam Spain, Superteam Netherlands and Superteam Balkans together **live on Discord and YouTube** to explore how builders can find their first users, connect with collaborators and take their products across borders. We’ll discuss turning hackathon momentum into lasting progress and tapping into the networks helping Solana projects grow. Bring your questions and what you’re building.
+Three Superteams. One conversation. New opportunities across Solana. On November 10, Nosana brings Superteam Spain, Superteam Netherlands and Superteam Balkans together **live on Discord and YouTube** to explore how builders can find their first users, connect with collaborators and take their products across borders. We’ll discuss turning hackathon momentum into lasting progress and tapping into the networks helping Solana projects grow. Bring your questions and what you’re building.
 
 [**Set a reminder here**](https://luma.com/b04u0udq)
 
