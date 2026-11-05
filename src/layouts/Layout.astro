@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/layout/navbar.astro";
+import TopBanner from "../components/layout/topBanner.astro";
 import Footer from "../components/layout/footer.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Toast from "../components/ui/toast.astro";
@@ -104,6 +105,7 @@ const {
   </head>
 
   <body class="bg-bg-base text-primary min-h-screen font-sans">
+    <TopBanner />
     <Navbar />
 
     <main class="mx-auto w-full max-w-[1728px]">
